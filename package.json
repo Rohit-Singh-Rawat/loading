@@ -1,5 +1,5 @@
 {
-  "name": "spinners",
+  "name": "loading",
   "private": true,
   "scripts": {
     "dev": "next dev",
