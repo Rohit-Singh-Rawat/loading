@@ -1,7 +1,7 @@
 .dots {
   display: flex;
-  align-items: center;
   gap: calc(var(--spinner-size, 20px) * 0.2);
+  align-items: center;
   height: var(--spinner-size, 20px);
 }
 

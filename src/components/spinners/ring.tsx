@@ -5,10 +5,11 @@ import type { SpinnerProps } from "./types";
 export function Ring({ size = 20, className }: SpinnerProps) {
   return (
     <svg
-      aria-hidden
+      aria-hidden="true"
       className={cn(className)}
       fill="none"
       height={size}
+      role="presentation"
       viewBox="0 0 24 24"
       width={size}
     >

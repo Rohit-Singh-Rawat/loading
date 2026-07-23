@@ -5,11 +5,11 @@ import { Classic } from "./classic";
 import { Ring } from "./ring";
 import type { SpinnerProps } from "./types";
 
-export type SpinnerItem = {
-  slug: string;
-  name: string;
+export interface SpinnerItem {
   component?: ComponentType<SpinnerProps>;
-};
+  name: string;
+  slug: string;
+}
 
 // Hand-maintained, alphabetical. Entries without a component render as
 // "coming soon" on their detail page until the spinner is built.

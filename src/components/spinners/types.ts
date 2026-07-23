@@ -1,4 +1,4 @@
-export type SpinnerProps = {
-  size?: number;
+export interface SpinnerProps {
   className?: string;
-};
+  size?: number;
+}

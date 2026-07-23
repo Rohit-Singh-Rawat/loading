@@ -15,7 +15,7 @@ export default function Home() {
           <br />
           No more, no less.
         </h1>
-        <p className="max-w-[480px] text-[13px] leading-5 text-gray-1000">
+        <p className="max-w-[480px] text-[13px] text-gray-1000 leading-5">
           A collection of loading indicators for interfaces that care about the
           details. Every spinner is a small, dependency-free component — pick
           one, add it to your project with a single command, and ship.

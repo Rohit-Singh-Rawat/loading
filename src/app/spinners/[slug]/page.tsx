@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getSpinner, SPINNER_ITEMS } from "@/components/spinners";
 
-type Params = { slug: string };
+interface Params {
+  slug: string;
+}
 
 export function generateStaticParams(): Params[] {
   return SPINNER_ITEMS.map(({ slug }) => ({ slug }));
@@ -39,7 +41,7 @@ export default async function SpinnerPage({
         {Spinner ? (
           <Spinner size={20} />
         ) : (
-          <p className="text-[13px] leading-5 text-gray-1000">Coming soon.</p>
+          <p className="text-[13px] text-gray-1000 leading-5">Coming soon.</p>
         )}
       </div>
     </div>
