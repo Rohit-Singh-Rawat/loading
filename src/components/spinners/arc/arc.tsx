@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
+import type { SpinnerProps } from "../types";
 import styles from "./arc.module.css";
-import type { SpinnerProps } from "./types";
 
 export function Arc({ size = 20, className }: SpinnerProps) {
   return (

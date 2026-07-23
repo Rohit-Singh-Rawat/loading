@@ -185,6 +185,10 @@
 }
 
 @theme {
+  /* Design base body size (13px/20px) so text-sm matches the Figma spec */
+  --text-sm: 13px;
+  --text-sm--line-height: 20px;
+
   --shadow-custom-light:
     0px 0px 0px 1px rgba(0, 0, 0, 0.06),
     0px 1px 2px -1px rgba(0, 0, 0, 0.06),

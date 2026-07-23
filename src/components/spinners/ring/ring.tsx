@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
-import styles from "./arc.module.css";
-import type { SpinnerProps } from "./types";
+import type { SpinnerProps } from "../types";
+import styles from "./ring.module.css";
 
 export function Ring({ size = 20, className }: SpinnerProps) {
   return (

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { Text } from "@/components/ui/text";
 
 export function InstallCommand({ command }: { command: string }) {
   const [copied, setCopied] = useState(false);
@@ -20,18 +21,27 @@ export function InstallCommand({ command }: { command: string }) {
   }
 
   return (
-    <div className="flex w-full items-start gap-2 rounded-[20px] bg-gray-100 px-6 py-5 text-[13px] leading-5 outline-light">
-      <span className="font-berkeley-mono text-gray-1000">$</span>
-      <span className="min-w-px flex-1 font-berkeley-mono text-gray-1000">
+    <div className="flex w-full items-start gap-2 rounded-[20px] bg-gray-100 px-6 py-5 outline-light">
+      <Text as="span" className="font-berkeley-mono text-gray-1000" size="sm">
+        $
+      </Text>
+      <Text
+        as="span"
+        className="min-w-px flex-1 font-berkeley-mono text-gray-1000"
+        size="sm"
+      >
         {command}
-      </span>
-      <button
-        className="link-outline whitespace-nowrap font-[450] text-gray-1200 transition-colors duration-150 hover:text-gray-1000"
+      </Text>
+      <Text
+        as="button"
+        className="link-outline whitespace-nowrap text-gray-1200 transition-colors duration-150 hover:text-gray-1000"
         onClick={handleCopy}
+        size="sm"
         type="button"
+        weight="semimedium"
       >
         {copied ? "Copied" : "Copy to clipboard"}
-      </button>
+      </Text>
     </div>
   );
 }

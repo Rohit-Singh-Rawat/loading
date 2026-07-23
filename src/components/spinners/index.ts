@@ -1,8 +1,8 @@
 import type { ComponentType } from "react";
-import { Arc } from "./arc";
-import { BouncingDots } from "./bouncing-dots";
-import { Classic } from "./classic";
-import { Ring } from "./ring";
+import { Arc } from "./arc/arc";
+import { BouncingDots } from "./bouncing-dots/bouncing-dots";
+import { Classic } from "./classic/classic";
+import { Ring } from "./ring/ring";
 import type { SpinnerProps } from "./types";
 
 export interface SpinnerItem {
@@ -11,8 +11,6 @@ export interface SpinnerItem {
   slug: string;
 }
 
-// Hand-maintained, alphabetical. Entries without a component render as
-// "coming soon" on their detail page until the spinner is built.
 export const SPINNER_ITEMS: SpinnerItem[] = [
   { name: "Accordion loader", slug: "accordion-loader" },
   { component: Arc, name: "Arc", slug: "arc" },
