@@ -1,0 +1,15 @@
+.arc {
+  animation: rotate 0.8s linear infinite;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arc {
+    animation: none;
+  }
+}

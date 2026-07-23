@@ -1,0 +1,77 @@
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .article-underline {
+    text-decoration-color: var(--color-gray-600);
+    @apply underline underline-offset-3 transition-colors duration-200 ease;
+  }
+  .article-underline:hover {
+    color: var(--color-gray-1200);
+    text-decoration-color: var(--color-gray-1100);
+  }
+
+  .tooltip-popup {
+    z-index: 50;
+    padding: 6px 10px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-gray-1200);
+    background-color: var(--color-preview-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow-custom);
+    transition:
+      transform 0.2s ease-out,
+      scale 0.2s ease-out,
+      opacity 0.2s ease-out;
+  }
+
+  .tooltip-popup[data-starting-style] {
+    opacity: 0;
+    scale: 0.95;
+  }
+
+  .tooltip-popup[data-ending-style] {
+    opacity: 0;
+    scale: 0.95;
+    transition-duration: 0.15s;
+  }
+
+  .tooltip-popup[data-instant] {
+    transition-duration: 0s;
+  }
+
+  .link-outline:focus-visible {
+    outline: 2px solid var(--color-gray-900);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .border-overlay {
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    outline-offset: -1px;
+  }
+
+  .outline-subtle {
+    @apply outline outline-black/8 -outline-offset-1 dark:outline-white/8;
+  }
+
+  .outline-light {
+    @apply outline outline-black/5 -outline-offset-1 dark:outline-white/5;
+  }
+
+  .ring-subtle {
+    @apply ring-1 ring-black/8 ring-inset dark:ring-white/8;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .border-overlay {
+      outline-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

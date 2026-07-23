@@ -1,0 +1,31 @@
+@layer components {
+  .hold-overlay {
+    clip-path: inset(100% 0px 0px 0px);
+    transition: clip-path 300ms ease-out;
+    will-change: clip-path;
+  }
+
+  .button:active .hold-overlay {
+    clip-path: inset(0px 0px 0px 0px);
+    transition: clip-path 1s linear;
+  }
+
+  .preview-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-preview-bg);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-custom);
+  }
+
+  .preview-code {
+    width: 100%;
+    background-color: var(--color-preview-bg);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-custom);
+  }
+}

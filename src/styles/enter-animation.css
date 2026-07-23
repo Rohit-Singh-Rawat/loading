@@ -1,0 +1,43 @@
+/*
+ * Shared "enter" stagger animation used by the fade-in demos on both the
+ * homepage carousel and the "Details that make interfaces feel better" article.
+ * Single source so the two demos can't drift apart on these keyframes.
+ */
+@keyframes enter {
+  from {
+    transform: translateY(8px);
+    filter: blur(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+.animate-enter {
+  animation: enter 900ms cubic-bezier(0.25, 0.1, 0.25, 1) both;
+  animation-delay: calc(var(--delay, 0ms) * var(--stagger, 0));
+  will-change: transform, filter, opacity;
+}
+
+.animate-enter-title {
+  display: inline-block;
+  vertical-align: top;
+  animation: enter 900ms cubic-bezier(0.25, 0.1, 0.25, 1) both;
+  animation-delay: calc(var(--delay, 0ms) * var(--stagger, 0));
+  will-change: transform, filter, opacity;
+}
+
+.animate-enter-grouped {
+  --delay: 0ms;
+}
+
+.animate-enter-individual {
+  --delay: 200ms;
+}
+
+.animate-enter-individual-title {
+  --delay: 200ms;
+}
