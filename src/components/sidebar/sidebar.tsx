@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SidebarItem } from "@/components/sidebar/sidebar-item";
 import { SPINNER_ITEMS } from "@/components/spinners";
-import { Classic } from "@/components/spinners/classic/classic";
 
 const MAIN_NAV = [
   { href: "/", label: "Overview" },
@@ -18,9 +17,9 @@ export function Sidebar() {
         className="link-outline flex h-12 items-center self-start"
         href="/"
       >
-        <Classic size={22} />
+        <div className="size-8 rounded-lg bg-gray-500" />
       </Link>
-      <nav aria-label="Main" className="flex flex-col">
+      <nav aria-label="Main" className="flex flex-col gap-0.5">
         {MAIN_NAV.map((item) => (
           <SidebarItem href={item.href} key={item.href} label={item.label} />
         ))}

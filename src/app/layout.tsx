@@ -46,7 +46,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <div className="mx-auto flex min-h-dvh justify-center gap-12 px-6">
           <Sidebar />
           <main className="w-full max-w-[640px] py-[100px]">{children}</main>
-          <div aria-hidden className="hidden w-[200px] shrink-0 xl:block" />
         </div>
         <Analytics />
       </body>

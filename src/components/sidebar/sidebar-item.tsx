@@ -13,10 +13,10 @@ export function SidebarItem({ href, label }: { href: string; label: string }) {
     <Text
       as={Link}
       className={cn(
-        "link-outline flex h-8 w-full items-center rounded-lg px-2 transition-colors duration-150",
+        "link-outline relative flex h-8 w-full items-center rounded-lg px-3 before:absolute before:inset-x-0 before:-inset-y-px before:content-['']",
         isActive
-          ? "bg-gray-100 text-gray-1200"
-          : "text-gray-1000 hover:text-gray-1200"
+          ? "bg-gray-300 text-gray-1200"
+          : "text-gray-1000 hover:bg-gray-300 hover:text-gray-1200"
       )}
       href={href}
       size="sm"
