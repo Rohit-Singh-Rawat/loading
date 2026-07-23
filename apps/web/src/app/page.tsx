@@ -23,7 +23,7 @@ export default function Home() {
           one, add it to your project with a single command, and ship.
         </Text>
       </header>
-      <InstallCommand command="npx shadcn add @loading-ui/ring" />
+      <InstallCommand command="npm install loading-dev" />
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
         {featured.map((item) => (
           <SpinnerCard item={item} key={item.slug} />

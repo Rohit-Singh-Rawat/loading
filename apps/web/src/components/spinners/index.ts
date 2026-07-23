@@ -1,9 +1,11 @@
+import {
+  Arc,
+  BouncingDots,
+  Classic,
+  Ring,
+  type SpinnerProps,
+} from "loading-dev";
 import type { ComponentType } from "react";
-import { Arc } from "./arc/arc";
-import { BouncingDots } from "./bouncing-dots/bouncing-dots";
-import { Classic } from "./classic/classic";
-import { Ring } from "./ring/ring";
-import type { SpinnerProps } from "./types";
 
 export interface SpinnerItem {
   component?: ComponentType<SpinnerProps>;

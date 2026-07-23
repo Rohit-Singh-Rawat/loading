@@ -12,5 +12,18 @@
         "noUnnecessaryConditions": "off"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      // A published package's entry point is its public API — a barrel by design
+      "includes": ["packages/*/src/index.ts"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noBarrelFile": "off"
+          }
+        }
+      }
+    }
+  ]
 }
