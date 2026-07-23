@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { DisableThemeTransitions } from "@/components/disable-theme-transitions";
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <main className="w-full max-w-[640px] py-[100px]">{children}</main>
           <div aria-hidden className="hidden w-[200px] shrink-0 xl:block" />
         </div>
+        <Analytics />
       </body>
     </html>
   );
