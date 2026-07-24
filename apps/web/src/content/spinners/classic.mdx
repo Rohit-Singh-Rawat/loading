@@ -1,0 +1,27 @@
+```tsx showLineNumbers
+import { Classic } from "loading-dev";
+
+export function ClassicDemo() {
+  return <Classic size={20} />;
+}
+```
+
+## Customization
+
+Use the `size` prop for the spinner's dimensions and the CSS `color`
+property to tint the bars via `currentColor`. Motion is controlled with CSS
+variables: `--ld-duration` sets the rotation speed and `--ld-play-state`
+pauses or resumes the animation; the per-bar stagger stays proportional at
+any speed.
+
+## Usage
+
+The classic spinner is the most familiar loading affordance there is —
+reach for it when you want zero ambiguity about what is happening. It works
+best at small sizes next to text or inside controls.
+
+```tsx title="toolbar.tsx"
+<span className="text-gray-500">
+  <Classic size={14} />
+</span>
+```

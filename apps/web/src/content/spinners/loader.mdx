@@ -1,0 +1,29 @@
+```tsx showLineNumbers
+import { Ring } from "loading-dev";
+
+export function RingDemo() {
+  return <Ring size={20} />;
+}
+```
+
+## Customization
+
+Use the `size` prop for the spinner's dimensions and the CSS `color`
+property to tint it — both the arc and the faint track inherit
+`currentColor`. Motion is controlled with CSS variables: `--ld-duration`
+sets the rotation speed and `--ld-play-state` pauses or resumes the
+animation.
+
+## Usage
+
+The static track keeps the spinner's footprint visible at all times, which
+makes it a good fit for progress affordances inside cards and panels where
+layout stability matters. Set the variables on any wrapper — they cascade
+down to the spinner.
+
+```tsx title="card.tsx"
+<div className="flex items-center gap-2 text-gray-500">
+  <Ring size={16} />
+  Syncing…
+</div>
+```

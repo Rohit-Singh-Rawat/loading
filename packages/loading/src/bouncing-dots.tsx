@@ -17,15 +17,16 @@ const css = `
   height: calc(var(--spinner-size, 20px) * 0.22);
   background: currentColor;
   border-radius: 9999px;
-  animation: ld-dots-bounce 0.5s ease-in-out infinite alternate;
+  animation: ld-dots-bounce var(--ld-duration, 0.5s) ease-in-out infinite alternate;
+  animation-play-state: var(--ld-play-state, running);
 }
 
 .ld-dot:nth-child(1) {
-  animation-delay: -0.32s;
+  animation-delay: calc(var(--ld-duration, 0.5s) * -0.64);
 }
 
 .ld-dot:nth-child(2) {
-  animation-delay: -0.16s;
+  animation-delay: calc(var(--ld-duration, 0.5s) * -0.32);
 }
 
 @keyframes ld-dots-bounce {

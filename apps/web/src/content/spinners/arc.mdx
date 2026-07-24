@@ -1,0 +1,26 @@
+```tsx showLineNumbers
+import { Arc } from "loading-dev";
+
+export function ArcDemo() {
+  return <Arc size={20} />;
+}
+```
+
+## Customization
+
+Use the `size` prop for the spinner's dimensions and the CSS `color`
+property to tint it — the stroke inherits `currentColor`. Motion is
+controlled with CSS variables: `--ld-duration` sets the rotation speed and
+`--ld-play-state` pauses or resumes the animation.
+
+## Usage
+
+The spinner inherits the text color of its parent, so it adapts to buttons,
+inputs, and inverted surfaces without extra props. Set the variables on any
+wrapper — they cascade down to the spinner.
+
+```tsx title="submit-button.tsx"
+<button disabled={pending} type="submit">
+  {pending ? <Arc size={16} /> : "Save changes"}
+</button>
+```

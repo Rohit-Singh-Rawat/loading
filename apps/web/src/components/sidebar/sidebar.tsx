@@ -11,7 +11,7 @@ const MAIN_NAV = [
 
 export function Sidebar() {
   return (
-    <aside className="hidden w-[200px] shrink-0 flex-col gap-[30px] py-[100px] md:flex">
+    <aside className="hidden w-50 shrink-0 flex-col gap-7.5 py-25 md:flex">
       <Link
         aria-label="Home"
         className="link-outline flex h-12 items-center self-start"
@@ -24,7 +24,7 @@ export function Sidebar() {
           <SidebarItem href={item.href} key={item.href} label={item.label} />
         ))}
       </nav>
-      <nav aria-label="Spinners" className="flex flex-col">
+      <nav aria-label="Spinners" className="flex flex-col gap-0.5">
         {SPINNER_ITEMS.map((item) => (
           <SidebarItem
             href={`/spinners/${item.slug}`}

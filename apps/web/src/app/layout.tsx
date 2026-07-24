@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { DisableThemeTransitions } from "@/components/disable-theme-transitions";
+import { MotionProvider } from "@/components/motion-provider";
 import { Sidebar } from "@/components/sidebar/sidebar";
 import { cn } from "@/lib/utils";
 import {
@@ -29,7 +30,13 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  aside,
+  children,
+}: {
+  aside: ReactNode;
+  children: ReactNode;
+}) {
   return (
     <html lang="en">
       <body
@@ -43,10 +50,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         )}
       >
         <DisableThemeTransitions />
-        <div className="mx-auto flex min-h-dvh justify-center gap-12 px-6">
-          <Sidebar />
-          <main className="w-full max-w-[640px] py-[100px]">{children}</main>
-        </div>
+        <MotionProvider>
+          <div className="mx-auto flex min-h-dvh justify-center gap-12 px-6">
+            <Sidebar />
+            <main className="w-full max-w-[640px] py-[100px]">{children}</main>
+            {aside}
+          </div>
+        </MotionProvider>
         <Analytics />
       </body>
     </html>

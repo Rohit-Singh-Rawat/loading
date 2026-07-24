@@ -8,7 +8,7 @@ const BAR_RULES = BARS.map(
   (bar) => `
 .ld-classic-bar:nth-child(${bar + 1}) {
   transform: rotate(${bar === 0 ? "0.0001" : bar * 30}deg) translate(146%);
-  animation-delay: ${(-1.2 + bar * 0.1).toFixed(1)}s;
+  animation-delay: calc(var(--ld-duration, 1.2s) * ${(bar / 12 - 1).toFixed(4)});
 }`
 ).join("\n");
 
@@ -34,7 +34,8 @@ const css = `
   height: 8%;
   background: currentColor;
   border-radius: 6px;
-  animation: ld-classic-spin 1.2s linear infinite;
+  animation: ld-classic-spin var(--ld-duration, 1.2s) linear infinite;
+  animation-play-state: var(--ld-play-state, running);
 }
 ${BAR_RULES}
 

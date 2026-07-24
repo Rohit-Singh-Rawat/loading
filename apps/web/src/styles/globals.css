@@ -68,7 +68,7 @@
   .code-inline {
     padding: 2px 0.25rem;
     font-family: var(--font-berkeley-mono);
-    font-size: 14px;
+    font-size: 11px;
     background-color: var(--color-preview-bg);
     border: 1px solid var(--color-preview-border);
     border-radius: 0.375rem;

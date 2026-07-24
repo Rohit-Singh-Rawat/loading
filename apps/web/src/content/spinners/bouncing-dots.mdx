@@ -1,0 +1,27 @@
+```tsx showLineNumbers
+import { BouncingDots } from "loading-dev";
+
+export function BouncingDotsDemo() {
+  return <BouncingDots size={20} />;
+}
+```
+
+## Customization
+
+Use the `size` prop for the spinner's dimensions — the dots and their gap
+scale proportionally. Tint it with the CSS `color` property via
+`currentColor`. Motion is controlled with CSS variables: `--ld-duration`
+sets the bounce speed and `--ld-play-state` pauses or resumes the
+animation; the stagger between dots stays proportional at any speed.
+
+## Usage
+
+Bouncing dots read as "working on it" rather than "loading a page", which
+makes them a good fit for chat interfaces and streaming responses. Set the
+variables on any wrapper — they cascade down to the spinner.
+
+```tsx title="typing-indicator.tsx"
+<div className="text-gray-500">
+  <BouncingDots size={16} />
+</div>
+```

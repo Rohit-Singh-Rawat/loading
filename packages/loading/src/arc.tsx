@@ -3,7 +3,8 @@ import type { SpinnerProps } from "./types";
 
 const css = `
 .ld-arc {
-  animation: ld-arc-rotate 0.8s linear infinite;
+  animation: ld-arc-rotate var(--ld-duration, 0.8s) linear infinite;
+  animation-play-state: var(--ld-play-state, running);
 }
 
 @keyframes ld-arc-rotate {

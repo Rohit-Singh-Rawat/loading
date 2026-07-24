@@ -28,4 +28,18 @@
     border-radius: 0.75rem;
     box-shadow: var(--shadow-custom);
   }
+
+  code[data-line-numbers] {
+    counter-reset: line;
+  }
+
+  code[data-line-numbers] [data-line]::before {
+    display: inline-block;
+    width: 1.25rem;
+    margin-right: 0.75rem;
+    color: var(--color-gray-800);
+    text-align: right;
+    content: counter(line);
+    counter-increment: line;
+  }
 }

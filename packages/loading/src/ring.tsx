@@ -4,7 +4,8 @@ import type { SpinnerProps } from "./types";
 const css = `
 .ld-ring-arc {
   transform-origin: center;
-  animation: ld-ring-rotate 0.8s linear infinite;
+  animation: ld-ring-rotate var(--ld-duration, 0.8s) linear infinite;
+  animation-play-state: var(--ld-play-state, running);
 }
 
 @keyframes ld-ring-rotate {

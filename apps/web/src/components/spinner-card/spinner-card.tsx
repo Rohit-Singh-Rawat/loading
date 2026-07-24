@@ -6,11 +6,8 @@ export function SpinnerCard({ item }: { item: SpinnerItem }) {
   const Spinner = item.component;
 
   return (
-    <Link
-      className="link-outline rounded-[20px]"
-      href={`/spinners/${item.slug}`}
-    >
-      <div className="relative flex h-[208px] items-center justify-center rounded-[20px] bg-gray-100 outline-light transition-colors duration-150 hover:bg-gray-200">
+    <Link className="link-outline rounded-3xl" href={`/spinners/${item.slug}`}>
+      <div className="relative flex h-52 items-center justify-center rounded-3xl bg-preview-bg shadow-custom transition-colors duration-200 ease-out hover:bg-gray-100">
         {Spinner ? <Spinner size={16} /> : null}
         <Text
           as="span"
