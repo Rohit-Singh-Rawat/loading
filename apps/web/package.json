@@ -19,6 +19,7 @@
     "motion": "^12.42.2",
     "next": "^16.2.11",
     "react": "19.2.6",
+    "react-colorful": "^5.8.0",
     "react-dom": "19.2.6",
     "rehype-pretty-code": "^0.14.4",
     "rehype-slug": "^6.0.0",

@@ -20,7 +20,7 @@ export function SidebarItem({ href, label }: { href: string; label: string }) {
       )}
       href={href}
       size="sm"
-      weight={isActive ? "semimedium" : "regular"}
+      weight="medium"
     >
       {label}
     </Text>

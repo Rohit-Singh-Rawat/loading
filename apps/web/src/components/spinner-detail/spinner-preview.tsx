@@ -2,10 +2,18 @@
 
 import { IconPause } from "central-icons/IconPause";
 import { IconPlay } from "central-icons/IconPlay";
+import { AnimatePresence, m, useReducedMotion } from "motion/react";
 import { type CSSProperties, useState } from "react";
 import { getSpinner } from "@/components/spinners";
-import { Text } from "@/components/ui/text";
+import { CardHeader } from "@/components/ui/card-header";
+import IconButton from "@/components/ui/icon-button";
 import { CustomizePanel } from "./customize-panel";
+
+const ICON_TRANSITION = {
+  bounce: 0,
+  duration: 0.18,
+  type: "spring",
+} as const;
 
 function findDefaultSizeIndex(sizes: { value: number }[]): number {
   const index = sizes.findIndex((size) => size.value === 20);
@@ -13,16 +21,17 @@ function findDefaultSizeIndex(sizes: { value: number }[]): number {
 }
 
 export function SpinnerPreview({ slug }: { slug: string }) {
+  const shouldReduceMotion = useReducedMotion();
   const item = getSpinner(slug);
   const customization = item?.customization;
   const sizes = customization?.sizes;
+  const defaultSizeIndex = sizes ? findDefaultSizeIndex(sizes) : 0;
+  const defaultSpeedMs = customization?.speed?.default ?? 0;
 
   const [paused, setPaused] = useState(false);
-  const [sizeIndex, setSizeIndex] = useState(
-    sizes ? findDefaultSizeIndex(sizes) : 0
-  );
+  const [sizeIndex, setSizeIndex] = useState(defaultSizeIndex);
   const [color, setColor] = useState<string | null>(null);
-  const [speedMs, setSpeedMs] = useState(customization?.speed?.default ?? 0);
+  const [speedMs, setSpeedMs] = useState(defaultSpeedMs);
   const [opacity, setOpacity] = useState(1);
 
   const Spinner = item?.component;
@@ -48,27 +57,42 @@ export function SpinnerPreview({ slug }: { slug: string }) {
       id="preview"
     >
       <div className="relative flex min-w-0 flex-1 items-center justify-center rounded-2xl bg-preview-bg shadow-custom">
-        <Text
-          as="span"
-          className="absolute top-3 left-4 select-none text-gray-1000"
-          size="sm"
-        >
-          Preview
-        </Text>
-        <button
-          className="link-outline absolute top-2 right-2 flex h-8 items-center gap-1 rounded-lg px-2 text-gray-1200 transition-colors duration-150 hover-hover:hover:bg-gray-200"
-          onClick={() => setPaused((value) => !value)}
-          type="button"
-        >
-          {paused ? (
-            <IconPlay className="size-[15px] text-gray-1000" />
-          ) : (
-            <IconPause className="size-[15px] text-gray-1000" />
-          )}
-          <Text as="span" size="sm">
-            {paused ? "Play" : "Pause"}
-          </Text>
-        </button>
+        <CardHeader className="absolute inset-x-2 top-2" title="Preview">
+          <IconButton
+            aria-label={paused ? "Play preview" : "Pause preview"}
+            onClick={() => setPaused((value) => !value)}
+            size="xxs"
+            title={paused ? "Play preview" : "Pause preview"}
+            type="button"
+            variant="ghost"
+          >
+            <AnimatePresence initial={false} mode="popLayout">
+              <m.span
+                animate={{ opacity: 1, scale: 1 }}
+                aria-hidden="true"
+                className="grid"
+                exit={
+                  shouldReduceMotion
+                    ? { opacity: 1, scale: 1 }
+                    : { opacity: 0, scale: 0.75 }
+                }
+                initial={
+                  shouldReduceMotion ? false : { opacity: 0, scale: 0.75 }
+                }
+                key={paused ? "play" : "pause"}
+                transition={
+                  shouldReduceMotion ? { duration: 0 } : ICON_TRANSITION
+                }
+              >
+                {paused ? (
+                  <IconPlay className="size-4" />
+                ) : (
+                  <IconPause className="size-4" />
+                )}
+              </m.span>
+            </AnimatePresence>
+          </IconButton>
+        </CardHeader>
         <div style={wrapperStyle}>
           <Spinner size={sizes?.[sizeIndex]?.value ?? 20} />
         </div>
@@ -81,6 +105,12 @@ export function SpinnerPreview({ slug }: { slug: string }) {
             customization={customization}
             onColorChange={setColor}
             onOpacityChange={setOpacity}
+            onReset={() => {
+              setSizeIndex(defaultSizeIndex);
+              setColor(null);
+              setSpeedMs(defaultSpeedMs);
+              setOpacity(1);
+            }}
             onSizeChange={setSizeIndex}
             onSpeedChange={setSpeedMs}
             opacity={opacity}

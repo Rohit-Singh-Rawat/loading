@@ -1,7 +1,7 @@
 "use client";
 
 import { IconCircleCheck } from "central-icons/IconCircleCheck";
-import { IconSquareBehindSquare1 } from "central-icons/IconSquareBehindSquare1";
+import { IconSquareBehindSquare1 } from "central-icons-outlined/IconSquareBehindSquare1";
 import { AnimatePresence, m } from "motion/react";
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";

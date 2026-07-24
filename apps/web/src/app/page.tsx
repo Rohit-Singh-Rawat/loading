@@ -12,12 +12,12 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-5">
-        <Heading as="h1" className="font-heldane" size={3} weight="regular">
+        <Heading as="h1" className="font-heldane" size={1} weight="regular">
           Spinners.
           <br />
           No more, no less.
         </Heading>
-        <Text className="text-gray-1000" size="sm">
+        <Text className="text-text-paragraph" size="sm">
           A collection of loading indicators for interfaces that care about the
           details. Every spinner is a small, dependency-free component — pick
           one, add it to your project with a single command, and ship.

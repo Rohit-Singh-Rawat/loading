@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 export default function PhilosophyPage() {
   return (
     <div className="flex flex-col gap-5">
-      <Heading as="h1" className="font-heldane" size={3} weight="regular">
+      <Heading as="h1" className="font-heldane" size={1} weight="regular">
         Philosophy
       </Heading>
-      <Text className="text-gray-1000" size="sm">
+      <Text className="text-text-paragraph" size="sm">
         Coming soon.
       </Text>
     </div>

@@ -25,9 +25,9 @@ export interface SpinnerItem {
 }
 
 const DEFAULT_SIZES = [
-  { label: "Small", value: 16 },
-  { label: "Medium", value: 20 },
-  { label: "Large", value: 24 },
+  { label: "Small", value: 24 },
+  { label: "Medium", value: 48 },
+  { label: "Large", value: 96 },
 ];
 
 export const SPINNER_ITEMS: SpinnerItem[] = [

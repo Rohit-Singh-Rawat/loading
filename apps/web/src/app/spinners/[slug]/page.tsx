@@ -54,12 +54,12 @@ export default async function SpinnerPage({
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-5">
-        <Heading as="h1" className="font-heldane" size={3} weight="regular">
+        <Heading as="h1" className="font-heldane" size={1} weight="regular">
           <span className="block text-gray-900">Component/</span>
           {item.name}
         </Heading>
         {item.description && (
-          <Text className="text-gray-1000" size="sm">
+          <Text className="text-text-paragraph" size="sm">
             {item.description}
           </Text>
         )}
@@ -75,7 +75,7 @@ export default async function SpinnerPage({
         </div>
       ) : (
         <div className="flex h-52 items-center justify-center rounded-3xl bg-preview-bg shadow-custom">
-          <Text className="text-gray-1000" size="sm">
+          <Text className="text-text-paragraph" size="sm">
             Coming soon.
           </Text>
         </div>
