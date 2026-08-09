@@ -26,7 +26,8 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "prepublishOnly": "tsup"
   },
   "devDependencies": {
     "@types/react": "^19",
