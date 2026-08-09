@@ -21,6 +21,10 @@ pnpm monorepo with two workspaces:
 - **`packages/loading`** — the published npm package `loading-dev` ("Spinners. No more, no less."). React spinner components, ESM-only, built with tsup, React 19+ as a peer dependency.
 - **`apps/web`** — Next.js 16 (App Router, Turbopack, React Compiler enabled) showcase/docs site that consumes `loading-dev` via `workspace:*`.
 
+Plus one directory that is **not** a workspace member:
+
+- **`examples/consumer`** — release-validation app that installs `loading-dev` from the npm registry. It sits outside the `apps/*` / `packages/*` globs on purpose: inside the workspace, pnpm would symlink the local package and the check would silently test local source instead of the published tarball. It has its own `package-lock.json`, is not covered by a root `pnpm install`, and is run manually (`cd examples/consumer && npm run verify`) after publishing. Never migrate it into the workspace, and never point `apps/web` at the registry version — the showcase must track local source so `pnpm dev` stays live.
+
 ### Library conventions (`packages/loading`)
 
 Each spinner is one self-contained `.tsx` file:
