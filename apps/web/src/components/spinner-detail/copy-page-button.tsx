@@ -2,9 +2,9 @@
 
 import { IconClaudeai } from "central-icons/IconClaudeai";
 import { IconOpenai } from "central-icons/IconOpenai";
-import { IconChevronDownMedium } from "central-icons-outlined/IconChevronDownMedium";
-import { IconMarkdown } from "central-icons-outlined/IconMarkdown";
-import { IconSquareBehindSquare1 } from "central-icons-outlined/IconSquareBehindSquare1";
+import { IconChevronDownMedium } from "central-icons/IconChevronDownMedium";
+import { IconMarkdown } from "central-icons/IconMarkdown";
+import { IconSquareBehindSquare1 } from "central-icons/IconSquareBehindSquare1";
 import {
   DropdownMenu,
   DropdownMenuContent,
