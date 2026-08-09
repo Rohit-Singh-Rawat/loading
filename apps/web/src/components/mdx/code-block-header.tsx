@@ -8,11 +8,11 @@ export function CodeBlockHeader({
   filename: string;
 }) {
   return (
-    <div className="flex items-center justify-between gap-2 border-preview-border border-b py-1.5 pr-1.5 pl-4">
-      <span className="truncate font-berkeley-mono text-gray-1100 text-sm">
+    <div className="flex items-center justify-between gap-2 border-border border-b py-1.5 pr-1.5 pl-4">
+      <span className="truncate font-berkeley-mono text-content-subtle text-[13px]">
         {filename}
       </span>
-      <CopyButton text={code} />
+      <CopyButton className="rounded-[10px]" text={code} />
     </div>
   );
 }

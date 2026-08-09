@@ -14,12 +14,14 @@ export function PageHeader({
   return (
     <header className="flex flex-col gap-5">
       <Heading as="h1" size={1} weight="semibold">
-        {eyebrow && <span className="block text-gray-900">{eyebrow}</span>}
+        {eyebrow && (
+          <span className="block text-content-subtle">{eyebrow}</span>
+        )}
         {title}
       </Heading>
       {description && (
         <Text
-          className="max-w-lg text-pretty text-text-paragraph"
+          className="max-w-lg text-pretty text-content-subtle"
           size={{ initial: "base", md: "sm" }}
         >
           {description}

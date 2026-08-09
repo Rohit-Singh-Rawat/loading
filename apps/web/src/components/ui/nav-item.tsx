@@ -46,8 +46,8 @@ export function NavItem({
       className={cn(
         "link-outline relative flex h-8 w-full items-center gap-2 rounded-lg px-3 after:absolute after:inset-x-0 after:-inset-y-px after:content-['']",
         active
-          ? "bg-gray-300 text-gray-1200"
-          : "text-gray-1000 hover:bg-gray-300 hover:text-gray-1200"
+          ? "bg-background-hovered text-content"
+          : "text-content-subtle hover:bg-background-hovered hover:text-content"
       )}
       href={href}
       onClick={onClick}

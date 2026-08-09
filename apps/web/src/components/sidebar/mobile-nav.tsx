@@ -38,7 +38,7 @@ export function MobileNav() {
       </header>
 
       <Dialog.Portal keepMounted>
-        <Dialog.Popup className="fixed inset-0 z-50 flex flex-col bg-gray-background px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] outline-hidden transition-opacity duration-100 ease-out data-closed:opacity-0 data-starting-style:opacity-0">
+        <Dialog.Popup className="fixed inset-0 z-50 flex flex-col bg-surface px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] outline-hidden transition-opacity duration-100 ease-out data-closed:opacity-0 data-starting-style:opacity-0">
           <Dialog.Title className="sr-only">Site navigation</Dialog.Title>
 
           <div className="flex h-16 shrink-0 items-center justify-between">
@@ -70,7 +70,7 @@ export function MobileNav() {
                             pathname === item.href ? "page" : undefined
                           }
                           as={Link}
-                          className="link-outline flex h-12 w-full items-center text-gray-1200"
+                          className="link-outline flex h-12 w-full items-center text-content"
                           href={item.href}
                           size="xl"
                           weight="medium"
@@ -84,13 +84,13 @@ export function MobileNav() {
               </ul>
             </nav>
 
-            <div className="mt-auto border-gray-300 border-t pt-4">
+            <div className="mt-auto border-border border-t pt-4">
               <ul className="flex flex-col">
                 {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
                   <li key={label}>
                     <Text
                       as="a"
-                      className="link-outline flex h-10 w-full items-center gap-3 text-gray-1100"
+                      className="link-outline flex h-10 w-full items-center gap-3 text-content-subtle"
                       href={href}
                       rel="noreferrer"
                       size="base"

@@ -6,7 +6,7 @@ import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 
 const LINK_CLASSNAME =
-  "flex min-w-0 flex-1 items-center justify-between rounded-xl border border-gray-400 bg-gray-200 px-3.5 py-3 transition-[background-color,color,scale] duration-200 ease-out will-change-transform hover:bg-gray-300 active:scale-[0.97]";
+  "flex min-w-0 flex-1 items-center justify-between rounded-xl border border-border bg-background px-3.5 py-3 transition-[background-color,color,scale] duration-200 ease-out will-change-transform hover:bg-background-hovered active:scale-[0.97]";
 
 function PrevNextLink({
   direction,
@@ -17,7 +17,7 @@ function PrevNextLink({
 }) {
   const isPrevious = direction === "previous";
   const Icon = isPrevious ? IconArrowLeft : IconArrowRight;
-  const icon = <Icon className="size-4 shrink-0 text-gray-1000" />;
+  const icon = <Icon className="size-4 shrink-0 text-content-subtle" />;
 
   return (
     <Link className={LINK_CLASSNAME} href={`/spinners/${item.slug}`}>
@@ -28,12 +28,12 @@ function PrevNextLink({
           isPrevious ? "items-end" : "items-start"
         )}
       >
-        <Text as="span" className="text-gray-1000" size="sm">
+        <Text as="span" className="text-content-subtle" size="sm">
           {isPrevious ? "Previous" : "Next"}
         </Text>
         <Text
           as="span"
-          className="text-gray-1200"
+          className="text-content"
           size="sm"
           truncate
           weight="semimedium"

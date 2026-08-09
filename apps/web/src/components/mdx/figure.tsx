@@ -12,7 +12,7 @@ const marginClasses = {
 type FigureMargin = keyof typeof marginClasses;
 
 const figureClasses =
-  "w-full overflow-hidden rounded-2xl bg-gray-200 border border-gray-400";
+  "w-full overflow-hidden rounded-2xl bg-background border border-border";
 
 function extractText(node: ReactNode): string {
   if (typeof node === "string") {

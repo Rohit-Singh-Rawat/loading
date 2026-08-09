@@ -26,7 +26,7 @@ export function SegmentedControl<Value extends string | number>({
   return (
     <fieldset
       aria-label={label}
-      className="flex h-8 w-full items-center rounded-lg bg-gray-200"
+      className="flex h-8 w-full items-center rounded-lg bg-background"
     >
       {options.map((option) => {
         const isActive = option.value === value;
@@ -35,10 +35,10 @@ export function SegmentedControl<Value extends string | number>({
           <label
             className={cn(
               "relative flex h-8 min-w-0 flex-1 cursor-pointer items-center justify-center rounded-lg font-medium text-sm transition-colors duration-200 ease-out",
-              "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-gray-1100 has-[:focus-visible]:outline-offset-2",
+              "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-content has-[:focus-visible]:outline-offset-2",
               isActive
-                ? "text-gray-1200"
-                : "text-gray-1000 hover-hover:hover:text-gray-1200"
+                ? "text-content"
+                : "text-content-subtle hover-hover:hover:text-content"
             )}
             key={option.value}
           >
@@ -52,7 +52,7 @@ export function SegmentedControl<Value extends string | number>({
             />
             {isActive && (
               <m.span
-                className="pointer-events-none absolute inset-0 rounded-lg border border-gray-400 bg-gray-300"
+                className="pointer-events-none absolute inset-0 rounded-lg border border-border bg-background-hovered"
                 layoutId={`segmented-control-${groupId}`}
                 transition={INDICATOR_TRANSITION}
               />

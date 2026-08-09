@@ -2,12 +2,12 @@ import { cn } from "@/lib/utils";
 
 const variants = {
   ghost:
-    "bg-transparent text-gray-1100 hover-hover:hover:not-disabled:bg-gray-200",
-  primary: "bg-gray-1200 text-gray-100",
+    "bg-transparent text-content-subtle hover-hover:hover:not-disabled:bg-background hover-hover:hover:not-disabled:text-content",
+  primary: "bg-content text-surface",
   secondary:
-    "bg-preview-bg text-gray-1200 shadow-custom hover-hover:hover:not-disabled:bg-gray-200",
+    "bg-popover text-content shadow-custom hover-hover:hover:not-disabled:bg-background",
   tertiary:
-    "bg-gray-300 text-gray-1100 hover-hover:hover:not-disabled:bg-gray-400",
+    "bg-background text-content-subtle hover-hover:hover:not-disabled:bg-background-hovered hover-hover:hover:not-disabled:text-content",
 };
 
 const sizes = {
@@ -48,7 +48,7 @@ export default function IconButton({
         rounded ? "rounded-full" : "rounded-lg",
         sizes[size],
         variants[variant],
-        "transition-[scale,background-color] duration-200 ease-out",
+        "transition-[scale,background-color,color] duration-200 ease-out",
         "active:scale-[0.97]",
         "will-change-transform",
         className

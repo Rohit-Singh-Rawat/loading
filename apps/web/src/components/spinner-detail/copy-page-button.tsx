@@ -1,10 +1,19 @@
 "use client";
 
-import { IconCircleCheck } from "central-icons/IconCircleCheck";
+import { IconClaudeai } from "central-icons/IconClaudeai";
+import { IconOpenai } from "central-icons/IconOpenai";
+import { IconChevronDownMedium } from "central-icons-outlined/IconChevronDownMedium";
+import { IconMarkdown } from "central-icons-outlined/IconMarkdown";
 import { IconSquareBehindSquare1 } from "central-icons-outlined/IconSquareBehindSquare1";
-import { TextMorph } from "torph/react";
-import { AnimatedIcon } from "@/components/ui/animated-icon";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Text } from "@/components/ui/text";
+import { DOMAIN } from "@/lib/constants";
 import { useCopy } from "@/lib/use-copy";
 
 const messages = {
@@ -12,39 +21,76 @@ const messages = {
   failed: "Unable to copy. Select the page text and copy it manually.",
 } as const;
 
-export function CopyPageButton({ markdown }: { markdown: string }) {
+function assistantPrompt(markdownUrl: string) {
+  return encodeURIComponent(
+    `Read ${markdownUrl} so I can ask questions about it.`
+  );
+}
+
+export function CopyPageButton({
+  markdown,
+  slug,
+}: {
+  markdown: string;
+  slug: string;
+}) {
   const { copy, status } = useCopy(markdown);
-  const copied = status === "copied";
-  const label = copied ? "Copied page" : "Copy page";
+  const markdownPath = `/spinners/${slug}/markdown`;
+  const markdownUrl = `${DOMAIN}${markdownPath}`;
 
   return (
     <div className="flex flex-col gap-1.5">
-      <button
-        aria-label={label}
-        className="link-outline flex h-8 w-full items-center gap-2 rounded-lg bg-gray-100 px-3 outline-light transition-colors duration-200 hover-hover:hover:bg-gray-200"
-        onClick={copy}
-        type="button"
-      >
-        <AnimatedIcon
-          active={copied}
-          activeIcon={<IconCircleCheck className="size-4 text-gray-1000" />}
-          idleIcon={
-            <IconSquareBehindSquare1 className="size-4 text-gray-1000" />
-          }
-        />
-        {/* `flex-1` + `text-right` anchors the label's right edge, so the morph
-            grows leftward into the empty space instead of shifting the text. */}
-        <Text
-          aria-hidden="true"
-          as="span"
-          className="flex-1 text-right text-gray-1200"
-          size="sm"
-        >
-          <TextMorph>{label}</TextMorph>
-        </Text>
-      </button>
+      <DropdownMenu>
+        <DropdownMenuTrigger className="link-outline group flex h-8 w-full cursor-pointer items-center gap-2 rounded-lg bg-background-subtle px-3 outline-light transition-colors duration-200 hover-hover:hover:bg-background">
+          <Text as="span" className="flex-1 text-left text-content" size="sm">
+            Copy page
+          </Text>
+          <IconChevronDownMedium className="size-4 text-content-subtle transition-transform duration-200 ease-out group-data-popup-open:rotate-180" />
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent align="start" className="w-(--anchor-width)">
+          <DropdownMenuItem onClick={copy}>
+            <IconSquareBehindSquare1 />
+            Copy to clipboard
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            render={<a href={markdownPath} rel="noreferrer" target="_blank" />}
+          >
+            <IconMarkdown />
+            View as markdown
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem
+            render={
+              <a
+                href={`https://chatgpt.com/?hints=search&q=${assistantPrompt(markdownUrl)}`}
+                rel="noreferrer"
+                target="_blank"
+              />
+            }
+          >
+            <IconOpenai />
+            Open in ChatGPT
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            render={
+              <a
+                href={`https://claude.ai/new?q=${assistantPrompt(markdownUrl)}`}
+                rel="noreferrer"
+                target="_blank"
+              />
+            }
+          >
+            <IconClaudeai />
+            Open in Claude
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
       {status === "failed" && (
-        <Text as="p" className="px-2 text-gray-1000" size="sm">
+        <Text as="p" className="px-2 text-content-subtle" size="sm">
           {messages.failed}
         </Text>
       )}

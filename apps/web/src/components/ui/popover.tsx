@@ -33,7 +33,7 @@ function PopoverContent({
       >
         <PopoverPrimitive.Popup
           className={cn(
-            "origin-(--transform-origin) rounded-xl border border-gray-400 bg-preview-bg text-gray-1200 shadow-custom outline-hidden transition-[scale,opacity] duration-150 ease-out",
+            "origin-(--transform-origin) rounded-xl border border-border bg-popover text-content shadow-custom outline-hidden transition-[scale,opacity] duration-200 ease-out",
             "data-starting-style:scale-95 data-starting-style:opacity-0",
             "data-ending-style:scale-95 data-ending-style:opacity-0",
             className

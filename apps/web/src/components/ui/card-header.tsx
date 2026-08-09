@@ -20,7 +20,7 @@ export function CardHeader({
     >
       <Text
         as="span"
-        className="select-none text-gray-1000"
+        className="select-none text-content-subtle"
         size="sm"
         weight="medium"
       >

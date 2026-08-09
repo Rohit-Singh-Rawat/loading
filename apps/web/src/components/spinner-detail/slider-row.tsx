@@ -7,7 +7,7 @@ import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 
 const FOCUS_RING =
-  "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-gray-1100 has-[:focus-visible]:outline-offset-2";
+  "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-content has-[:focus-visible]:outline-offset-2";
 const HANDLE_INSET = 10;
 const HANDLE_HALF_WIDTH = 2;
 
@@ -106,13 +106,13 @@ export function SliderRow({
   return (
     <div
       className={cn(
-        "group relative h-8 w-full overflow-hidden rounded-lg bg-gray-200",
+        "group relative h-8 w-full overflow-hidden rounded-lg bg-background",
         FOCUS_RING
       )}
     >
       <m.div
         animate={{ scaleX: percent / 100 }}
-        className="absolute inset-0 origin-left bg-gray-400 will-change-transform"
+        className="absolute inset-0 origin-left bg-background-hovered will-change-transform"
         initial={false}
         transition={dragTransition}
       />
@@ -132,7 +132,10 @@ export function SliderRow({
           }}
           className={cn(
             "block size-full rounded-full transition-colors duration-200 ease-out will-change-transform",
-            isHandleOverText ? "bg-gray-500" : "bg-gray-700"
+            // The old mid-greys have no equivalent in a two-tone content set,
+            // so the over-text state weakens Content/Subtle instead. The
+            // opacity animation above still carries most of the signal.
+            isHandleOverText ? "bg-content-subtle/50" : "bg-content-subtle"
           )}
           initial={false}
           transition={
@@ -149,8 +152,8 @@ export function SliderRow({
         <Text
           as="span"
           className={cn(
-            "select-none text-gray-1000 transition-colors duration-150 hover-hover:group-hover:text-gray-1200",
-            isDragging && "text-gray-1200"
+            "select-none text-content-subtle transition-colors duration-150 hover-hover:group-hover:text-content",
+            isDragging && "text-content"
           )}
           size="sm"
           weight="medium"
@@ -180,8 +183,8 @@ export function SliderRow({
       />
       <span
         className={cn(
-          "pointer-events-none absolute inset-y-0 right-2 z-20 flex select-none items-center font-berkeley-mono text-gray-1000 text-sm transition-colors duration-200 ease-out hover-hover:group-hover:text-gray-1200",
-          isDragging && "text-gray-1200"
+          "pointer-events-none absolute inset-y-0 right-2 z-20 flex select-none items-center font-berkeley-mono text-content-subtle text-sm transition-colors duration-200 ease-out hover-hover:group-hover:text-content",
+          isDragging && "text-content"
         )}
         ref={valueRef}
       >

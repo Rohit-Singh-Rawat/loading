@@ -17,14 +17,14 @@
     justify-content: center;
     width: 100%;
     overflow: hidden;
-    background-color: var(--color-preview-bg);
+    background-color: var(--color-popover);
     border-radius: 0.75rem;
     box-shadow: var(--shadow-custom);
   }
 
   .preview-code {
     width: 100%;
-    background-color: var(--color-preview-bg);
+    background-color: var(--color-popover);
     border-radius: 0.75rem;
     box-shadow: var(--shadow-custom);
   }
@@ -37,7 +37,7 @@
     display: inline-block;
     width: 1.25rem;
     margin-right: 0.75rem;
-    color: var(--color-gray-1100);
+    color: var(--color-content-subtle);
     text-align: right;
     content: counter(line);
     counter-increment: line;

@@ -70,11 +70,11 @@ export default async function SpinnerPage({
           )}
         </div>
       ) : (
-        <div className="flex flex-col items-start gap-3 rounded-2xl bg-gray-200 p-8">
-          <Text className="text-gray-1200" size="sm" weight="semibold">
+        <div className="flex flex-col items-start gap-3 rounded-2xl bg-background p-8">
+          <Text className="text-content" size="sm" weight="semibold">
             {item.name} is not built yet
           </Text>
-          <Text className="max-w-sm text-text-paragraph" size="sm">
+          <Text className="max-w-sm text-content-subtle" size="sm">
             It is on the list, but there is nothing to preview or install for it
             today.
           </Text>
@@ -85,7 +85,7 @@ export default async function SpinnerPage({
       )}
       {(previous || next) && (
         <>
-          <hr className="border-gray-200" />
+          <hr className="border-border" />
           <PrevNext next={next} previous={previous} />
         </>
       )}

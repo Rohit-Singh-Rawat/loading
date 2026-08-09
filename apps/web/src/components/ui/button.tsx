@@ -10,17 +10,17 @@ const variants = {
   discord:
     "bg-[#5865F2] text-white shadow-none hover-hover:hover:not-disabled:bg-[#4f5bda]",
   fancy: "bg-fancy text-white",
-  "fancy-secondary": "bg-fancy-secondary text-gray-1200",
-  ghost: "bg-transparent hover-hover:hover:not-disabled:bg-gray-300",
-  primary: "bg-gray-1200 text-gray-100",
+  "fancy-secondary": "bg-fancy-secondary text-content",
+  ghost: "bg-transparent hover-hover:hover:not-disabled:bg-background-hovered",
+  primary: "bg-content text-surface",
   secondary:
-    "bg-preview-bg text-gray-1200 shadow-custom hover-hover:hover:not-disabled:bg-gray-100",
+    "bg-popover text-content shadow-custom hover-hover:hover:not-disabled:bg-background-subtle",
   special:
     "bg-linear-to-b from-sky-400 to-sky-500 text-white shadow-[0px_0px_1px_1px_rgba(255,255,255,0.06)_inset,0px_1.5px_2px_0px_rgba(0,0,0,0.1),0px_0px_0px_1px_var(--color-sky-500)]",
   success:
     "bg-green-500 text-white hover-hover:hover:not-disabled:bg-green-600",
   tertiary:
-    "bg-gray-300 text-gray-1100 hover-hover:hover:not-disabled:bg-gray-400",
+    "bg-background text-content-subtle hover-hover:hover:not-disabled:bg-background-hovered hover-hover:hover:not-disabled:text-content",
 };
 
 const sizeClasses = {

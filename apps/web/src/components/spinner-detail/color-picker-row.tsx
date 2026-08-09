@@ -23,23 +23,23 @@ export function ColorPickerRow({
     <Popover>
       <PopoverTrigger
         aria-label={`Color: ${color ?? "Auto"}`}
-        className="link-outline flex h-8 w-full shrink-0 items-center justify-between rounded-lg bg-gray-200 px-2"
+        className="link-outline flex h-8 w-full shrink-0 items-center justify-between rounded-lg bg-background px-2"
       >
         <Text
           as="span"
-          className="select-none text-gray-1000"
+          className="select-none text-content-subtle"
           size="sm"
           weight="medium"
         >
           Color
         </Text>
         <span className="flex items-center gap-2">
-          <span className="font-berkeley-mono text-gray-1000 text-sm uppercase">
+          <span className="font-berkeley-mono text-content-subtle text-sm uppercase">
             {color ?? "Auto"}
           </span>
           <span
             aria-hidden="true"
-            className="size-4 rounded-sm bg-current text-gray-1200 outline outline-black/8 -outline-offset-1 dark:outline-white/8"
+            className="size-4 rounded-sm bg-current text-content outline outline-black/8 -outline-offset-1 dark:outline-white/8"
             style={color ? { backgroundColor: color } : undefined}
           />
         </span>

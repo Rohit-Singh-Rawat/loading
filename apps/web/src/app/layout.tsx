@@ -70,13 +70,13 @@ export default function RootLayout({
         className={cn(
           interVariable.variable,
           berkeleyMono.variable,
-          "bg-gray-background font-sans text-gray-1200 antialiased"
+          "bg-surface font-sans text-content antialiased"
         )}
       >
         <DisableThemeTransitions />
         <MotionProvider>
           <a
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-lg focus:border focus:border-gray-400 focus:bg-preview-bg focus:px-4 focus:py-2 focus:font-medium focus:text-gray-1200 focus:text-sm focus:shadow-custom"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-lg focus:border focus:border-border focus:bg-popover focus:px-4 focus:py-2 focus:font-medium focus:text-content focus:text-sm focus:shadow-custom"
             href="#content"
           >
             Skip to content

@@ -9,7 +9,7 @@ export function MDXParagraph({
 } & Record<string, unknown>) {
   return (
     <Text
-      className="mt-2 text-text-paragraph first:mt-0"
+      className="mt-2 text-content-subtle first:mt-0"
       size={{ initial: "base", md: "sm" }}
       {...rest}
     >

@@ -37,7 +37,7 @@ export function CopyButton({
     <button
       aria-label={labels[status]}
       className={cn(
-        "link-outline group grid size-7 shrink-0 place-items-center transition-[scale,background-color] duration-200 ease-out hover-hover:hover:bg-gray-400 active:scale-[0.97]",
+        "link-outline group grid size-7 shrink-0 place-items-center transition-[scale,background-color] duration-200 ease-out hover-hover:hover:bg-background-hovered active:scale-[0.97]",
         roundedClasses[rounded],
         className
       )}
@@ -55,12 +55,12 @@ export function CopyButton({
         >
           {copied ? (
             <IconCircleCheck
-              className={cn("size-4 text-gray-1000", iconClassName)}
+              className={cn("size-4 text-content-subtle", iconClassName)}
             />
           ) : (
             <IconSquareBehindSquare1
               className={cn(
-                "size-4 text-gray-1000 transition-colors duration-200 ease-out group-hover:text-gray-1200",
+                "size-4 text-content-subtle transition-colors duration-200 ease-out group-hover:text-content",
                 iconClassName
               )}
             />
