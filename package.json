@@ -9,8 +9,8 @@
     "fix": "biome check --write ."
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.5",
-    "ultracite": "^7.9.4"
+    "@biomejs/biome": "^2.5.7",
+    "ultracite": "^7.10.1"
   },
   "packageManager": "pnpm@11.8.0"
 }
