@@ -34,7 +34,7 @@ export function CustomizePanel({
   const { opacity: hasOpacity, color: hasColor, sizes, speed } = customization;
 
   return (
-    <div className="flex h-full w-60 shrink-0 flex-col gap-2 rounded-2xl bg-gray-200 p-2">
+    <div className="flex h-full w-60 shrink-0 flex-col gap-2 rounded-xl bg-gray-300 p-2">
       <CardHeader title="Customize">
         <IconButton
           aria-label="Reset customization"

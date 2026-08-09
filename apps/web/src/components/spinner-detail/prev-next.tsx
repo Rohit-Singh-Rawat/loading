@@ -19,7 +19,7 @@ export function PrevNext({
     <div className="flex w-full gap-8">
       {previous ? (
         <Link
-          className="flex min-w-0 flex-1 items-center justify-between rounded-xl bg-preview-bg px-3.5 py-3 shadow-custom transition-[background-color,color,scale] duration-200 ease-out will-change-transform hover:bg-gray-100 active:scale-[0.97]"
+          className="flex min-w-0 flex-1 items-center justify-between rounded-xl bg-gray-200 px-3.5 py-3 border border-gray-400 transition-[background-color,color,scale] duration-200 ease-out will-change-transform hover:bg-gray-300 active:scale-[0.97]"
           href={`/spinners/${previous.slug}`}
         >
           <IconArrowLeft className="size-4 shrink-0 text-gray-1000" />
@@ -43,7 +43,7 @@ export function PrevNext({
       )}
       {next ? (
         <Link
-          className="flex min-w-0 flex-1 items-center justify-between rounded-xl bg-preview-bg px-3.5 py-3 shadow-custom transition-[background-color,color,scale] duration-200 ease-out will-change-transform hover:bg-gray-100 active:scale-[0.97]"
+          className="flex min-w-0 flex-1 items-center justify-between rounded-xl bg-gray-200 px-3.5 py-3 border border-gray-400 transition-[background-color,color,scale] duration-200 ease-out will-change-transform hover:bg-gray-300 active:scale-[0.97]"
           href={`/spinners/${next.slug}`}
         >
           <span className="flex min-w-0 flex-col items-start">

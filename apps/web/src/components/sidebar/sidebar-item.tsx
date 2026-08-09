@@ -13,7 +13,7 @@ export function SidebarItem({ href, label }: { href: string; label: string }) {
     <Text
       as={Link}
       className={cn(
-        "link-outline relative flex h-8 w-full items-center rounded-lg px-3 before:absolute before:inset-x-0 before:-inset-y-px before:content-['']",
+        "link-outline relative flex h-8 w-full items-center rounded-lg px-3 after:absolute after:inset-x-0 after:-inset-y-px after:content-['']",
         isActive
           ? "bg-gray-300 text-gray-1200"
           : "text-gray-1000 hover:bg-gray-300 hover:text-gray-1200"

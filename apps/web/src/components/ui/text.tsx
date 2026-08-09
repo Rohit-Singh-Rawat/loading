@@ -1,8 +1,4 @@
-import type {
-  ComponentPropsWithoutRef,
-  ElementType,
-  ReactElement,
-} from "react";
+import type { ComponentPropsWithRef, ElementType, ReactElement } from "react";
 import { cn } from "@/lib/utils";
 
 const textSizeClasses = {
@@ -87,7 +83,7 @@ interface TextOwnProps {
 
 export type TextProps<E extends ElementType = "p"> = TextOwnProps & {
   as?: E;
-} & Omit<ComponentPropsWithoutRef<E>, keyof TextOwnProps | "as">;
+} & Omit<ComponentPropsWithRef<E>, keyof TextOwnProps | "as">;
 
 export function Text<E extends ElementType = "p">({
   as,

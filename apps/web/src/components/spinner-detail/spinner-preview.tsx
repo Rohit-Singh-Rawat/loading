@@ -2,10 +2,11 @@
 
 import { IconPause } from "central-icons/IconPause";
 import { IconPlay } from "central-icons/IconPlay";
+import { IconSidebarHiddenLeftWide } from "central-icons/IconSidebarHiddenLeftWide";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 import { type CSSProperties, useState } from "react";
 import { getSpinner } from "@/components/spinners";
-import { CardHeader } from "@/components/ui/card-header";
+import { Button } from "@/components/ui/button";
 import IconButton from "@/components/ui/icon-button";
 import { CustomizePanel } from "./customize-panel";
 
@@ -14,6 +15,15 @@ const ICON_TRANSITION = {
   duration: 0.18,
   type: "spring",
 } as const;
+
+const PANEL_TRANSITION = {
+  bounce: 0,
+  duration: 0.3,
+  type: "spring",
+} as const;
+
+const CUSTOMIZE_PANEL_ID = "customize-panel";
+const CUSTOMIZE_PANEL_WIDTH = 240;
 
 function findDefaultSizeIndex(sizes: { value: number }[]): number {
   const index = sizes.findIndex((size) => size.value === 20);
@@ -29,6 +39,7 @@ export function SpinnerPreview({ slug }: { slug: string }) {
   const defaultSpeedMs = customization?.speed?.default ?? 0;
 
   const [paused, setPaused] = useState(false);
+  const [customizeOpen, setCustomizeOpen] = useState(true);
   const [sizeIndex, setSizeIndex] = useState(defaultSizeIndex);
   const [color, setColor] = useState<string | null>(null);
   const [speedMs, setSpeedMs] = useState(defaultSpeedMs);
@@ -53,19 +64,34 @@ export function SpinnerPreview({ slug }: { slug: string }) {
 
   return (
     <section
-      className="flex h-[400px] w-full scroll-mt-[100px] gap-1"
+      className="flex h-[400px] w-full scroll-mt-[100px] gap-1 rounded-2xl bg-gray-200 p-1"
       id="preview"
     >
-      <div className="relative flex min-w-0 flex-1 items-center justify-center rounded-2xl bg-gray-200">
-        <CardHeader className="absolute inset-x-2 top-2" title="Preview">
+      <div className="relative flex min-w-0 flex-1 flex-col items-center gap-3 px-4 pt-13 pb-2">
+        {customization && (
           <IconButton
-            aria-label={paused ? "Play preview" : "Pause preview"}
-            onClick={() => setPaused((value) => !value)}
+            aria-controls={CUSTOMIZE_PANEL_ID}
+            aria-expanded={customizeOpen}
+            aria-label={
+              customizeOpen ? "Hide customization" : "Show customization"
+            }
+            className="absolute top-2 right-2"
+            onClick={() => setCustomizeOpen((value) => !value)}
             size="xxs"
-            title={paused ? "Play preview" : "Pause preview"}
+            title={customizeOpen ? "Hide customization" : "Show customization"}
             type="button"
             variant="ghost"
           >
+            <IconSidebarHiddenLeftWide className="size-4" />
+          </IconButton>
+        )}
+        <div className="flex min-h-0 flex-1 items-center justify-center">
+          <div style={wrapperStyle}>
+            <Spinner size={sizes?.[sizeIndex]?.value ?? 20} />
+          </div>
+        </div>
+        <Button
+          leftIcon={
             <AnimatePresence initial={false} mode="popLayout">
               <m.span
                 animate={{ opacity: 1, scale: 1 }}
@@ -91,33 +117,48 @@ export function SpinnerPreview({ slug }: { slug: string }) {
                 )}
               </m.span>
             </AnimatePresence>
-          </IconButton>
-        </CardHeader>
-        <div style={wrapperStyle}>
-          <Spinner size={sizes?.[sizeIndex]?.value ?? 20} />
-        </div>
+          }
+          onClick={() => setPaused((value) => !value)}
+          size="xs"
+          type="button"
+          variant="ghost"
+        >
+          {paused ? "Play" : "Pause"}
+        </Button>
       </div>
       {customization && (
-        <>
-          <div className="h-3 w-[1.5px] shrink-0 self-center rounded-full bg-gray-500" />
-          <CustomizePanel
-            color={color}
-            customization={customization}
-            onColorChange={setColor}
-            onOpacityChange={setOpacity}
-            onReset={() => {
-              setSizeIndex(defaultSizeIndex);
-              setColor(null);
-              setSpeedMs(defaultSpeedMs);
-              setOpacity(1);
-            }}
-            onSizeChange={setSizeIndex}
-            onSpeedChange={setSpeedMs}
-            opacity={opacity}
-            sizeIndex={sizeIndex}
-            speedMs={speedMs}
-          />
-        </>
+        <AnimatePresence initial={false}>
+          {customizeOpen && (
+            <m.div
+              animate={{ opacity: 1, width: CUSTOMIZE_PANEL_WIDTH }}
+              className="h-full shrink-0 overflow-hidden"
+              exit={{ opacity: 0, width: 0 }}
+              id={CUSTOMIZE_PANEL_ID}
+              initial={{ opacity: 0, width: 0 }}
+              transition={
+                shouldReduceMotion ? { duration: 0 } : PANEL_TRANSITION
+              }
+            >
+              <CustomizePanel
+                color={color}
+                customization={customization}
+                onColorChange={setColor}
+                onOpacityChange={setOpacity}
+                onReset={() => {
+                  setSizeIndex(defaultSizeIndex);
+                  setColor(null);
+                  setSpeedMs(defaultSpeedMs);
+                  setOpacity(1);
+                }}
+                onSizeChange={setSizeIndex}
+                onSpeedChange={setSpeedMs}
+                opacity={opacity}
+                sizeIndex={sizeIndex}
+                speedMs={speedMs}
+              />
+            </m.div>
+          )}
+        </AnimatePresence>
       )}
     </section>
   );

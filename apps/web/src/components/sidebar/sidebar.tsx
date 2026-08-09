@@ -15,11 +15,10 @@ export function Sidebar() {
     <aside className="hidden w-50 shrink-0 flex-col gap-7.5 py-25 md:flex">
       <Link
         aria-label="Home"
-        className="link-outline flex size-12 items-center justify-center"
+        className="rounded-full ml-2 flex rounded-full size-8  bg-[#EF551A] items-center justify-center"
         href="/"
-      >
-        <div className="size-8 rounded-full bg-[#EF551A]" />
-      </Link>
+      />
+        
       <SidebarSearch />
       <nav aria-label="Main" className="flex flex-col gap-0.5">
         {MAIN_NAV.map((item) => (

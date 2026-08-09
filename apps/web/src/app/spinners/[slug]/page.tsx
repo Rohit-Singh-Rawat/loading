@@ -8,7 +8,7 @@ import {
   getSpinner,
   SPINNER_ITEMS,
 } from "@/components/spinners";
-import { Heading } from "@/components/ui/heading";
+import { PageHeader } from "@/components/ui/page-header";
 import { Text } from "@/components/ui/text";
 import { siteDescription } from "@/lib/constants";
 import { generatePageMetadata } from "@/lib/metadata";
@@ -55,17 +55,11 @@ export default async function SpinnerPage({
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-5">
-        <Heading as="h1" className="font-heldane" size={1} weight="regular">
-          <span className="block text-gray-900">Component/</span>
-          {item.name}
-        </Heading>
-        {item.description && (
-          <Text className="text-text-paragraph" size="sm">
-            {item.description}
-          </Text>
-        )}
-      </div>
+      <PageHeader
+        description={item.description}
+        eyebrow="Component/"
+        title={item.name}
+      />
       {item.component ? (
         <div className="flex flex-col">
           <SpinnerPreview slug={slug} />
