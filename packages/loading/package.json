@@ -9,7 +9,10 @@
     "loader",
     "indicator"
   ],
-  "repository": "github:jakubkrehel/loading",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakubkrehel/loading.git"
+  },
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
