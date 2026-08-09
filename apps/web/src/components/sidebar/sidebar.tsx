@@ -3,12 +3,7 @@ import { SidebarItem } from "@/components/sidebar/sidebar-item";
 import { SidebarSearch } from "@/components/sidebar/sidebar-search";
 import { SPINNER_ITEMS } from "@/components/spinners";
 
-const MAIN_NAV = [
-  { href: "/", label: "Overview" },
-  { href: "/usage", label: "Usage" },
-  { href: "/philosophy", label: "Philosophy" },
-  { href: "/components", label: "Components" },
-];
+const MAIN_NAV = [{ href: "/", label: "Overview" }];
 
 export function Sidebar() {
   return (
