@@ -19,14 +19,12 @@ export function NavItem({
   kind = "route",
   label,
   onClick,
-  pending,
 }: {
   active?: boolean;
   href: string;
   kind?: NavItemKind;
   label: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
-  pending?: boolean;
 }) {
   const { component: Component, current } = kinds[kind];
 
@@ -46,16 +44,6 @@ export function NavItem({
       weight="medium"
     >
       <span className="min-w-0 flex-1 truncate">{label}</span>
-      {pending && (
-        <Text
-          as="span"
-          className="shrink-0 text-gray-1000"
-          size="sm"
-          weight="regular"
-        >
-          Soon
-        </Text>
-      )}
     </Text>
   );
 }

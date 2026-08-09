@@ -11,7 +11,6 @@ export interface SpinnerCustomization {
   color?: boolean;
   opacity?: boolean;
   sizes?: { label: string; value: number }[];
-  /** Milliseconds, drives the --ld-duration CSS variable. */
   speed?: { default: number; max: number; min: number };
 }
 
@@ -89,6 +88,10 @@ export const SPINNER_ITEMS: SpinnerItem[] = [
   },
 ];
 
+export const AVAILABLE_SPINNERS: SpinnerItem[] = SPINNER_ITEMS.filter(
+  (item) => item.component
+);
+
 export function getSpinner(slug: string): SpinnerItem | undefined {
   return SPINNER_ITEMS.find((item) => item.slug === slug);
 }
@@ -97,7 +100,7 @@ export function getAdjacentSpinners(slug: string): {
   next?: SpinnerItem;
   previous?: SpinnerItem;
 } {
-  const available = SPINNER_ITEMS.filter((item) => item.component);
+  const available = AVAILABLE_SPINNERS;
   const index = available.findIndex((item) => item.slug === slug);
   if (index === -1) {
     return {};

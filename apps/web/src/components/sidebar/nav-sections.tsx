@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { SPINNER_ITEMS } from "@/components/spinners";
+import { AVAILABLE_SPINNERS } from "@/components/spinners";
 import { NavItem } from "@/components/ui/nav-item";
 
 const MAIN_NAV = [{ href: "/", label: "Overview" }];
@@ -23,7 +23,7 @@ export function NavSections({ onNavigate }: { onNavigate?: () => void }) {
         ))}
       </nav>
       <nav aria-label="Spinners" className="flex flex-col gap-0.5">
-        {SPINNER_ITEMS.map((item) => {
+        {AVAILABLE_SPINNERS.map((item) => {
           const href = `/spinners/${item.slug}`;
           return (
             <NavItem
@@ -32,7 +32,6 @@ export function NavSections({ onNavigate }: { onNavigate?: () => void }) {
               key={item.slug}
               label={item.name}
               onClick={onNavigate}
-              pending={!item.component}
             />
           );
         })}

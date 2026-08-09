@@ -16,7 +16,7 @@ export default function Home() {
           <>
             Loading,
             <br />
-            made beautiful.
+            <span className="opacity-50">made beautiful.</span>
           </>
         }
       />

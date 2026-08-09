@@ -48,10 +48,10 @@ export function CustomizePanel({
           aria-label="Reset customization"
           className="-mr-1"
           onClick={onReset}
-          size="xxs"
+          size="xs"
           title="Reset customization"
           type="button"
-          variant="ghost"
+          variant="tertiary"
         >
           <span className="grid transition-transform duration-150 ease-in-out group-active:-rotate-45">
             <IconArrowRotateCounterClockwise className="size-4" />
