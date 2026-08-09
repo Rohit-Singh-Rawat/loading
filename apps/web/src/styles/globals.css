@@ -51,7 +51,7 @@
       --color-content: oklch(0.889 0.011 63.345);
       --color-content-subtle: oklch(0.696 0.008 61.399);
 
-      --shadow-custom: 0 0 0 1px oklch(1 0 0 / 0.051);
+      --shadow-custom: 0 0 0 1px oklch(1 0 0 / 0.1);
       color-scheme: dark;
     }
   }

@@ -1,0 +1,30 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
+const BREAKPOINTS = [
+  "(min-width: 640px)",
+  "(min-width: 768px)",
+  "(min-width: 1280px)",
+];
+
+export function useBreakpointChange(onChange: () => void) {
+  const latest = useRef(onChange);
+
+  useEffect(() => {
+    latest.current = onChange;
+  });
+
+  useEffect(() => {
+    const handle = () => latest.current();
+    const lists = BREAKPOINTS.map((query) => window.matchMedia(query));
+    for (const list of lists) {
+      list.addEventListener("change", handle);
+    }
+    return () => {
+      for (const list of lists) {
+        list.removeEventListener("change", handle);
+      }
+    };
+  }, []);
+}

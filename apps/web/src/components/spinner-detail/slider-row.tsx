@@ -1,7 +1,6 @@
 "use client";
 
-import { m, useReducedMotion } from "motion/react";
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, CSSProperties } from "react";
 import { useRef, useState } from "react";
 import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
@@ -10,6 +9,10 @@ const FOCUS_RING =
   "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-content has-[:focus-visible]:outline-offset-2";
 const HANDLE_INSET = 10;
 const HANDLE_HALF_WIDTH = 2;
+
+const FILL_TRANSFORM = "scaleX(calc(var(--slider-percent) / 100))";
+const HANDLE_TRANSFORM =
+  "translateX(clamp(2px, calc(var(--slider-percent) * 1% - 10px), calc(100% - 2px)))";
 
 interface OverlapBounds {
   labelEnd: number;
@@ -38,25 +41,16 @@ export function SliderRow({
 }) {
   const [isDragging, setIsDragging] = useState(false);
   const [isHandleOverText, setIsHandleOverText] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
   const labelRef = useRef<HTMLSpanElement>(null);
   const overlapBoundsRef = useRef<OverlapBounds | null>(null);
   const valueRef = useRef<HTMLSpanElement>(null);
   const percent = ((value - min) / (max - min)) * 100;
-  const dragTransition = shouldReduceMotion
-    ? { duration: 0 }
-    : { bounce: 0, duration: 0.1, type: "spring" as const };
-  let handleOpacity = 0;
-  let handleScale = 0.8;
+  let handleState = "scale-[0.8] opacity-0";
 
   if (isDragging) {
-    handleOpacity = 0.8;
-    handleScale = 1;
-  }
-
-  if (isDragging && isHandleOverText) {
-    handleOpacity = 0.55;
-    handleScale = 0.92;
+    handleState = isHandleOverText
+      ? "scale-[0.92] opacity-55"
+      : "scale-100 opacity-80";
   }
 
   function handleOverlapsText(nextValue: number, bounds: OverlapBounds) {
@@ -105,65 +99,56 @@ export function SliderRow({
 
   return (
     <div
-      className={cn(
-        "group relative h-8 w-full overflow-hidden rounded-lg bg-background",
-        FOCUS_RING
-      )}
+      className={cn("group relative rounded-lg", FOCUS_RING)}
+      style={{ "--slider-percent": percent } as CSSProperties}
     >
-      <m.div
-        animate={{ scaleX: percent / 100 }}
-        className="absolute inset-0 origin-left bg-background-hovered will-change-transform"
-        initial={false}
-        transition={dragTransition}
-      />
-      <m.span
-        animate={{
-          left: `clamp(2px, calc(${percent}% - ${HANDLE_INSET}px), calc(100% - 2px))`,
-        }}
-        aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 z-10 h-4 w-[3px] -translate-x-1/2 -translate-y-1/2"
-        initial={false}
-        transition={dragTransition}
-      >
-        <m.span
-          animate={{
-            opacity: handleOpacity,
-            scale: handleScale,
-          }}
-          className={cn(
-            "block size-full rounded-full transition-colors duration-200 ease-out will-change-transform",
-            // The old mid-greys have no equivalent in a two-tone content set,
-            // so the over-text state weakens Content/Subtle instead. The
-            // opacity animation above still carries most of the signal.
-            isHandleOverText ? "bg-content-subtle/50" : "bg-content-subtle"
-          )}
-          initial={false}
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : { bounce: 0, duration: 0.3, type: "spring" }
-          }
+      <div className="relative h-8 w-full overflow-hidden rounded-lg bg-background">
+        <div
+          className="absolute inset-0 origin-left bg-background-hovered transition-transform duration-100 ease-out will-change-transform motion-reduce:transition-none"
+          style={{ transform: FILL_TRANSFORM }}
         />
-      </m.span>
-      <span
-        className="pointer-events-none absolute inset-y-0 left-2 z-20 flex items-center"
-        ref={labelRef}
-      >
-        <Text
-          as="span"
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-full transition-transform duration-100 ease-out will-change-transform motion-reduce:transition-none"
+          style={{ transform: HANDLE_TRANSFORM }}
+        >
+          <span
+            className={cn(
+              "absolute top-1/2 left-0 block h-4 w-[3px] -translate-x-1/2 -translate-y-1/2 rounded-full transition-[opacity,scale,background-color] duration-300 ease-out motion-reduce:transition-none",
+              isHandleOverText ? "bg-content-subtle/50" : "bg-content-subtle",
+              handleState
+            )}
+          />
+        </span>
+        <span
+          className="pointer-events-none absolute inset-y-0 left-2 z-20 flex items-center"
+          ref={labelRef}
+        >
+          <Text
+            as="span"
+            className={cn(
+              "select-none text-content-subtle transition-colors duration-150 hover-hover:group-hover:text-content",
+              isDragging && "text-content"
+            )}
+            size="sm"
+            weight="medium"
+          >
+            {label}
+          </Text>
+        </span>
+        <span
           className={cn(
-            "select-none text-content-subtle transition-colors duration-150 hover-hover:group-hover:text-content",
+            "pointer-events-none absolute inset-y-0 right-2 z-20 flex select-none items-center font-berkeley-mono text-content-subtle text-sm transition-colors duration-200 ease-out hover-hover:group-hover:text-content",
             isDragging && "text-content"
           )}
-          size="sm"
-          weight="medium"
+          ref={valueRef}
         >
-          {label}
-        </Text>
-      </span>
+          {format(value)}
+        </span>
+      </div>
       <input
         aria-label={label}
-        className="absolute inset-0 size-full cursor-ew-resize opacity-0"
+        className="slider-thumb-target absolute inset-x-0 -inset-y-1 z-30 w-full cursor-ew-resize opacity-0"
         max={max}
         min={min}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
@@ -181,15 +166,6 @@ export function SliderRow({
         type="range"
         value={value}
       />
-      <span
-        className={cn(
-          "pointer-events-none absolute inset-y-0 right-2 z-20 flex select-none items-center font-berkeley-mono text-content-subtle text-sm transition-colors duration-200 ease-out hover-hover:group-hover:text-content",
-          isDragging && "text-content"
-        )}
-        ref={valueRef}
-      >
-        {format(value)}
-      </span>
     </div>
   );
 }

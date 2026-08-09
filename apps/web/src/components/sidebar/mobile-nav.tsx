@@ -10,6 +10,7 @@ import IconButton from "@/components/ui/icon-button";
 import { Logo } from "@/components/ui/logo";
 import NavigationMobileIcon from "@/components/ui/navigation-mobile-icon";
 import { Text } from "@/components/ui/text";
+import { useBreakpointChange } from "@/lib/use-breakpoint-change";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -18,6 +19,8 @@ export function MobileNav() {
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  useBreakpointChange(() => setOpen(false));
 
   return (
     <Dialog.Root onOpenChange={setOpen} open={open}>
