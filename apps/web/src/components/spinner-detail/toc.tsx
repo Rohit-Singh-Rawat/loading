@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Text } from "@/components/ui/text";
-import { cn } from "@/lib/utils";
+import { NavItem } from "@/components/ui/nav-item";
 
 export interface TocItem {
   id: string;
@@ -62,17 +61,15 @@ export function Toc({ items }: { items: TocItem[] }) {
   return (
     <nav aria-label="On this page" className="flex flex-col gap-0.5">
       {items.map((item, index) => (
-        <Text
-          aria-current={activeIndex === index ? "location" : undefined}
-          as="a"
-          className={cn(
-            "link-outline flex h-8 w-full items-center rounded-lg px-3",
-            activeIndex === index
-              ? "bg-gray-300 text-gray-1200"
-              : "text-gray-1000 hover:bg-gray-300 hover:text-gray-1200"
-          )}
+        <NavItem
+          active={activeIndex === index}
+          current="location"
           href={`#${item.id}`}
           key={item.id}
+          label={item.label}
+          // A plain <a>: these are in-page hashes, so the browser's own jump is
+          // both correct and cheaper than routing through next/link.
+          native
           onClick={() => {
             setActiveIndex(index);
             userNavigating.current = true;
@@ -80,11 +77,7 @@ export function Toc({ items }: { items: TocItem[] }) {
               userNavigating.current = false;
             }, 300);
           }}
-          size="sm"
-          weight={activeIndex === index ? "semimedium" : "regular"}
-        >
-          {item.label}
-        </Text>
+        />
       ))}
     </nav>
   );
