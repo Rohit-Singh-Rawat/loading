@@ -1,12 +1,17 @@
 import { IconGithub } from "central-icons/IconGithub";
 import { IconNpm } from "central-icons/IconNpm";
 import { IconX } from "central-icons/IconX";
-import type { ComponentType } from "react";
+import type { ComponentProps, ComponentType } from "react";
+import { NavItem } from "@/components/ui/nav-item";
 import { cn } from "@/lib/utils";
 
-const SOCIAL_LINKS: {
+type SocialIcon = ComponentType<
+  ComponentProps<"svg"> & { mode?: "masked" | "raw" }
+>;
+
+export const SOCIAL_LINKS: {
   href: string;
-  icon: ComponentType<{ className?: string }>;
+  icon: SocialIcon;
   label: string;
 }[] = [
   {
@@ -28,22 +33,15 @@ const SOCIAL_LINKS: {
 
 export function SocialLinks({ className }: { className?: string }) {
   return (
-    <nav
-      aria-label="Social"
-      className={cn("flex items-center gap-0.5", className)}
-    >
+    <nav aria-label="Social" className={cn("flex flex-col gap-0.5", className)}>
       {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
-        <a
-          aria-label={label}
-          className="flex size-8 items-center justify-center rounded-lg text-gray-1000 transition-colors hover-hover:hover:bg-gray-300 hover-hover:hover:text-gray-1200"
+        <NavItem
           href={href}
+          icon={<Icon className="size-4 shrink-0" mode="raw" />}
           key={label}
-          rel="noreferrer"
-          target="_blank"
-          title={label}
-        >
-          <Icon className="size-4" />
-        </a>
+          kind="external"
+          label={label}
+        />
       ))}
     </nav>
   );

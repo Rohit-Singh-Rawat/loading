@@ -9,6 +9,7 @@ const textSizeClasses = {
   base: "text-base",
   lg: "text-lg",
   sm: "text-sm",
+  xl: "text-xl",
 } as const;
 
 const textSizeClassesByBreakpoint = {
@@ -16,26 +17,31 @@ const textSizeClassesByBreakpoint = {
     base: "2xl:text-base",
     lg: "2xl:text-lg",
     sm: "2xl:text-sm",
+    xl: "2xl:text-xl",
   },
   lg: {
     base: "lg:text-base",
     lg: "lg:text-lg",
     sm: "lg:text-sm",
+    xl: "lg:text-xl",
   },
   md: {
     base: "md:text-base",
     lg: "md:text-lg",
     sm: "md:text-sm",
+    xl: "md:text-xl",
   },
   sm: {
     base: "sm:text-base",
     lg: "sm:text-lg",
     sm: "sm:text-sm",
+    xl: "sm:text-xl",
   },
   xl: {
     base: "xl:text-base",
     lg: "xl:text-lg",
     sm: "xl:text-sm",
+    xl: "xl:text-xl",
   },
 } as const;
 

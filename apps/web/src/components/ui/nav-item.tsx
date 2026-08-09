@@ -1,32 +1,43 @@
 import Link from "next/link";
-import type { ElementType, MouseEventHandler } from "react";
+import type { ElementType, MouseEventHandler, ReactNode } from "react";
 import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 
-type NavItemKind = "anchor" | "route";
+type NavItemKind = "anchor" | "external" | "route";
 
 const kinds: Record<
   NavItemKind,
-  { component: ElementType; current: "location" | "page" }
+  {
+    component: ElementType;
+    current: "location" | "page";
+    props?: Record<string, string>;
+  }
 > = {
   anchor: { component: "a", current: "location" },
+  external: {
+    component: "a",
+    current: "page",
+    props: { rel: "noreferrer", target: "_blank" },
+  },
   route: { component: Link, current: "page" },
 };
 
 export function NavItem({
   active = false,
   href,
+  icon,
   kind = "route",
   label,
   onClick,
 }: {
   active?: boolean;
   href: string;
+  icon?: ReactNode;
   kind?: NavItemKind;
   label: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
 }) {
-  const { component: Component, current } = kinds[kind];
+  const { component: Component, current, props } = kinds[kind];
 
   return (
     <Text
@@ -42,7 +53,9 @@ export function NavItem({
       onClick={onClick}
       size="sm"
       weight="medium"
+      {...props}
     >
+      {icon}
       <span className="min-w-0 flex-1 truncate">{label}</span>
     </Text>
   );

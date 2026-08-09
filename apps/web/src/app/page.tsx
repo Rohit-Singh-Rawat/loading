@@ -21,7 +21,7 @@ export default function Home() {
         }
       />
       <InstallCommand command="npm install loading-dev" />
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
         {featured.map((item) => (
           <SpinnerCard item={item} key={item.slug} />
         ))}

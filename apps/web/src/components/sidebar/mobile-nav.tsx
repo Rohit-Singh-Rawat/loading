@@ -1,14 +1,14 @@
 "use client";
 
 import { Dialog } from "@base-ui/react/dialog";
-import { IconBarsThree } from "central-icons-outlined/IconBarsThree";
-import { IconCrossMedium } from "central-icons-outlined/IconCrossMedium";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { SocialLinks } from "@/components/aside/social-links";
-import { NavSections } from "@/components/sidebar/nav-sections";
+import { SOCIAL_LINKS } from "@/components/aside/social-links";
+import { NAV_ITEMS } from "@/components/sidebar/nav-items";
 import IconButton from "@/components/ui/icon-button";
 import { Logo } from "@/components/ui/logo";
+import NavigationMobileIcon from "@/components/ui/navigation-mobile-icon";
 import { Text } from "@/components/ui/text";
 
 export function MobileNav() {
@@ -21,43 +21,90 @@ export function MobileNav() {
 
   return (
     <Dialog.Root onOpenChange={setOpen} open={open}>
-      <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-2 border-gray-300 border-b bg-gray-background px-6 md:hidden">
+      <header className="flex h-16 items-center justify-between gap-2 px-6 md:hidden">
         <Logo />
         <Dialog.Trigger
           render={
-            <IconButton aria-label="Open navigation" size="xs" variant="ghost">
-              <IconBarsThree className="size-4" />
+            <IconButton
+              aria-label="Open navigation"
+              className="-mr-2"
+              rounded
+              variant="ghost"
+            >
+              <NavigationMobileIcon isExpanded={open} />
             </IconButton>
           }
         />
       </header>
 
-      <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/25 transition-opacity duration-200 ease-out data-ending-style:opacity-0 data-starting-style:opacity-0" />
-        <Dialog.Popup className="fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col gap-6 overflow-y-auto bg-gray-background p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-custom outline-hidden transition-transform duration-200 ease-out data-ending-style:-translate-x-full data-starting-style:-translate-x-full">
-          <div className="flex items-center justify-between gap-2">
-            <Dialog.Title
-              render={
-                <Text as="h2" size="sm" weight="semibold">
-                  Navigation
-                </Text>
-              }
-            />
+      <Dialog.Portal keepMounted>
+        <Dialog.Popup className="fixed inset-0 z-50 flex flex-col bg-gray-background px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] outline-hidden transition-opacity duration-100 ease-out data-closed:opacity-0 data-starting-style:opacity-0">
+          <Dialog.Title className="sr-only">Site navigation</Dialog.Title>
+
+          <div className="flex h-16 shrink-0 items-center justify-between">
+            <Logo />
             <Dialog.Close
               render={
                 <IconButton
                   aria-label="Close navigation"
-                  className="-mr-1"
-                  size="xs"
+                  className="-mr-2"
+                  rounded
                   variant="ghost"
                 >
-                  <IconCrossMedium className="size-4" />
+                  <NavigationMobileIcon isExpanded={open} />
                 </IconButton>
               }
             />
           </div>
-          <NavSections onNavigate={() => setOpen(false)} />
-          <SocialLinks className="mt-auto -ml-2 pt-2" />
+
+          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain">
+            <nav className="pb-4">
+              <ul className="flex flex-col">
+                {NAV_ITEMS.map((item) => (
+                  <li key={item.href}>
+                    <Dialog.Close
+                      nativeButton={false}
+                      render={
+                        <Text
+                          aria-current={
+                            pathname === item.href ? "page" : undefined
+                          }
+                          as={Link}
+                          className="link-outline flex h-12 w-full items-center text-gray-1200"
+                          href={item.href}
+                          size="xl"
+                          weight="medium"
+                        >
+                          {item.label}
+                        </Text>
+                      }
+                    />
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div className="mt-auto border-gray-300 border-t pt-4">
+              <ul className="flex flex-col">
+                {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
+                  <li key={label}>
+                    <Text
+                      as="a"
+                      className="link-outline flex h-10 w-full items-center gap-3 text-gray-1100"
+                      href={href}
+                      rel="noreferrer"
+                      size="base"
+                      target="_blank"
+                      weight="medium"
+                    >
+                      <Icon className="size-5 shrink-0" mode="raw" />
+                      {label}
+                    </Text>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </Dialog.Popup>
       </Dialog.Portal>
     </Dialog.Root>
