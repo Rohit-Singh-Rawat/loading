@@ -2,11 +2,9 @@
 
 import { IconCircleCheck } from "central-icons/IconCircleCheck";
 import { IconSquareBehindSquare1 } from "central-icons-outlined/IconSquareBehindSquare1";
-import { AnimatePresence, m } from "motion/react";
+import { AnimatedIcon } from "@/components/ui/animated-icon";
 import { useCopy } from "@/lib/use-copy";
 import { cn } from "@/lib/utils";
-
-const iconTransition = { bounce: 0, duration: 0.3, type: "spring" as const };
 
 const roundedClasses = {
   full: "rounded-full",
@@ -44,29 +42,22 @@ export function CopyButton({
       onClick={copy}
       type="button"
     >
-      <AnimatePresence initial={false} mode="popLayout">
-        <m.span
-          animate={{ filter: "blur(0px)", opacity: 1, scale: 1 }}
-          aria-hidden="true"
-          exit={{ filter: "blur(4px)", opacity: 0, scale: 0.25 }}
-          initial={{ filter: "blur(4px)", opacity: 0, scale: 0.25 }}
-          key={copied ? "check" : "copy"}
-          transition={iconTransition}
-        >
-          {copied ? (
-            <IconCircleCheck
-              className={cn("size-4 text-content-subtle", iconClassName)}
-            />
-          ) : (
-            <IconSquareBehindSquare1
-              className={cn(
-                "size-4 text-content-subtle transition-colors duration-200 ease-out group-hover:text-content",
-                iconClassName
-              )}
-            />
-          )}
-        </m.span>
-      </AnimatePresence>
+      <AnimatedIcon
+        active={copied}
+        activeIcon={
+          <IconCircleCheck
+            className={cn("size-4 text-content-subtle", iconClassName)}
+          />
+        }
+        idleIcon={
+          <IconSquareBehindSquare1
+            className={cn(
+              "size-4 text-content-subtle transition-colors duration-200 ease-out group-hover:text-content",
+              iconClassName
+            )}
+          />
+        }
+      />
       <span className="sr-only" role="status">
         {status === "idle" ? "" : labels[status]}
       </span>
