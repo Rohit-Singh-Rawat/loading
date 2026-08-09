@@ -4,7 +4,6 @@ import { IconCrossMedium } from "central-icons-outlined/IconCrossMedium";
 import { IconMagnifyingGlass } from "central-icons-outlined/IconMagnifyingGlass";
 import { AnimatePresence, m } from "motion/react";
 import { useRef, useState } from "react";
-import { Text } from "@/components/ui/text";
 
 // Matches the spring the other icon transitions in the app use.
 const CLEAR_TRANSITION = { bounce: 0, duration: 0.3, type: "spring" } as const;
@@ -24,16 +23,12 @@ export function SidebarSearch() {
         aria-hidden="true"
         className="size-4 shrink-0 text-gray-1000"
       />
-      <Text
+      <input
         aria-label="Search spinners"
-        as="input"
-        className="w-full min-w-0 rounded-none bg-transparent text-gray-1200 outline-none placeholder:text-gray-1000 [&::-webkit-search-cancel-button]:hidden"
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setValue(event.target.value)
-        }
+        className="w-full min-w-0 rounded-none bg-transparent font-normal text-gray-1200 text-sm outline-none placeholder:text-gray-1000 [&::-webkit-search-cancel-button]:hidden"
+        onChange={(event) => setValue(event.target.value)}
         placeholder="Search"
         ref={inputRef}
-        size="sm"
         type="search"
         value={value}
       />
@@ -42,11 +37,6 @@ export function SidebarSearch() {
           <m.button
             animate={{ opacity: 1 }}
             aria-label="Clear search"
-            // Opacity is driven by motion, so it is deliberately absent from the
-            // CSS transition list — otherwise both would drive the same
-            // property and the fade would lag a frame behind.
-            // `after` extends the 20px circle to a 24px target without
-            // changing how it looks.
             className="relative -mr-1 grid size-5 shrink-0 place-items-center rounded-full bg-gray-200 text-gray-1000 transition-[background-color,color] duration-200 ease-out after:absolute after:-inset-0.5 after:content-[''] hover-hover:hover:text-gray-1200"
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}

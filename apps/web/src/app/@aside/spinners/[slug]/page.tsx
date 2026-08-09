@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { AsideShell } from "@/components/aside/aside-shell";
 import { CopyPageButton } from "@/components/spinner-detail/copy-page-button";
 import { TOC_ITEMS, Toc } from "@/components/spinner-detail/toc";
 import { getSpinner, SPINNER_ITEMS } from "@/components/spinners";
@@ -32,7 +33,7 @@ export default async function SpinnerAside({
   const item = getSpinner(slug);
 
   if (!item?.hasDocs) {
-    return <div className="hidden w-[240px] shrink-0 xl:block" />;
+    return <AsideShell />;
   }
 
   const raw = await readSpinnerMarkdown(slug);
@@ -41,11 +42,9 @@ export default async function SpinnerAside({
     .join("\n\n");
 
   return (
-    <aside className="hidden w-60 shrink-0 py-25 xl:block">
-      <div className="sticky top-25 flex flex-col gap-4">
-        <CopyPageButton markdown={markdown} />
-        <Toc items={TOC_ITEMS} />
-      </div>
-    </aside>
+    <AsideShell>
+      <CopyPageButton markdown={markdown} />
+      <Toc items={TOC_ITEMS} />
+    </AsideShell>
   );
 }

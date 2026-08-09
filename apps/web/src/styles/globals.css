@@ -28,6 +28,11 @@
     --color-gray-1000: oklch(0.505 0 0);
     --color-gray-1100: oklch(0.43 0 0);
     --color-gray-1200: oklch(0.244 0 0);
+    --color-brand: #ef551a;
+    /* Two surface layers, deliberately. Content that sits in the page flow
+       (cards, figures, previews, inputs) uses gray-200 with a gray-400 border.
+       Chrome that floats above it (popovers, menus, the skip link, raised
+       buttons) uses preview-bg with a gray-400 border and shadow-custom. */
     --color-preview-bg: oklch(1 0 0);
     --color-preview-border: oklch(0.931 0 0);
     --color-text-paragraph: oklch(0.38 0 0);
@@ -162,6 +167,7 @@
   --color-gray-1000: var(--color-gray-1000);
   --color-gray-1100: var(--color-gray-1100);
   --color-gray-1200: var(--color-gray-1200);
+  --color-brand: var(--color-brand);
   --color-preview-bg: var(--color-preview-bg);
   --color-preview-border: var(--color-preview-border);
   --color-text-paragraph: var(--color-text-paragraph);

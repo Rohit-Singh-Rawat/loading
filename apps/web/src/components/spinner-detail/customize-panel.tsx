@@ -5,10 +5,12 @@ import type { SpinnerCustomization } from "@/components/spinners";
 import { CardHeader } from "@/components/ui/card-header";
 import IconButton from "@/components/ui/icon-button";
 import { SegmentedControl } from "@/components/ui/segmented-control";
+import { cn } from "@/lib/utils";
 import { ColorPickerRow } from "./color-picker-row";
 import { SliderRow } from "./slider-row";
 
 export function CustomizePanel({
+  className,
   color,
   customization,
   onColorChange,
@@ -20,6 +22,7 @@ export function CustomizePanel({
   sizeIndex,
   speedMs,
 }: {
+  className?: string;
   color: string | null;
   customization: SpinnerCustomization;
   onColorChange: (color: string) => void;
@@ -34,7 +37,12 @@ export function CustomizePanel({
   const { opacity: hasOpacity, color: hasColor, sizes, speed } = customization;
 
   return (
-    <div className="flex h-full w-full shrink-0 flex-col gap-2 rounded-xl bg-gray-300 p-2 sm:w-60">
+    <div
+      className={cn(
+        "flex h-full w-full shrink-0 flex-col gap-2 rounded-xl bg-gray-300 p-2 sm:w-60",
+        className
+      )}
+    >
       <CardHeader title="Customize">
         <IconButton
           aria-label="Reset customization"

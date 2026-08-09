@@ -11,8 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
 import { Text } from "@/components/ui/text";
-import { siteDescription } from "@/lib/constants";
-import { generatePageMetadata } from "@/lib/metadata";
+import { SITE_DESCRIPTION } from "@/lib/constants";
 
 interface Params {
   slug: string;
@@ -29,10 +28,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const item = getSpinner(slug);
-  return generatePageMetadata({
-    description: item?.description ?? siteDescription,
+  return {
+    description: item?.description ?? SITE_DESCRIPTION,
     title: item?.name ?? "Spinners",
-  });
+  };
 }
 
 export default async function SpinnerPage({
@@ -71,15 +70,15 @@ export default async function SpinnerPage({
           )}
         </div>
       ) : (
-        <div className="flex flex-col items-start gap-3 rounded-3xl bg-preview-bg p-8 shadow-custom">
+        <div className="flex flex-col items-start gap-3 rounded-2xl bg-gray-200 p-8">
           <Text className="text-gray-1200" size="sm" weight="semibold">
             {item.name} is not built yet
           </Text>
           <Text className="max-w-sm text-text-paragraph" size="sm">
             It is on the list, but there is nothing to preview or install for it
-            today. The spinners below are ready to use.
+            today.
           </Text>
-          <Button className="mt-1" href="/" size="xs" variant="secondary">
+          <Button className="mt-1" href="/" size="xs" variant="tertiary">
             Browse available spinners
           </Button>
         </div>

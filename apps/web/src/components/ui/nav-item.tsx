@@ -3,24 +3,32 @@ import type { ElementType, MouseEventHandler } from "react";
 import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 
+type NavItemKind = "anchor" | "route";
+
+const kinds: Record<
+  NavItemKind,
+  { component: ElementType; current: "location" | "page" }
+> = {
+  anchor: { component: "a", current: "location" },
+  route: { component: Link, current: "page" },
+};
+
 export function NavItem({
   active = false,
-  current = "page",
   href,
+  kind = "route",
   label,
-  native = false,
   onClick,
   pending,
 }: {
   active?: boolean;
-  current?: "location" | "page";
   href: string;
+  kind?: NavItemKind;
   label: string;
-  native?: boolean;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   pending?: boolean;
 }) {
-  const Component: ElementType = native ? "a" : Link;
+  const { component: Component, current } = kinds[kind];
 
   return (
     <Text

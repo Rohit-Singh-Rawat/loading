@@ -6,32 +6,33 @@ import { MotionProvider } from "@/components/motion-provider";
 import { MobileNav } from "@/components/sidebar/mobile-nav";
 import { Sidebar } from "@/components/sidebar/sidebar";
 import {
-  domain,
-  siteDescription,
-  siteName,
-  twitterHandle,
+  DOMAIN,
+  OG_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  TWITTER_HANDLE,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { berkeleyMono, interVariable } from "./fonts";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  description: siteDescription,
-  metadataBase: new URL(domain),
+  description: SITE_DESCRIPTION,
+  metadataBase: new URL(DOMAIN),
   openGraph: {
     images: [
       {
-        alt: siteName,
-        height: 1008,
+        alt: SITE_NAME,
+        height: OG_IMAGE.height,
         type: "image/png",
-        url: "https://ru2qm1zsj1gavqlm.public.blob.vercel-storage.com/og-image.png",
-        width: 1920,
+        url: OG_IMAGE.url,
+        width: OG_IMAGE.width,
       },
     ],
     locale: "en_US",
-    siteName,
+    siteName: SITE_NAME,
     type: "website",
-    url: domain,
+    url: DOMAIN,
   },
   robots: {
     follow: true,
@@ -43,14 +44,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    creator: twitterHandle,
-    images: [
-      {
-        alt: siteName,
-        url: "https://ru2qm1zsj1gavqlm.public.blob.vercel-storage.com/og-image.png",
-      },
-    ],
-    site: twitterHandle,
+    creator: TWITTER_HANDLE,
+    images: [{ alt: SITE_NAME, url: OG_IMAGE.url }],
+    site: TWITTER_HANDLE,
   },
 };
 
@@ -80,7 +76,7 @@ export default function RootLayout({
         <DisableThemeTransitions />
         <MotionProvider>
           <a
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-lg focus:bg-preview-bg focus:px-4 focus:py-2 focus:font-medium focus:text-gray-1200 focus:text-sm focus:shadow-custom"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-lg focus:border focus:border-gray-400 focus:bg-preview-bg focus:px-4 focus:py-2 focus:font-medium focus:text-gray-1200 focus:text-sm focus:shadow-custom"
             href="#content"
           >
             Skip to content

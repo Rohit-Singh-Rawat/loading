@@ -3,12 +3,12 @@
 import { Dialog } from "@base-ui/react/dialog";
 import { IconBarsThree } from "central-icons-outlined/IconBarsThree";
 import { IconCrossMedium } from "central-icons-outlined/IconCrossMedium";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SocialLinks } from "@/components/aside/social-links";
 import { NavSections } from "@/components/sidebar/nav-sections";
 import IconButton from "@/components/ui/icon-button";
+import { Logo } from "@/components/ui/logo";
 import { Text } from "@/components/ui/text";
 
 export function MobileNav() {
@@ -22,11 +22,7 @@ export function MobileNav() {
   return (
     <Dialog.Root onOpenChange={setOpen} open={open}>
       <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-2 border-gray-300 border-b bg-gray-background px-6 md:hidden">
-        <Link
-          aria-label="Home"
-          className="link-outline flex size-8 shrink-0 items-center justify-center rounded-full bg-[#EF551A]"
-          href="/"
-        />
+        <Logo />
         <Dialog.Trigger
           render={
             <IconButton aria-label="Open navigation" size="xs" variant="ghost">

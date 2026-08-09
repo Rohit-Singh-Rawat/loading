@@ -63,13 +63,10 @@ export function Toc({ items }: { items: TocItem[] }) {
       {items.map((item, index) => (
         <NavItem
           active={activeIndex === index}
-          current="location"
           href={`#${item.id}`}
           key={item.id}
+          kind="anchor"
           label={item.label}
-          // A plain <a>: these are in-page hashes, so the browser's own jump is
-          // both correct and cheaper than routing through next/link.
-          native
           onClick={() => {
             setActiveIndex(index);
             userNavigating.current = true;

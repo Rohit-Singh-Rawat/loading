@@ -4,10 +4,11 @@ import { IconPause } from "central-icons-outlined/IconPause";
 import { IconPlay } from "central-icons-outlined/IconPlay";
 import { IconSidebarHiddenRightWide } from "central-icons-outlined/IconSidebarHiddenRightWide";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
-import { type CSSProperties, useState } from "react";
+import { type CSSProperties, type ReactNode, useState } from "react";
 import { getSpinner } from "@/components/spinners";
 import { Button } from "@/components/ui/button";
 import IconButton from "@/components/ui/icon-button";
+import { cn } from "@/lib/utils";
 import { CustomizePanel } from "./customize-panel";
 
 const ICON_TRANSITION = {
@@ -26,7 +27,38 @@ const PANEL_TRANSITION = {
 } as const;
 
 const CUSTOMIZE_PANEL_ID = "customize-panel";
-const CUSTOMIZE_PANEL_WIDTH = 240;
+const CUSTOMIZE_PANEL_WIDTH = 244;
+
+function CustomizeDrawer({
+  children,
+  open,
+  reduceMotion,
+}: {
+  children: ReactNode;
+  open: boolean;
+  reduceMotion: boolean;
+}) {
+  return (
+    <m.div
+      animate={{
+        opacity: open ? 1 : 0,
+        width: open ? CUSTOMIZE_PANEL_WIDTH : 0,
+      }}
+      aria-hidden={!open}
+      className={cn(
+        "shrink-0 overflow-hidden sm:h-full",
+        "max-sm:grid max-sm:w-full! max-sm:transition-[grid-template-rows] max-sm:duration-300 max-sm:ease-out",
+        open ? "max-sm:grid-rows-[1fr]" : "max-sm:grid-rows-[0fr]"
+      )}
+      id={CUSTOMIZE_PANEL_ID}
+      inert={!open}
+      initial={false}
+      transition={reduceMotion ? { duration: 0 } : PANEL_TRANSITION}
+    >
+      <div className="min-h-0 overflow-hidden sm:h-full">{children}</div>
+    </m.div>
+  );
+}
 
 function findDefaultSizeIndex(sizes: { value: number }[]): number {
   const index = sizes.findIndex((size) => size.value === 20);
@@ -67,7 +99,7 @@ export function SpinnerPreview({ slug }: { slug: string }) {
 
   return (
     <section
-      className="flex w-full scroll-mt-[100px] flex-col gap-1 rounded-2xl bg-gray-200 p-1 sm:h-[400px] sm:flex-row"
+      className="flex w-full scroll-mt-[100px] flex-col rounded-2xl bg-gray-200 p-1 sm:h-[400px] sm:flex-row"
       id="preview"
     >
       <div className="relative flex min-h-64 min-w-0 flex-1 flex-col items-center gap-3 px-4 pt-13 pb-2">
@@ -124,38 +156,29 @@ export function SpinnerPreview({ slug }: { slug: string }) {
         </Button>
       </div>
       {customization && (
-        <AnimatePresence initial={false}>
-          {customizeOpen && (
-            <m.div
-              animate={{ opacity: 1, width: CUSTOMIZE_PANEL_WIDTH }}
-              className="h-full shrink-0 overflow-hidden max-sm:h-auto max-sm:w-full"
-              exit={{ opacity: 0, width: 0 }}
-              id={CUSTOMIZE_PANEL_ID}
-              initial={{ opacity: 0, width: 0 }}
-              transition={
-                shouldReduceMotion ? { duration: 0 } : PANEL_TRANSITION
-              }
-            >
-              <CustomizePanel
-                color={color}
-                customization={customization}
-                onColorChange={setColor}
-                onOpacityChange={setOpacity}
-                onReset={() => {
-                  setSizeIndex(defaultSizeIndex);
-                  setColor(null);
-                  setSpeedMs(defaultSpeedMs);
-                  setOpacity(1);
-                }}
-                onSizeChange={setSizeIndex}
-                onSpeedChange={setSpeedMs}
-                opacity={opacity}
-                sizeIndex={sizeIndex}
-                speedMs={speedMs}
-              />
-            </m.div>
-          )}
-        </AnimatePresence>
+        <CustomizeDrawer
+          open={customizeOpen}
+          reduceMotion={Boolean(shouldReduceMotion)}
+        >
+          <CustomizePanel
+            className="max-sm:mt-1 sm:ms-1"
+            color={color}
+            customization={customization}
+            onColorChange={setColor}
+            onOpacityChange={setOpacity}
+            onReset={() => {
+              setSizeIndex(defaultSizeIndex);
+              setColor(null);
+              setSpeedMs(defaultSpeedMs);
+              setOpacity(1);
+            }}
+            onSizeChange={setSizeIndex}
+            onSpeedChange={setSpeedMs}
+            opacity={opacity}
+            sizeIndex={sizeIndex}
+            speedMs={speedMs}
+          />
+        </CustomizeDrawer>
       )}
     </section>
   );
