@@ -10,9 +10,9 @@ export function MDXHeading({
   return (
     <Heading
       as="h2"
-      className="mt-8 mb-1 scroll-mt-[100px] font-heldane"
+      className="mt-8 mb-1 scroll-mt-[100px]"
       size={4}
-      weight="regular"
+      weight="medium"
       {...rest}
     >
       {children}

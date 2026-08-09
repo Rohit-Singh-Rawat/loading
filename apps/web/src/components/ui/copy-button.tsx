@@ -3,7 +3,7 @@
 import { IconCircleCheck } from "central-icons/IconCircleCheck";
 import { IconSquareBehindSquare1 } from "central-icons-outlined/IconSquareBehindSquare1";
 import { AnimatePresence, m } from "motion/react";
-import { useRef, useState } from "react";
+import { useCopy } from "@/lib/use-copy";
 import { cn } from "@/lib/utils";
 
 const iconTransition = { bounce: 0, duration: 0.3, type: "spring" as const };
@@ -11,6 +11,12 @@ const iconTransition = { bounce: 0, duration: 0.3, type: "spring" as const };
 const roundedClasses = {
   full: "rounded-full",
   md: "rounded-md",
+} as const;
+
+const labels = {
+  copied: "Copied",
+  failed: "Unable to copy. Select the text and copy it manually",
+  idle: "Copy to clipboard",
 } as const;
 
 export function CopyButton({
@@ -24,31 +30,18 @@ export function CopyButton({
   rounded?: keyof typeof roundedClasses;
   text: string;
 }) {
-  const [copied, setCopied] = useState(false);
-  const timeoutRef = useRef<number | null>(null);
-
-  async function handleCopy() {
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch {
-      return;
-    }
-    setCopied(true);
-    if (timeoutRef.current !== null) {
-      window.clearTimeout(timeoutRef.current);
-    }
-    timeoutRef.current = window.setTimeout(() => setCopied(false), 2000);
-  }
+  const { copy, status } = useCopy(text);
+  const copied = status === "copied";
 
   return (
     <button
-      aria-label={copied ? "Copied" : "Copy to clipboard"}
+      aria-label={labels[status]}
       className={cn(
-        "link-outline group grid size-7 shrink-0 place-items-center transition-[scale,background-color] duration-200 ease-out hover-hover:hover:bg-gray-300 active:scale-[0.97]",
+        "link-outline group grid size-7 shrink-0 place-items-center transition-[scale,background-color] duration-200 ease-out hover-hover:hover:bg-gray-400 active:scale-[0.97]",
         roundedClasses[rounded],
         className
       )}
-      onClick={handleCopy}
+      onClick={copy}
       type="button"
     >
       <AnimatePresence initial={false} mode="popLayout">
@@ -74,6 +67,9 @@ export function CopyButton({
           )}
         </m.span>
       </AnimatePresence>
+      <span className="sr-only" role="status">
+        {status === "idle" ? "" : labels[status]}
+      </span>
     </button>
   );
 }

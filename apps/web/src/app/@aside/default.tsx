@@ -1,3 +1,10 @@
+import { AsideShell } from "@/components/aside/aside-shell";
+import { SocialLinks } from "@/components/aside/social-links";
+
 export default function AsideDefault() {
-  return <div className="hidden w-[240px] shrink-0 xl:block" />;
+  return (
+    <AsideShell>
+      <SocialLinks />
+    </AsideShell>
+  );
 }

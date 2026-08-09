@@ -8,8 +8,10 @@ import {
   getSpinner,
   SPINNER_ITEMS,
 } from "@/components/spinners";
-import { Heading } from "@/components/ui/heading";
+import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/components/ui/page-header";
 import { Text } from "@/components/ui/text";
+import { SITE_DESCRIPTION } from "@/lib/constants";
 
 interface Params {
   slug: string;
@@ -27,7 +29,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const item = getSpinner(slug);
   return {
-    description: item?.description,
+    description: item?.description ?? SITE_DESCRIPTION,
     title: item?.name ?? "Spinners",
   };
 }
@@ -53,17 +55,11 @@ export default async function SpinnerPage({
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-5">
-        <Heading as="h1" className="font-heldane" size={1} weight="regular">
-          <span className="block text-gray-900">Component/</span>
-          {item.name}
-        </Heading>
-        {item.description && (
-          <Text className="text-text-paragraph" size="sm">
-            {item.description}
-          </Text>
-        )}
-      </div>
+      <PageHeader
+        description={item.description}
+        eyebrow="Component/"
+        title={item.name}
+      />
       {item.component ? (
         <div className="flex flex-col">
           <SpinnerPreview slug={slug} />
@@ -74,10 +70,17 @@ export default async function SpinnerPage({
           )}
         </div>
       ) : (
-        <div className="flex h-52 items-center justify-center rounded-3xl bg-preview-bg shadow-custom">
-          <Text className="text-text-paragraph" size="sm">
-            Coming soon.
+        <div className="flex flex-col items-start gap-3 rounded-2xl bg-gray-200 p-8">
+          <Text className="text-gray-1200" size="sm" weight="semibold">
+            {item.name} is not built yet
           </Text>
+          <Text className="max-w-sm text-text-paragraph" size="sm">
+            It is on the list, but there is nothing to preview or install for it
+            today.
+          </Text>
+          <Button className="mt-1" href="/" size="xs" variant="tertiary">
+            Browse available spinners
+          </Button>
         </div>
       )}
       {(previous || next) && (

@@ -15,7 +15,7 @@
 
 @layer base {
   :root {
-    --color-gray-background: #fcfcfc;
+    --color-gray-background: #fdfdfc;
     --color-gray-100: oklch(0.991 0 0);
     --color-gray-200: oklch(0.972 0 0);
     --color-gray-300: oklch(0.955 0 0);
@@ -25,9 +25,14 @@
     --color-gray-700: oklch(0.851 0 0);
     --color-gray-800: oklch(0.792 0 0);
     --color-gray-900: oklch(0.643 0 0);
-    --color-gray-1000: oklch(0.61 0 0);
-    --color-gray-1100: oklch(0.503 0 0);
+    --color-gray-1000: oklch(0.505 0 0);
+    --color-gray-1100: oklch(0.43 0 0);
     --color-gray-1200: oklch(0.244 0 0);
+    --color-brand: #ef551a;
+    /* Two surface layers, deliberately. Content that sits in the page flow
+       (cards, figures, previews, inputs) uses gray-200 with a gray-400 border.
+       Chrome that floats above it (popovers, menus, the skip link, raised
+       buttons) uses preview-bg with a gray-400 border and shadow-custom. */
     --color-preview-bg: oklch(1 0 0);
     --color-preview-border: oklch(0.931 0 0);
     --color-text-paragraph: oklch(0.38 0 0);
@@ -53,8 +58,8 @@
       --color-gray-700: oklch(0.402 0 0);
       --color-gray-800: oklch(0.489 0 0);
       --color-gray-900: oklch(0.538 0 0);
-      --color-gray-1000: oklch(0.583 0 0);
-      --color-gray-1100: oklch(0.773 0 0);
+      --color-gray-1000: oklch(0.78 0 0);
+      --color-gray-1100: oklch(0.87 0 0);
       --color-gray-1200: oklch(0.949 0 0);
       --color-preview-bg: oklch(0.15 0 0);
       --color-preview-border: oklch(0.239 0 0);
@@ -119,16 +124,6 @@
     outline-color: var(--color-gray-900);
   }
 
-  body {
-    font-variation-settings: "opsz" auto;
-    font-feature-settings: "cv01";
-  }
-
-  code {
-    font-variation-settings: normal;
-    font-feature-settings: normal;
-  }
-
   code[data-theme] span {
     color: var(--shiki-light);
     background-color: var(--shiki-light-bg);
@@ -172,6 +167,7 @@
   --color-gray-1000: var(--color-gray-1000);
   --color-gray-1100: var(--color-gray-1100);
   --color-gray-1200: var(--color-gray-1200);
+  --color-brand: var(--color-brand);
   --color-preview-bg: var(--color-preview-bg);
   --color-preview-border: var(--color-preview-border);
   --color-text-paragraph: var(--color-text-paragraph);
@@ -179,17 +175,12 @@
   --shadow-custom: var(--shadow-custom);
   --shadow-custom-hover: var(--shadow-custom-hover);
   --font-sans: var(--font-inter);
-  --font-openrunde: var(--font-openrunde);
+  --font-sans--font-feature-settings: "cv01", "ss03";
   --font-berkeley-mono: var(--font-berkeley-mono);
-  --font-libre-baskerville: var(--font-libre-baskerville);
-  --font-heldane: var(--font-heldane);
+  --font-berkeley-mono--font-feature-settings: normal;
 }
 
 @theme {
-  /* Design base body size (13px/20px) so text-sm matches the Figma spec */
-  --text-sm: 13px;
-  --text-sm--line-height: 20px;
-
   --shadow-custom-light:
     0px 0px 0px 1px rgba(0, 0, 0, 0.06),
     0px 1px 2px -1px rgba(0, 0, 0, 0.06),
