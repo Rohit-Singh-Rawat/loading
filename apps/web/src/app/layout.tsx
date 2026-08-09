@@ -11,7 +11,7 @@ import {
   twitterHandle,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { berkeleyMono, heldane, interVariable } from "./fonts";
+import { berkeleyMono, interVariable } from "./fonts";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -73,7 +73,6 @@ export default function RootLayout({
         className={cn(
           interVariable.variable,
           berkeleyMono.variable,
-          heldane.variable,
           "bg-gray-background font-sans text-gray-1200 antialiased"
         )}
       >

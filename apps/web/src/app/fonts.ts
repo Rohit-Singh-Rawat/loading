@@ -14,24 +14,6 @@ export const interVariable = localFont({
   variable: "--font-inter",
 });
 
-export const heldane = localFont({
-  display: "swap",
-  fallback: ["Georgia", "serif"],
-  src: [
-    {
-      path: "./fonts/heldane-text-regular.woff2",
-      style: "normal",
-      weight: "400",
-    },
-    {
-      path: "./fonts/heldane-text-regular-italic.woff2",
-      style: "italic",
-      weight: "400",
-    },
-  ],
-  variable: "--font-heldane",
-});
-
 export const berkeleyMono = localFont({
   display: "swap",
   fallback: ["ui-monospace", "monospace"],

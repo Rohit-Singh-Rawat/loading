@@ -20,7 +20,7 @@ export function PageHeader({
 }) {
   return (
     <header className={cn("flex flex-col gap-5", className)}>
-      <Heading as="h1" className="font-heldane" size={size} weight="regular">
+      <Heading as="h1" size={size} weight="semibold">
         {eyebrow && <span className="block text-gray-900">{eyebrow}</span>}
         {title}
       </Heading>

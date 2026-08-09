@@ -180,7 +180,6 @@
   --shadow-custom-hover: var(--shadow-custom-hover);
   --font-sans: var(--font-inter);
   --font-berkeley-mono: var(--font-berkeley-mono);
-  --font-heldane: var(--font-heldane);
 }
 
 @theme {

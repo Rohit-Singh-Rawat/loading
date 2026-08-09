@@ -46,7 +46,7 @@ export function SegmentedControl<Value extends string | number>({
           >
             {isActive && (
               <m.span
-                className="pointer-events-none absolute inset-0 rounded-lg bg-gray-300"
+                className="pointer-events-none absolute inset-0 rounded-lg bg-gray-300 border border-gray-400"
                 layoutId={`segmented-control-${indicatorId}`}
                 transition={INDICATOR_TRANSITION}
               />
