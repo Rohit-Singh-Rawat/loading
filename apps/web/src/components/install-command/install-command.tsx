@@ -3,7 +3,7 @@ import { Text } from "@/components/ui/text";
 
 export function InstallCommand({ command }: { command: string }) {
   return (
-    <div className="flex h-11 w-full items-center gap-2 rounded-full bg-preview-bg pr-1 pl-5 shadow-custom">
+    <div className="flex h-12 w-full items-center gap-2 rounded-2xl bg-gray-200 pr-1 pl-4 border border-gray-400">
       <Text as="span" className="font-berkeley-mono text-gray-1000">
         $
       </Text>
@@ -15,9 +15,8 @@ export function InstallCommand({ command }: { command: string }) {
         {command}
       </Text>
       <CopyButton
-        className="size-9"
-        iconClassName="size-4.5"
-        rounded="full"
+        className="size-10 rounded-xl"
+        iconClassName="size-5"
         text={command}
       />
     </div>

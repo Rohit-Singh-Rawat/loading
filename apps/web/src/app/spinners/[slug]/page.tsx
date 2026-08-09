@@ -10,6 +10,8 @@ import {
 } from "@/components/spinners";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
+import { siteDescription } from "@/lib/constants";
+import { generatePageMetadata } from "@/lib/metadata";
 
 interface Params {
   slug: string;
@@ -26,10 +28,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const item = getSpinner(slug);
-  return {
-    description: item?.description,
+  return generatePageMetadata({
+    description: item?.description ?? siteDescription,
     title: item?.name ?? "Spinners",
-  };
+  });
 }
 
 export default async function SpinnerPage({

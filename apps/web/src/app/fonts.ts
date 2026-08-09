@@ -14,18 +14,6 @@ export const interVariable = localFont({
   variable: "--font-inter",
 });
 
-export const libreBaskerville = localFont({
-  display: "swap",
-  src: [
-    {
-      path: "./fonts/LibreBaskerville-Italic.woff2",
-      style: "italic",
-      weight: "400",
-    },
-  ],
-  variable: "--font-libre-baskerville",
-});
-
 export const heldane = localFont({
   display: "swap",
   fallback: ["Georgia", "serif"],
@@ -42,25 +30,6 @@ export const heldane = localFont({
     },
   ],
   variable: "--font-heldane",
-});
-
-export const openRunde = localFont({
-  adjustFontFallback: "Arial",
-  display: "swap",
-  fallback: ["system-ui", "arial"],
-  src: [
-    {
-      path: "./fonts/OpenRunde-Medium.woff2",
-      style: "normal",
-      weight: "500",
-    },
-    {
-      path: "./fonts/OpenRunde-Semibold.woff2",
-      style: "normal",
-      weight: "600",
-    },
-  ],
-  variable: "--font-openrunde",
 });
 
 export const berkeleyMono = localFont({

@@ -15,7 +15,7 @@
 
 @layer base {
   :root {
-    --color-gray-background: #fcfcfc;
+    --color-gray-background: #fdfdfc;
     --color-gray-100: oklch(0.991 0 0);
     --color-gray-200: oklch(0.972 0 0);
     --color-gray-300: oklch(0.955 0 0);
@@ -179,9 +179,7 @@
   --shadow-custom: var(--shadow-custom);
   --shadow-custom-hover: var(--shadow-custom-hover);
   --font-sans: var(--font-inter);
-  --font-openrunde: var(--font-openrunde);
   --font-berkeley-mono: var(--font-berkeley-mono);
-  --font-libre-baskerville: var(--font-libre-baskerville);
   --font-heldane: var(--font-heldane);
 }
 

@@ -13,14 +13,12 @@ export default function Home() {
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-5">
         <Heading as="h1" className="font-heldane" size={1} weight="regular">
-          Spinners.
+          Loading,
           <br />
-          No more, no less.
+          made beautiful.
         </Heading>
         <Text className="text-text-paragraph" size="sm">
-          A collection of loading indicators for interfaces that care about the
-          details. Every spinner is a small, dependency-free component — pick
-          one, add it to your project with a single command, and ship.
+         A collection of loading indicators for interfaces that care about the details. Every spinner is a small, dependency-free component — pick one, add it to your project with a single command, and ship.
         </Text>
       </header>
       <InstallCommand command="npm install loading-dev" />

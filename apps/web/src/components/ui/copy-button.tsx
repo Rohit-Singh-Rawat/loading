@@ -44,7 +44,7 @@ export function CopyButton({
     <button
       aria-label={copied ? "Copied" : "Copy to clipboard"}
       className={cn(
-        "link-outline group grid size-7 shrink-0 place-items-center transition-[scale,background-color] duration-200 ease-out hover-hover:hover:bg-gray-300 active:scale-[0.97]",
+        "link-outline group grid size-7 shrink-0 place-items-center transition-[scale,background-color] duration-200 ease-out hover-hover:hover:bg-gray-400 active:scale-[0.97]",
         roundedClasses[rounded],
         className
       )}

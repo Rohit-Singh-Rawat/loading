@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SidebarItem } from "@/components/sidebar/sidebar-item";
+import { SidebarSearch } from "@/components/sidebar/sidebar-search";
 import { SPINNER_ITEMS } from "@/components/spinners";
 
 const MAIN_NAV = [
@@ -14,11 +15,12 @@ export function Sidebar() {
     <aside className="hidden w-50 shrink-0 flex-col gap-7.5 py-25 md:flex">
       <Link
         aria-label="Home"
-        className="link-outline flex h-12 items-center self-start"
+        className="link-outline flex size-12 items-center justify-center"
         href="/"
       >
-        <div className="size-8 rounded-lg bg-gray-500" />
+        <div className="size-8 rounded-full bg-[#EF551A]" />
       </Link>
+      <SidebarSearch />
       <nav aria-label="Main" className="flex flex-col gap-0.5">
         {MAIN_NAV.map((item) => (
           <SidebarItem href={item.href} key={item.href} label={item.label} />

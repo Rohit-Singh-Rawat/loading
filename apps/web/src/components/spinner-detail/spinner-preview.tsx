@@ -56,7 +56,7 @@ export function SpinnerPreview({ slug }: { slug: string }) {
       className="flex h-[400px] w-full scroll-mt-[100px] gap-1"
       id="preview"
     >
-      <div className="relative flex min-w-0 flex-1 items-center justify-center rounded-2xl bg-preview-bg shadow-custom">
+      <div className="relative flex min-w-0 flex-1 items-center justify-center rounded-2xl bg-gray-200">
         <CardHeader className="absolute inset-x-2 top-2" title="Preview">
           <IconButton
             aria-label={paused ? "Play preview" : "Pause preview"}

@@ -4,22 +4,52 @@ import type { ReactNode } from "react";
 import { DisableThemeTransitions } from "@/components/disable-theme-transitions";
 import { MotionProvider } from "@/components/motion-provider";
 import { Sidebar } from "@/components/sidebar/sidebar";
-import { cn } from "@/lib/utils";
 import {
-  berkeleyMono,
-  heldane,
-  interVariable,
-  libreBaskerville,
-  openRunde,
-} from "./fonts";
+  domain,
+  siteDescription,
+  siteName,
+  twitterHandle,
+} from "@/lib/constants";
+import { cn } from "@/lib/utils";
+import { berkeleyMono, heldane, interVariable } from "./fonts";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  description:
-    "A collection of loading indicators for interfaces that care about the details.",
+  description: siteDescription,
+  metadataBase: new URL(domain),
+  openGraph: {
+    images: [
+      {
+        alt: siteName,
+        height: 1008,
+        type: "image/png",
+        url: "https://ru2qm1zsj1gavqlm.public.blob.vercel-storage.com/og-image.png",
+        width: 1920,
+      },
+    ],
+    locale: "en_US",
+    siteName,
+    type: "website",
+    url: domain,
+  },
+  robots: {
+    follow: true,
+    index: true,
+  },
   title: {
     default: "Spinners",
     template: "%s — Spinners",
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: twitterHandle,
+    images: [
+      {
+        alt: siteName,
+        url: "https://ru2qm1zsj1gavqlm.public.blob.vercel-storage.com/og-image.png",
+      },
+    ],
+    site: twitterHandle,
   },
 };
 
@@ -42,9 +72,7 @@ export default function RootLayout({
       <body
         className={cn(
           interVariable.variable,
-          openRunde.variable,
           berkeleyMono.variable,
-          libreBaskerville.variable,
           heldane.variable,
           "bg-gray-background font-sans text-gray-1200 antialiased"
         )}
