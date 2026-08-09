@@ -24,7 +24,7 @@ export function MobileNav() {
 
   return (
     <Dialog.Root onOpenChange={setOpen} open={open}>
-      <header className="flex h-16 items-center justify-between gap-2 px-6 md:hidden">
+      <header className="flex h-16 items-center justify-between gap-2 sm:px-6 px-5 md:hidden">
         <Logo />
         <Dialog.Trigger
           render={
@@ -41,7 +41,7 @@ export function MobileNav() {
       </header>
 
       <Dialog.Portal keepMounted>
-        <Dialog.Popup className="fixed inset-0 z-50 flex flex-col bg-surface px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] outline-hidden transition-opacity duration-100 ease-out data-closed:opacity-0 data-starting-style:opacity-0">
+        <Dialog.Popup className="fixed inset-0 z-50 flex flex-col bg-surface sm:px-6 px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] outline-hidden transition-opacity duration-100 ease-out data-closed:opacity-0 data-starting-style:opacity-0">
           <Dialog.Title className="sr-only">Site navigation</Dialog.Title>
 
           <div className="flex h-16 shrink-0 items-center justify-between">

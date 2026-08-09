@@ -82,7 +82,7 @@ export default function RootLayout({
             Skip to content
           </a>
           <MobileNav />
-          <div className="mx-auto flex min-h-dvh justify-center gap-12 px-6">
+          <div className="mx-auto flex min-h-dvh justify-center gap-12 sm:px-6 px-5">
             <Sidebar />
             <main
               className="w-full max-w-160 py-10 md:py-25"
