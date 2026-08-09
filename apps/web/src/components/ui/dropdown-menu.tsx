@@ -35,7 +35,7 @@ function DropdownMenuContent({
       <Menu.Positioner align={align} className="z-50" sideOffset={sideOffset}>
         <Menu.Popup
           className={cn(
-            "max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-y-auto overflow-x-hidden rounded-xl border border-border bg-popover p-1 text-content shadow-xs outline-hidden transition-[transform,scale,opacity] duration-150",
+            "max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-y-auto overflow-x-hidden rounded-xl bg-popover p-1 text-content shadow-custom outline-hidden transition-[transform,scale,opacity] duration-200 ease-out",
             "data-starting-style:scale-95 data-starting-style:opacity-0",
             "data-ending-style:scale-95 data-ending-style:opacity-0",
             className

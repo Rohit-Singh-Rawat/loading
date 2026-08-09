@@ -39,11 +39,7 @@ export function CustomizePanel({
   return (
     <div
       className={cn(
-        // Popover, not another translucent fill. The fills composite, so a
-        // third layer (panel inside the preview, rows inside the panel) pushed
-        // Content/Subtle under 4.5:1. An opaque surface resets the stack, and
-        // Popover is the elevated one in both appearances.
-        "flex h-full w-full shrink-0 flex-col gap-2 rounded-xl bg-popover p-2 sm:w-60",
+        "flex h-full w-full shrink-0 flex-col gap-2 rounded-xl bg-background-subtle p-2 sm:w-60",
         className
       )}
     >
