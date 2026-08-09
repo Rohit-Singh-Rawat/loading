@@ -2,11 +2,11 @@
   "name": "loading",
   "private": true,
   "scripts": {
-    "dev": "pnpm --parallel -r dev",
     "build": "pnpm -r build",
-    "lint": "biome check .",
+    "dev": "pnpm --parallel -r dev",
+    "fix": "biome check --write .",
     "format": "biome format --write .",
-    "fix": "biome check --write ."
+    "lint": "biome check ."
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.7",

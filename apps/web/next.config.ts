@@ -32,6 +32,7 @@ const withMDX = createMDX({
       ],
       "rehype-slug",
     ],
+    remarkPlugins: [["remark-smartypants", { dashes: false }]],
   },
 });
 

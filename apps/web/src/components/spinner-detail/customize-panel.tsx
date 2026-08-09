@@ -1,6 +1,6 @@
 "use client";
 
-import { IconArrowRotateCounterClockwise } from "central-icons/IconArrowRotateCounterClockwise";
+import { IconArrowRotateCounterClockwise } from "central-icons-outlined/IconArrowRotateCounterClockwise";
 import type { SpinnerCustomization } from "@/components/spinners";
 import { CardHeader } from "@/components/ui/card-header";
 import IconButton from "@/components/ui/icon-button";
@@ -34,7 +34,7 @@ export function CustomizePanel({
   const { opacity: hasOpacity, color: hasColor, sizes, speed } = customization;
 
   return (
-    <div className="flex h-full w-60 shrink-0 flex-col gap-2 rounded-xl bg-gray-300 p-2">
+    <div className="flex h-full w-full shrink-0 flex-col gap-2 rounded-xl bg-gray-300 p-2 sm:w-60">
       <CardHeader title="Customize">
         <IconButton
           aria-label="Reset customization"

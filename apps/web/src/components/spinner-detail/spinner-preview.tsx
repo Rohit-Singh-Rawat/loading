@@ -1,8 +1,8 @@
 "use client";
 
-import { IconPause } from "central-icons/IconPause";
-import { IconPlay } from "central-icons/IconPlay";
-import { IconSidebarHiddenLeftWide } from "central-icons/IconSidebarHiddenLeftWide";
+import { IconPause } from "central-icons-outlined/IconPause";
+import { IconPlay } from "central-icons-outlined/IconPlay";
+import { IconSidebarHiddenRightWide } from "central-icons-outlined/IconSidebarHiddenRightWide";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 import { type CSSProperties, useState } from "react";
 import { getSpinner } from "@/components/spinners";
@@ -12,9 +12,12 @@ import { CustomizePanel } from "./customize-panel";
 
 const ICON_TRANSITION = {
   bounce: 0,
-  duration: 0.18,
+  duration: 0.3,
   type: "spring",
 } as const;
+
+const ICON_HIDDEN = { filter: "blur(4px)", opacity: 0, scale: 0.25 } as const;
+const ICON_VISIBLE = { filter: "blur(0px)", opacity: 1, scale: 1 } as const;
 
 const PANEL_TRANSITION = {
   bounce: 0,
@@ -64,10 +67,10 @@ export function SpinnerPreview({ slug }: { slug: string }) {
 
   return (
     <section
-      className="flex h-[400px] w-full scroll-mt-[100px] gap-1 rounded-2xl bg-gray-200 p-1"
+      className="flex w-full scroll-mt-[100px] flex-col gap-1 rounded-2xl bg-gray-200 p-1 sm:h-[400px] sm:flex-row"
       id="preview"
     >
-      <div className="relative flex min-w-0 flex-1 flex-col items-center gap-3 px-4 pt-13 pb-2">
+      <div className="relative flex min-h-64 min-w-0 flex-1 flex-col items-center gap-3 px-4 pt-13 pb-2">
         {customization && (
           <IconButton
             aria-controls={CUSTOMIZE_PANEL_ID}
@@ -82,7 +85,7 @@ export function SpinnerPreview({ slug }: { slug: string }) {
             type="button"
             variant="ghost"
           >
-            <IconSidebarHiddenLeftWide className="size-4" />
+            <IconSidebarHiddenRightWide className="size-4" />
           </IconButton>
         )}
         <div className="flex min-h-0 flex-1 items-center justify-center">
@@ -94,17 +97,11 @@ export function SpinnerPreview({ slug }: { slug: string }) {
           leftIcon={
             <AnimatePresence initial={false} mode="popLayout">
               <m.span
-                animate={{ opacity: 1, scale: 1 }}
+                animate={ICON_VISIBLE}
                 aria-hidden="true"
                 className="grid"
-                exit={
-                  shouldReduceMotion
-                    ? { opacity: 1, scale: 1 }
-                    : { opacity: 0, scale: 0.75 }
-                }
-                initial={
-                  shouldReduceMotion ? false : { opacity: 0, scale: 0.75 }
-                }
+                exit={shouldReduceMotion ? ICON_VISIBLE : ICON_HIDDEN}
+                initial={shouldReduceMotion ? false : ICON_HIDDEN}
                 key={paused ? "play" : "pause"}
                 transition={
                   shouldReduceMotion ? { duration: 0 } : ICON_TRANSITION
@@ -131,7 +128,7 @@ export function SpinnerPreview({ slug }: { slug: string }) {
           {customizeOpen && (
             <m.div
               animate={{ opacity: 1, width: CUSTOMIZE_PANEL_WIDTH }}
-              className="h-full shrink-0 overflow-hidden"
+              className="h-full shrink-0 overflow-hidden max-sm:h-auto max-sm:w-full"
               exit={{ opacity: 0, width: 0 }}
               id={CUSTOMIZE_PANEL_ID}
               initial={{ opacity: 0, width: 0 }}

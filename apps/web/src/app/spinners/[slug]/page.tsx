@@ -8,6 +8,7 @@ import {
   getSpinner,
   SPINNER_ITEMS,
 } from "@/components/spinners";
+import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
 import { Text } from "@/components/ui/text";
 import { siteDescription } from "@/lib/constants";
@@ -70,10 +71,17 @@ export default async function SpinnerPage({
           )}
         </div>
       ) : (
-        <div className="flex h-52 items-center justify-center rounded-3xl bg-preview-bg shadow-custom">
-          <Text className="text-text-paragraph" size="sm">
-            Coming soon.
+        <div className="flex flex-col items-start gap-3 rounded-3xl bg-preview-bg p-8 shadow-custom">
+          <Text className="text-gray-1200" size="sm" weight="semibold">
+            {item.name} is not built yet
           </Text>
+          <Text className="max-w-sm text-text-paragraph" size="sm">
+            It is on the list, but there is nothing to preview or install for it
+            today. The spinners below are ready to use.
+          </Text>
+          <Button className="mt-1" href="/" size="xs" variant="secondary">
+            Browse available spinners
+          </Button>
         </div>
       )}
       {(previous || next) && (

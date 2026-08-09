@@ -55,7 +55,7 @@ function DropdownMenuItem({
   return (
     <Menu.Item
       className={cn(
-        "relative flex cursor-pointer select-none items-center gap-2 rounded-lg px-2 py-1.5 text-sm outline-hidden hover-hover:hover:bg-gray-300 focus:bg-gray-300 focus:text-gray-1200 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-gray-1000 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "relative flex cursor-pointer select-none items-center gap-2 rounded-lg px-2 py-1.5 text-sm hover-hover:hover:bg-gray-300 focus:bg-gray-300 focus:text-gray-1200 focus-visible:-outline-offset-2 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-gray-1000 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className
       )}
       data-slot="dropdown-menu-item"

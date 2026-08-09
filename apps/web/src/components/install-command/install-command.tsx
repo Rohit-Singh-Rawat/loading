@@ -3,7 +3,7 @@ import { Text } from "@/components/ui/text";
 
 export function InstallCommand({ command }: { command: string }) {
   return (
-    <div className="flex h-12 w-full items-center gap-2 rounded-2xl bg-gray-200 pr-1 pl-4 border border-gray-400">
+    <div className="flex h-12 w-full items-center gap-2 rounded-2xl border border-gray-400 bg-gray-200 pr-1 pl-4">
       <Text as="span" className="font-berkeley-mono text-gray-1000">
         $
       </Text>

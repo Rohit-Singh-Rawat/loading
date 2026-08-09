@@ -24,25 +24,34 @@ export function CopyButton({
   rounded?: keyof typeof roundedClasses;
   text: string;
 }) {
-  const [copied, setCopied] = useState(false);
+  const [status, setStatus] = useState<"copied" | "failed" | "idle">("idle");
   const timeoutRef = useRef<number | null>(null);
+  const copied = status === "copied";
 
   async function handleCopy() {
+    let next: "copied" | "failed" = "copied";
     try {
       await navigator.clipboard.writeText(text);
     } catch {
-      return;
+      next = "failed";
     }
-    setCopied(true);
+    setStatus(next);
     if (timeoutRef.current !== null) {
       window.clearTimeout(timeoutRef.current);
     }
-    timeoutRef.current = window.setTimeout(() => setCopied(false), 2000);
+    timeoutRef.current = window.setTimeout(() => setStatus("idle"), 2000);
+  }
+
+  let buttonLabel = "Copy to clipboard";
+  if (copied) {
+    buttonLabel = "Copied";
+  } else if (status === "failed") {
+    buttonLabel = "Unable to copy. Select the text and copy it manually";
   }
 
   return (
     <button
-      aria-label={copied ? "Copied" : "Copy to clipboard"}
+      aria-label={buttonLabel}
       className={cn(
         "link-outline group grid size-7 shrink-0 place-items-center transition-[scale,background-color] duration-200 ease-out hover-hover:hover:bg-gray-400 active:scale-[0.97]",
         roundedClasses[rounded],
@@ -74,6 +83,9 @@ export function CopyButton({
           )}
         </m.span>
       </AnimatePresence>
+      <span className="sr-only" role="status">
+        {status === "idle" ? "" : buttonLabel}
+      </span>
     </button>
   );
 }

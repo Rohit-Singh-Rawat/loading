@@ -2,8 +2,12 @@
 
 import { IconCrossMedium } from "central-icons-outlined/IconCrossMedium";
 import { IconMagnifyingGlass } from "central-icons-outlined/IconMagnifyingGlass";
+import { AnimatePresence, m } from "motion/react";
 import { useRef, useState } from "react";
 import { Text } from "@/components/ui/text";
+
+// Matches the spring the other icon transitions in the app use.
+const CLEAR_TRANSITION = { bounce: 0, duration: 0.3, type: "spring" } as const;
 
 export function SidebarSearch() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -33,16 +37,28 @@ export function SidebarSearch() {
         type="search"
         value={value}
       />
-      {value && (
-        <button
-          aria-label="Clear search"
-          className="shrink-0 text-gray-1000 hover-hover:hover:text-gray-1200"
-          onClick={clear}
-          type="button"
-        >
-          <IconCrossMedium aria-hidden="true" className="size-4" />
-        </button>
-      )}
+      <AnimatePresence initial={false}>
+        {value && (
+          <m.button
+            animate={{ opacity: 1 }}
+            aria-label="Clear search"
+            // Opacity is driven by motion, so it is deliberately absent from the
+            // CSS transition list — otherwise both would drive the same
+            // property and the fade would lag a frame behind.
+            // `after` extends the 20px circle to a 24px target without
+            // changing how it looks.
+            className="relative -mr-1 grid size-5 shrink-0 place-items-center rounded-full bg-gray-200 text-gray-1000 transition-[background-color,color] duration-200 ease-out after:absolute after:-inset-0.5 after:content-[''] hover-hover:hover:text-gray-1200"
+            exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }}
+            key="clear-search"
+            onClick={clear}
+            transition={CLEAR_TRANSITION}
+            type="button"
+          >
+            <IconCrossMedium aria-hidden="true" className="size-3.5" />
+          </m.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

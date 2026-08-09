@@ -2,6 +2,7 @@ import { IconGithub } from "central-icons/IconGithub";
 import { IconNpm } from "central-icons/IconNpm";
 import { IconX } from "central-icons/IconX";
 import type { ComponentType } from "react";
+import { cn } from "@/lib/utils";
 
 const SOCIAL_LINKS: {
   href: string;
@@ -25,9 +26,12 @@ const SOCIAL_LINKS: {
   },
 ];
 
-export function SocialLinks() {
+export function SocialLinks({ className }: { className?: string }) {
   return (
-    <nav aria-label="Social" className="flex items-center gap-0.5">
+    <nav
+      aria-label="Social"
+      className={cn("flex items-center gap-0.5", className)}
+    >
       {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
         <a
           aria-label={label}

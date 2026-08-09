@@ -60,9 +60,10 @@ export function Toc({ items }: { items: TocItem[] }) {
   }, [items]);
 
   return (
-    <nav className="flex flex-col gap-0.5">
+    <nav aria-label="On this page" className="flex flex-col gap-0.5">
       {items.map((item, index) => (
         <Text
+          aria-current={activeIndex === index ? "location" : undefined}
           as="a"
           className={cn(
             "link-outline flex h-8 w-full items-center rounded-lg px-3",
@@ -72,18 +73,9 @@ export function Toc({ items }: { items: TocItem[] }) {
           )}
           href={`#${item.id}`}
           key={item.id}
-          onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
-            event.preventDefault();
+          onClick={() => {
             setActiveIndex(index);
             userNavigating.current = true;
-
-            const element = document.getElementById(item.id);
-            if (element) {
-              const top =
-                element.getBoundingClientRect().top + window.scrollY - 100;
-              window.scrollTo({ behavior: "instant", top });
-            }
-
             window.setTimeout(() => {
               userNavigating.current = false;
             }, 300);

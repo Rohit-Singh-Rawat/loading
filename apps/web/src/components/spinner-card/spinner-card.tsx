@@ -11,10 +11,10 @@ export function SpinnerCard({ item }: { item: SpinnerItem }) {
         {Spinner ? <Spinner size={16} /> : null}
         <Text
           as="span"
-          className="absolute inset-x-0 bottom-6 text-center text-gray-1000"
+          className="absolute inset-x-0 bottom-6 text-center text-gray-1000 lowercase"
           size="sm"
         >
-          {item.name.toLowerCase()}
+          {item.name}
         </Text>
       </div>
     </Link>

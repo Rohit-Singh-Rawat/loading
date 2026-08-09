@@ -2,8 +2,8 @@
   "name": "web",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "pnpm --filter loading-dev build && next build",
+    "dev": "next dev",
     "start": "next start"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "react-dom": "19.2.6",
     "rehype-pretty-code": "^0.14.5",
     "rehype-slug": "^6.0.0",
+    "remark-smartypants": "^3.0.3",
     "shiki": "^4.4.2",
     "tailwind-merge": "^3.6.0"
   },
