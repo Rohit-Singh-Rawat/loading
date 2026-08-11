@@ -5,6 +5,10 @@ import { Text } from "@/components/ui/text";
 export function SpinnerCard({ item }: { item: SpinnerItem }) {
   const Spinner = item.component;
 
+  if (!Spinner) {
+    return <SpinnerCardPlaceholder item={item} />;
+  }
+
   return (
     <Link
       className="link-outline group rounded-3xl"
@@ -12,12 +16,10 @@ export function SpinnerCard({ item }: { item: SpinnerItem }) {
     >
       <div className="relative flex h-52 flex-col items-center justify-center rounded-3xl bg-background transition-colors duration-200 ease-out group-hover:bg-background-hovered">
         <div className="mt-4 flex h-full w-full items-center justify-center">
-          {Spinner ? <Spinner size={40} /> : null}
+          <Spinner size={40} />
         </div>
         <Text
           as="span"
-          // Content/Subtle only clears 4.28:1 on the hovered fill, so the label
-          // steps up with the background — same pairing NavItem uses.
           className="w-full p-4 text-center text-content-subtle lowercase transition-colors duration-200 ease-out group-hover:text-content"
           size="sm"
         >
@@ -25,5 +27,27 @@ export function SpinnerCard({ item }: { item: SpinnerItem }) {
         </Text>
       </div>
     </Link>
+  );
+}
+
+// Registry entries without a `component` are spinners that are planned but not
+// built yet — they get an inert card so the grid keeps its rhythm.
+export function SpinnerCardPlaceholder({ item }: { item: SpinnerItem }) {
+  return (
+    <div className="relative flex h-52 flex-col items-center justify-center rounded-3xl border border-border border-dashed bg-background-subtle">
+      <div className="mt-4 flex h-full w-full items-center justify-center">
+        <div
+          aria-hidden="true"
+          className="size-10 rounded-full border border-border border-dashed"
+        />
+      </div>
+      <Text
+        as="span"
+        className="w-full p-4 text-center text-content-subtle/60 lowercase"
+        size="sm"
+      >
+        {item.name} · soon
+      </Text>
+    </div>
   );
 }
