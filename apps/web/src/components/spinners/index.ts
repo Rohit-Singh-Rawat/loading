@@ -7,134 +7,116 @@ import {
   Orbit,
   Ring,
   Ripple,
+  SPINNER_MOTION,
+  type SpinnerName,
   type SpinnerProps,
 } from "loading-dev";
 import type { ComponentType } from "react";
 
+export interface SpinnerSize {
+  /** Selected when the page loads. Exactly one size sets this. */
+  default?: boolean;
+  label: string;
+  value: number;
+}
+
 export interface SpinnerCustomization {
-  color?: boolean;
-  opacity?: boolean;
-  sizes?: { label: string; value: number }[];
-  speed?: { default: number; max: number; min: number };
+  color: boolean;
+  opacity: boolean;
+  sizes: SpinnerSize[];
+  speed: { default: number; max: number; min: number };
 }
 
 export interface SpinnerItem {
   component: ComponentType<SpinnerProps>;
-  customization?: SpinnerCustomization;
-  description?: string;
-  hasDocs?: boolean;
+  customization: SpinnerCustomization;
+  description: string;
   name: string;
+  /** Also the filename of the spinner's MDX document. */
   slug: string;
 }
 
-const DEFAULT_SIZES = [
+const DEFAULT_SIZES: SpinnerSize[] = [
   { label: "Small", value: 24 },
-  { label: "Medium", value: 48 },
+  { default: true, label: "Medium", value: 48 },
   { label: "Large", value: 96 },
 ];
 
+/**
+ * Every spinner offers the same controls; only the speed range differs. The
+ * speed's default is read from the library rather than restated here, so the
+ * slider resets to the duration the CSS actually uses.
+ */
+function customizationFor(
+  name: SpinnerName,
+  speed: { max: number; min: number }
+): SpinnerCustomization {
+  return {
+    color: true,
+    opacity: true,
+    sizes: DEFAULT_SIZES,
+    speed: { default: SPINNER_MOTION[name].duration, ...speed },
+  };
+}
+
+/**
+ * The catalog. This array's order is the order everywhere: the homepage grid,
+ * the sidebar, and previous/next on a spinner page.
+ */
 export const SPINNER_ITEMS: SpinnerItem[] = [
   {
     component: Arc,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 800, max: 2000, min: 200 },
-    },
+    customization: customizationFor("arc", { max: 2000, min: 200 }),
     description: "A single open stroke sweeping around a circular track.",
-    hasDocs: true,
     name: "Arc",
     slug: "arc",
   },
   {
-    component: BouncingDots,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 500, max: 1200, min: 150 },
-    },
-    description: "Three dots bouncing in a staggered rhythm.",
-    hasDocs: true,
-    name: "Bouncing dots",
-    slug: "bouncing-dots",
-  },
-  {
     component: Classic,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 1200, max: 2400, min: 400 },
-    },
+    customization: customizationFor("classic", { max: 2400, min: 400 }),
     description: "Twelve fading bars arranged in the classic radial spinner.",
-    hasDocs: true,
     name: "Classic",
     slug: "classic",
   },
   {
+    component: Ring,
+    customization: customizationFor("ring", { max: 2000, min: 200 }),
+    description: "A rotating arc riding a faint circular track.",
+    name: "Ring",
+    slug: "ring",
+  },
+  {
+    component: BouncingDots,
+    customization: customizationFor("bouncing-dots", { max: 1200, min: 150 }),
+    description: "Three dots bouncing in a staggered rhythm.",
+    name: "Bouncing dots",
+    slug: "bouncing-dots",
+  },
+  {
     component: Comet,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 700, max: 2000, min: 200 },
-    },
+    customization: customizationFor("comet", { max: 2000, min: 200 }),
     description: "A full ring fading into a bright leading head.",
-    hasDocs: true,
     name: "Comet",
     slug: "comet",
   },
   {
-    component: Grid,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 1200, max: 2400, min: 400 },
-    },
-    description: "A four-by-four pixel grid lit row by row.",
-    hasDocs: true,
-    name: "Grid",
-    slug: "grid",
-  },
-  {
-    component: Ring,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 800, max: 2000, min: 200 },
-    },
-    description: "A rotating arc riding a faint circular track.",
-    hasDocs: true,
-    name: "Loader",
-    slug: "loader",
-  },
-  {
     component: Orbit,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 750, max: 2000, min: 200 },
-    },
+    customization: customizationFor("orbit", { max: 2000, min: 200 }),
     description: "A fading half-arc circling a fixed center dot.",
-    hasDocs: true,
     name: "Orbit",
     slug: "orbit",
   },
   {
+    component: Grid,
+    customization: customizationFor("grid", { max: 2400, min: 400 }),
+    description: "A four-by-four pixel grid lit row by row.",
+    name: "Grid",
+    slug: "grid",
+  },
+  {
     component: Ripple,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 1200, max: 2400, min: 400 },
-    },
+    customization: customizationFor("ripple", { max: 2400, min: 400 }),
     description: "A pixel grid pulsing outward from its center.",
-    hasDocs: true,
     name: "Ripple",
     slug: "ripple",
   },

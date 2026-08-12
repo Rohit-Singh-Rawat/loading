@@ -46,10 +46,9 @@ export default async function SpinnerPage({
 
   const { next, previous } = getAdjacentSpinners(slug);
 
-  let Content: ComponentType | null = null;
-  if (item.hasDocs) {
-    ({ default: Content } = await import(`@/content/spinners/${slug}.mdx`));
-  }
+  const { default: Content }: { default: ComponentType } = await import(
+    `@/content/spinners/${slug}.mdx`
+  );
 
   return (
     <div className="flex flex-col gap-8">
@@ -60,11 +59,9 @@ export default async function SpinnerPage({
       />
       <div className="flex flex-col">
         <SpinnerPreview slug={slug} />
-        {Content && (
-          <div className="mt-2.5 flex flex-col">
-            <Content />
-          </div>
-        )}
+        <div className="mt-2.5 flex flex-col">
+          <Content />
+        </div>
       </div>
       {(previous || next) && (
         <>

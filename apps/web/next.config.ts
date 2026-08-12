@@ -14,6 +14,17 @@ const nextConfig = {
   },
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   reactCompiler: true,
+  // The Ring spinner shipped as "Loader" on the site while the package always
+  // exported `Ring`. The package name won; this keeps the old URL working.
+  async redirects() {
+    return [
+      {
+        destination: "/spinners/ring",
+        permanent: true,
+        source: "/spinners/loader",
+      },
+    ];
+  },
   turbopack: {
     root: path.resolve(import.meta.dirname, "../.."),
   },
