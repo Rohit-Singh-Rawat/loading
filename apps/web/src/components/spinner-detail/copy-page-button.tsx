@@ -1,9 +1,9 @@
 "use client";
 
-import { IconClaudeai } from "central-icons/IconClaudeai";
-import { IconOpenai } from "central-icons/IconOpenai";
 import { IconChevronDownMedium } from "central-icons/IconChevronDownMedium";
+import { IconClaudeai } from "central-icons/IconClaudeai";
 import { IconMarkdown } from "central-icons/IconMarkdown";
+import { IconOpenai } from "central-icons/IconOpenai";
 import { IconSquareBehindSquare1 } from "central-icons/IconSquareBehindSquare1";
 import {
   DropdownMenu,
@@ -41,7 +41,7 @@ export function CopyPageButton({
   return (
     <div className="flex flex-col gap-1.5">
       <DropdownMenu>
-        <DropdownMenuTrigger className="link-outline group flex h-8 w-full cursor-pointer items-center gap-2 rounded-lg bg-background-subtle px-3 outline-light transition-colors duration-200 hover-hover:hover:bg-background">
+        <DropdownMenuTrigger className="link-outline group flex h-8 w-full cursor-pointer items-center gap-2 rounded-lg bg-popover px-3 shadow-custom transition-colors duration-200 hover-hover:hover:bg-background-subtle">
           <Text as="span" className="flex-1 text-left text-content" size="sm">
             Copy page
           </Text>
