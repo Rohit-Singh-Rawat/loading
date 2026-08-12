@@ -70,7 +70,7 @@ export function SpinnerPreview({ slug }: { slug: string }) {
 
   return (
     <section
-      className="flex w-full scroll-mt-[100px] flex-col rounded-2xl bg-background p-1 sm:h-[400px] sm:flex-row"
+      className="flex w-full scroll-mt-25 flex-col rounded-2xl border border-border bg-background p-1 sm:h-100 sm:flex-row"
       id="preview"
     >
       <div className="relative flex min-h-64 min-w-0 flex-1 flex-col items-center px-4 pt-13 pb-2">

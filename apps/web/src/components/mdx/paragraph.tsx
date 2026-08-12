@@ -8,11 +8,7 @@ export function MDXParagraph({
   children: ReactNode;
 } & Record<string, unknown>) {
   return (
-    <Text
-      className="mt-2 text-content-subtle first:mt-0"
-      size={{ initial: "base", md: "sm" }}
-      {...rest}
-    >
+    <Text className="mt-2 text-content-subtle first:mt-0" size="base" {...rest}>
       {children}
     </Text>
   );

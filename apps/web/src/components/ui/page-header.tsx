@@ -20,10 +20,7 @@ export function PageHeader({
         {title}
       </Heading>
       {description && (
-        <Text
-          className="max-w-lg text-pretty text-content-subtle"
-          size={{ initial: "base", md: "sm" }}
-        >
+        <Text className="max-w-lg text-pretty text-content-subtle" size="base">
           {description}
         </Text>
       )}
