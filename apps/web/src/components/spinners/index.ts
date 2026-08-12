@@ -2,7 +2,11 @@ import {
   Arc,
   BouncingDots,
   Classic,
+  Comet,
+  Grid,
+  Orbit,
   Ring,
+  Ripple,
   type SpinnerProps,
 } from "loading-dev";
 import type { ComponentType } from "react";
@@ -74,6 +78,32 @@ export const SPINNER_ITEMS: SpinnerItem[] = [
     slug: "classic",
   },
   {
+    component: Comet,
+    customization: {
+      color: true,
+      opacity: true,
+      sizes: DEFAULT_SIZES,
+      speed: { default: 700, max: 2000, min: 200 },
+    },
+    description: "A full ring fading into a bright leading head.",
+    hasDocs: true,
+    name: "Comet",
+    slug: "comet",
+  },
+  {
+    component: Grid,
+    customization: {
+      color: true,
+      opacity: true,
+      sizes: DEFAULT_SIZES,
+      speed: { default: 1200, max: 2400, min: 400 },
+    },
+    description: "A four-by-four pixel grid lit row by row.",
+    hasDocs: true,
+    name: "Grid",
+    slug: "grid",
+  },
+  {
     component: Ring,
     customization: {
       color: true,
@@ -85,6 +115,32 @@ export const SPINNER_ITEMS: SpinnerItem[] = [
     hasDocs: true,
     name: "Loader",
     slug: "loader",
+  },
+  {
+    component: Orbit,
+    customization: {
+      color: true,
+      opacity: true,
+      sizes: DEFAULT_SIZES,
+      speed: { default: 750, max: 2000, min: 200 },
+    },
+    description: "A fading half-arc circling a fixed center dot.",
+    hasDocs: true,
+    name: "Orbit",
+    slug: "orbit",
+  },
+  {
+    component: Ripple,
+    customization: {
+      color: true,
+      opacity: true,
+      sizes: DEFAULT_SIZES,
+      speed: { default: 1200, max: 2400, min: 400 },
+    },
+    description: "A pixel grid pulsing outward from its center.",
+    hasDocs: true,
+    name: "Ripple",
+    slug: "ripple",
   },
 ];
 

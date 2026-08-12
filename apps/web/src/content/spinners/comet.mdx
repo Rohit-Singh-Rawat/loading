@@ -1,0 +1,29 @@
+```tsx showLineNumbers
+import { Comet } from "loading-dev";
+
+export function CometDemo() {
+  return <Comet size={20} />;
+}
+```
+
+## Customization
+
+Use the `size` prop for the spinner's dimensions — the ring's thickness and
+its leading dot scale proportionally. Tint it with the CSS `color` property
+via `currentColor`. Motion is controlled with CSS variables:
+`--ld-duration` sets the rotation speed and `--ld-play-state` pauses or
+resumes the animation.
+
+## Usage
+
+The tail fades all the way to transparent, so the spinner reads as fast and
+light even at rest. That suits inline affordances on toolbars and headers
+where a full-contrast ring would draw too much attention. Set the variables
+on any wrapper — they cascade down to the spinner.
+
+```tsx title="toolbar.tsx"
+<div className="flex items-center gap-2 text-gray-500">
+  <Comet size={16} />
+  Saving…
+</div>
+```

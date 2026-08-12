@@ -1,0 +1,27 @@
+```tsx showLineNumbers
+import { Orbit } from "loading-dev";
+
+export function OrbitDemo() {
+  return <Orbit size={20} />;
+}
+```
+
+## Customization
+
+Use the `size` prop for the spinner's dimensions — the arc, its stroke, and
+the center dot scale proportionally. Tint it with the CSS `color` property
+via `currentColor`. Motion is controlled with CSS variables:
+`--ld-duration` sets the rotation speed and `--ld-play-state` pauses or
+resumes the animation.
+
+## Usage
+
+The fixed center dot keeps the spinner anchored while the arc sweeps around
+it, which reads well when the spinner replaces an icon in place. Set the
+variables on any wrapper — they cascade down to the spinner.
+
+```tsx title="row-action.tsx"
+<button disabled={pending} type="button">
+  {pending ? <Orbit size={16} /> : <IconRefresh />}
+</button>
+```

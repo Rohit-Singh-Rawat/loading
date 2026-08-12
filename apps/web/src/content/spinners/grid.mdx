@@ -1,0 +1,29 @@
+```tsx showLineNumbers
+import { Grid } from "loading-dev";
+
+export function GridDemo() {
+  return <Grid size={20} />;
+}
+```
+
+## Customization
+
+Use the `size` prop for the spinner's dimensions — the cells and the gaps
+between them scale proportionally, so the grid stays square at any size.
+Tint it with the CSS `color` property via `currentColor`. Motion is
+controlled with CSS variables: `--ld-duration` sets the time for one full
+pass down the grid and `--ld-play-state` pauses or resumes the animation.
+
+## Usage
+
+A brightness wave falls one row at a time, which reads as steady progress
+rather than an indefinite spin. It suits terminals, status bars, and any
+surface with a pixel-leaning aesthetic. Set the variables on any wrapper —
+they cascade down to the spinner.
+
+```tsx title="status-bar.tsx"
+<div className="flex items-center gap-2 text-gray-500">
+  <Grid size={16} />
+  Indexing…
+</div>
+```

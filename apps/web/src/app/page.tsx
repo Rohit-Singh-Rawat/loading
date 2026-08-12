@@ -3,7 +3,16 @@ import { SpinnerCard } from "@/components/spinner-card/spinner-card";
 import { getSpinner, SPINNER_ITEMS } from "@/components/spinners";
 import { PageHeader } from "@/components/ui/page-header";
 
-const FEATURED_SLUGS = ["arc", "classic", "loader", "bouncing-dots"];
+const FEATURED_SLUGS = [
+  "arc",
+  "classic",
+  "loader",
+  "bouncing-dots",
+  "comet",
+  "orbit",
+  "grid",
+  "ripple",
+];
 const COLUMNS = 3;
 
 export default function Home() {
