@@ -6,6 +6,7 @@ import { IconSidebarHiddenRightWide } from "central-icons-outlined/IconSidebarHi
 import { type ReactNode, useState } from "react";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
 import IconButton from "@/components/ui/icon-button";
+import { SCROLL_MARGIN } from "@/lib/scroll-offset";
 import { cn } from "@/lib/utils";
 import { CustomizePanel } from "./customize-panel";
 import { useSpinnerCustomization } from "./spinner-customization";
@@ -39,7 +40,10 @@ export function SpinnerPreview() {
 
   return (
     <section
-      className="flex w-full scroll-mt-25 flex-col rounded-2xl border border-border bg-background p-1 sm:h-100 sm:flex-row"
+      className={cn(
+        "flex w-full flex-col rounded-2xl border border-border bg-background p-1 sm:h-100 sm:flex-row",
+        SCROLL_MARGIN
+      )}
       id="preview"
     >
       <div className="relative flex min-h-64 min-w-0 flex-1 flex-col items-center px-4 pt-13 pb-2">

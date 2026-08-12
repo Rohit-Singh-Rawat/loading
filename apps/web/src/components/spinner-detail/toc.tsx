@@ -2,17 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { NavItem } from "@/components/ui/nav-item";
+import { SCROLL_OFFSET_PX } from "@/lib/scroll-offset";
 
 export interface TocItem {
   id: string;
   label: string;
 }
-
-export const TOC_ITEMS: TocItem[] = [
-  { id: "preview", label: "Preview" },
-  { id: "customization", label: "Customization" },
-  { id: "usage", label: "Usage" },
-];
 
 export function Toc({ items }: { items: TocItem[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -45,7 +40,7 @@ export function Toc({ items }: { items: TocItem[] }) {
 
         setActiveIndex(Math.min(...Array.from(visibleSet)));
       },
-      { rootMargin: "-100px 0px 0px 0px" }
+      { rootMargin: `-${SCROLL_OFFSET_PX}px 0px 0px 0px` }
     );
 
     for (const item of items) {
