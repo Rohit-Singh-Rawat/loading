@@ -14,6 +14,8 @@ All commands run from the repo root (`pnpm@11.8.0` workspace):
 
 There is no test suite.
 
+Domain vocabulary lives in `CONTEXT.md` — read it before naming anything.
+
 ## Architecture
 
 pnpm monorepo with two workspaces:
@@ -29,20 +31,25 @@ Plus one directory that is **not** a workspace member:
 
 Each spinner is one self-contained `.tsx` file:
 
-- CSS lives inline in the component via React 19's style hoisting: `<style href="ld-<name>" precedence="loading-dev">` — no CSS files, no bundler CSS handling for consumers.
-- Class names are prefixed `ld-` (e.g. `ld-arc`), merged with the local `classNames` helper (not the web app's `cn`).
+- CSS lives inline in the component via React 19's style hoisting — no CSS files, no bundler CSS handling for consumers. Use `SpinnerStyle` from `frame.tsx` rather than writing the `<style>` tag; it derives the stylesheet key from the spinner's `ld-` key.
+- Class names are prefixed `ld-` (e.g. `ld-arc`). `spinnerRoot()` in `frame.tsx` supplies the root element's shared attributes: `aria-hidden`, the merged class name, and `--spinner-size`.
 - Every animation must have a `@media (prefers-reduced-motion: reduce)` fallback.
-- All spinners take `SpinnerProps` from `types.ts`: `{ className?, size? }` with `size` defaulting to 20, and use `currentColor` so they inherit text color.
+- Never write a duration or the 20px default as a literal. Durations come from `duration(name)` and the size from `SIZE`/`DEFAULT_SIZE`, both re-exported through `frame.tsx` — see `CONTEXT.md` on the motion contract.
+- All spinners take `SpinnerProps` from `types.ts`: `{ className?, size? }`, and use `currentColor` so they inherit text color.
 - Export new spinners from `src/index.ts` (a barrel by design — Biome's `noBarrelFile` is disabled for package entry points).
 
 ### Adding a spinner (cross-package workflow)
 
 1. Create `packages/loading/src/<name>.tsx` following the conventions above; export it from `src/index.ts`.
-2. Register it in `apps/web/src/components/spinners/index.ts` (`SPINNER_ITEMS`). This registry drives the sidebar, the components index, and `generateStaticParams` for `/spinners/[slug]`. Every entry must have a `component` — the site has no placeholder/"coming soon" state, so a spinner only appears here once it is built.
+2. Add its default duration to `SPINNER_MOTION` in `packages/loading/src/motion.ts`. The key is the spinner's `ld-` key, and `SpinnerStyle`/`spinnerRoot` will not type-check without it.
+3. Add a row to `packages/loading/README.md`.
+4. Register it in `apps/web/src/components/spinners/index.ts` (`SPINNER_ITEMS`). This drives the homepage, the sidebar, previous/next, and `generateStaticParams` — **array position is the display order**. Every entry needs a `component`; the site has no placeholder state, so a spinner only appears once it is built.
+5. Write `apps/web/src/content/spinners/<slug>.mdx` — prose only. The opening code example is generated from the live preview state, not written here. A missing file is a build error.
+6. Add it to `SPINNERS` in `examples/consumer/app/page.tsx`, or the post-publish check will not cover it.
 
 ### Web app conventions (`apps/web`)
 
-- Tailwind CSS v4, CSS-first config: design tokens (custom gray scale `--color-gray-100`–`1200`, shadows, etc.) are defined in `src/styles/globals.css` under `@layer base`; dark mode is via `prefers-color-scheme`, not a class toggle. Additional styles are split into `src/styles/{components,enter-animation,utilities}.css`.
+- Tailwind CSS v4, CSS-first config: semantic colour tokens (`--color-content`, `--color-background`, `--color-surface`, `--color-popover`, `--color-border`, `--color-orange`, and their `-subtle`/`-hovered` variants), shadows and fonts are defined in `src/styles/globals.css`; dark mode is via `prefers-color-scheme`, not a class toggle. Additional styles are split into `src/styles/{components,utilities}.css`.
 - React Compiler handles memoization — do not add `useCallback`/`useMemo` for that purpose (Biome's `noJsxPropsBind` is intentionally off for this reason).
 - Class merging uses `cn` from `src/lib/utils.ts` (clsx + tailwind-merge).
 - Fonts are local woff2 files in `src/app/fonts/`, wired through `src/app/fonts.ts` and applied as CSS variables in the root layout.
