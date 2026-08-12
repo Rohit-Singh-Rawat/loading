@@ -11,14 +11,14 @@ import { IconMagnifyingGlass } from "central-icons-outlined/IconMagnifyingGlass"
 import { Command, useCommandState } from "cmdk";
 import { usePathname, useRouter } from "next/navigation";
 import { type RefObject, useRef, useState } from "react";
-import { AVAILABLE_SPINNERS } from "@/components/spinners";
+import { SPINNER_ITEMS } from "@/components/spinners";
 import { Kbd } from "@/components/ui/kbd";
 import { useKeysPressed } from "@/lib/use-keys-pressed";
 import { cn } from "@/lib/utils";
 
 const ROWS: { href: string; keywords?: string[]; title: string }[] = [
   { href: "/", title: "Overview" },
-  ...AVAILABLE_SPINNERS.map((item) => ({
+  ...SPINNER_ITEMS.map((item) => ({
     href: `/spinners/${item.slug}`,
     keywords: [item.slug],
     title: item.name,
@@ -53,8 +53,6 @@ export function SearchDialog({
     }
   }
 
-  // Navigate once the dialog has finished closing, so the exit transition
-  // doesn't run against a page swap.
   const navigateTo = (href: string) => {
     navigatedRef.current = true;
     pendingHrefRef.current = href;

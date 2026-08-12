@@ -51,10 +51,10 @@ export function SpinnerPreview({ slug }: { slug: string }) {
   const [speedMs, setSpeedMs] = useState(defaultSpeedMs);
   const [opacity, setOpacity] = useState(1);
 
-  const Spinner = item?.component;
-  if (!(item && Spinner)) {
+  if (!item) {
     return null;
   }
+  const Spinner = item.component;
 
   const wrapperStyle: CSSProperties = {
     "--ld-play-state": paused ? "paused" : "running",

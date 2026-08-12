@@ -8,9 +8,7 @@ import {
   getSpinner,
   SPINNER_ITEMS,
 } from "@/components/spinners";
-import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
-import { Text } from "@/components/ui/text";
 import { SITE_DESCRIPTION } from "@/lib/constants";
 
 interface Params {
@@ -60,29 +58,14 @@ export default async function SpinnerPage({
         eyebrow="Component/"
         title={item.name}
       />
-      {item.component ? (
-        <div className="flex flex-col">
-          <SpinnerPreview slug={slug} />
-          {Content && (
-            <div className="mt-2.5 flex flex-col">
-              <Content />
-            </div>
-          )}
-        </div>
-      ) : (
-        <div className="flex flex-col items-start gap-3 rounded-2xl bg-background p-8">
-          <Text className="text-content" size="sm" weight="semibold">
-            {item.name} is not built yet
-          </Text>
-          <Text className="max-w-sm text-content-subtle" size="sm">
-            It is on the list, but there is nothing to preview or install for it
-            today.
-          </Text>
-          <Button className="mt-1" href="/" size="xs" variant="tertiary">
-            Browse available spinners
-          </Button>
-        </div>
-      )}
+      <div className="flex flex-col">
+        <SpinnerPreview slug={slug} />
+        {Content && (
+          <div className="mt-2.5 flex flex-col">
+            <Content />
+          </div>
+        )}
+      </div>
       {(previous || next) && (
         <>
           <hr className="border-border" />

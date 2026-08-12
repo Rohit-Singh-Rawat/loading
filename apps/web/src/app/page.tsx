@@ -1,6 +1,6 @@
 import { InstallCommand } from "@/components/install-command/install-command";
 import { SpinnerCard } from "@/components/spinner-card/spinner-card";
-import { getSpinner, SPINNER_ITEMS } from "@/components/spinners";
+import { getSpinner } from "@/components/spinners";
 import { PageHeader } from "@/components/ui/page-header";
 
 const FEATURED_SLUGS = [
@@ -13,14 +13,9 @@ const FEATURED_SLUGS = [
   "grid",
   "ripple",
 ];
-const COLUMNS = 3;
 
 export default function Home() {
   const featured = FEATURED_SLUGS.flatMap((slug) => getSpinner(slug) ?? []);
-  const placeholders = SPINNER_ITEMS.filter((item) => !item.component).slice(
-    0,
-    (COLUMNS - (featured.length % COLUMNS)) % COLUMNS
-  );
 
   return (
     <div className="flex flex-col gap-6">
@@ -36,7 +31,7 @@ export default function Home() {
       />
       <InstallCommand command="npm install loading-dev" />
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-        {[...featured, ...placeholders].map((item) => (
+        {featured.map((item) => (
           <SpinnerCard item={item} key={item.slug} />
         ))}
       </div>

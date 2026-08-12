@@ -38,7 +38,7 @@ Each spinner is one self-contained `.tsx` file:
 ### Adding a spinner (cross-package workflow)
 
 1. Create `packages/loading/src/<name>.tsx` following the conventions above; export it from `src/index.ts`.
-2. Register it in `apps/web/src/components/spinners/index.ts` (`SPINNER_ITEMS`). This registry drives the sidebar, the components index, and `generateStaticParams` for `/spinners/[slug]`. Entries without a `component` are placeholders for planned spinners.
+2. Register it in `apps/web/src/components/spinners/index.ts` (`SPINNER_ITEMS`). This registry drives the sidebar, the components index, and `generateStaticParams` for `/spinners/[slug]`. Every entry must have a `component` — the site has no placeholder/"coming soon" state, so a spinner only appears here once it is built.
 
 ### Web app conventions (`apps/web`)
 

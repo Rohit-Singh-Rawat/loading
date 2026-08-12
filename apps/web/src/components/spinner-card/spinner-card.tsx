@@ -5,10 +5,6 @@ import { Text } from "@/components/ui/text";
 export function SpinnerCard({ item }: { item: SpinnerItem }) {
   const Spinner = item.component;
 
-  if (!Spinner) {
-    return <SpinnerCardPlaceholder item={item} />;
-  }
-
   return (
     <Link
       className="link-outline group rounded-3xl"
@@ -27,25 +23,5 @@ export function SpinnerCard({ item }: { item: SpinnerItem }) {
         </Text>
       </div>
     </Link>
-  );
-}
-
-export function SpinnerCardPlaceholder({ item }: { item: SpinnerItem }) {
-  return (
-    <div className="relative flex h-52 flex-col items-center justify-center rounded-3xl border border-border border-dashed bg-background-subtle">
-      <div className="mt-4 flex h-full w-full items-center justify-center">
-        <div
-          aria-hidden="true"
-          className="size-10 rounded-full border border-border border-dashed"
-        />
-      </div>
-      <Text
-        as="span"
-        className="w-full p-4 text-center text-content-subtle/60 lowercase"
-        size="sm"
-      >
-        {item.name} · soon
-      </Text>
-    </div>
   );
 }

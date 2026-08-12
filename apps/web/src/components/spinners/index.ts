@@ -19,7 +19,7 @@ export interface SpinnerCustomization {
 }
 
 export interface SpinnerItem {
-  component?: ComponentType<SpinnerProps>;
+  component: ComponentType<SpinnerProps>;
   customization?: SpinnerCustomization;
   description?: string;
   hasDocs?: boolean;
@@ -34,7 +34,6 @@ const DEFAULT_SIZES = [
 ];
 
 export const SPINNER_ITEMS: SpinnerItem[] = [
-  { name: "Accordion loader", slug: "accordion-loader" },
   {
     component: Arc,
     customization: {
@@ -48,9 +47,6 @@ export const SPINNER_ITEMS: SpinnerItem[] = [
     name: "Arc",
     slug: "arc",
   },
-  { name: "Analyzing image", slug: "analyzing-image" },
-  { name: "Bars", slug: "bars" },
-  { name: "Bobbing dots", slug: "bobbing-dots" },
   {
     component: BouncingDots,
     customization: {
@@ -144,10 +140,6 @@ export const SPINNER_ITEMS: SpinnerItem[] = [
   },
 ];
 
-export const AVAILABLE_SPINNERS: SpinnerItem[] = SPINNER_ITEMS.filter(
-  (item) => item.component
-);
-
 export function getSpinner(slug: string): SpinnerItem | undefined {
   return SPINNER_ITEMS.find((item) => item.slug === slug);
 }
@@ -156,13 +148,12 @@ export function getAdjacentSpinners(slug: string): {
   next?: SpinnerItem;
   previous?: SpinnerItem;
 } {
-  const available = AVAILABLE_SPINNERS;
-  const index = available.findIndex((item) => item.slug === slug);
+  const index = SPINNER_ITEMS.findIndex((item) => item.slug === slug);
   if (index === -1) {
     return {};
   }
   return {
-    next: available[index + 1],
-    previous: available[index - 1],
+    next: SPINNER_ITEMS[index + 1],
+    previous: SPINNER_ITEMS[index - 1],
   };
 }
