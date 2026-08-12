@@ -1,15 +1,15 @@
-import type { CSSProperties } from "react";
-import { classNames } from "./class-names";
+import { DEFAULT_SIZE, SIZE, SpinnerStyle, spinnerRoot } from "./frame";
+import { duration, PLAY_STATE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
 .ld-comet {
-  --ld-comet-stroke: calc(var(--spinner-size, 20px) * 0.12);
+  --ld-comet-stroke: calc(${SIZE} * 0.12);
   position: relative;
-  width: var(--spinner-size, 20px);
-  height: var(--spinner-size, 20px);
-  animation: ld-comet-rotate var(--ld-duration, 0.7s) linear infinite;
-  animation-play-state: var(--ld-play-state, running);
+  width: ${SIZE};
+  height: ${SIZE};
+  animation: ld-comet-rotate ${duration("comet")} linear infinite;
+  animation-play-state: ${PLAY_STATE};
 }
 
 .ld-comet-tail {
@@ -45,17 +45,11 @@ const css = `
 }
 `;
 
-export function Comet({ size = 20, className }: SpinnerProps) {
+export function Comet({ size = DEFAULT_SIZE, className }: SpinnerProps) {
   return (
     <>
-      <style href="ld-comet" precedence="loading-dev">
-        {css}
-      </style>
-      <div
-        aria-hidden="true"
-        className={classNames("ld-comet", className)}
-        style={{ "--spinner-size": `${size}px` } as CSSProperties}
-      >
+      <SpinnerStyle name="comet">{css}</SpinnerStyle>
+      <div {...spinnerRoot("comet", { className, size })}>
         <div className="ld-comet-tail" />
         <div className="ld-comet-head" />
       </div>

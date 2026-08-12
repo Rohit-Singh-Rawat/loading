@@ -1,15 +1,17 @@
-import type { CSSProperties } from "react";
-import { classNames } from "./class-names";
+import { DEFAULT_SIZE, SIZE, SpinnerStyle, spinnerRoot } from "./frame";
+import { duration, PLAY_STATE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const CELLS = Array.from({ length: 16 }, (_, index) => index);
+
+const dur = duration("grid");
 
 const ROW_RULES = [1, 2, 3]
   .map((row) => {
     const first = row * 4 + 1;
     return `
 .ld-grid-cell:nth-child(n + ${first}):nth-child(-n + ${first + 3}) {
-  animation-delay: calc(var(--ld-duration, 1.2s) * -${((4 - row) / 4).toFixed(2)});
+  animation-delay: calc(${dur} * -${((4 - row) / 4).toFixed(2)});
 }`;
   })
   .join("\n");
@@ -19,15 +21,15 @@ const css = `
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  gap: calc(var(--spinner-size, 20px) / 7);
-  width: var(--spinner-size, 20px);
-  height: var(--spinner-size, 20px);
+  gap: calc(${SIZE} / 7);
+  width: ${SIZE};
+  height: ${SIZE};
 }
 
 .ld-grid-cell {
   background: currentColor;
-  animation: ld-grid-wave var(--ld-duration, 1.2s) linear infinite;
-  animation-play-state: var(--ld-play-state, running);
+  animation: ld-grid-wave ${dur} linear infinite;
+  animation-play-state: ${PLAY_STATE};
 }
 ${ROW_RULES}
 
@@ -54,17 +56,11 @@ ${ROW_RULES}
 }
 `;
 
-export function Grid({ size = 20, className }: SpinnerProps) {
+export function Grid({ size = DEFAULT_SIZE, className }: SpinnerProps) {
   return (
     <>
-      <style href="ld-grid" precedence="loading-dev">
-        {css}
-      </style>
-      <div
-        aria-hidden="true"
-        className={classNames("ld-grid", className)}
-        style={{ "--spinner-size": `${size}px` } as CSSProperties}
-      >
+      <SpinnerStyle name="grid">{css}</SpinnerStyle>
+      <div {...spinnerRoot("grid", { className, size })}>
         {CELLS.map((cell) => (
           <div className="ld-grid-cell" key={cell} />
         ))}

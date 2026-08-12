@@ -1,13 +1,13 @@
-import type { CSSProperties } from "react";
-import { classNames } from "./class-names";
+import { DEFAULT_SIZE, SIZE, SpinnerStyle, spinnerRoot } from "./frame";
+import { duration, PLAY_STATE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
 .ld-orbit {
-  --ld-orbit-stroke: calc(var(--spinner-size, 20px) * 0.0625);
+  --ld-orbit-stroke: calc(${SIZE} * 0.0625);
   position: relative;
-  width: var(--spinner-size, 20px);
-  height: var(--spinner-size, 20px);
+  width: ${SIZE};
+  height: ${SIZE};
 }
 
 .ld-orbit-track {
@@ -17,8 +17,8 @@ const css = `
   background: conic-gradient(from 180deg, transparent 0deg, currentColor 180deg, transparent 180deg);
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--ld-orbit-stroke)), #000 0);
   mask: radial-gradient(farthest-side, transparent calc(100% - var(--ld-orbit-stroke)), #000 0);
-  animation: ld-orbit-rotate var(--ld-duration, 0.75s) linear infinite;
-  animation-play-state: var(--ld-play-state, running);
+  animation: ld-orbit-rotate ${duration("orbit")} linear infinite;
+  animation-play-state: ${PLAY_STATE};
 }
 
 .ld-orbit-dot {
@@ -45,17 +45,11 @@ const css = `
 }
 `;
 
-export function Orbit({ size = 20, className }: SpinnerProps) {
+export function Orbit({ size = DEFAULT_SIZE, className }: SpinnerProps) {
   return (
     <>
-      <style href="ld-orbit" precedence="loading-dev">
-        {css}
-      </style>
-      <div
-        aria-hidden="true"
-        className={classNames("ld-orbit", className)}
-        style={{ "--spinner-size": `${size}px` } as CSSProperties}
-      >
+      <SpinnerStyle name="orbit">{css}</SpinnerStyle>
+      <div {...spinnerRoot("orbit", { className, size })}>
         <div className="ld-orbit-dot" />
         <div className="ld-orbit-track" />
       </div>

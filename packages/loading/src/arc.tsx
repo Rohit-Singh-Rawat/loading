@@ -1,10 +1,11 @@
-import { classNames } from "./class-names";
+import { DEFAULT_SIZE, SpinnerStyle, spinnerRoot } from "./frame";
+import { duration, PLAY_STATE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
 .ld-arc {
-  animation: ld-arc-rotate var(--ld-duration, 0.8s) linear infinite;
-  animation-play-state: var(--ld-play-state, running);
+  animation: ld-arc-rotate ${duration("arc")} linear infinite;
+  animation-play-state: ${PLAY_STATE};
 }
 
 @keyframes ld-arc-rotate {
@@ -20,15 +21,12 @@ const css = `
 }
 `;
 
-export function Arc({ size = 20, className }: SpinnerProps) {
+export function Arc({ size = DEFAULT_SIZE, className }: SpinnerProps) {
   return (
     <>
-      <style href="ld-arc" precedence="loading-dev">
-        {css}
-      </style>
+      <SpinnerStyle name="arc">{css}</SpinnerStyle>
       <svg
-        aria-hidden="true"
-        className={classNames("ld-arc", className)}
+        {...spinnerRoot("arc", { className, size })}
         fill="none"
         height={size}
         role="presentation"

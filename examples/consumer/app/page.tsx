@@ -1,12 +1,26 @@
 import { readFile } from "node:fs/promises";
-import { Arc, BouncingDots, Classic, Ring } from "loading-dev";
-import type { ReactNode } from "react";
+import {
+  Arc,
+  BouncingDots,
+  Classic,
+  Comet,
+  Grid,
+  Orbit,
+  Ring,
+  Ripple,
+  SPINNER_MOTION,
+} from "loading-dev";
+import type { CSSProperties, ReactNode } from "react";
 
 const SPINNERS = [
   { Component: Arc, name: "Arc" },
   { Component: BouncingDots, name: "BouncingDots" },
   { Component: Classic, name: "Classic" },
+  { Component: Comet, name: "Comet" },
+  { Component: Grid, name: "Grid" },
+  { Component: Orbit, name: "Orbit" },
   { Component: Ring, name: "Ring" },
+  { Component: Ripple, name: "Ripple" },
 ] as const;
 
 async function installedVersion(): Promise<string> {
@@ -119,6 +133,34 @@ export default async function Page() {
             ))}
           </Row>
         </div>
+      </Section>
+
+      <Section
+        note="--ld-duration is set to 3s on the wrapper; every spinner should visibly slow down."
+        title="Motion contract"
+      >
+        <div style={{ "--ld-duration": "3s" } as CSSProperties}>
+          <Row>
+            {SPINNERS.map(({ name, Component }) => (
+              <Cell key={name} label={name}>
+                <Component size={32} />
+              </Cell>
+            ))}
+          </Row>
+        </div>
+      </Section>
+
+      <Section
+        note="Default durations exported as data — these must match what the CSS above actually uses."
+        title="SPINNER_MOTION"
+      >
+        <Row>
+          {Object.entries(SPINNER_MOTION).map(([name, motion]) => (
+            <Cell key={name} label={`${name}: ${motion.duration}ms`}>
+              <span />
+            </Cell>
+          ))}
+        </Row>
       </Section>
 
       <Section
