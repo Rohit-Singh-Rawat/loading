@@ -94,8 +94,6 @@ export function SearchDialog({
             "data-ending-style:scale-95 data-ending-style:opacity-0"
           )}
           finalFocus={() => {
-            // Selecting a result navigates away, so the destination page owns
-            // focus. Otherwise hand it back to whatever opened the dialog.
             if (navigatedRef.current) {
               navigatedRef.current = false;
               return false;
@@ -165,15 +163,6 @@ export function SearchDialog({
   );
 }
 
-/**
- * Rendered instead of Command.Empty: cmdk re-sorts every item into its group
- * container (or the list root) on each keystroke, and an item nested inside
- * Command.Empty belongs to neither, so the sort appends `null` and throws.
- * This sits as a direct child of the list and reads the count itself.
- *
- * forceMount keeps the row out of the filtered count, so rendering it can't
- * flip the count back above zero and hide itself again.
- */
 function EmptyRow({ onClearQuery }: { onClearQuery: () => void }) {
   const isEmpty = useCommandState((state) => state.filtered.count === 0);
 
