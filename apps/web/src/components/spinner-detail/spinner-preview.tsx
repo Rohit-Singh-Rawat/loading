@@ -4,12 +4,11 @@ import { IconPause } from "central-icons/IconPause";
 import { IconPlay } from "central-icons/IconPlay";
 import { IconSidebarHiddenRightWide } from "central-icons-outlined/IconSidebarHiddenRightWide";
 import { type ReactNode, useState } from "react";
-import { getSpinner, type SpinnerItem } from "@/components/spinners";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
 import IconButton from "@/components/ui/icon-button";
 import { cn } from "@/lib/utils";
 import { CustomizePanel } from "./customize-panel";
-import { useSpinnerCustomization } from "./use-spinner-customization";
+import { useSpinnerCustomization } from "./spinner-customization";
 
 const CUSTOMIZE_PANEL_ID = "customize-panel";
 
@@ -33,18 +32,9 @@ function CustomizeDrawer({
   );
 }
 
-export function SpinnerPreview({ slug }: { slug: string }) {
-  const item = getSpinner(slug);
-  if (!item) {
-    throw new Error(`No spinner registered for slug "${slug}"`);
-  }
-
-  return <Preview item={item} />;
-}
-
-function Preview({ item }: { item: SpinnerItem }) {
+export function SpinnerPreview() {
   const [customizeOpen, setCustomizeOpen] = useState(true);
-  const state = useSpinnerCustomization(item);
+  const { item, state } = useSpinnerCustomization();
   const Spinner = item.component;
 
   return (

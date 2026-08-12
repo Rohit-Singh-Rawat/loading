@@ -29,6 +29,8 @@ export interface SpinnerCustomization {
 
 export interface SpinnerItem {
   component: ComponentType<SpinnerProps>;
+  /** The identifier the component is exported as, for code snippets. */
+  componentName: string;
   customization: SpinnerCustomization;
   description: string;
   name: string;
@@ -66,6 +68,7 @@ function customizationFor(
 export const SPINNER_ITEMS: SpinnerItem[] = [
   {
     component: Arc,
+    componentName: "Arc",
     customization: customizationFor("arc", { max: 2000, min: 200 }),
     description: "A single open stroke sweeping around a circular track.",
     name: "Arc",
@@ -73,6 +76,7 @@ export const SPINNER_ITEMS: SpinnerItem[] = [
   },
   {
     component: Classic,
+    componentName: "Classic",
     customization: customizationFor("classic", { max: 2400, min: 400 }),
     description: "Twelve fading bars arranged in the classic radial spinner.",
     name: "Classic",
@@ -80,6 +84,7 @@ export const SPINNER_ITEMS: SpinnerItem[] = [
   },
   {
     component: Ring,
+    componentName: "Ring",
     customization: customizationFor("ring", { max: 2000, min: 200 }),
     description: "A rotating arc riding a faint circular track.",
     name: "Ring",
@@ -87,6 +92,7 @@ export const SPINNER_ITEMS: SpinnerItem[] = [
   },
   {
     component: BouncingDots,
+    componentName: "BouncingDots",
     customization: customizationFor("bouncing-dots", { max: 1200, min: 150 }),
     description: "Three dots bouncing in a staggered rhythm.",
     name: "Bouncing dots",
@@ -94,6 +100,7 @@ export const SPINNER_ITEMS: SpinnerItem[] = [
   },
   {
     component: Comet,
+    componentName: "Comet",
     customization: customizationFor("comet", { max: 2000, min: 200 }),
     description: "A full ring fading into a bright leading head.",
     name: "Comet",
@@ -101,6 +108,7 @@ export const SPINNER_ITEMS: SpinnerItem[] = [
   },
   {
     component: Orbit,
+    componentName: "Orbit",
     customization: customizationFor("orbit", { max: 2000, min: 200 }),
     description: "A fading half-arc circling a fixed center dot.",
     name: "Orbit",
@@ -108,6 +116,7 @@ export const SPINNER_ITEMS: SpinnerItem[] = [
   },
   {
     component: Grid,
+    componentName: "Grid",
     customization: customizationFor("grid", { max: 2400, min: 400 }),
     description: "A four-by-four pixel grid lit row by row.",
     name: "Grid",
@@ -115,6 +124,7 @@ export const SPINNER_ITEMS: SpinnerItem[] = [
   },
   {
     component: Ripple,
+    componentName: "Ripple",
     customization: customizationFor("ripple", { max: 2400, min: 400 }),
     description: "A pixel grid pulsing outward from its center.",
     name: "Ripple",

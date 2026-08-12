@@ -1,5 +1,6 @@
 import { Children, isValidElement, type ReactNode } from "react";
 import { CodeBlockHeader } from "@/components/mdx/code-block-header";
+import { FIGURE_CLASSES } from "@/lib/code-block";
 import { cn } from "@/lib/utils";
 
 const marginClasses = {
@@ -10,9 +11,6 @@ const marginClasses = {
 } as const;
 
 type FigureMargin = keyof typeof marginClasses;
-
-const figureClasses =
-  "w-full overflow-hidden rounded-2xl bg-background border border-border";
 
 function extractText(node: ReactNode): string {
   if (typeof node === "string") {
@@ -52,7 +50,7 @@ export function MDXFigure({
 
   if (!(titleChild && isValidElement(titleChild))) {
     return (
-      <figure className={cn(figureClasses, marginClasses[margin ?? "none"])}>
+      <figure className={cn(FIGURE_CLASSES, marginClasses[margin ?? "none"])}>
         {children}
       </figure>
     );
@@ -66,7 +64,7 @@ export function MDXFigure({
   const code = extractText(preChild);
 
   return (
-    <figure className={cn(figureClasses, marginClasses[margin ?? "top"])}>
+    <figure className={cn(FIGURE_CLASSES, marginClasses[margin ?? "top"])}>
       <CodeBlockHeader code={code} filename={filename} />
       {preChild}
     </figure>

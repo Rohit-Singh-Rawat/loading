@@ -8,7 +8,7 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { cn } from "@/lib/utils";
 import { ColorPickerRow } from "./color-picker-row";
 import { SliderRow } from "./slider-row";
-import type { SpinnerCustomizationState } from "./use-spinner-customization";
+import type { SpinnerCustomizationState } from "./spinner-customization";
 
 export function CustomizePanel({
   className,
