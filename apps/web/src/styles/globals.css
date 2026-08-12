@@ -31,9 +31,8 @@
     --color-orange-subtle: oklch(0.651 0.2 38.329 / 0.102);
 
     --shadow-custom:
-      0 0 0 1px oklch(0.191 0.002 106.586 / 0.051),
-      0 1px 2px -1px oklch(0.191 0.002 106.586 / 0.078),
-      0 2px 4px 0 oklch(0.191 0.002 106.586 / 0.059);
+      0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 1px 2px -1px rgba(0, 0, 0, 0.06),
+      0px 2px 4px 0px rgba(0, 0, 0, 0.04);
     color-scheme: light;
   }
 

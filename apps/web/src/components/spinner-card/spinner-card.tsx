@@ -14,7 +14,7 @@ export function SpinnerCard({ item }: { item: SpinnerItem }) {
       className="link-outline group rounded-3xl"
       href={`/spinners/${item.slug}`}
     >
-      <div className="relative flex h-52 flex-col items-center justify-center rounded-3xl bg-background transition-colors duration-200 ease-out group-hover:bg-background-hovered">
+      <div className="relative flex h-52 flex-col items-center justify-center rounded-3xl border border-border bg-background transition-colors duration-200 ease-out group-hover:bg-background-hovered">
         <div className="mt-4 flex h-full w-full items-center justify-center">
           <Spinner size={40} />
         </div>
@@ -30,8 +30,6 @@ export function SpinnerCard({ item }: { item: SpinnerItem }) {
   );
 }
 
-// Registry entries without a `component` are spinners that are planned but not
-// built yet — they get an inert card so the grid keeps its rhythm.
 export function SpinnerCardPlaceholder({ item }: { item: SpinnerItem }) {
   return (
     <div className="relative flex h-52 flex-col items-center justify-center rounded-3xl border border-border border-dashed bg-background-subtle">

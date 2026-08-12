@@ -15,6 +15,7 @@
     "central-icons": "npm:@central-icons-react/round-filled-radius-3-stroke-2@^1.1.306",
     "central-icons-outlined": "npm:@central-icons-react/round-outlined-radius-3-stroke-2@^1.1.306",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
     "loading-dev": "workspace:*",
     "motion": "^12.43.0",
     "next": "^16.3.0",

@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { DisableThemeTransitions } from "@/components/disable-theme-transitions";
 import { MotionProvider } from "@/components/motion-provider";
+import { SearchProvider } from "@/components/search/search-provider";
 import { MobileNav } from "@/components/sidebar/mobile-nav";
 import { Sidebar } from "@/components/sidebar/sidebar";
 import {
@@ -75,24 +76,26 @@ export default function RootLayout({
       >
         <DisableThemeTransitions />
         <MotionProvider>
-          <a
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-lg focus:border focus:border-border focus:bg-popover focus:px-4 focus:py-2 focus:font-medium focus:text-content focus:text-sm focus:shadow-custom"
-            href="#content"
-          >
-            Skip to content
-          </a>
-          <MobileNav />
-          <div className="mx-auto flex min-h-dvh justify-center gap-12 sm:px-6 px-5">
-            <Sidebar />
-            <main
-              className="w-full max-w-160 py-10 md:py-25"
-              id="content"
-              tabIndex={-1}
+          <SearchProvider>
+            <a
+              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-lg focus:border focus:border-border focus:bg-popover focus:px-4 focus:py-2 focus:font-medium focus:text-content focus:text-sm focus:shadow-custom"
+              href="#content"
             >
-              {children}
-            </main>
-            {aside}
-          </div>
+              Skip to content
+            </a>
+            <MobileNav />
+            <div className="mx-auto flex min-h-dvh justify-center gap-12 px-5 sm:px-6">
+              <Sidebar />
+              <main
+                className="w-full max-w-160 py-10 md:py-25"
+                id="content"
+                tabIndex={-1}
+              >
+                {children}
+              </main>
+              {aside}
+            </div>
+          </SearchProvider>
         </MotionProvider>
         <Analytics />
       </body>
