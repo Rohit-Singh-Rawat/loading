@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { PRE_CLASSES } from "@/lib/code-block";
 import { cn } from "@/lib/utils";
 
 export function MDXPre({
@@ -10,13 +11,7 @@ export function MDXPre({
   className?: string;
 } & Record<string, unknown>) {
   return (
-    <pre
-      className={cn(
-        "tab-size-4 overflow-x-auto overscroll-x-contain px-4 py-3 font-berkeley-mono text-[13px] leading-5 [scrollbar-color:var(--color-content-subtle)_transparent] [scrollbar-width:thin] **:font-berkeley-mono [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-content-subtle [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:h-1",
-        className
-      )}
-      {...rest}
-    >
+    <pre className={cn(PRE_CLASSES, className)} {...rest}>
       {children}
     </pre>
   );

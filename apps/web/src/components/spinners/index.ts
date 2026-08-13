@@ -7,138 +7,119 @@ import {
   Orbit,
   Ring,
   Ripple,
+  SPINNER_MOTION,
+  type SpinnerName,
   type SpinnerProps,
 } from "loading-dev";
 import type { ComponentType } from "react";
 
+export interface SpinnerSize {
+  label: string;
+  value: number;
+}
+
 export interface SpinnerCustomization {
-  color?: boolean;
-  opacity?: boolean;
-  sizes?: { label: string; value: number }[];
-  speed?: { default: number; max: number; min: number };
+  sizes: SpinnerSize[];
+  speed: { default: number; max: number; min: number };
 }
 
-export interface SpinnerItem {
+interface CatalogEntry {
   component: ComponentType<SpinnerProps>;
-  customization?: SpinnerCustomization;
-  description?: string;
-  hasDocs?: boolean;
+  componentName: string;
+  description: string;
   name: string;
-  slug: string;
+  slug: SpinnerName;
+  speed: { max: number; min: number };
 }
 
-const DEFAULT_SIZES = [
+export interface SpinnerItem extends Omit<CatalogEntry, "speed"> {
+  customization: SpinnerCustomization;
+}
+
+const SIZES: SpinnerSize[] = [
   { label: "Small", value: 24 },
   { label: "Medium", value: 48 },
   { label: "Large", value: 96 },
 ];
 
-export const SPINNER_ITEMS: SpinnerItem[] = [
+export const DEFAULT_SIZE_INDEX = 1;
+
+const CATALOG: CatalogEntry[] = [
   {
     component: Arc,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 800, max: 2000, min: 200 },
-    },
+    componentName: "Arc",
     description: "A single open stroke sweeping around a circular track.",
-    hasDocs: true,
     name: "Arc",
     slug: "arc",
-  },
-  {
-    component: BouncingDots,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 500, max: 1200, min: 150 },
-    },
-    description: "Three dots bouncing in a staggered rhythm.",
-    hasDocs: true,
-    name: "Bouncing dots",
-    slug: "bouncing-dots",
+    speed: { max: 2000, min: 200 },
   },
   {
     component: Classic,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 1200, max: 2400, min: 400 },
-    },
+    componentName: "Classic",
     description: "Twelve fading bars arranged in the classic radial spinner.",
-    hasDocs: true,
     name: "Classic",
     slug: "classic",
-  },
-  {
-    component: Comet,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 700, max: 2000, min: 200 },
-    },
-    description: "A full ring fading into a bright leading head.",
-    hasDocs: true,
-    name: "Comet",
-    slug: "comet",
-  },
-  {
-    component: Grid,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 1200, max: 2400, min: 400 },
-    },
-    description: "A four-by-four pixel grid lit row by row.",
-    hasDocs: true,
-    name: "Grid",
-    slug: "grid",
+    speed: { max: 2400, min: 400 },
   },
   {
     component: Ring,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 800, max: 2000, min: 200 },
-    },
+    componentName: "Ring",
     description: "A rotating arc riding a faint circular track.",
-    hasDocs: true,
-    name: "Loader",
-    slug: "loader",
+    name: "Ring",
+    slug: "ring",
+    speed: { max: 2000, min: 200 },
+  },
+  {
+    component: BouncingDots,
+    componentName: "BouncingDots",
+    description: "Three dots bouncing in a staggered rhythm.",
+    name: "Bouncing dots",
+    slug: "bouncing-dots",
+    speed: { max: 1200, min: 150 },
+  },
+  {
+    component: Comet,
+    componentName: "Comet",
+    description: "A full ring fading into a bright leading head.",
+    name: "Comet",
+    slug: "comet",
+    speed: { max: 2000, min: 200 },
   },
   {
     component: Orbit,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 750, max: 2000, min: 200 },
-    },
+    componentName: "Orbit",
     description: "A fading half-arc circling a fixed center dot.",
-    hasDocs: true,
     name: "Orbit",
     slug: "orbit",
+    speed: { max: 2000, min: 200 },
+  },
+  {
+    component: Grid,
+    componentName: "Grid",
+    description: "A four-by-four pixel grid lit row by row.",
+    name: "Grid",
+    slug: "grid",
+    speed: { max: 2400, min: 400 },
   },
   {
     component: Ripple,
-    customization: {
-      color: true,
-      opacity: true,
-      sizes: DEFAULT_SIZES,
-      speed: { default: 1200, max: 2400, min: 400 },
-    },
+    componentName: "Ripple",
     description: "A pixel grid pulsing outward from its center.",
-    hasDocs: true,
     name: "Ripple",
     slug: "ripple",
+    speed: { max: 2400, min: 400 },
   },
 ];
+
+export const SPINNER_ITEMS: SpinnerItem[] = CATALOG.map(
+  ({ speed, ...entry }) => ({
+    ...entry,
+    customization: {
+      sizes: SIZES,
+      speed: { default: SPINNER_MOTION[entry.slug].duration, ...speed },
+    },
+  })
+);
 
 export function getSpinner(slug: string): SpinnerItem | undefined {
   return SPINNER_ITEMS.find((item) => item.slug === slug);

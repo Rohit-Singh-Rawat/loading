@@ -1,11 +1,12 @@
-import { classNames } from "./class-names";
+import { SpinnerStyle, spinnerRoot } from "./frame";
+import { DEFAULT_SIZE, duration, PLAY_STATE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
 .ld-ring-arc {
   transform-origin: center;
-  animation: ld-ring-rotate var(--ld-duration, 0.8s) linear infinite;
-  animation-play-state: var(--ld-play-state, running);
+  animation: ld-ring-rotate ${duration("ring")} linear infinite;
+  animation-play-state: ${PLAY_STATE};
 }
 
 @keyframes ld-ring-rotate {
@@ -21,15 +22,12 @@ const css = `
 }
 `;
 
-export function Ring({ size = 20, className }: SpinnerProps) {
+export function Ring({ size = DEFAULT_SIZE, className }: SpinnerProps) {
   return (
     <>
-      <style href="ld-ring" precedence="loading-dev">
-        {css}
-      </style>
+      <SpinnerStyle name="ring">{css}</SpinnerStyle>
       <svg
-        aria-hidden="true"
-        className={classNames("ld-ring", className)}
+        {...spinnerRoot("ring", { className, size })}
         fill="none"
         height={size}
         role="presentation"

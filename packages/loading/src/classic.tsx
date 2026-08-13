@@ -1,29 +1,31 @@
-import type { CSSProperties } from "react";
-import { classNames } from "./class-names";
+import { SpinnerStyle, spinnerRoot } from "./frame";
+import { DEFAULT_SIZE, duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const BARS = Array.from({ length: 12 }, (_, index) => index);
+
+const dur = duration("classic");
 
 const BAR_RULES = BARS.map(
   (bar) => `
 .ld-classic-bar:nth-child(${bar + 1}) {
   transform: rotate(${bar === 0 ? "0.0001" : bar * 30}deg) translate(146%);
-  animation-delay: calc(var(--ld-duration, 1.2s) * ${(bar / 12 - 1).toFixed(4)});
+  animation-delay: calc(${dur} * ${(bar / 12 - 1).toFixed(4)});
 }`
 ).join("\n");
 
 const css = `
 .ld-classic {
-  width: var(--spinner-size, 20px);
-  height: var(--spinner-size, 20px);
+  width: ${SIZE};
+  height: ${SIZE};
 }
 
 .ld-classic-inner {
   position: relative;
   top: 50%;
   left: 50%;
-  width: var(--spinner-size, 20px);
-  height: var(--spinner-size, 20px);
+  width: ${SIZE};
+  height: ${SIZE};
 }
 
 .ld-classic-bar {
@@ -34,8 +36,8 @@ const css = `
   height: 8%;
   background: currentColor;
   border-radius: 6px;
-  animation: ld-classic-spin var(--ld-duration, 1.2s) linear infinite;
-  animation-play-state: var(--ld-play-state, running);
+  animation: ld-classic-spin ${dur} linear infinite;
+  animation-play-state: ${PLAY_STATE};
 }
 ${BAR_RULES}
 
@@ -56,17 +58,11 @@ ${BAR_RULES}
 }
 `;
 
-export function Classic({ size = 20, className }: SpinnerProps) {
+export function Classic({ size = DEFAULT_SIZE, className }: SpinnerProps) {
   return (
     <>
-      <style href="ld-classic" precedence="loading-dev">
-        {css}
-      </style>
-      <div
-        aria-hidden="true"
-        className={classNames("ld-classic", className)}
-        style={{ "--spinner-size": `${size}px` } as CSSProperties}
-      >
+      <SpinnerStyle name="classic">{css}</SpinnerStyle>
+      <div {...spinnerRoot("classic", { className, size })}>
         <div className="ld-classic-inner">
           {BARS.map((bar) => (
             <div className="ld-classic-bar" key={bar} />

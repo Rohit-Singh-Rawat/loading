@@ -8,12 +8,6 @@ export interface TocItem {
   label: string;
 }
 
-export const TOC_ITEMS: TocItem[] = [
-  { id: "preview", label: "Preview" },
-  { id: "customization", label: "Customization" },
-  { id: "usage", label: "Usage" },
-];
-
 export function Toc({ items }: { items: TocItem[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const userNavigating = useRef(false);
@@ -25,28 +19,25 @@ export function Toc({ items }: { items: TocItem[] }) {
 
     const visibleSet = new Set<number>();
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const index = items.findIndex((item) => item.id === entry.target.id);
-          if (index === -1) {
-            continue;
-          }
-          if (entry.isIntersecting) {
-            visibleSet.add(index);
-          } else {
-            visibleSet.delete(index);
-          }
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const index = items.findIndex((item) => item.id === entry.target.id);
+        if (index === -1) {
+          continue;
         }
-
-        if (userNavigating.current || visibleSet.size === 0) {
-          return;
+        if (entry.isIntersecting) {
+          visibleSet.add(index);
+        } else {
+          visibleSet.delete(index);
         }
+      }
 
-        setActiveIndex(Math.min(...Array.from(visibleSet)));
-      },
-      { rootMargin: "-100px 0px 0px 0px" }
-    );
+      if (userNavigating.current || visibleSet.size === 0) {
+        return;
+      }
+
+      setActiveIndex(Math.min(...Array.from(visibleSet)));
+    });
 
     for (const item of items) {
       const element = document.getElementById(item.id);

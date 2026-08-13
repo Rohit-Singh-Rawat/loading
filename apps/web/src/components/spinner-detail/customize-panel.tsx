@@ -1,45 +1,22 @@
 "use client";
 
 import { IconArrowRotateCounterClockwise } from "central-icons-outlined/IconArrowRotateCounterClockwise";
-import type { SpinnerCustomization } from "@/components/spinners";
 import { CardHeader } from "@/components/ui/card-header";
 import IconButton from "@/components/ui/icon-button";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { cn } from "@/lib/utils";
 import { ColorPickerRow } from "./color-picker-row";
 import { SliderRow } from "./slider-row";
+import { useSpinnerCustomization } from "./spinner-customization";
 
-export function CustomizePanel({
-  className,
-  color,
-  customization,
-  onColorChange,
-  onOpacityChange,
-  onReset,
-  onSizeChange,
-  onSpeedChange,
-  opacity,
-  sizeIndex,
-  speedMs,
-}: {
-  className?: string;
-  color: string | null;
-  customization: SpinnerCustomization;
-  onColorChange: (color: string) => void;
-  onOpacityChange: (opacity: number) => void;
-  onReset: () => void;
-  onSizeChange: (index: number) => void;
-  onSpeedChange: (speedMs: number) => void;
-  opacity: number;
-  sizeIndex: number;
-  speedMs: number;
-}) {
-  const { opacity: hasOpacity, color: hasColor, sizes, speed } = customization;
+export function CustomizePanel({ className }: { className?: string }) {
+  const { item, state } = useSpinnerCustomization();
+  const { sizes, speed } = item.customization;
 
   return (
     <div
       className={cn(
-        "flex h-full w-full shrink-0 flex-col gap-2 rounded-xl bg-background-subtle p-2 sm:w-60",
+        "flex h-full w-full shrink-0 flex-col gap-2 rounded-xl border border-border bg-background-subtle p-2 sm:w-60",
         className
       )}
     >
@@ -47,7 +24,7 @@ export function CustomizePanel({
         <IconButton
           aria-label="Reset customization"
           className="-mr-1"
-          onClick={onReset}
+          onClick={state.reset}
           size="xs"
           title="Reset customization"
           type="button"
@@ -58,40 +35,34 @@ export function CustomizePanel({
           </span>
         </IconButton>
       </CardHeader>
-      {sizes && (
-        <SegmentedControl
-          label="Size"
-          onValueChange={onSizeChange}
-          options={sizes.map((size, index) => ({
-            label: size.label,
-            value: index,
-          }))}
-          value={sizeIndex}
-        />
-      )}
-      {hasColor && <ColorPickerRow color={color} onChange={onColorChange} />}
-      {speed && (
-        <SliderRow
-          format={(value) => `${value}`}
-          label="Speed"
-          max={speed.max}
-          min={speed.min}
-          onChange={onSpeedChange}
-          step={10}
-          value={speedMs}
-        />
-      )}
-      {hasOpacity && (
-        <SliderRow
-          format={(value) => `${value}%`}
-          label="Opacity"
-          max={100}
-          min={0}
-          onChange={(value) => onOpacityChange(value / 100)}
-          step={1}
-          value={Math.round(opacity * 100)}
-        />
-      )}
+      <SegmentedControl
+        label="Size"
+        onValueChange={state.setSizeIndex}
+        options={sizes.map((size, index) => ({
+          label: size.label,
+          value: index,
+        }))}
+        value={state.sizeIndex}
+      />
+      <ColorPickerRow color={state.color} onChange={state.setColor} />
+      <SliderRow
+        format={(value) => `${value}ms`}
+        label="Speed"
+        max={speed.max}
+        min={speed.min}
+        onChange={state.setSpeedMs}
+        step={10}
+        value={state.speedMs}
+      />
+      <SliderRow
+        format={(value) => `${value}%`}
+        label="Opacity"
+        max={100}
+        min={0}
+        onChange={state.setOpacity}
+        step={1}
+        value={state.opacity}
+      />
     </div>
   );
 }

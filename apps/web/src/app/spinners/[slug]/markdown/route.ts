@@ -1,10 +1,8 @@
 import { SPINNER_ITEMS } from "@/components/spinners";
-import { getSpinnerMarkdown } from "@/lib/spinner-markdown";
+import { getSpinnerDocument } from "@/lib/spinner-markdown";
 
 export function generateStaticParams(): { slug: string }[] {
-  return SPINNER_ITEMS.filter((item) => item.hasDocs).map(({ slug }) => ({
-    slug,
-  }));
+  return SPINNER_ITEMS.map(({ slug }) => ({ slug }));
 }
 
 export async function GET(
@@ -12,13 +10,13 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const markdown = await getSpinnerMarkdown(slug);
+  const document = await getSpinnerDocument(slug);
 
-  if (markdown === null) {
+  if (!document) {
     return new Response("Not found", { status: 404 });
   }
 
-  return new Response(markdown, {
+  return new Response(document.markdown, {
     headers: {
       "Content-Type": "text/markdown; charset=utf-8",
     },

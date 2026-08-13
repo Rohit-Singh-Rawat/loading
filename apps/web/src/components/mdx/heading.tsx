@@ -8,13 +8,7 @@ export function MDXHeading({
   children: ReactNode;
 } & Record<string, unknown>) {
   return (
-    <Heading
-      as="h2"
-      className="mt-8 mb-1 scroll-mt-[100px]"
-      size={4}
-      weight="medium"
-      {...rest}
-    >
+    <Heading as="h2" className="mt-8 mb-1" size={4} weight="medium" {...rest}>
       {children}
     </Heading>
   );

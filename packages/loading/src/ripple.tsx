@@ -1,8 +1,7 @@
-import type { CSSProperties } from "react";
-import { classNames } from "./class-names";
+import { SpinnerStyle, spinnerRoot } from "./frame";
+import { DEFAULT_SIZE, duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-/** 4×4 grid: the inner square pulses, then the edge midpoints, then it rests. */
 const GROUPS = [
   "corner",
   "edge",
@@ -24,14 +23,16 @@ const GROUPS = [
 
 const CELLS = GROUPS.map((group, index) => ({ group, id: index }));
 
+const dur = duration("ripple");
+
 const css = `
 .ld-ripple {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  gap: calc(var(--spinner-size, 20px) / 7);
-  width: var(--spinner-size, 20px);
-  height: var(--spinner-size, 20px);
+  gap: calc(${SIZE} / 7);
+  width: ${SIZE};
+  height: ${SIZE};
 }
 
 .ld-ripple-cell {
@@ -41,12 +42,12 @@ const css = `
 
 .ld-ripple-inner,
 .ld-ripple-edge {
-  animation: ld-ripple-pulse var(--ld-duration, 1.2s) linear infinite;
-  animation-play-state: var(--ld-play-state, running);
+  animation: ld-ripple-pulse ${dur} linear infinite;
+  animation-play-state: ${PLAY_STATE};
 }
 
 .ld-ripple-edge {
-  animation-delay: calc(var(--ld-duration, 1.2s) * -0.6667);
+  animation-delay: calc(${dur} * -0.6667);
 }
 
 @keyframes ld-ripple-pulse {
@@ -69,17 +70,11 @@ const css = `
 }
 `;
 
-export function Ripple({ size = 20, className }: SpinnerProps) {
+export function Ripple({ size = DEFAULT_SIZE, className }: SpinnerProps) {
   return (
     <>
-      <style href="ld-ripple" precedence="loading-dev">
-        {css}
-      </style>
-      <div
-        aria-hidden="true"
-        className={classNames("ld-ripple", className)}
-        style={{ "--spinner-size": `${size}px` } as CSSProperties}
-      >
+      <SpinnerStyle name="ripple">{css}</SpinnerStyle>
+      <div {...spinnerRoot("ripple", { className, size })}>
         {CELLS.map((cell) => (
           <div
             className={

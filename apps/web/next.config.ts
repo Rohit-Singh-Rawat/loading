@@ -1,8 +1,7 @@
 import path from "node:path";
 import createMDX from "@next/mdx";
-import pierreDarkVibrant from "@pierre/theme/pierre-dark-vibrant";
-import pierreLightVibrant from "@pierre/theme/pierre-light-vibrant";
 import type { NextConfig } from "next";
+import { CODE_THEMES } from "./src/lib/code-theme";
 
 const nextConfig = {
   experimental: {
@@ -27,7 +26,7 @@ const withMDX = createMDX({
         {
           grid: true,
           keepBackground: false,
-          theme: { dark: pierreDarkVibrant, light: pierreLightVibrant },
+          theme: CODE_THEMES,
         },
       ],
       "rehype-slug",
