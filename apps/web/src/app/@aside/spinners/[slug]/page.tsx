@@ -2,14 +2,14 @@ import { AsideShell } from "@/components/aside/aside-shell";
 import { CopyPageButton } from "@/components/spinner-detail/copy-page-button";
 import { Toc } from "@/components/spinner-detail/toc";
 import { SPINNER_ITEMS } from "@/components/spinners";
+import { PREVIEW_SECTION_ID } from "@/lib/constants";
 import { getSpinnerDocument } from "@/lib/spinner-markdown";
 
 interface Params {
   slug: string;
 }
 
-/** The preview is rendered by the page, not the document, so it is prepended. */
-const PREVIEW_ITEM = { id: "preview", label: "Preview" };
+const PREVIEW_ITEM = { id: PREVIEW_SECTION_ID, label: "Preview" };
 
 export function generateStaticParams(): Params[] {
   return SPINNER_ITEMS.map(({ slug }) => ({ slug }));

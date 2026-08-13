@@ -8,7 +8,11 @@ import {
   useContext,
   useState,
 } from "react";
-import { getSpinner, type SpinnerItem } from "@/components/spinners";
+import {
+  DEFAULT_SIZE_INDEX,
+  getSpinner,
+  type SpinnerItem,
+} from "@/components/spinners";
 
 const FULLY_OPAQUE = 100;
 
@@ -36,17 +40,11 @@ interface SpinnerCustomizationValue {
 const SpinnerCustomizationContext =
   createContext<SpinnerCustomizationValue | null>(null);
 
-function defaultSizeIndex(item: SpinnerItem): number {
-  const index = item.customization.sizes.findIndex((size) => size.default);
-  return index === -1 ? 0 : index;
-}
-
 function useCustomizationState(item: SpinnerItem): SpinnerCustomizationState {
   const { sizes, speed } = item.customization;
-  const initialSizeIndex = defaultSizeIndex(item);
 
   const [paused, setPaused] = useState(false);
-  const [sizeIndex, setSizeIndex] = useState(initialSizeIndex);
+  const [sizeIndex, setSizeIndex] = useState(DEFAULT_SIZE_INDEX);
   const [color, setColor] = useState<string | null>(null);
   const [speedMs, setSpeedMs] = useState(speed.default);
   const [opacity, setOpacity] = useState(FULLY_OPAQUE);
@@ -64,7 +62,7 @@ function useCustomizationState(item: SpinnerItem): SpinnerCustomizationState {
     paused,
     previewStyle,
     reset: () => {
-      setSizeIndex(initialSizeIndex);
+      setSizeIndex(DEFAULT_SIZE_INDEX);
       setColor(null);
       setSpeedMs(speed.default);
       setOpacity(FULLY_OPAQUE);

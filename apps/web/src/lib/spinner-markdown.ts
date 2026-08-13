@@ -14,13 +14,14 @@ export interface SpinnerDocument {
 }
 
 const HEADING = /^##\s+(.+?)\s*$/gm;
+const FENCED_BLOCK = /^```[\s\S]*?^```/gm;
 
 function headingsOf(source: string): DocumentHeading[] {
   const slugger = new GithubSlugger();
-  return Array.from(source.matchAll(HEADING), ([, label]) => ({
-    id: slugger.slug(label),
-    label,
-  }));
+  return Array.from(
+    source.replace(FENCED_BLOCK, "").matchAll(HEADING),
+    ([, label]) => ({ id: slugger.slug(label), label })
+  );
 }
 
 export async function getSpinnerDocument(

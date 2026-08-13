@@ -3,10 +3,6 @@ import { classNames } from "./class-names";
 import { SIZE_VAR, type SpinnerName } from "./motion";
 import type { SpinnerProps } from "./types";
 
-export const DEFAULT_SIZE = 20;
-
-export const SIZE = `var(${SIZE_VAR}, ${DEFAULT_SIZE}px)`;
-
 export function SpinnerStyle({
   children,
   name,

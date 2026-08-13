@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { NavItem } from "@/components/ui/nav-item";
-import { SCROLL_OFFSET_PX } from "@/lib/scroll-offset";
 
 export interface TocItem {
   id: string;
@@ -20,28 +19,25 @@ export function Toc({ items }: { items: TocItem[] }) {
 
     const visibleSet = new Set<number>();
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const index = items.findIndex((item) => item.id === entry.target.id);
-          if (index === -1) {
-            continue;
-          }
-          if (entry.isIntersecting) {
-            visibleSet.add(index);
-          } else {
-            visibleSet.delete(index);
-          }
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const index = items.findIndex((item) => item.id === entry.target.id);
+        if (index === -1) {
+          continue;
         }
-
-        if (userNavigating.current || visibleSet.size === 0) {
-          return;
+        if (entry.isIntersecting) {
+          visibleSet.add(index);
+        } else {
+          visibleSet.delete(index);
         }
+      }
 
-        setActiveIndex(Math.min(...Array.from(visibleSet)));
-      },
-      { rootMargin: `-${SCROLL_OFFSET_PX}px 0px 0px 0px` }
-    );
+      if (userNavigating.current || visibleSet.size === 0) {
+        return;
+      }
+
+      setActiveIndex(Math.min(...Array.from(visibleSet)));
+    });
 
     for (const item of items) {
       const element = document.getElementById(item.id);

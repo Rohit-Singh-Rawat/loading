@@ -1,5 +1,5 @@
-import { DEFAULT_SIZE, SIZE, SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE } from "./motion";
+import { SpinnerStyle, spinnerRoot } from "./frame";
+import { DEFAULT_SIZE, duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const DOTS = Array.from({ length: 3 }, (_, index) => index);

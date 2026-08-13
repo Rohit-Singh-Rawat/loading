@@ -34,7 +34,7 @@ Each spinner is one self-contained `.tsx` file:
 - CSS lives inline in the component via React 19's style hoisting — no CSS files, no bundler CSS handling for consumers. Use `SpinnerStyle` from `frame.tsx` rather than writing the `<style>` tag; it derives the stylesheet key from the spinner's `ld-` key.
 - Class names are prefixed `ld-` (e.g. `ld-arc`). `spinnerRoot()` in `frame.tsx` supplies the root element's shared attributes: `aria-hidden`, the merged class name, and `--spinner-size`.
 - Every animation must have a `@media (prefers-reduced-motion: reduce)` fallback.
-- Never write a duration or the 20px default as a literal. Durations come from `duration(name)` and the size from `SIZE`/`DEFAULT_SIZE`, both re-exported through `frame.tsx` — see `CONTEXT.md` on the motion contract.
+- Never write a duration or the 20px default as a literal. `duration(name)`, `SIZE` and `DEFAULT_SIZE` all come from `motion.ts`, which owns the contract; `frame.tsx` is only the React frame — see `CONTEXT.md` on the motion contract.
 - All spinners take `SpinnerProps` from `types.ts`: `{ className?, size? }`, and use `currentColor` so they inherit text color.
 - Export new spinners from `src/index.ts` (a barrel by design — Biome's `noBarrelFile` is disabled for package entry points).
 
@@ -43,7 +43,7 @@ Each spinner is one self-contained `.tsx` file:
 1. Create `packages/loading/src/<name>.tsx` following the conventions above; export it from `src/index.ts`.
 2. Add its default duration to `SPINNER_MOTION` in `packages/loading/src/motion.ts`. The key is the spinner's `ld-` key, and `SpinnerStyle`/`spinnerRoot` will not type-check without it.
 3. Add a row to `packages/loading/README.md`.
-4. Register it in `apps/web/src/components/spinners/index.ts` (`SPINNER_ITEMS`). This drives the homepage, the sidebar, previous/next, and `generateStaticParams` — **array position is the display order**. Every entry needs a `component`; the site has no placeholder state, so a spinner only appears once it is built.
+4. Register it in `apps/web/src/components/spinners/index.ts` (`CATALOG`, which `SPINNER_ITEMS` is derived from). This drives the homepage, the sidebar, previous/next, and `generateStaticParams` — **array position is the display order**. `slug` is typed `SpinnerName`, so it must be the spinner's `ld-` key; the default speed is read from `SPINNER_MOTION` under that key, and the entry only supplies the slider's `max`/`min`. Every entry needs a `component`; the site has no placeholder state, so a spinner only appears once it is built.
 5. Write `apps/web/src/content/spinners/<slug>.mdx` — prose only. The opening code example is generated from the live preview state, not written here. A missing file is a build error.
 6. Add it to `SPINNERS` in `examples/consumer/app/page.tsx`, or the post-publish check will not cover it.
 

@@ -7,8 +7,7 @@ import { useSpinnerCustomization } from "./spinner-customization";
 
 export function SpinnerSnippet({ variants }: { variants: SnippetVariant[] }) {
   const { item, state } = useSpinnerCustomization();
-  const variant =
-    variants.find((candidate) => candidate.size === state.size) ?? variants[0];
+  const variant = variants[state.sizeIndex];
 
   return (
     <figure className={FIGURE_CLASSES}>

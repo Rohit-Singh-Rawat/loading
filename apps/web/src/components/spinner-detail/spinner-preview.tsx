@@ -6,7 +6,7 @@ import { IconSidebarHiddenRightWide } from "central-icons-outlined/IconSidebarHi
 import { type ReactNode, useState } from "react";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
 import IconButton from "@/components/ui/icon-button";
-import { SCROLL_MARGIN } from "@/lib/scroll-offset";
+import { PREVIEW_SECTION_ID } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { CustomizePanel } from "./customize-panel";
 import { useSpinnerCustomization } from "./spinner-customization";
@@ -40,11 +40,8 @@ export function SpinnerPreview() {
 
   return (
     <section
-      className={cn(
-        "flex w-full flex-col rounded-2xl border border-border bg-background p-1 sm:h-100 sm:flex-row",
-        SCROLL_MARGIN
-      )}
-      id="preview"
+      className="flex w-full flex-col rounded-2xl border border-border bg-background p-1 sm:h-100 sm:flex-row"
+      id={PREVIEW_SECTION_ID}
     >
       <div className="relative flex min-h-64 min-w-0 flex-1 flex-col items-center px-4 pt-13 pb-2">
         <IconButton
@@ -84,11 +81,7 @@ export function SpinnerPreview() {
         </IconButton>
       </div>
       <CustomizeDrawer open={customizeOpen}>
-        <CustomizePanel
-          className="max-sm:mt-1 sm:ms-1"
-          customization={item.customization}
-          state={state}
-        />
+        <CustomizePanel className="max-sm:mt-1 sm:ms-1" />
       </CustomizeDrawer>
     </section>
   );

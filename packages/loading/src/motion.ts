@@ -4,6 +4,10 @@ export const PLAY_STATE_VAR = "--ld-play-state";
 
 export const SIZE_VAR = "--spinner-size";
 
+export const DEFAULT_SIZE = 20;
+
+export const SIZE = `var(${SIZE_VAR}, ${DEFAULT_SIZE}px)`;
+
 export interface SpinnerMotion {
   duration: number;
 }

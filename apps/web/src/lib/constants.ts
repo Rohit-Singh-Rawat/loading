@@ -6,6 +6,8 @@ export const SITE_DESCRIPTION =
 
 export const TWITTER_HANDLE = "@jakubkrehel";
 
+export const PREVIEW_SECTION_ID = "preview";
+
 export const OG_IMAGE = {
   height: 1008,
   url: "https://ru2qm1zsj1gavqlm.public.blob.vercel-storage.com/og.png",

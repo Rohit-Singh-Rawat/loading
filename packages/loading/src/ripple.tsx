@@ -1,8 +1,7 @@
-import { DEFAULT_SIZE, SIZE, SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE } from "./motion";
+import { SpinnerStyle, spinnerRoot } from "./frame";
+import { DEFAULT_SIZE, duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-/** 4×4 grid: the inner square pulses, then the edge midpoints, then it rests. */
 const GROUPS = [
   "corner",
   "edge",

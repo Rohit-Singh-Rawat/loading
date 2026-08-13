@@ -1,5 +1,5 @@
-import { DEFAULT_SIZE, SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE } from "./motion";
+import { SpinnerStyle, spinnerRoot } from "./frame";
+import { DEFAULT_SIZE, duration, PLAY_STATE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
