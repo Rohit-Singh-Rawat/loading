@@ -156,9 +156,9 @@ export default async function Page() {
       >
         <Row>
           {Object.entries(SPINNER_MOTION).map(([name, motion]) => (
-            <Cell key={name} label={`${name}: ${motion.duration}ms`}>
-              <span />
-            </Cell>
+            <code key={name} style={{ fontSize: "0.75rem", opacity: 0.6 }}>
+              {name}: {motion.duration}ms
+            </code>
           ))}
         </Row>
       </Section>

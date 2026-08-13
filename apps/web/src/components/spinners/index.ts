@@ -14,7 +14,6 @@ import {
 import type { ComponentType } from "react";
 
 export interface SpinnerSize {
-  /** Selected when the page loads. Exactly one size sets this. */
   default?: boolean;
   label: string;
   value: number;
@@ -29,12 +28,10 @@ export interface SpinnerCustomization {
 
 export interface SpinnerItem {
   component: ComponentType<SpinnerProps>;
-  /** The identifier the component is exported as, for code snippets. */
   componentName: string;
   customization: SpinnerCustomization;
   description: string;
   name: string;
-  /** Also the filename of the spinner's MDX document. */
   slug: string;
 }
 
@@ -44,11 +41,6 @@ const DEFAULT_SIZES: SpinnerSize[] = [
   { label: "Large", value: 96 },
 ];
 
-/**
- * Every spinner offers the same controls; only the speed range differs. The
- * speed's default is read from the library rather than restated here, so the
- * slider resets to the duration the CSS actually uses.
- */
 function customizationFor(
   name: SpinnerName,
   speed: { max: number; min: number }
@@ -61,10 +53,6 @@ function customizationFor(
   };
 }
 
-/**
- * The catalog. This array's order is the order everywhere: the homepage grid,
- * the sidebar, and previous/next on a spinner page.
- */
 export const SPINNER_ITEMS: SpinnerItem[] = [
   {
     component: Arc,

@@ -58,16 +58,3 @@ table of contents in the aside, slugged the same way `rehype-slug` slugs them.
 
 The opening code example is **not** in the document; it is generated from the
 live customization state.
-
-## Ring, not Loader
-
-The rotating arc over a faint track is **Ring** — the name the package exports,
-the page title, and the slug. It was briefly titled "Loader" on the site while
-the package exported `Ring`, so a page headed "Loader" sat above a code block
-reading `import { Ring }`.
-
-Ring won because it describes the shape, like every other name in the set
-(Arc, Comet, Grid, Ripple), and because renaming the site was the non-breaking
-direction for a published package. `/spinners/loader` permanently redirects.
-
-Do not reintroduce "Loader" as a display name or an alias.
