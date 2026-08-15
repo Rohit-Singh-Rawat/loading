@@ -17,9 +17,21 @@ cannot disagree.
 
 ## Motion contract
 
-The part of a spinner's interface that is not props: the CSS custom properties
-`--ld-duration` and `--ld-play-state`, which cascade from any ancestor, plus
-`--spinner-size`, which the `size` prop sets.
+Every spinner's motion is reachable two ways. The CSS custom properties
+`--ld-duration` and `--ld-play-state` cascade from any ancestor, so one
+declaration can drive a whole subtree. The `duration` and `playState` props set
+those same properties on a single spinner's root element.
+
+`spinnerRoot` in `frame.tsx` is where the two meet, and it writes a property
+only when its prop is passed — an omitted prop leaves the property unset so an
+ancestor's value still reaches the spinner. Precedence is prop, then ancestor,
+then the spinner's own default. `color` rides the same rule through the plain
+CSS `color` property, which the spinners paint with via `currentColor`.
+
+`--spinner-size` is not part of that: `spinnerRoot` always writes it, resolving
+the `size` prop against the package default. It carries the number into the
+spinner's own CSS rather than offering a second way in, so size is a prop and
+nothing else.
 
 `SPINNER_MOTION` in `packages/loading/src/motion.ts` is the machine-readable
 half — each spinner's default duration, in milliseconds. It is the single
@@ -61,9 +73,17 @@ playback, which is a separate control outside the panel.
 
 ## Document
 
-A spinner's MDX file in `apps/web/src/content/spinners/<slug>.mdx` — prose
-only. Its filename is the spinner's slug, and its `##` headings become the
-table of contents in the aside, slugged the same way `rehype-slug` slugs them.
+A spinner's MDX file in `apps/web/src/content/spinners/<slug>.mdx` — prose and
+a `<Demo />` tag per section. Its filename is the spinner's slug, and its `##`
+headings become the table of contents in the aside, slugged the same way
+`rehype-slug` slugs them.
 
-The opening code example is **not** in the document; it is generated from the
-live customization state.
+The opening code example is **not** in the document. It is its own file,
+`content/snippets/<slug>.mdx`, and it is static — the customization controls
+drive the preview, not it.
+
+`/spinners/<slug>/markdown` serves the document as plain Markdown for anything
+reading rather than browsing. It is assembled, not served verbatim: the
+snippet goes above the prose the way it sits on the page, and each `<Demo />`
+tag is replaced by the fenced block from the demo's `.mdx`, so the reader gets
+the code the tag would have rendered.

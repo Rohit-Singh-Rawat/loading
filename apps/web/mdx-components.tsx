@@ -2,6 +2,7 @@
 type MDXComponents = Record<string, React.ComponentType<any>>;
 
 import { MDXCode } from "@/components/mdx/code";
+import { Demo } from "@/components/mdx/demo";
 import { MDXFigure } from "@/components/mdx/figure";
 import { MDXHeading } from "@/components/mdx/heading";
 import { MDXParagraph } from "@/components/mdx/paragraph";
@@ -12,6 +13,7 @@ export function useMDXComponents(
 ): MDXComponents {
   return {
     code: MDXCode,
+    Demo,
     figure: MDXFigure,
     h2: MDXHeading,
     p: MDXParagraph,

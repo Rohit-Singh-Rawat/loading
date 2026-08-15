@@ -1,0 +1,5 @@
+import { Orbit } from "loading-dev";
+
+export default function OrbitColor() {
+  return <Orbit color="#f97316" size={32} />;
+}

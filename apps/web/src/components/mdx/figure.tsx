@@ -1,16 +1,6 @@
 import { Children, isValidElement, type ReactNode } from "react";
 import { CodeBlockHeader } from "@/components/mdx/code-block-header";
 import { FIGURE_CLASSES } from "@/lib/code-block";
-import { cn } from "@/lib/utils";
-
-const marginClasses = {
-  both: "mt-6 mb-6",
-  bottom: "mb-6",
-  none: "",
-  top: "mt-6",
-} as const;
-
-type FigureMargin = keyof typeof marginClasses;
 
 function extractText(node: ReactNode): string {
   if (typeof node === "string") {
@@ -30,11 +20,9 @@ function extractText(node: ReactNode): string {
 
 export function MDXFigure({
   children,
-  margin,
   ...rest
 }: {
   children: ReactNode;
-  margin?: FigureMargin;
 } & Record<string, unknown>) {
   if (!("data-rehype-pretty-code-figure" in rest)) {
     return <figure {...rest}>{children}</figure>;
@@ -49,11 +37,7 @@ export function MDXFigure({
   const preChild = items.find((item) => item !== titleChild);
 
   if (!(titleChild && isValidElement(titleChild))) {
-    return (
-      <figure className={cn(FIGURE_CLASSES, marginClasses[margin ?? "none"])}>
-        {children}
-      </figure>
-    );
+    return <figure className={FIGURE_CLASSES}>{children}</figure>;
   }
 
   const titleProps = titleChild.props as {
@@ -64,7 +48,7 @@ export function MDXFigure({
   const code = extractText(preChild);
 
   return (
-    <figure className={cn(FIGURE_CLASSES, marginClasses[margin ?? "top"])}>
+    <figure className={FIGURE_CLASSES}>
       <CodeBlockHeader code={code} filename={filename} />
       {preChild}
     </figure>

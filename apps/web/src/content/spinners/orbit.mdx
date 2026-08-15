@@ -1,10 +1,35 @@
-## Customization
+## Changing Size
 
-Use the `size` prop for the spinner's dimensions — the arc, its stroke, and
-the center dot scale proportionally. Tint it with the CSS `color` property
-via `currentColor`. Motion is controlled with CSS variables:
-`--ld-duration` sets the rotation speed and `--ld-play-state` pauses or
-resumes the animation.
+Sets the spinner's dimensions in pixels — the arc, its stroke, and the center
+dot scale proportionally. Defaults to 20.
+
+<Demo name="orbit/size" />
+
+## Custom Classes
+
+Merged onto the root element, so utilities land on the spinner itself.
+
+<Demo name="orbit/class-name" />
+
+## Changing Color
+
+Tints the arc and the center dot with any CSS color. Omit them and they
+inherit `currentColor` from the surrounding text.
+
+<Demo name="orbit/color" />
+
+## Changing Duration
+
+Sets the rotation speed in milliseconds. Set `--ld-duration` on a wrapper
+instead — it cascades down to every spinner underneath.
+
+<Demo name="orbit/duration" />
+
+## State
+
+Pauses or resumes the animation.
+
+<Demo name="orbit/play-state" />
 
 ## Usage
 

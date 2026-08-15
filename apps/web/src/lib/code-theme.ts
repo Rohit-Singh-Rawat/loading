@@ -6,5 +6,3 @@ export const CODE_THEMES = {
   dark: pierreDarkVibrant as unknown as ThemeRegistrationAny,
   light: pierreLightVibrant as unknown as ThemeRegistrationAny,
 };
-
-export const CODE_THEME_ATTR = `${pierreDarkVibrant.name} ${pierreLightVibrant.name}`;

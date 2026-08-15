@@ -1,0 +1,11 @@
+import { Classic } from "loading-dev";
+
+export default function ClassicSize() {
+  return (
+    <div className="flex items-center gap-6">
+      <Classic size={16} />
+      <Classic size={24} />
+      <Classic size={40} />
+    </div>
+  );
+}

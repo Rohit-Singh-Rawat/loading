@@ -1,7 +1,6 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
 import GithubSlugger from "github-slugger";
 import { getSpinner } from "@/components/spinners";
+import { readContent } from "@/lib/content";
 
 export interface DocumentHeading {
   id: string;
@@ -13,15 +12,33 @@ export interface SpinnerDocument {
   markdown: string;
 }
 
-const HEADING = /^##\s+(.+?)\s*$/gm;
-const FENCED_BLOCK = /^```[\s\S]*?^```/gm;
+const TOKEN = /^```[\s\S]*?^```|^##\s+(.+?)\s*$|<Demo\s+name="([^"]+)"\s*\/>/gm;
 
-function headingsOf(source: string): DocumentHeading[] {
+async function parse(source: string): Promise<SpinnerDocument> {
   const slugger = new GithubSlugger();
-  return Array.from(
-    source.replace(FENCED_BLOCK, "").matchAll(HEADING),
-    ([, label]) => ({ id: slugger.slug(label), label })
-  );
+  const headings: DocumentHeading[] = [];
+  const parts: (string | Promise<string>)[] = [];
+  let cursor = 0;
+
+  for (const match of source.matchAll(TOKEN)) {
+    const [token, label, demo] = match;
+    if (label !== undefined) {
+      headings.push({ id: slugger.slug(label), label });
+      continue;
+    }
+    if (demo === undefined) {
+      continue;
+    }
+
+    parts.push(
+      source.slice(cursor, match.index),
+      readContent("demos", `${demo}.mdx`)
+    );
+    cursor = match.index + token.length;
+  }
+  parts.push(source.slice(cursor));
+
+  return { headings, markdown: (await Promise.all(parts)).join("").trim() };
 }
 
 export async function getSpinnerDocument(
@@ -32,13 +49,16 @@ export async function getSpinnerDocument(
     return null;
   }
 
-  const raw = await readFile(
-    path.join(process.cwd(), "src/content/spinners", `${slug}.mdx`),
-    "utf8"
-  );
+  const [raw, snippet] = await Promise.all([
+    readContent("spinners", `${slug}.mdx`),
+    readContent("snippets", `${slug}.mdx`),
+  ]);
+  const { headings, markdown } = await parse(raw);
 
   return {
-    headings: headingsOf(raw),
-    markdown: [`# ${item.name}`, item.description, raw].join("\n\n"),
+    headings,
+    markdown: [`# ${item.name}`, item.description, snippet, markdown].join(
+      "\n\n"
+    ),
   };
 }

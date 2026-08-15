@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE, duration, PLAY_STATE, SIZE } from "./motion";
+import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const GROUPS = [
@@ -70,11 +70,11 @@ const css = `
 }
 `;
 
-export function Ripple({ size = DEFAULT_SIZE, className }: SpinnerProps) {
+export function Ripple(props: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="ripple">{css}</SpinnerStyle>
-      <div {...spinnerRoot("ripple", { className, size })}>
+      <div {...spinnerRoot("ripple", props)}>
         {CELLS.map((cell) => (
           <div
             className={

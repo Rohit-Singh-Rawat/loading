@@ -1,0 +1,5 @@
+import { Grid } from "loading-dev";
+
+export default function GridDuration() {
+  return <Grid duration={2400} size={32} />;
+}

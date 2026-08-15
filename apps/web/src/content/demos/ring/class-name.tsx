@@ -1,0 +1,5 @@
+import { Ring } from "loading-dev";
+
+export default function RingClassName() {
+  return <Ring className="opacity-40" size={32} />;
+}

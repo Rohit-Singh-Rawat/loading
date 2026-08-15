@@ -21,12 +21,12 @@ const css = `
 }
 `;
 
-export function Arc({ size = DEFAULT_SIZE, className }: SpinnerProps) {
+export function Arc({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="arc">{css}</SpinnerStyle>
       <svg
-        {...spinnerRoot("arc", { className, size })}
+        {...spinnerRoot("arc", { ...rest, size })}
         fill="none"
         height={size}
         role="presentation"

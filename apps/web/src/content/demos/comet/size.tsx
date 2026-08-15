@@ -1,0 +1,11 @@
+import { Comet } from "loading-dev";
+
+export default function CometSize() {
+  return (
+    <div className="flex items-center gap-6">
+      <Comet size={16} />
+      <Comet size={24} />
+      <Comet size={40} />
+    </div>
+  );
+}

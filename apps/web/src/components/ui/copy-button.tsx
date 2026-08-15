@@ -28,7 +28,7 @@ export function CopyButton({
   rounded?: keyof typeof roundedClasses;
   text: string;
 }) {
-  const { copy, status } = useCopy(text);
+  const { copy, status } = useCopy();
   const copied = status === "copied";
 
   return (
@@ -39,7 +39,7 @@ export function CopyButton({
         roundedClasses[rounded],
         className
       )}
-      onClick={copy}
+      onClick={() => copy(text)}
       type="button"
     >
       <AnimatedIcon

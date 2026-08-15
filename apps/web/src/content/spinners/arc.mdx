@@ -1,9 +1,34 @@
-## Customization
+## Changing Size
 
-Use the `size` prop for the spinner's dimensions and the CSS `color`
-property to tint it — the stroke inherits `currentColor`. Motion is
-controlled with CSS variables: `--ld-duration` sets the rotation speed and
-`--ld-play-state` pauses or resumes the animation.
+Sets the spinner's dimensions in pixels. Defaults to 20.
+
+<Demo name="arc/size" />
+
+## Custom Classes
+
+Merged onto the root element, so utilities land on the spinner itself.
+
+<Demo name="arc/class-name" />
+
+## Changing Color
+
+Tints the stroke with any CSS color. Omit it and the stroke inherits
+`currentColor` from the surrounding text.
+
+<Demo name="arc/color" />
+
+## Changing Duration
+
+Sets the rotation speed in milliseconds. Set `--ld-duration` on a wrapper
+instead — it cascades down to every spinner underneath.
+
+<Demo name="arc/duration" />
+
+## State
+
+Pauses or resumes the animation.
+
+<Demo name="arc/play-state" />
 
 ## Usage
 

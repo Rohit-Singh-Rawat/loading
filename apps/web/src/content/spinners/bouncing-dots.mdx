@@ -1,10 +1,36 @@
-## Customization
+## Changing Size
 
-Use the `size` prop for the spinner's dimensions — the dots and their gap
-scale proportionally. Tint it with the CSS `color` property via
-`currentColor`. Motion is controlled with CSS variables: `--ld-duration`
-sets the bounce speed and `--ld-play-state` pauses or resumes the
-animation; the stagger between dots stays proportional at any speed.
+Sets the spinner's dimensions in pixels — the dots and their gap scale
+proportionally. Defaults to 20.
+
+<Demo name="bouncing-dots/size" />
+
+## Custom Classes
+
+Merged onto the root element, so utilities land on the spinner itself.
+
+<Demo name="bouncing-dots/class-name" />
+
+## Changing Color
+
+Tints the dots with any CSS color. Omit it and they inherit `currentColor`
+from the surrounding text.
+
+<Demo name="bouncing-dots/color" />
+
+## Changing Duration
+
+Sets the bounce speed in milliseconds; the stagger between dots stays
+proportional at any speed. Set `--ld-duration` on a wrapper instead — it
+cascades down to every spinner underneath.
+
+<Demo name="bouncing-dots/duration" />
+
+## State
+
+Pauses or resumes the animation.
+
+<Demo name="bouncing-dots/play-state" />
 
 ## Usage
 

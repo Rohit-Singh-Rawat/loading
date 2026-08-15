@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE, duration, PLAY_STATE, SIZE } from "./motion";
+import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
@@ -45,11 +45,11 @@ const css = `
 }
 `;
 
-export function Orbit({ size = DEFAULT_SIZE, className }: SpinnerProps) {
+export function Orbit(props: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="orbit">{css}</SpinnerStyle>
-      <div {...spinnerRoot("orbit", { className, size })}>
+      <div {...spinnerRoot("orbit", props)}>
         <div className="ld-orbit-dot" />
         <div className="ld-orbit-track" />
       </div>

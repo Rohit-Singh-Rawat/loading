@@ -1,0 +1,5 @@
+import { Arc } from "loading-dev";
+
+export default function ArcDuration() {
+  return <Arc duration={2000} size={32} />;
+}

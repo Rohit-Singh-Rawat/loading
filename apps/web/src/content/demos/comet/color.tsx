@@ -1,0 +1,5 @@
+import { Comet } from "loading-dev";
+
+export default function CometColor() {
+  return <Comet color="#f97316" size={32} />;
+}

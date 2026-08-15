@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE, duration, PLAY_STATE, SIZE } from "./motion";
+import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
@@ -45,11 +45,11 @@ const css = `
 }
 `;
 
-export function Comet({ size = DEFAULT_SIZE, className }: SpinnerProps) {
+export function Comet(props: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="comet">{css}</SpinnerStyle>
-      <div {...spinnerRoot("comet", { className, size })}>
+      <div {...spinnerRoot("comet", props)}>
         <div className="ld-comet-tail" />
         <div className="ld-comet-head" />
       </div>

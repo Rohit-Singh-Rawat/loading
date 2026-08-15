@@ -22,12 +22,12 @@ const css = `
 }
 `;
 
-export function Ring({ size = DEFAULT_SIZE, className }: SpinnerProps) {
+export function Ring({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="ring">{css}</SpinnerStyle>
       <svg
-        {...spinnerRoot("ring", { className, size })}
+        {...spinnerRoot("ring", { ...rest, size })}
         fill="none"
         height={size}
         role="presentation"

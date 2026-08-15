@@ -27,7 +27,9 @@ export function SubmitButton() {
 }
 ```
 
-Spinners inherit their color from `currentColor` — set `color` on a parent (or via `className`) to tint them.
+Spinners paint with `currentColor`, so they inherit the surrounding text color.
+Pass the `color` prop to tint one, or set `color` on a parent to tint every
+spinner underneath.
 
 ## Components
 
@@ -46,15 +48,19 @@ Spinners inherit their color from `currentColor` — set `color` on a parent (or
 
 Every spinner accepts the same props:
 
-| Prop        | Type     | Default | Description                              |
-| ----------- | -------- | ------- | ---------------------------------------- |
-| `size`      | `number` | `20`    | Width and height in pixels               |
-| `className` | `string` | —       | Extra class names for the root element   |
+| Prop        | Type                     | Default | Description                            |
+| ----------- | ------------------------ | ------- | -------------------------------------- |
+| `size`      | `number`                 | `20`    | Width and height in pixels             |
+| `color`     | `string`                 | —       | Any CSS color                          |
+| `duration`  | `number`                 | —       | One animation cycle, in milliseconds   |
+| `playState` | `"running" \| "paused"`  | —       | Whether the animation runs             |
+| `className` | `string`                 | —       | Extra class names for the root element |
 
 ## Motion
 
-Animation is controlled with CSS custom properties rather than props, so you
-can set them on any ancestor and let them cascade:
+`duration` and `playState` set one spinner. The same values are also CSS custom
+properties, so you can set them on any ancestor and let them cascade to every
+spinner underneath:
 
 | Property           | Values                       | Description                    |
 | ------------------ | ---------------------------- | ------------------------------ |
@@ -62,10 +68,16 @@ can set them on any ancestor and let them cascade:
 | `--ld-play-state`  | `running` (default), `paused`| Pauses or resumes the animation|
 
 ```tsx
+<Arc duration={2000} />
+
 <div style={{ "--ld-duration": "2s" }}>
   <Arc />
+  <Ring />
 </div>
 ```
+
+A prop wins over an inherited property, which wins over the spinner's own
+default.
 
 Each spinner's default duration is also exported as data, so a control can be
 seeded from the same value the CSS uses:

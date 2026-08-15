@@ -1,0 +1,11 @@
+import { Orbit } from "loading-dev";
+
+export default function OrbitSize() {
+  return (
+    <div className="flex items-center gap-6">
+      <Orbit size={16} />
+      <Orbit size={24} />
+      <Orbit size={40} />
+    </div>
+  );
+}
