@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { NavItem } from "@/components/ui/nav-item";
 
 export interface TocItem {
+  depth: number;
   id: string;
   label: string;
 }
@@ -54,6 +55,7 @@ export function Toc({ items }: { items: TocItem[] }) {
       {items.map((item, index) => (
         <NavItem
           active={activeIndex === index}
+          className={item.depth > 2 ? "ps-7 font-berkeley-mono" : undefined}
           href={`#${item.id}`}
           key={item.id}
           kind="anchor"

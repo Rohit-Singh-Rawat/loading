@@ -13,3 +13,22 @@ export function MDXHeading({
     </Heading>
   );
 }
+
+export function MDXSubheading({
+  children,
+  ...rest
+}: {
+  children: ReactNode;
+} & Record<string, unknown>) {
+  return (
+    <Heading
+      as="h3"
+      className="mt-6 mb-1 font-berkeley-mono"
+      size={6}
+      weight="medium"
+      {...rest}
+    >
+      {children}
+    </Heading>
+  );
+}

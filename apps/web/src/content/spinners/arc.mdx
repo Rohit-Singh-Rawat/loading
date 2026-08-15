@@ -1,9 +1,67 @@
-## Customization
+import { Arc } from "loading-dev";
 
-Use the `size` prop for the spinner's dimensions and the CSS `color`
-property to tint it — the stroke inherits `currentColor`. Motion is
-controlled with CSS variables: `--ld-duration` sets the rotation speed and
-`--ld-play-state` pauses or resumes the animation.
+## Props
+
+### size
+
+Sets the spinner's dimensions in pixels. Defaults to 20.
+
+<DemoWithCode code={`<Arc size={16} />
+<Arc size={24} />
+<Arc size={40} />`}>
+  <div className="flex items-center gap-6">
+    <Arc size={16} />
+    <Arc size={24} />
+    <Arc size={40} />
+  </div>
+</DemoWithCode>
+
+### className
+
+Merged onto the root element, so utilities land on the spinner itself.
+
+<DemoWithCode code={`<Arc className="opacity-40" size={32} />`}>
+  <Arc className="opacity-40" size={32} />
+</DemoWithCode>
+
+## Styling
+
+### color
+
+The stroke inherits `currentColor`, so the CSS `color` property tints it.
+
+<DemoWithCode code={`<div style={{ color: "#f97316" }}>
+  <Arc size={32} />
+</div>`}>
+  <div style={{ color: "#f97316" }}>
+    <Arc size={32} />
+  </div>
+</DemoWithCode>
+
+### --ld-duration
+
+Sets the rotation speed. Set it on any wrapper — it cascades down to the
+spinner.
+
+<DemoWithCode code={`<div style={{ "--ld-duration": "2s" }}>
+  <Arc size={32} />
+</div>`}>
+  <div style={{ "--ld-duration": "2s" }}>
+    <Arc size={32} />
+  </div>
+</DemoWithCode>
+
+### --ld-play-state
+
+Pauses or resumes the animation.
+
+<DemoWithCode code={`<div style={{ "--ld-play-state": "paused" }}>
+  <Arc size={32} />
+</div>`}>
+  <div style={{ "--ld-play-state": "paused" }}>
+    <Arc size={32} />
+  </div>
+</DemoWithCode>
 
 ## Usage
 

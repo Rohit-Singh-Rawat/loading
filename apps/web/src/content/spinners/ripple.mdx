@@ -1,10 +1,68 @@
-## Customization
+import { Ripple } from "loading-dev";
 
-Use the `size` prop for the spinner's dimensions — the cells and the gaps
-between them scale proportionally. Tint it with the CSS `color` property
-via `currentColor`. Motion is controlled with CSS variables:
-`--ld-duration` sets the time for one full pulse and `--ld-play-state`
-pauses or resumes the animation.
+## Props
+
+### size
+
+Sets the spinner's dimensions in pixels — the cells and the gaps between them
+scale proportionally. Defaults to 20.
+
+<DemoWithCode code={`<Ripple size={16} />
+<Ripple size={24} />
+<Ripple size={40} />`}>
+  <div className="flex items-center gap-6">
+    <Ripple size={16} />
+    <Ripple size={24} />
+    <Ripple size={40} />
+  </div>
+</DemoWithCode>
+
+### className
+
+Merged onto the root element, so utilities land on the spinner itself.
+
+<DemoWithCode code={`<Ripple className="opacity-40" size={32} />`}>
+  <Ripple className="opacity-40" size={32} />
+</DemoWithCode>
+
+## Styling
+
+### color
+
+The cells inherit `currentColor`, so the CSS `color` property tints them.
+
+<DemoWithCode code={`<div style={{ color: "#f97316" }}>
+  <Ripple size={32} />
+</div>`}>
+  <div style={{ color: "#f97316" }}>
+    <Ripple size={32} />
+  </div>
+</DemoWithCode>
+
+### --ld-duration
+
+Sets the time for one full pulse. Set it on any wrapper — it cascades down to
+the spinner.
+
+<DemoWithCode code={`<div style={{ "--ld-duration": "2.4s" }}>
+  <Ripple size={32} />
+</div>`}>
+  <div style={{ "--ld-duration": "2.4s" }}>
+    <Ripple size={32} />
+  </div>
+</DemoWithCode>
+
+### --ld-play-state
+
+Pauses or resumes the animation.
+
+<DemoWithCode code={`<div style={{ "--ld-play-state": "paused" }}>
+  <Ripple size={32} />
+</div>`}>
+  <div style={{ "--ld-play-state": "paused" }}>
+    <Ripple size={32} />
+  </div>
+</DemoWithCode>
 
 ## Usage
 
