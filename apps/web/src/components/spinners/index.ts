@@ -25,7 +25,6 @@ export interface SpinnerCustomization {
 
 interface CatalogEntry {
   component: ComponentType<SpinnerProps>;
-  componentName: string;
   description: string;
   name: string;
   slug: SpinnerName;
@@ -47,7 +46,6 @@ export const DEFAULT_SIZE_INDEX = 1;
 const CATALOG: CatalogEntry[] = [
   {
     component: Arc,
-    componentName: "Arc",
     description: "A single open stroke sweeping around a circular track.",
     name: "Arc",
     slug: "arc",
@@ -55,7 +53,6 @@ const CATALOG: CatalogEntry[] = [
   },
   {
     component: Classic,
-    componentName: "Classic",
     description: "Twelve fading bars arranged in the classic radial spinner.",
     name: "Classic",
     slug: "classic",
@@ -63,7 +60,6 @@ const CATALOG: CatalogEntry[] = [
   },
   {
     component: Ring,
-    componentName: "Ring",
     description: "A rotating arc riding a faint circular track.",
     name: "Ring",
     slug: "ring",
@@ -71,7 +67,6 @@ const CATALOG: CatalogEntry[] = [
   },
   {
     component: BouncingDots,
-    componentName: "BouncingDots",
     description: "Three dots bouncing in a staggered rhythm.",
     name: "Bouncing dots",
     slug: "bouncing-dots",
@@ -79,7 +74,6 @@ const CATALOG: CatalogEntry[] = [
   },
   {
     component: Comet,
-    componentName: "Comet",
     description: "A full ring fading into a bright leading head.",
     name: "Comet",
     slug: "comet",
@@ -87,7 +81,6 @@ const CATALOG: CatalogEntry[] = [
   },
   {
     component: Orbit,
-    componentName: "Orbit",
     description: "A fading half-arc circling a fixed center dot.",
     name: "Orbit",
     slug: "orbit",
@@ -95,7 +88,6 @@ const CATALOG: CatalogEntry[] = [
   },
   {
     component: Grid,
-    componentName: "Grid",
     description: "A four-by-four pixel grid lit row by row.",
     name: "Grid",
     slug: "grid",
@@ -103,7 +95,6 @@ const CATALOG: CatalogEntry[] = [
   },
   {
     component: Ripple,
-    componentName: "Ripple",
     description: "A pixel grid pulsing outward from its center.",
     name: "Ripple",
     slug: "ripple",

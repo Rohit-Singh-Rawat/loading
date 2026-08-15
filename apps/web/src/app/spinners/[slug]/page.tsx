@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import type { ComponentType } from "react";
 import { PrevNext } from "@/components/spinner-detail/prev-next";
 import { SpinnerCustomizationProvider } from "@/components/spinner-detail/spinner-customization";
 import { SpinnerPreview } from "@/components/spinner-detail/spinner-preview";
@@ -11,6 +10,7 @@ import {
 } from "@/components/spinners";
 import { PageHeader } from "@/components/ui/page-header";
 import { SITE_DESCRIPTION } from "@/lib/constants";
+import type { MDXModule } from "@/lib/mdx";
 
 interface Params {
   slug: string;
@@ -47,12 +47,11 @@ export default async function SpinnerPage({
 
   const { next, previous } = getAdjacentSpinners(slug);
 
-  const [{ default: Content }, { default: Snippet }]: {
-    default: ComponentType;
-  }[] = await Promise.all([
-    import(`@/content/spinners/${slug}.mdx`),
-    import(`@/content/snippets/${slug}.mdx`),
-  ]);
+  const [{ default: Content }, { default: Snippet }]: [MDXModule, MDXModule] =
+    await Promise.all([
+      import(`@/content/spinners/${slug}.mdx`),
+      import(`@/content/snippets/${slug}.mdx`),
+    ]);
 
   return (
     <div className="flex flex-col gap-8">
@@ -64,8 +63,8 @@ export default async function SpinnerPage({
       <SpinnerCustomizationProvider slug={slug}>
         <div className="flex flex-col">
           <SpinnerPreview />
-          <div className="flex flex-col">
-            <div className="mt-2.5 [&>figure]:mt-0">
+          <div className="flex flex-col [&>figure]:mt-6">
+            <div className="mt-2.5">
               <Snippet />
             </div>
             <Content />

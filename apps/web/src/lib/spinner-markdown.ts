@@ -1,8 +1,6 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
 import GithubSlugger from "github-slugger";
 import { getSpinner } from "@/components/spinners";
-import { readDemoSnippet } from "@/lib/demo-source";
+import { readContent } from "@/lib/content";
 
 export interface DocumentHeading {
   id: string;
@@ -32,7 +30,10 @@ async function parse(source: string): Promise<SpinnerDocument> {
       continue;
     }
 
-    parts.push(source.slice(cursor, match.index), readDemoSnippet(demo));
+    parts.push(
+      source.slice(cursor, match.index),
+      readContent("demos", `${demo}.mdx`)
+    );
     cursor = match.index + token.length;
   }
   parts.push(source.slice(cursor));
@@ -48,14 +49,16 @@ export async function getSpinnerDocument(
     return null;
   }
 
-  const raw = await readFile(
-    path.join(process.cwd(), "src/content/spinners", `${slug}.mdx`),
-    "utf8"
-  );
+  const [raw, snippet] = await Promise.all([
+    readContent("spinners", `${slug}.mdx`),
+    readContent("snippets", `${slug}.mdx`),
+  ]);
   const { headings, markdown } = await parse(raw);
 
   return {
     headings,
-    markdown: [`# ${item.name}`, item.description, markdown].join("\n\n"),
+    markdown: [`# ${item.name}`, item.description, snippet, markdown].join(
+      "\n\n"
+    ),
   };
 }

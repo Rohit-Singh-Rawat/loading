@@ -73,9 +73,17 @@ playback, which is a separate control outside the panel.
 
 ## Document
 
-A spinner's MDX file in `apps/web/src/content/spinners/<slug>.mdx` — prose
-only. Its filename is the spinner's slug, and its `##` headings become the
-table of contents in the aside, slugged the same way `rehype-slug` slugs them.
+A spinner's MDX file in `apps/web/src/content/spinners/<slug>.mdx` — prose and
+a `<Demo />` tag per section. Its filename is the spinner's slug, and its `##`
+headings become the table of contents in the aside, slugged the same way
+`rehype-slug` slugs them.
 
-The opening code example is **not** in the document; it is generated from the
-live customization state.
+The opening code example is **not** in the document. It is its own file,
+`content/snippets/<slug>.mdx`, and it is static — the customization controls
+drive the preview, not it.
+
+`/spinners/<slug>/markdown` serves the document as plain Markdown for anything
+reading rather than browsing. It is assembled, not served verbatim: the
+snippet goes above the prose the way it sits on the page, and each `<Demo />`
+tag is replaced by the fenced block from the demo's `.mdx`, so the reader gets
+the code the tag would have rendered.
