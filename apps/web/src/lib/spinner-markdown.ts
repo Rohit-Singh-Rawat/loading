@@ -5,8 +5,7 @@ import { getSpinner } from "@/components/spinners";
 import { readDemoSource } from "@/lib/demo-source";
 
 export interface DocumentHeading {
-  /** 2 for `##`, 3 for `###` — the table of contents indents the deeper level. */
-  depth: number;
+  depth: 2 | 3;
   id: string;
   label: string;
 }
@@ -18,41 +17,43 @@ export interface SpinnerDocument {
 
 const HEADING = /^(#{2,3})\s+(.+?)\s*$/gm;
 const FENCED_BLOCK = /^```[\s\S]*?^```/gm;
+const DEMO_TAG = /<Demo\s+name="([^"]+)"\s*\/>/;
 
 function headingsOf(source: string): DocumentHeading[] {
   const slugger = new GithubSlugger();
   return Array.from(
     source.replace(FENCED_BLOCK, "").matchAll(HEADING),
-    ([, hashes, label]) => ({
-      depth: hashes.length,
+    ([, hashes, label]): DocumentHeading => ({
+      depth: hashes.length === 3 ? 3 : 2,
       id: slugger.slug(label),
       label,
     })
   );
 }
 
-const DEMO_TAG = /<Demo\s+name="([^"]+)"\s*\/>/g;
+const FENCE_OR_DEMO = new RegExp(
+  `${FENCED_BLOCK.source}|${DEMO_TAG.source}`,
+  "gm"
+);
 
-/**
- * The MDX renders each demo as a component; the markdown route serves the same
- * document as plain prose, so every `<Demo />` becomes the demo's own source.
- */
 async function inlineDemos(source: string): Promise<string> {
-  const sources = new Map(
-    await Promise.all(
-      Array.from(
-        source.matchAll(DEMO_TAG),
-        async ([, name]) => [name, await readDemoSource(name)] as const
-      )
-    )
-  );
+  const parts: (string | Promise<string>)[] = [];
+  let cursor = 0;
 
-  return source
-    .replace(
-      DEMO_TAG,
-      (_match, name: string) => `\`\`\`tsx\n${sources.get(name)}\n\`\`\``
-    )
-    .trim();
+  for (const match of source.matchAll(FENCE_OR_DEMO)) {
+    const [text, name] = match;
+    if (name === undefined) {
+      continue;
+    }
+    parts.push(
+      source.slice(cursor, match.index),
+      readDemoSource(name).then((code) => `\`\`\`tsx\n${code}\n\`\`\``)
+    );
+    cursor = match.index + text.length;
+  }
+  parts.push(source.slice(cursor));
+
+  return (await Promise.all(parts)).join("").trim();
 }
 
 export async function getSpinnerDocument(

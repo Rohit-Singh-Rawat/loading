@@ -13,14 +13,16 @@ Merged onto the root element, so utilities land on the spinner itself.
 
 ## Changing Color
 
-The dots inherit `currentColor`, so the CSS `color` property tints them.
+Tints the dots with any CSS color. Omit it and they inherit `currentColor`
+from the surrounding text.
 
 <Demo name="bouncing-dots/color" />
 
 ## Changing Duration
 
-Sets the bounce speed; the stagger between dots stays proportional at any
-speed. Set it on any wrapper — it cascades down to the spinner.
+Sets the bounce speed in milliseconds; the stagger between dots stays
+proportional at any speed. Set `--ld-duration` on a wrapper instead — it
+cascades down to every spinner underneath.
 
 <Demo name="bouncing-dots/duration" />
 

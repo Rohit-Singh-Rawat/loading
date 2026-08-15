@@ -1,6 +1,6 @@
 import { AsideShell } from "@/components/aside/aside-shell";
 import { CopyPageButton } from "@/components/spinner-detail/copy-page-button";
-import { Toc } from "@/components/spinner-detail/toc";
+import { Toc, type TocItem } from "@/components/spinner-detail/toc";
 import { SPINNER_ITEMS } from "@/components/spinners";
 import { PREVIEW_SECTION_ID } from "@/lib/constants";
 import { getSpinnerDocument } from "@/lib/spinner-markdown";
@@ -9,7 +9,11 @@ interface Params {
   slug: string;
 }
 
-const PREVIEW_ITEM = { depth: 2, id: PREVIEW_SECTION_ID, label: "Preview" };
+const PREVIEW_ITEM: TocItem = {
+  depth: 2,
+  id: PREVIEW_SECTION_ID,
+  label: "Preview",
+};
 
 export function generateStaticParams(): Params[] {
   return SPINNER_ITEMS.map(({ slug }) => ({ slug }));

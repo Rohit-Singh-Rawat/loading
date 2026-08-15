@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE, duration, PLAY_STATE, SIZE } from "./motion";
+import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const DOTS = Array.from({ length: 3 }, (_, index) => index);
@@ -47,11 +47,11 @@ const css = `
 }
 `;
 
-export function BouncingDots({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
+export function BouncingDots(props: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="bouncing-dots">{css}</SpinnerStyle>
-      <div {...spinnerRoot("bouncing-dots", { ...rest, size })}>
+      <div {...spinnerRoot("bouncing-dots", props)}>
         {DOTS.map((dot) => (
           <div className="ld-dot" key={dot} />
         ))}

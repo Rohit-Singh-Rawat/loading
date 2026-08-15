@@ -12,14 +12,16 @@ Merged onto the root element, so utilities land on the spinner itself.
 
 ## Changing Color
 
-The bars inherit `currentColor`, so the CSS `color` property tints them.
+Tints the bars with any CSS color. Omit it and they inherit `currentColor`
+from the surrounding text.
 
 <Demo name="classic/color" />
 
 ## Changing Duration
 
-Sets the rotation speed; the per-bar stagger stays proportional at any speed.
-Set it on any wrapper — it cascades down to the spinner.
+Sets the rotation speed in milliseconds; the per-bar stagger stays
+proportional at any speed. Set `--ld-duration` on a wrapper instead — it
+cascades down to every spinner underneath.
 
 <Demo name="classic/duration" />
 

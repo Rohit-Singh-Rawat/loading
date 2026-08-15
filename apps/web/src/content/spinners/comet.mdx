@@ -13,14 +13,15 @@ Merged onto the root element, so utilities land on the spinner itself.
 
 ## Changing Color
 
-The ring inherits `currentColor`, so the CSS `color` property tints it.
+Tints the ring with any CSS color. Omit it and it inherits `currentColor` from
+the surrounding text.
 
 <Demo name="comet/color" />
 
 ## Changing Duration
 
-Sets the rotation speed. Set it on any wrapper — it cascades down to the
-spinner.
+Sets the rotation speed in milliseconds. Set `--ld-duration` on a wrapper
+instead — it cascades down to every spinner underneath.
 
 <Demo name="comet/duration" />
 

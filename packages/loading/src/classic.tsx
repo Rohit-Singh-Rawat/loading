@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE, duration, PLAY_STATE, SIZE } from "./motion";
+import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const BARS = Array.from({ length: 12 }, (_, index) => index);
@@ -58,11 +58,11 @@ ${BAR_RULES}
 }
 `;
 
-export function Classic({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
+export function Classic(props: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="classic">{css}</SpinnerStyle>
-      <div {...spinnerRoot("classic", { ...rest, size })}>
+      <div {...spinnerRoot("classic", props)}>
         <div className="ld-classic-inner">
           {BARS.map((bar) => (
             <div className="ld-classic-bar" key={bar} />

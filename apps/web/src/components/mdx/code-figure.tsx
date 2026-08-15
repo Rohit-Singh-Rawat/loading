@@ -17,7 +17,7 @@ export function CodeFigure({
 }: {
   className?: string;
   code: string;
-  filename?: string;
+  filename: string;
   html: string;
   preview?: ReactNode;
 }) {

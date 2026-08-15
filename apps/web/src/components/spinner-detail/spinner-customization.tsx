@@ -1,6 +1,6 @@
 "use client";
 
-import { DURATION_VAR, PLAY_STATE_VAR } from "loading-dev";
+import type { SpinnerProps } from "loading-dev";
 import {
   type CSSProperties,
   createContext,
@@ -26,9 +26,9 @@ export interface SpinnerCustomizationState {
   setOpacity: (percent: number) => void;
   setSizeIndex: (index: number) => void;
   setSpeedMs: (speedMs: number) => void;
-  size: number;
   sizeIndex: number;
   speedMs: number;
+  spinnerProps: SpinnerProps;
   togglePaused: () => void;
 }
 
@@ -49,12 +49,14 @@ function useCustomizationState(item: SpinnerItem): SpinnerCustomizationState {
   const [speedMs, setSpeedMs] = useState(speed.default);
   const [opacity, setOpacity] = useState(FULLY_OPAQUE);
 
-  const previewStyle = {
-    [DURATION_VAR]: `${speedMs}ms`,
-    [PLAY_STATE_VAR]: paused ? "paused" : "running",
-    opacity: opacity / FULLY_OPAQUE,
-    ...(color ? { color } : {}),
-  } as CSSProperties;
+  const previewStyle: CSSProperties = { opacity: opacity / FULLY_OPAQUE };
+
+  const spinnerProps: SpinnerProps = {
+    color: color ?? undefined,
+    duration: speedMs,
+    playState: paused ? "paused" : "running",
+    size: sizes[sizeIndex].value,
+  };
 
   return {
     color,
@@ -71,9 +73,9 @@ function useCustomizationState(item: SpinnerItem): SpinnerCustomizationState {
     setOpacity,
     setSizeIndex,
     setSpeedMs,
-    size: sizes[sizeIndex].value,
     sizeIndex,
     speedMs,
+    spinnerProps,
     togglePaused: () => setPaused((value) => !value),
   };
 }

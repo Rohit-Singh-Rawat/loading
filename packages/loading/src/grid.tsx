@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE, duration, PLAY_STATE, SIZE } from "./motion";
+import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const CELLS = Array.from({ length: 16 }, (_, index) => index);
@@ -56,11 +56,11 @@ ${ROW_RULES}
 }
 `;
 
-export function Grid({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
+export function Grid(props: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="grid">{css}</SpinnerStyle>
-      <div {...spinnerRoot("grid", { ...rest, size })}>
+      <div {...spinnerRoot("grid", props)}>
         {CELLS.map((cell) => (
           <div className="ld-grid-cell" key={cell} />
         ))}

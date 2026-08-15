@@ -6,7 +6,7 @@ export type CopyStatus = "copied" | "failed" | "idle";
 
 const RESET_DELAY_MS = 2000;
 
-export function useCopy(text: string) {
+export function useCopy(text: (() => string) | string) {
   const [status, setStatus] = useState<CopyStatus>("idle");
   const timeoutRef = useRef<number | null>(null);
 
@@ -22,7 +22,9 @@ export function useCopy(text: string) {
   async function copy() {
     let next: CopyStatus = "copied";
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(
+        typeof text === "function" ? text() : text
+      );
     } catch {
       next = "failed";
     }

@@ -61,7 +61,7 @@ export function SpinnerPreview() {
         </IconButton>
         <div className="flex min-h-0 w-full flex-1 items-center justify-center">
           <div style={state.previewStyle}>
-            <Spinner size={state.size} />
+            <Spinner {...state.spinnerProps} />
           </div>
         </div>
         <IconButton

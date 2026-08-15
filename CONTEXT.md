@@ -18,15 +18,20 @@ cannot disagree.
 ## Motion contract
 
 Every spinner's motion is reachable two ways. The CSS custom properties
-`--ld-duration`, `--ld-play-state` and `--spinner-size` cascade from any
-ancestor, so one declaration can drive a whole subtree. The `size`, `duration`
-and `playState` props set those same properties on a single spinner's root
-element.
+`--ld-duration` and `--ld-play-state` cascade from any ancestor, so one
+declaration can drive a whole subtree. The `duration` and `playState` props set
+those same properties on a single spinner's root element.
 
 `spinnerRoot` in `frame.tsx` is where the two meet, and it writes a property
 only when its prop is passed — an omitted prop leaves the property unset so an
 ancestor's value still reaches the spinner. Precedence is prop, then ancestor,
-then the spinner's own default.
+then the spinner's own default. `color` rides the same rule through the plain
+CSS `color` property, which the spinners paint with via `currentColor`.
+
+`--spinner-size` is not part of that: `spinnerRoot` always writes it, resolving
+the `size` prop against the package default. It carries the number into the
+spinner's own CSS rather than offering a second way in, so size is a prop and
+nothing else.
 
 `SPINNER_MOTION` in `packages/loading/src/motion.ts` is the machine-readable
 half — each spinner's default duration, in milliseconds. It is the single

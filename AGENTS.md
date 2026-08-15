@@ -47,10 +47,10 @@ Plus one directory that is **not** a workspace member:
 Each spinner is one self-contained `.tsx` file:
 
 - CSS lives inline in the component via React 19's style hoisting — no CSS files, no bundler CSS handling for consumers. Use `SpinnerStyle` from `frame.tsx` rather than writing the `<style>` tag; it derives the stylesheet key from the spinner's `ld-` key.
-- Class names are prefixed `ld-` (e.g. `ld-arc`). `spinnerRoot()` in `frame.tsx` supplies the root element's shared attributes: `aria-hidden`, the merged class name, and `--spinner-size`.
+- Class names are prefixed `ld-` (e.g. `ld-arc`). `spinnerRoot()` in `frame.tsx` supplies the root element's shared attributes: `aria-hidden`, the merged class name, and the CSS properties the appearance props set. It resolves the `size` default too, so a spinner destructures `size` only when its own markup needs the number — the SVG ones do, the rest just forward their props.
 - Every animation must have a `@media (prefers-reduced-motion: reduce)` fallback.
 - Never write a duration or the 20px default as a literal. `duration(name)`, `SIZE` and `DEFAULT_SIZE` all come from `motion.ts`, which owns the contract; `frame.tsx` is only the React frame — see `CONTEXT.md` on the motion contract.
-- All spinners take `SpinnerProps` from `types.ts`: `{ className?, size? }`, and use `currentColor` so they inherit text color.
+- All spinners take `SpinnerProps` from `types.ts`: `{ className?, color?, duration?, playState?, size? }`, and use `currentColor` so they inherit text color when `color` is omitted. Every prop but `className` writes a CSS property in `spinnerRoot` and only when passed — see `CONTEXT.md` on the motion contract for why omission matters.
 - Export new spinners from `src/index.ts` (a barrel by design — Biome's `noBarrelFile` is disabled for package entry points).
 
 ### Adding a spinner (cross-package workflow)
@@ -59,8 +59,9 @@ Each spinner is one self-contained `.tsx` file:
 2. Add its default duration to `SPINNER_MOTION` in `packages/loading/src/motion.ts`. The key is the spinner's `ld-` key, and `SpinnerStyle`/`spinnerRoot` will not type-check without it.
 3. Add a row to `packages/loading/README.md`.
 4. Register it in `apps/web/src/components/spinners/index.ts` (`CATALOG`, which `SPINNER_ITEMS` is derived from). This drives the homepage, the sidebar, previous/next, and `generateStaticParams` — **array position is the display order**. `slug` is typed `SpinnerName`, so it must be the spinner's `ld-` key; the default speed is read from `SPINNER_MOTION` under that key, and the entry only supplies the slider's `max`/`min`. Every entry needs a `component`; the site has no placeholder state, so a spinner only appears once it is built.
-5. Write `apps/web/src/content/spinners/<slug>.mdx` — prose only. The opening code example is generated from the live preview state, not written here. A missing file is a build error.
-6. Add it to `SPINNERS` in `examples/consumer/app/page.tsx`, or the post-publish check will not cover it.
+5. Write `apps/web/src/content/spinners/<slug>.mdx` — prose and a `<Demo name="<slug>/<demo>" />` tag per section. The opening code example above the prose is generated from the live preview state, not written here. A missing file is a build error.
+6. Add the demo files those tags name, at `apps/web/src/content/demos/<slug>/<demo>.tsx`, one default-exported component each — match the set the other spinners already have. Each file is both the rendered example and the source shown beneath it, and `/spinners/<slug>/markdown` inlines that same source, so there is nowhere for example and snippet to drift. A `<Demo />` naming a file that does not exist is a build error.
+7. Add it to `SPINNERS` in `examples/consumer/app/page.tsx`, or the post-publish check will not cover it.
 
 ### Web app conventions (`apps/web`)
 

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { NavItem } from "@/components/ui/nav-item";
 
 export interface TocItem {
-  depth: number;
+  depth: 2 | 3;
   id: string;
   label: string;
 }
