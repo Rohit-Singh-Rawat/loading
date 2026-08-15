@@ -1,13 +1,7 @@
 "use client";
 
 import type { SpinnerProps } from "loading-dev";
-import {
-  type CSSProperties,
-  createContext,
-  type ReactNode,
-  useContext,
-  useState,
-} from "react";
+import { createContext, type ReactNode, useContext, useState } from "react";
 import {
   DEFAULT_SIZE_INDEX,
   getSpinner,
@@ -20,7 +14,6 @@ export interface SpinnerCustomizationState {
   color: string | null;
   opacity: number;
   paused: boolean;
-  previewStyle: CSSProperties;
   reset: () => void;
   setColor: (color: string) => void;
   setOpacity: (percent: number) => void;
@@ -49,8 +42,6 @@ function useCustomizationState(item: SpinnerItem): SpinnerCustomizationState {
   const [speedMs, setSpeedMs] = useState(speed.default);
   const [opacity, setOpacity] = useState(FULLY_OPAQUE);
 
-  const previewStyle: CSSProperties = { opacity: opacity / FULLY_OPAQUE };
-
   const spinnerProps: SpinnerProps = {
     color: color ?? undefined,
     duration: speedMs,
@@ -62,7 +53,6 @@ function useCustomizationState(item: SpinnerItem): SpinnerCustomizationState {
     color,
     opacity,
     paused,
-    previewStyle,
     reset: () => {
       setSizeIndex(DEFAULT_SIZE_INDEX);
       setColor(null);

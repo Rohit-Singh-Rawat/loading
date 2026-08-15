@@ -1,23 +1,21 @@
 import type { ComponentType } from "react";
-import { CodeFigure } from "@/components/mdx/code-figure";
-import { readDemoSource } from "@/lib/demo-source";
-import { highlightTsx } from "@/lib/highlight";
 
 export async function Demo({ name }: { name: string }) {
-  const [module, code]: [{ default: ComponentType }, string] =
-    await Promise.all([
-      import(`@/content/demos/${name}.tsx`),
-      readDemoSource(name),
-    ]);
-  const Example = module.default;
+  const [{ default: Example }, { default: Snippet }]: {
+    default: ComponentType;
+  }[] = await Promise.all([
+    import(`@/content/demos/${name}.tsx`),
+    import(`@/content/demos/${name}.mdx`),
+  ]);
 
   return (
-    <CodeFigure
-      className="mt-8"
-      code={code}
-      filename={`${name.slice(name.lastIndexOf("/") + 1)}.tsx`}
-      html={await highlightTsx(code)}
-      preview={<Example />}
-    />
+    <div className="mt-8 w-full overflow-hidden rounded-2xl border border-border bg-background">
+      <div className="flex min-h-36 items-center justify-center border-border border-b px-4 py-8">
+        <Example />
+      </div>
+      <div className="[&>figure]:mt-0 [&>figure]:rounded-none [&>figure]:border-0">
+        <Snippet />
+      </div>
+    </div>
   );
 }

@@ -34,7 +34,7 @@ export function CopyPageButton({
   markdown: string;
   slug: string;
 }) {
-  const { copy, status } = useCopy(markdown);
+  const { copy, status } = useCopy();
   const markdownPath = `/spinners/${slug}/markdown`;
   const markdownUrl = `${DOMAIN}${markdownPath}`;
 
@@ -54,7 +54,7 @@ export function CopyPageButton({
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="start" className="w-(--anchor-width)">
-          <DropdownMenuItem onClick={copy}>
+          <DropdownMenuItem onClick={() => copy(markdown)}>
             <IconSquareBehindSquare1 />
             Copy to clipboard
           </DropdownMenuItem>

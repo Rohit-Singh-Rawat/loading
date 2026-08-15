@@ -2,10 +2,9 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import GithubSlugger from "github-slugger";
 import { getSpinner } from "@/components/spinners";
-import { readDemoSource } from "@/lib/demo-source";
+import { readDemoSnippet } from "@/lib/demo-source";
 
 export interface DocumentHeading {
-  depth: 2 | 3;
   id: string;
   label: string;
 }
@@ -15,45 +14,30 @@ export interface SpinnerDocument {
   markdown: string;
 }
 
-const HEADING = /^(#{2,3})\s+(.+?)\s*$/gm;
-const FENCED_BLOCK = /^```[\s\S]*?^```/gm;
-const DEMO_TAG = /<Demo\s+name="([^"]+)"\s*\/>/;
+const TOKEN = /^```[\s\S]*?^```|^##\s+(.+?)\s*$|<Demo\s+name="([^"]+)"\s*\/>/gm;
 
-function headingsOf(source: string): DocumentHeading[] {
+async function parse(source: string): Promise<SpinnerDocument> {
   const slugger = new GithubSlugger();
-  return Array.from(
-    source.replace(FENCED_BLOCK, "").matchAll(HEADING),
-    ([, hashes, label]): DocumentHeading => ({
-      depth: hashes.length === 3 ? 3 : 2,
-      id: slugger.slug(label),
-      label,
-    })
-  );
-}
-
-const FENCE_OR_DEMO = new RegExp(
-  `${FENCED_BLOCK.source}|${DEMO_TAG.source}`,
-  "gm"
-);
-
-async function inlineDemos(source: string): Promise<string> {
+  const headings: DocumentHeading[] = [];
   const parts: (string | Promise<string>)[] = [];
   let cursor = 0;
 
-  for (const match of source.matchAll(FENCE_OR_DEMO)) {
-    const [text, name] = match;
-    if (name === undefined) {
+  for (const match of source.matchAll(TOKEN)) {
+    const [token, label, demo] = match;
+    if (label !== undefined) {
+      headings.push({ id: slugger.slug(label), label });
       continue;
     }
-    parts.push(
-      source.slice(cursor, match.index),
-      readDemoSource(name).then((code) => `\`\`\`tsx\n${code}\n\`\`\``)
-    );
-    cursor = match.index + text.length;
+    if (demo === undefined) {
+      continue;
+    }
+
+    parts.push(source.slice(cursor, match.index), readDemoSnippet(demo));
+    cursor = match.index + token.length;
   }
   parts.push(source.slice(cursor));
 
-  return (await Promise.all(parts)).join("").trim();
+  return { headings, markdown: (await Promise.all(parts)).join("").trim() };
 }
 
 export async function getSpinnerDocument(
@@ -68,11 +52,10 @@ export async function getSpinnerDocument(
     path.join(process.cwd(), "src/content/spinners", `${slug}.mdx`),
     "utf8"
   );
+  const { headings, markdown } = await parse(raw);
 
   return {
-    headings: headingsOf(raw),
-    markdown: [`# ${item.name}`, item.description, await inlineDemos(raw)].join(
-      "\n\n"
-    ),
+    headings,
+    markdown: [`# ${item.name}`, item.description, markdown].join("\n\n"),
   };
 }

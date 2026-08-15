@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { NavItem } from "@/components/ui/nav-item";
 
 export interface TocItem {
-  depth: 2 | 3;
   id: string;
   label: string;
 }
@@ -56,7 +55,6 @@ export function Toc({ items }: { items: TocItem[] }) {
         <NavItem
           active={activeIndex === index}
           href={`#${item.id}`}
-          indent={item.depth > 2}
           key={item.id}
           kind="anchor"
           label={item.label}

@@ -60,7 +60,7 @@ export function SpinnerPreview() {
           <IconSidebarHiddenRightWide className="size-4.5" />
         </IconButton>
         <div className="flex min-h-0 w-full flex-1 items-center justify-center">
-          <div style={state.previewStyle}>
+          <div style={{ opacity: `${state.opacity}%` }}>
             <Spinner {...state.spinnerProps} />
           </div>
         </div>

@@ -26,7 +26,6 @@ export function NavItem({
   active = false,
   href,
   icon,
-  indent = false,
   kind = "route",
   label,
   onClick,
@@ -34,7 +33,6 @@ export function NavItem({
   active?: boolean;
   href: string;
   icon?: ReactNode;
-  indent?: boolean;
   kind?: NavItemKind;
   label: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
@@ -46,8 +44,7 @@ export function NavItem({
       aria-current={active ? current : undefined}
       as={Component}
       className={cn(
-        "link-outline relative flex h-8 w-full items-center gap-2 rounded-lg pe-3 after:absolute after:inset-x-0 after:-inset-y-px after:content-['']",
-        indent ? "ps-7" : "ps-3",
+        "link-outline relative flex h-8 w-full items-center gap-2 rounded-lg px-3 after:absolute after:inset-x-0 after:-inset-y-px after:content-['']",
         active
           ? "bg-background text-content"
           : "text-content-subtle hover:bg-background hover:text-content"

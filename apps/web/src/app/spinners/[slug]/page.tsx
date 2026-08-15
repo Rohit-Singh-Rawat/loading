@@ -4,7 +4,6 @@ import type { ComponentType } from "react";
 import { PrevNext } from "@/components/spinner-detail/prev-next";
 import { SpinnerCustomizationProvider } from "@/components/spinner-detail/spinner-customization";
 import { SpinnerPreview } from "@/components/spinner-detail/spinner-preview";
-import { SpinnerSnippet } from "@/components/spinner-detail/spinner-snippet";
 import {
   getAdjacentSpinners,
   getSpinner,
@@ -12,7 +11,6 @@ import {
 } from "@/components/spinners";
 import { PageHeader } from "@/components/ui/page-header";
 import { SITE_DESCRIPTION } from "@/lib/constants";
-import { buildSnippetVariants } from "@/lib/spinner-snippet";
 
 interface Params {
   slug: string;
@@ -49,10 +47,12 @@ export default async function SpinnerPage({
 
   const { next, previous } = getAdjacentSpinners(slug);
 
-  const { default: Content }: { default: ComponentType } = await import(
-    `@/content/spinners/${slug}.mdx`
-  );
-  const snippetVariants = await buildSnippetVariants(item);
+  const [{ default: Content }, { default: Snippet }]: {
+    default: ComponentType;
+  }[] = await Promise.all([
+    import(`@/content/spinners/${slug}.mdx`),
+    import(`@/content/snippets/${slug}.mdx`),
+  ]);
 
   return (
     <div className="flex flex-col gap-8">
@@ -64,8 +64,10 @@ export default async function SpinnerPage({
       <SpinnerCustomizationProvider slug={slug}>
         <div className="flex flex-col">
           <SpinnerPreview />
-          <div className="mt-2.5 flex flex-col">
-            <SpinnerSnippet variants={snippetVariants} />
+          <div className="flex flex-col">
+            <div className="mt-2.5 [&>figure]:mt-0">
+              <Snippet />
+            </div>
             <Content />
           </div>
         </div>

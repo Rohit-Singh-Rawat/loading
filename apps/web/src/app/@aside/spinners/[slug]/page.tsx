@@ -9,11 +9,7 @@ interface Params {
   slug: string;
 }
 
-const PREVIEW_ITEM: TocItem = {
-  depth: 2,
-  id: PREVIEW_SECTION_ID,
-  label: "Preview",
-};
+const PREVIEW_ITEM: TocItem = { id: PREVIEW_SECTION_ID, label: "Preview" };
 
 export function generateStaticParams(): Params[] {
   return SPINNER_ITEMS.map(({ slug }) => ({ slug }));
