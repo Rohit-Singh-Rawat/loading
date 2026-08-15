@@ -1,0 +1,5 @@
+import { Orbit } from "loading-dev";
+
+export default function OrbitPlayState() {
+  return <Orbit playState="paused" size={32} />;
+}

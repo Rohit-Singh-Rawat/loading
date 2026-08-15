@@ -1,28 +1,16 @@
-import { Classic } from "loading-dev";
-
 ## Props
 
 ### size
 
 Sets the spinner's dimensions in pixels. Defaults to 20.
 
-<DemoWithCode code={`<Classic size={16} />
-<Classic size={24} />
-<Classic size={40} />`}>
-  <div className="flex items-center gap-6">
-    <Classic size={16} />
-    <Classic size={24} />
-    <Classic size={40} />
-  </div>
-</DemoWithCode>
+<Demo name="classic/size" />
 
 ### className
 
 Merged onto the root element, so utilities land on the spinner itself.
 
-<DemoWithCode code={`<Classic className="opacity-40" size={32} />`}>
-  <Classic className="opacity-40" size={32} />
-</DemoWithCode>
+<Demo name="classic/class-name" />
 
 ## Styling
 
@@ -30,38 +18,20 @@ Merged onto the root element, so utilities land on the spinner itself.
 
 The bars inherit `currentColor`, so the CSS `color` property tints them.
 
-<DemoWithCode code={`<div style={{ color: "#f97316" }}>
-  <Classic size={32} />
-</div>`}>
-  <div style={{ color: "#f97316" }}>
-    <Classic size={32} />
-  </div>
-</DemoWithCode>
+<Demo name="classic/color" />
 
 ### --ld-duration
 
 Sets the rotation speed; the per-bar stagger stays proportional at any speed.
 Set it on any wrapper — it cascades down to the spinner.
 
-<DemoWithCode code={`<div style={{ "--ld-duration": "2.4s" }}>
-  <Classic size={32} />
-</div>`}>
-  <div style={{ "--ld-duration": "2.4s" }}>
-    <Classic size={32} />
-  </div>
-</DemoWithCode>
+<Demo name="classic/duration" />
 
 ### --ld-play-state
 
 Pauses or resumes the animation.
 
-<DemoWithCode code={`<div style={{ "--ld-play-state": "paused" }}>
-  <Classic size={32} />
-</div>`}>
-  <div style={{ "--ld-play-state": "paused" }}>
-    <Classic size={32} />
-  </div>
-</DemoWithCode>
+<Demo name="classic/play-state" />
 
 ## Usage
 

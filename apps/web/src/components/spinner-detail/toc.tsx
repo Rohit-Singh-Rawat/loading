@@ -55,8 +55,8 @@ export function Toc({ items }: { items: TocItem[] }) {
       {items.map((item, index) => (
         <NavItem
           active={activeIndex === index}
-          className={item.depth > 2 ? "ps-7 font-berkeley-mono" : undefined}
           href={`#${item.id}`}
+          indent={item.depth > 2}
           key={item.id}
           kind="anchor"
           label={item.label}

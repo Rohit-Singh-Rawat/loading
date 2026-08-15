@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import GithubSlugger from "github-slugger";
 import { getSpinner } from "@/components/spinners";
+import { readDemoSource } from "@/lib/demo-source";
 
 export interface DocumentHeading {
   /** 2 for `##`, 3 for `###` — the table of contents indents the deeper level. */
@@ -30,20 +31,27 @@ function headingsOf(source: string): DocumentHeading[] {
   );
 }
 
-const IMPORT_LINE = /^import .*\n/gm;
-const DEMO_BLOCK =
-  /<DemoWithCode[^>]*code=\{`([\s\S]*?)`\}[\s\S]*?<\/DemoWithCode>/g;
-const BLANK_RUN = /\n{3,}/g;
+const DEMO_TAG = /<Demo\s+name="([^"]+)"\s*\/>/g;
 
 /**
- * The MDX is authored with JSX demos; what the markdown route serves should be
- * plain prose, so imports drop out and each demo collapses to its snippet.
+ * The MDX renders each demo as a component; the markdown route serves the same
+ * document as plain prose, so every `<Demo />` becomes the demo's own source.
  */
-function toPlainMarkdown(source: string): string {
+async function inlineDemos(source: string): Promise<string> {
+  const sources = new Map(
+    await Promise.all(
+      Array.from(
+        source.matchAll(DEMO_TAG),
+        async ([, name]) => [name, await readDemoSource(name)] as const
+      )
+    )
+  );
+
   return source
-    .replace(IMPORT_LINE, "")
-    .replace(DEMO_BLOCK, (_match, code: string) => `\`\`\`tsx\n${code}\n\`\`\``)
-    .replace(BLANK_RUN, "\n\n")
+    .replace(
+      DEMO_TAG,
+      (_match, name: string) => `\`\`\`tsx\n${sources.get(name)}\n\`\`\``
+    )
     .trim();
 }
 
@@ -62,7 +70,7 @@ export async function getSpinnerDocument(
 
   return {
     headings: headingsOf(raw),
-    markdown: [`# ${item.name}`, item.description, toPlainMarkdown(raw)].join(
+    markdown: [`# ${item.name}`, item.description, await inlineDemos(raw)].join(
       "\n\n"
     ),
   };

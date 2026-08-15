@@ -70,11 +70,11 @@ const css = `
 }
 `;
 
-export function Ripple({ size = DEFAULT_SIZE, className }: SpinnerProps) {
+export function Ripple({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="ripple">{css}</SpinnerStyle>
-      <div {...spinnerRoot("ripple", { className, size })}>
+      <div {...spinnerRoot("ripple", { ...rest, size })}>
         {CELLS.map((cell) => (
           <div
             className={

@@ -24,17 +24,17 @@ const kinds: Record<
 
 export function NavItem({
   active = false,
-  className,
   href,
   icon,
+  indent = false,
   kind = "route",
   label,
   onClick,
 }: {
   active?: boolean;
-  className?: string;
   href: string;
   icon?: ReactNode;
+  indent?: boolean;
   kind?: NavItemKind;
   label: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
@@ -46,11 +46,11 @@ export function NavItem({
       aria-current={active ? current : undefined}
       as={Component}
       className={cn(
-        "link-outline relative flex h-8 w-full items-center gap-2 rounded-lg px-3 after:absolute after:inset-x-0 after:-inset-y-px after:content-['']",
+        "link-outline relative flex h-8 w-full items-center gap-2 rounded-lg pe-3 after:absolute after:inset-x-0 after:-inset-y-px after:content-['']",
+        indent ? "ps-7 font-berkeley-mono" : "ps-3",
         active
           ? "bg-background text-content"
-          : "text-content-subtle hover:bg-background hover:text-content",
-        className
+          : "text-content-subtle hover:bg-background hover:text-content"
       )}
       href={href}
       onClick={onClick}

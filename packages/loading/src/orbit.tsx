@@ -45,11 +45,11 @@ const css = `
 }
 `;
 
-export function Orbit({ size = DEFAULT_SIZE, className }: SpinnerProps) {
+export function Orbit({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="orbit">{css}</SpinnerStyle>
-      <div {...spinnerRoot("orbit", { className, size })}>
+      <div {...spinnerRoot("orbit", { ...rest, size })}>
         <div className="ld-orbit-dot" />
         <div className="ld-orbit-track" />
       </div>

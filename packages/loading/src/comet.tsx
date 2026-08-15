@@ -45,11 +45,11 @@ const css = `
 }
 `;
 
-export function Comet({ size = DEFAULT_SIZE, className }: SpinnerProps) {
+export function Comet({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="comet">{css}</SpinnerStyle>
-      <div {...spinnerRoot("comet", { className, size })}>
+      <div {...spinnerRoot("comet", { ...rest, size })}>
         <div className="ld-comet-tail" />
         <div className="ld-comet-head" />
       </div>

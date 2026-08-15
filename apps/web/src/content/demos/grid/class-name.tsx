@@ -1,0 +1,5 @@
+import { Grid } from "loading-dev";
+
+export default function GridClassName() {
+  return <Grid className="opacity-40" size={32} />;
+}

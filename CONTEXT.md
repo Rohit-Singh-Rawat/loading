@@ -17,9 +17,16 @@ cannot disagree.
 
 ## Motion contract
 
-The part of a spinner's interface that is not props: the CSS custom properties
-`--ld-duration` and `--ld-play-state`, which cascade from any ancestor, plus
-`--spinner-size`, which the `size` prop sets.
+Every spinner's motion is reachable two ways. The CSS custom properties
+`--ld-duration`, `--ld-play-state` and `--spinner-size` cascade from any
+ancestor, so one declaration can drive a whole subtree. The `size`, `duration`
+and `playState` props set those same properties on a single spinner's root
+element.
+
+`spinnerRoot` in `frame.tsx` is where the two meet, and it writes a property
+only when its prop is passed — an omitted prop leaves the property unset so an
+ancestor's value still reaches the spinner. Precedence is prop, then ancestor,
+then the spinner's own default.
 
 `SPINNER_MOTION` in `packages/loading/src/motion.ts` is the machine-readable
 half — each spinner's default duration, in milliseconds. It is the single

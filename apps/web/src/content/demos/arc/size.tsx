@@ -1,0 +1,11 @@
+import { Arc } from "loading-dev";
+
+export default function ArcSize() {
+  return (
+    <div className="flex items-center gap-6">
+      <Arc size={16} />
+      <Arc size={24} />
+      <Arc size={40} />
+    </div>
+  );
+}

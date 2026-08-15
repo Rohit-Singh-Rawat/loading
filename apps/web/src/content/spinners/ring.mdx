@@ -1,28 +1,16 @@
-import { Ring } from "loading-dev";
-
 ## Props
 
 ### size
 
 Sets the spinner's dimensions in pixels. Defaults to 20.
 
-<DemoWithCode code={`<Ring size={16} />
-<Ring size={24} />
-<Ring size={40} />`}>
-  <div className="flex items-center gap-6">
-    <Ring size={16} />
-    <Ring size={24} />
-    <Ring size={40} />
-  </div>
-</DemoWithCode>
+<Demo name="ring/size" />
 
 ### className
 
 Merged onto the root element, so utilities land on the spinner itself.
 
-<DemoWithCode code={`<Ring className="opacity-40" size={32} />`}>
-  <Ring className="opacity-40" size={32} />
-</DemoWithCode>
+<Demo name="ring/class-name" />
 
 ## Styling
 
@@ -31,38 +19,20 @@ Merged onto the root element, so utilities land on the spinner itself.
 Both the arc and the faint track inherit `currentColor`, so the CSS `color`
 property tints them together.
 
-<DemoWithCode code={`<div style={{ color: "#f97316" }}>
-  <Ring size={32} />
-</div>`}>
-  <div style={{ color: "#f97316" }}>
-    <Ring size={32} />
-  </div>
-</DemoWithCode>
+<Demo name="ring/color" />
 
 ### --ld-duration
 
 Sets the rotation speed. Set it on any wrapper — it cascades down to the
 spinner.
 
-<DemoWithCode code={`<div style={{ "--ld-duration": "2s" }}>
-  <Ring size={32} />
-</div>`}>
-  <div style={{ "--ld-duration": "2s" }}>
-    <Ring size={32} />
-  </div>
-</DemoWithCode>
+<Demo name="ring/duration" />
 
 ### --ld-play-state
 
 Pauses or resumes the animation.
 
-<DemoWithCode code={`<div style={{ "--ld-play-state": "paused" }}>
-  <Ring size={32} />
-</div>`}>
-  <div style={{ "--ld-play-state": "paused" }}>
-    <Ring size={32} />
-  </div>
-</DemoWithCode>
+<Demo name="ring/play-state" />
 
 ## Usage
 

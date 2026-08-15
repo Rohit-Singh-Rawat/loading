@@ -56,11 +56,11 @@ ${ROW_RULES}
 }
 `;
 
-export function Grid({ size = DEFAULT_SIZE, className }: SpinnerProps) {
+export function Grid({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="grid">{css}</SpinnerStyle>
-      <div {...spinnerRoot("grid", { className, size })}>
+      <div {...spinnerRoot("grid", { ...rest, size })}>
         {CELLS.map((cell) => (
           <div className="ld-grid-cell" key={cell} />
         ))}

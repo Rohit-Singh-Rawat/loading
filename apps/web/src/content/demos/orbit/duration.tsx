@@ -1,0 +1,5 @@
+import { Orbit } from "loading-dev";
+
+export default function OrbitDuration() {
+  return <Orbit duration={2000} size={32} />;
+}

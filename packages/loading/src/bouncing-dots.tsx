@@ -47,11 +47,11 @@ const css = `
 }
 `;
 
-export function BouncingDots({ size = DEFAULT_SIZE, className }: SpinnerProps) {
+export function BouncingDots({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="bouncing-dots">{css}</SpinnerStyle>
-      <div {...spinnerRoot("bouncing-dots", { className, size })}>
+      <div {...spinnerRoot("bouncing-dots", { ...rest, size })}>
         {DOTS.map((dot) => (
           <div className="ld-dot" key={dot} />
         ))}

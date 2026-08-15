@@ -1,0 +1,5 @@
+import { Comet } from "loading-dev";
+
+export default function CometDuration() {
+  return <Comet duration={2000} size={32} />;
+}

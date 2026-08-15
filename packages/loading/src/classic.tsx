@@ -58,11 +58,11 @@ ${BAR_RULES}
 }
 `;
 
-export function Classic({ size = DEFAULT_SIZE, className }: SpinnerProps) {
+export function Classic({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="classic">{css}</SpinnerStyle>
-      <div {...spinnerRoot("classic", { className, size })}>
+      <div {...spinnerRoot("classic", { ...rest, size })}>
         <div className="ld-classic-inner">
           {BARS.map((bar) => (
             <div className="ld-classic-bar" key={bar} />
