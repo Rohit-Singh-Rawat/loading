@@ -73,7 +73,7 @@ const CATALOG: CatalogEntry[] = [
     component: BouncingDots,
     componentName: "BouncingDots",
     description: "Three dots bouncing in a staggered rhythm.",
-    name: "bouncing-dots",
+    name: "Bouncing dots",
     slug: "bouncing-dots",
     speed: { max: 1200, min: 150 },
   },
