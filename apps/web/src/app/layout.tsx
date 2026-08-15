@@ -87,7 +87,7 @@ export default function RootLayout({
             <div className="mx-auto flex min-h-dvh justify-center gap-12 px-5 sm:px-6">
               <Sidebar />
               <main
-                className="w-full max-w-160 py-10 md:py-25"
+                className="w-full max-w-160 py-10 focus-visible:outline-hidden md:py-25"
                 id="content"
                 tabIndex={-1}
               >

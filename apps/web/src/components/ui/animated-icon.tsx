@@ -25,7 +25,7 @@ export function AnimatedIcon({
       <m.span
         animate={ICON_VISIBLE}
         aria-hidden="true"
-        className="flex"
+        className="flex will-change-transform"
         exit={shouldReduceMotion ? ICON_VISIBLE : ICON_HIDDEN}
         initial={shouldReduceMotion ? false : ICON_HIDDEN}
         key={active ? "active" : "idle"}

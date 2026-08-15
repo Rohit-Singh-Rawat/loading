@@ -1,9 +1,18 @@
 import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
-export function AsideShell({ children }: { children?: ReactNode }) {
+export function AsideShell({
+  children,
+  sticky = true,
+}: {
+  children?: ReactNode;
+  sticky?: boolean;
+}) {
   return (
     <aside className="hidden w-60 shrink-0 py-25 xl:block">
-      <div className="sticky top-25 flex flex-col gap-4">{children}</div>
+      <div className={cn("flex flex-col gap-4", sticky && "sticky top-25")}>
+        {children}
+      </div>
     </aside>
   );
 }

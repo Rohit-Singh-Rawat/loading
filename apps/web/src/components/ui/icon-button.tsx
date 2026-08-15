@@ -5,7 +5,7 @@ const variants = {
     "bg-transparent text-content-subtle hover-hover:hover:not-disabled:bg-background hover-hover:hover:not-disabled:text-content",
   primary: "bg-content text-surface",
   secondary:
-    "bg-popover text-content shadow-custom hover-hover:hover:not-disabled:bg-background",
+    "bg-popover text-content shadow-custom hover-hover:hover:not-disabled:bg-popover-hovered",
   tertiary:
     "bg-background text-content-subtle hover-hover:hover:not-disabled:bg-background-hovered hover-hover:hover:not-disabled:text-content",
 };

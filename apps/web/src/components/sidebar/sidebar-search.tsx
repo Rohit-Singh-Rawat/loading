@@ -28,7 +28,7 @@ export function SidebarSearch() {
   return (
     <button
       aria-keyshortcuts="Meta+K"
-      className="flex h-8 w-full items-center gap-2 rounded-lg bg-popover px-2 text-left shadow-custom transition-colors duration-200 ease-out hover-hover:hover:bg-background-subtle"
+      className="flex h-8 w-full items-center gap-2 rounded-lg bg-popover px-2 text-left shadow-custom transition-colors duration-200 ease-out hover-hover:hover:bg-popover-hovered"
       onClick={openSearch}
       type="button"
     >
