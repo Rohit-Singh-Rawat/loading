@@ -19,6 +19,7 @@ export async function Demo({ name }: { name: string }) {
     <CodeFigure
       className="mt-4 mb-6"
       code={code}
+      filename={`${name.split("/").at(-1)}.tsx`}
       html={await highlightTsx(code)}
       preview={<Example />}
     />

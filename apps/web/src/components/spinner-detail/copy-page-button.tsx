@@ -42,7 +42,12 @@ export function CopyPageButton({
     <div className="flex flex-col gap-1.5">
       <DropdownMenu>
         <DropdownMenuTrigger className="link-outline group flex h-8 w-full cursor-pointer items-center gap-2 rounded-lg bg-popover px-3 shadow-custom transition-colors duration-200 hover-hover:hover:bg-popover-hovered">
-          <Text as="span" className="flex-1 text-left text-content" size="sm">
+          <Text
+            as="span"
+            className="flex-1 text-left text-content"
+            size="sm"
+            weight="medium"
+          >
             Copy page
           </Text>
           <IconChevronDownMedium className="size-4 text-content-subtle transition-transform duration-200 ease-out group-data-popup-open:rotate-180" />

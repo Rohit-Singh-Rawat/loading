@@ -47,7 +47,7 @@ export function NavItem({
       as={Component}
       className={cn(
         "link-outline relative flex h-8 w-full items-center gap-2 rounded-lg pe-3 after:absolute after:inset-x-0 after:-inset-y-px after:content-['']",
-        indent ? "ps-7 font-berkeley-mono" : "ps-3",
+        indent ? "ps-7" : "ps-3",
         active
           ? "bg-background text-content"
           : "text-content-subtle hover:bg-background hover:text-content"

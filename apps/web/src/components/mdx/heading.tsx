@@ -6,8 +6,8 @@ export function MDXHeading(props: ComponentPropsWithoutRef<"h2">) {
     <Heading
       as="h2"
       className="mt-8 mb-1"
-      size={4}
-      weight="medium"
+      size={5}
+      weight="semibold"
       {...props}
     />
   );
@@ -17,9 +17,9 @@ export function MDXSubheading(props: ComponentPropsWithoutRef<"h3">) {
   return (
     <Heading
       as="h3"
-      className="mt-6 mb-1 font-berkeley-mono"
+      className="mt-6 mb-1"
       size={6}
-      weight="medium"
+      weight="semibold"
       {...props}
     />
   );
