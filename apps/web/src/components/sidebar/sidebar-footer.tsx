@@ -33,7 +33,7 @@ function Nametag({
 export function SidebarFooter() {
   return (
     <div className="border-border border-t p-4">
-      <Text className="text-content-subtle" size="sm">
+      <Text className="text-content-subtle leading-relaxed" size="sm">
         Crafted with care by{" "}
         <Nametag
           avatar={`${BLOB_BASE}/jakub.png`}

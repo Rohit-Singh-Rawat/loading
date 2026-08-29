@@ -71,7 +71,7 @@ export default function RootLayout({
         className={cn(
           interVariable.variable,
           paperMono.variable,
-          "bg-surface font-sans text-content antialiased"
+          "bg-surface font-sans text-content leading-relaxed antialiased"
         )}
       >
         <DisableThemeTransitions />
