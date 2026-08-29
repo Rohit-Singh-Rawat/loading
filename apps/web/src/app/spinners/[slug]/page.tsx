@@ -53,8 +53,6 @@ export default async function SpinnerPage({
     `@/content/snippets/${slug}.mdx`
   );
 
-  // `Demo` resolves its files under the spinner's own directory, so bind the
-  // slug here rather than threading it through every tag in the MDX source.
   const components = {
     Demo: (props: { name: string }) => <Demo {...props} slug={slug} />,
   };
