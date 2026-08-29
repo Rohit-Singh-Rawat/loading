@@ -8,7 +8,7 @@ export function NavSections({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col gap-0.5 px-4">
+    <nav aria-label="Main" className="flex flex-col gap-0.5 px-4">
       {NAV_ITEMS.map((item) => (
         <NavItem
           active={pathname === item.href}
@@ -18,6 +18,6 @@ export function NavSections({ onNavigate }: { onNavigate?: () => void }) {
           onClick={onNavigate}
         />
       ))}
-    </div>
+    </nav>
   );
 }

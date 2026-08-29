@@ -49,7 +49,7 @@ const textWeightClasses = {
   medium: "font-medium",
   regular: "font-normal",
   semibold: "font-semibold",
-  semimedium: "font-[450]",
+  semimedium: "font-semimedium",
 } as const;
 
 type TextSize = keyof typeof textSizeClasses;

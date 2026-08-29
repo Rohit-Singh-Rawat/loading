@@ -1,6 +1,7 @@
 "use client";
 
 import { IconStepBack } from "central-icons-outlined/IconStepBack";
+import { Button } from "@/components/ui/button";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { cn } from "@/lib/utils";
 import { ColorPickerRow } from "./color-picker-row";
@@ -47,14 +48,10 @@ export function CustomizePanel({ className }: { className?: string }) {
         value={state.opacity}
       />
       <div className="mt-auto flex justify-center">
-        <button
-          className="flex h-8 cursor-pointer items-center gap-1.5 rounded-lg px-2.5 font-medium text-content-subtle text-sm transition-[scale,background-color,color] duration-200 ease-out hover-hover:hover:bg-background-hovered hover-hover:hover:text-content active:scale-[0.97]"
-          onClick={state.reset}
-          type="button"
-        >
+        <Button onClick={state.reset} type="button" variant="ghost">
           <IconStepBack className="size-4 shrink-0" />
           Reset
-        </button>
+        </Button>
       </div>
     </div>
   );

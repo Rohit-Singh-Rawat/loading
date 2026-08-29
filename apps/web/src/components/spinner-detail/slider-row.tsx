@@ -104,7 +104,7 @@ export function SliderRow({
     >
       <div className="relative h-8 w-full overflow-hidden rounded-lg bg-background">
         <div
-          className="absolute inset-0 origin-left bg-background-hovered transition-transform duration-100 ease-out will-change-transform motion-reduce:transition-none"
+          className="absolute inset-0 origin-left bg-background transition-transform duration-100 ease-out will-change-transform motion-reduce:transition-none"
           style={{ transform: FILL_TRANSFORM }}
         />
         <span

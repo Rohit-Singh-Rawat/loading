@@ -6,7 +6,10 @@ export function SpinnerCard({ item }: { item: SpinnerItem }) {
   const Spinner = item.component;
 
   return (
-    <Link className="link-outline group" href={`/spinners/${item.slug}`}>
+    <Link
+      className="link-outline group rounded-3xl"
+      href={`/spinners/${item.slug}`}
+    >
       <div className="relative flex h-52 flex-col items-center justify-center rounded-3xl bg-background-subtle p-1 transition-colors duration-200 ease-out group-hover:bg-background">
         <div className="mt-4 flex h-full w-full items-center justify-center">
           <Spinner size={40} />
@@ -14,7 +17,7 @@ export function SpinnerCard({ item }: { item: SpinnerItem }) {
         <div className="w-full px-2 py-1.5 text-center">
           <Text
             as="span"
-            className="font-[450] text-[13px] text-content-subtle"
+            className="font-semimedium text-[13px] text-content-subtle"
           >
             {item.name}
           </Text>

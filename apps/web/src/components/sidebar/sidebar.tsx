@@ -6,10 +6,7 @@ import { Logo } from "@/components/ui/logo";
 
 export function Sidebar() {
   return (
-    <nav
-      aria-label="Main"
-      className="fixed top-0 left-0 z-40 hidden h-dvh w-64 flex-col gap-4 border-border border-r bg-background-subtle md:flex"
-    >
+    <aside className="fixed top-0 left-0 z-40 hidden h-dvh w-(--sidebar-width) flex-col gap-4 border-border border-r bg-background-subtle md:flex">
       <div className="px-7 pt-6 pb-2">
         <Logo />
       </div>
@@ -23,6 +20,6 @@ export function Sidebar() {
         <SocialLinks />
         <SidebarFooter />
       </div>
-    </nav>
+    </aside>
   );
 }

@@ -1,19 +1,6 @@
 import Image from "next/image";
 import { Text } from "@/components/ui/text";
-
-const AUTHORS = {
-  jakub: {
-    avatar:
-      "https://ru2qm1zsj1gavqlm.public.blob.vercel-storage.com/jakub.avif",
-    href: "https://x.com/jakubkrehel",
-    name: "Jakub",
-  },
-  paul: {
-    avatar: "https://ru2qm1zsj1gavqlm.public.blob.vercel-storage.com/paul.jpg",
-    href: "https://x.com/paulfaivret",
-    name: "Paul",
-  },
-};
+import { BLOB_BASE } from "@/lib/constants";
 
 function Nametag({
   avatar,
@@ -47,8 +34,18 @@ export function SidebarFooter() {
   return (
     <div className="border-border border-t p-4">
       <Text className="text-content-subtle" size="sm">
-        Crafted with care by <Nametag {...AUTHORS.jakub} /> and{" "}
-        <Nametag {...AUTHORS.paul} />
+        Crafted with care by{" "}
+        <Nametag
+          avatar={`${BLOB_BASE}/jakub.avif`}
+          href="https://x.com/jakubkrehel"
+          name="Jakub"
+        />{" "}
+        and{" "}
+        <Nametag
+          avatar={`${BLOB_BASE}/paul.jpg`}
+          href="https://x.com/paulfaivret"
+          name="Paul"
+        />
       </Text>
     </div>
   );

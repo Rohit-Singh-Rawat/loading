@@ -34,7 +34,7 @@ export function ColorPickerRow({
           Color
         </Text>
         <span className="flex items-center gap-2">
-          <span className="font-paper-mono text-[13px] text-content-subtle uppercase">
+          <span className="font-paper-mono text-[13px] text-content-subtle">
             {color ?? "Auto"}
           </span>
           <span

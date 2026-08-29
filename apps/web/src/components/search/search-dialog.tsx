@@ -149,7 +149,7 @@ export function SearchDialog({
                     onSelect={() => navigateTo(row.href)}
                     value={row.title}
                   >
-                    <span className="min-w-0 flex-1 truncate px-1 font-[450]">
+                    <span className="min-w-0 flex-1 truncate px-1 font-semimedium">
                       {row.title}
                     </span>
                   </Command.Item>
@@ -187,9 +187,9 @@ function EmptyRow({ onClearQuery }: { onClearQuery: () => void }) {
     >
       <span className="flex items-center gap-2.5">
         <IconCircleX className="size-4 shrink-0 text-content-subtle" />
-        <span className="font-[450]">No results found</span>
+        <span className="font-semimedium">No results found</span>
       </span>
-      <span className="font-[450] text-content-subtle">Clear search</span>
+      <span className="font-semimedium text-content-subtle">Clear search</span>
     </Command.Item>
   );
 }

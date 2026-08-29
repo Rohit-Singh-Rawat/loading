@@ -14,13 +14,6 @@ const SEGMENTS = [
   { opacity: 0.3, x: 10, y: 10 },
 ];
 
-const PIXELS = [
-  { dx: 0, dy: 0 },
-  { dx: 2, dy: 0 },
-  { dx: 0, dy: 2 },
-  { dx: 2, dy: 2 },
-];
-
 export function Logo({ className }: { className?: string }) {
   return (
     <Link
@@ -38,16 +31,15 @@ export function Logo({ className }: { className?: string }) {
         viewBox="0 0 15 15"
       >
         {SEGMENTS.map(({ opacity, x, y }) => (
-          <g key={`${x}-${y}`} opacity={opacity}>
-            {PIXELS.map(({ dx, dy }) => (
-              <rect
-                height="1"
-                key={`${dx}-${dy}`}
-                width="1"
-                x={x + dx}
-                y={y + dy}
-              />
-            ))}
+          <g
+            key={`${x}-${y}`}
+            opacity={opacity}
+            transform={`translate(${x} ${y})`}
+          >
+            <rect height="1" width="1" x="0" y="0" />
+            <rect height="1" width="1" x="2" y="0" />
+            <rect height="1" width="1" x="0" y="2" />
+            <rect height="1" width="1" x="2" y="2" />
           </g>
         ))}
       </svg>
