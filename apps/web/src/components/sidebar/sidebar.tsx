@@ -19,8 +19,10 @@ export function Sidebar() {
       <div className="min-h-0 grow overflow-y-auto">
         <NavSections />
       </div>
-      <SocialLinks />
-      <SidebarFooter />
+      <div className="flex flex-col">
+        <SocialLinks />
+        <SidebarFooter />
+      </div>
     </nav>
   );
 }
