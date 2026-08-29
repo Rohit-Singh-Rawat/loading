@@ -36,7 +36,7 @@ export function SidebarFooter() {
       <Text className="text-content-subtle" size="sm">
         Crafted with care by{" "}
         <Nametag
-          avatar={`${BLOB_BASE}/jakub.avif`}
+          avatar={`${BLOB_BASE}/jakub.png`}
           href="https://x.com/jakubkrehel"
           name="Jakub"
         />{" "}
