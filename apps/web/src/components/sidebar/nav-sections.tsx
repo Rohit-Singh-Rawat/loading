@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { NAV_ITEMS } from "@/components/sidebar/nav-items";
 import { NavItem } from "@/components/ui/nav-item";
 
-export function NavSections({ onNavigate }: { onNavigate?: () => void }) {
+export function NavSections() {
   const pathname = usePathname();
 
   return (
@@ -15,7 +15,6 @@ export function NavSections({ onNavigate }: { onNavigate?: () => void }) {
           href={item.href}
           key={item.href}
           label={item.label}
-          onClick={onNavigate}
         />
       ))}
     </nav>
