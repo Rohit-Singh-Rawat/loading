@@ -1,6 +1,6 @@
 # loading
 
-Spinners. No more, no less. This is the monorepo behind [loading.dev](https://loading.dev) and the `loading-dev` package on npm.
+This is a monorepo for [loading.dev](https://loading.dev) website and the `loading-dev` package on npm.
 
 - `packages/loading` — the published package. React 19, ESM only, zero dependencies, styles hoisted from inside the components so there is no CSS to import. Its own README documents the API.
 - `apps/web` — the showcase and docs site.
