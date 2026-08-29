@@ -40,7 +40,7 @@ export function SpinnerPreview() {
 
   return (
     <section
-      className="flex w-full flex-col rounded-2xl border border-border bg-background p-1 sm:h-100 sm:flex-row"
+      className="flex w-full flex-col rounded-2xl bg-background-subtle p-1 sm:h-100 sm:flex-row"
       id={PREVIEW_SECTION_ID}
     >
       <div className="relative flex min-h-64 min-w-0 flex-1 flex-col items-center px-4 pt-13 pb-2">

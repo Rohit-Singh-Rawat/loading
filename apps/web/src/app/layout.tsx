@@ -40,8 +40,8 @@ export const metadata: Metadata = {
     index: true,
   },
   title: {
-    default: "Spinners",
-    template: "%s — Spinners",
+    default: "loading.dev",
+    template: "%s — loading.dev",
   },
   twitter: {
     card: "summary_large_image",

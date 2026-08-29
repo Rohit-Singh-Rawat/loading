@@ -11,6 +11,14 @@ const nextConfig = {
       "motion",
     ],
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "ru2qm1zsj1gavqlm.public.blob.vercel-storage.com",
+        protocol: "https",
+      },
+    ],
+  },
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   reactCompiler: true,
   turbopack: {

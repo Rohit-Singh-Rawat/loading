@@ -13,7 +13,7 @@
 
 @layer base {
   :root {
-    --color-surface: #f9f8f7;
+    --color-surface: #ffffff;
     --color-popover: oklch(1 0 0);
     --color-popover-hovered: color-mix(
       in oklab,
@@ -21,9 +21,9 @@
       var(--color-popover)
     );
 
-    --color-background-subtle: oklch(0.191 0.002 106.586 / 0.01);
-    --color-background: oklch(0.191 0.002 106.586 / 0.03);
-    --color-background-hovered: oklch(0.191 0.002 106.586 / 0.07);
+    --color-background-subtle: oklch(0.191 0.002 106.586 / 0.016);
+    --color-background: oklch(0.191 0.002 106.586 / 0.031);
+    --color-background-hovered: oklch(0.191 0.002 106.586 / 0.059);
 
     --color-border: oklch(0.191 0.002 106.586 / 0.051);
 

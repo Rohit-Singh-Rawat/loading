@@ -16,7 +16,7 @@ export function CustomizePanel({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex h-full w-full shrink-0 flex-col gap-2 rounded-xl border border-border bg-background-subtle p-2 sm:w-60",
+        "flex h-full w-full shrink-0 flex-col gap-2 rounded-xl bg-background p-2 sm:w-60",
         className
       )}
     >

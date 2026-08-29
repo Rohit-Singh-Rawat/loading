@@ -12,7 +12,7 @@ export function PageHeader({
   title: ReactNode;
 }) {
   return (
-    <header className="flex flex-col gap-5">
+    <header className="flex flex-col gap-5 px-4">
       <Heading as="h1" size={1} weight="semibold">
         {eyebrow && (
           <span className="block text-content-subtle">{eyebrow}</span>

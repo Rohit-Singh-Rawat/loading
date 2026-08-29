@@ -8,8 +8,8 @@ export async function Demo({ name }: { name: string }) {
     ]);
 
   return (
-    <div className="mt-8 w-full overflow-hidden rounded-2xl border border-border bg-background">
-      <div className="flex min-h-36 items-center justify-center border-border border-b px-4 py-8">
+    <div className="mt-8 w-full overflow-hidden rounded-2xl border border-border">
+      <div className="flex min-h-36 items-center justify-center border-border border-b bg-background-subtle px-4 py-8">
         <Example />
       </div>
       <div className="[&>figure]:rounded-none [&>figure]:border-0">
