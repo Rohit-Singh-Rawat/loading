@@ -27,7 +27,7 @@ export const SOCIAL_LINKS: {
 
 export function SocialLinks({ className }: { className?: string }) {
   return (
-    <div className={cn("flex flex-col gap-0.5", className)}>
+    <div className={cn("flex flex-col gap-0.5 p-4", className)}>
       {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
         <NavItem
           href={href}

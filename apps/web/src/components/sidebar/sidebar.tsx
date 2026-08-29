@@ -8,12 +8,14 @@ export function Sidebar() {
   return (
     <nav
       aria-label="Main"
-      className="fixed top-0 left-0 z-40 hidden h-dvh w-64 flex-col gap-4 border-border border-r p-4 md:flex"
+      className="fixed top-0 left-0 z-40 hidden h-dvh w-64 flex-col gap-4 border-border border-r bg-background-subtle md:flex"
     >
-      <div className="px-3 py-2">
+      <div className="px-7 pt-6 pb-2">
         <Logo />
       </div>
-      <SidebarSearch />
+      <div className="px-4">
+        <SidebarSearch />
+      </div>
       <div className="min-h-0 grow overflow-y-auto">
         <NavSections />
       </div>
