@@ -36,6 +36,13 @@
     --shadow-custom:
       0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 1px 2px -1px rgba(0, 0, 0, 0.06),
       0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+
+    /* Figma "Popover" effect style — one stack, identical in light and dark */
+    --shadow-popover:
+      0px 1.63px 6.069px 0px rgba(0, 0, 0, 0.02),
+      0px 4.508px 16.779px 0px rgba(0, 0, 0, 0.031),
+      0px 10.853px 40.397px 0px rgba(0, 0, 0, 0.039),
+      0px 36px 134px 0px rgba(0, 0, 0, 0.059);
     color-scheme: light;
   }
 
@@ -159,6 +166,7 @@
   --color-orange: var(--color-orange);
   --color-orange-subtle: var(--color-orange-subtle);
   --shadow-custom: var(--shadow-custom);
+  --shadow-popover: var(--shadow-popover);
   --font-sans: var(--font-inter);
   --font-sans--font-feature-settings: "cv01", "ss03";
   --font-paper-mono: var(--font-paper-mono);

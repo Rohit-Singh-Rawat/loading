@@ -5,8 +5,8 @@ import { ScrollArea } from "@base-ui/react/scroll-area";
 import { IconCircleX } from "central-icons/IconCircleX";
 import { IconArrowCornerDownLeft } from "central-icons-outlined/IconArrowCornerDownLeft";
 import { IconArrowDown } from "central-icons-outlined/IconArrowDown";
-import { IconArrowRight } from "central-icons-outlined/IconArrowRight";
 import { IconArrowUp } from "central-icons-outlined/IconArrowUp";
+import { IconCrossMedium } from "central-icons-outlined/IconCrossMedium";
 import { IconMagnifyingGlass } from "central-icons-outlined/IconMagnifyingGlass";
 import { Command, useCommandState } from "cmdk";
 import { usePathname, useRouter } from "next/navigation";
@@ -26,7 +26,7 @@ const ROWS: { href: string; keywords?: string[]; title: string }[] = [
 ];
 
 const ITEM_CLASSNAME =
-  "group flex h-10 cursor-pointer select-none items-center gap-2.5 rounded-[10px] px-2.5 text-content text-[13px] data-[selected=true]:bg-background";
+  "group flex cursor-pointer select-none items-center gap-1 rounded-xl p-2 text-content text-[13px] data-[selected=true]:bg-background-hovered";
 
 export function SearchDialog({
   onOpenChange,
@@ -82,12 +82,12 @@ export function SearchDialog({
       open={open}
     >
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/10 transition-opacity duration-150 ease-out data-ending-style:opacity-0 data-starting-style:opacity-0 dark:bg-black/30" />
+        <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/10 transition-opacity duration-200 ease-out data-ending-style:opacity-0 data-starting-style:opacity-0 dark:bg-black/30" />
         <Dialog.Popup
           className={cn(
             "fixed top-[18%] left-1/2 z-50 w-[calc(100vw-2.5rem)] max-w-180 -translate-x-1/2",
-            "overflow-clip rounded-2xl bg-popover shadow-custom outline-hidden",
-            "transition-[transform,scale,opacity] duration-150 ease-out",
+            "overflow-clip rounded-2xl bg-popover outline-hidden",
+            "shadow-popover transition-[transform,scale,opacity] duration-200 ease-out",
             "data-starting-style:scale-95 data-starting-style:opacity-0",
             "data-ending-style:scale-95 data-ending-style:opacity-0"
           )}
@@ -104,25 +104,34 @@ export function SearchDialog({
           <Dialog.Title className="sr-only">Search spinners</Dialog.Title>
 
           <Command label="Search spinners">
-            <div className="px-1.5 pt-1.5">
-              <div className="flex h-10 items-center gap-2.5 rounded-[10px] bg-background px-2.5">
+            <div className="flex items-center p-2">
+              <div className="flex h-8 min-w-0 flex-1 items-center gap-2 rounded-lg px-2">
                 <IconMagnifyingGlass className="size-4 shrink-0 text-content-subtle" />
                 <div className="h-full min-w-0 flex-1">
                   <Command.Input
-                    className="h-full w-[calc(100%/0.8125)] origin-left scale-[0.8125] bg-transparent text-base text-content leading-[calc(1.125/0.8125)] outline-none placeholder:text-content-subtle sm:w-full sm:scale-100 sm:text-[13px]"
+                    className="h-full w-[calc(100%/0.8125)] origin-left scale-[0.8125] bg-transparent text-base text-content leading-[calc(1.125/0.8125)] outline-none placeholder:text-content-subtle placeholder:opacity-50 sm:w-full sm:scale-100 sm:text-[13px]"
                     onValueChange={setQuery}
-                    placeholder="Search spinners…"
+                    placeholder="Search"
                     ref={inputRef}
                     value={query}
                   />
                 </div>
+                <button
+                  aria-label="Close search"
+                  className="-mr-1 flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-md text-content-subtle transition-colors duration-200 ease-out hover-hover:hover:text-content"
+                  onClick={() => onOpenChange(false)}
+                  type="button"
+                >
+                  <IconCrossMedium className="size-4" />
+                </button>
               </div>
             </div>
+            <div className="h-px w-full bg-border" />
 
-            <ScrollArea.Root className="relative py-1.5">
+            <ScrollArea.Root className="relative py-1">
               <ScrollArea.Viewport
                 render={
-                  <Command.List className="h-(--cmdk-list-height) max-h-90 px-1.5 transition-[height] duration-150 ease-out" />
+                  <Command.List className="h-(--cmdk-list-height) max-h-90 px-1 transition-[height] duration-150 ease-out" />
                 }
               >
                 <EmptyRow
@@ -140,13 +149,14 @@ export function SearchDialog({
                     onSelect={() => navigateTo(row.href)}
                     value={row.title}
                   >
-                    <IconArrowRight className="size-4 shrink-0 text-content-subtle group-data-[selected=true]:text-content" />
-                    <span className="truncate font-medium">{row.title}</span>
+                    <span className="min-w-0 flex-1 truncate px-1 font-[450]">
+                      {row.title}
+                    </span>
                   </Command.Item>
                 ))}
               </ScrollArea.Viewport>
               <ScrollArea.Scrollbar
-                className="my-1.5 me-px w-1.5 opacity-0 transition-opacity duration-100 ease-out data-hovering:opacity-100 data-scrolling:opacity-100"
+                className="my-1 me-px w-1.5 opacity-0 transition-opacity duration-100 ease-out data-hovering:opacity-100 data-scrolling:opacity-100"
                 orientation="vertical"
               >
                 <ScrollArea.Thumb className="w-full rounded-full bg-content-subtle/40" />
@@ -177,9 +187,9 @@ function EmptyRow({ onClearQuery }: { onClearQuery: () => void }) {
     >
       <span className="flex items-center gap-2.5">
         <IconCircleX className="size-4 shrink-0 text-content-subtle" />
-        <span className="font-medium">No results found</span>
+        <span className="font-[450]">No results found</span>
       </span>
-      <span className="font-medium text-content-subtle">Clear search</span>
+      <span className="font-[450] text-content-subtle">Clear search</span>
     </Command.Item>
   );
 }
@@ -192,27 +202,27 @@ function SearchFooter() {
   return (
     <div
       aria-hidden
-      className="hidden items-center justify-end border-border border-t bg-background-subtle px-3.5 py-2.5 text-content-subtle text-xs sm:flex"
+      className="hidden items-center justify-end border-border border-t bg-background-subtle p-3 text-[13px] text-content-subtle sm:flex"
     >
       <div className="flex select-none items-center gap-4">
-        <span className="flex items-center gap-1.5">
+        <span className="flex items-center gap-2">
           <span className="flex items-center gap-1">
-            <Kbd pressed={pressed.arrowup} variant="raised">
-              <IconArrowUp className="size-3" />
-            </Kbd>
             <Kbd pressed={pressed.arrowdown} variant="raised">
               <IconArrowDown className="size-3" />
             </Kbd>
+            <Kbd pressed={pressed.arrowup} variant="raised">
+              <IconArrowUp className="size-3" />
+            </Kbd>
           </span>
-          to navigate
+          Navigate
         </span>
-        <span className="flex items-center gap-1.5">
+        <span className="flex items-center gap-2">
           <Kbd pressed={pressed.enter} variant="raised">
             <IconArrowCornerDownLeft className="size-3" />
           </Kbd>
-          to select
+          Select
         </span>
-        <span className="flex items-center gap-1.5 leading-none">
+        <span className="flex items-center gap-2 leading-none">
           <Kbd
             className="px-1.5"
             pressed={pressed.escape}
@@ -221,7 +231,7 @@ function SearchFooter() {
           >
             <span className="mb-px">esc</span>
           </Kbd>
-          to close
+          Close
         </span>
       </div>
     </div>

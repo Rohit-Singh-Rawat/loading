@@ -71,7 +71,7 @@ export function SpinnerPreview() {
           size="sm"
           title={state.paused ? "Play animation" : "Pause animation"}
           type="button"
-          variant="tertiary"
+          variant="ghost"
         >
           <AnimatedIcon
             active={state.paused}
