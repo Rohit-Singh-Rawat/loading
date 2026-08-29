@@ -10,7 +10,7 @@ import {
 } from "@/components/spinners";
 import { PageHeader } from "@/components/ui/page-header";
 import { SITE_DESCRIPTION } from "@/lib/constants";
-import type { MDXModule } from "@/lib/mdx";
+import type { MDXModule, SpinnerMDXModule } from "@/lib/mdx";
 
 interface Params {
   slug: string;
@@ -47,11 +47,16 @@ export default async function SpinnerPage({
 
   const { next, previous } = getAdjacentSpinners(slug);
 
-  const [{ default: Content }, { default: Snippet }]: [MDXModule, MDXModule] =
-    await Promise.all([
-      import(`@/content/spinners/${slug}.mdx`),
-      import(`@/content/snippets/${slug}.mdx`),
-    ]);
+  const [{ default: Shared }, Unique, { default: Snippet }] = await Promise.all(
+    [
+      import("@/content/spinners/_shared.mdx") as Promise<SpinnerMDXModule>,
+      import(`@/content/spinners/${slug}.mdx`).then(
+        (module: SpinnerMDXModule) => module.default,
+        () => null
+      ),
+      import(`@/content/snippets/${slug}.mdx`) as Promise<MDXModule>,
+    ]
+  );
 
   return (
     <div className="flex flex-col gap-8">
@@ -68,7 +73,8 @@ export default async function SpinnerPage({
             <div className="mt-2.5">
               <Snippet />
             </div>
-            <Content />
+            <Shared slug={slug} />
+            {Unique && <Unique slug={slug} />}
           </div>
         </div>
       </SpinnerCustomizationProvider>

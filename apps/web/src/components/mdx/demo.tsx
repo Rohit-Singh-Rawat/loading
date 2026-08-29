@@ -1,10 +1,10 @@
 import type { MDXModule } from "@/lib/mdx";
 
-export async function Demo({ name }: { name: string }) {
+export async function Demo({ name, slug }: { name: string; slug: string }) {
   const [{ default: Example }, { default: Snippet }]: [MDXModule, MDXModule] =
     await Promise.all([
-      import(`@/content/demos/${name}.tsx`),
-      import(`@/content/demos/${name}.mdx`),
+      import(`@/content/demos/${slug}/${name}.tsx`),
+      import(`@/content/demos/${slug}/${name}.mdx`),
     ]);
 
   return (
