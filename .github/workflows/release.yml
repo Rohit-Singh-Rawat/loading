@@ -1,0 +1,31 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Mints the short-lived OIDC token that npm trusted publishing exchanges
+      # for publish rights. Without it the publish step falls back to looking
+      # for an auth token and fails.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      # Trusted publishing needs npm >= 11.5.1, which is newer than the npm
+      # bundled with some Node 24 releases.
+      - run: npm install --global npm@latest
+      - run: pnpm install --frozen-lockfile
+      # npm, not pnpm: pnpm 11 still 404s on OIDC publish. Safe here because
+      # loading-dev has no workspace: dependencies for pnpm to rewrite.
+      # prepublishOnly runs tsup, so dist/ is built from the tagged source.
+      - run: npm publish
+        working-directory: packages/loading
