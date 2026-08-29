@@ -1,8 +1,6 @@
 "use client";
 
-import { IconArrowRotateCounterClockwise } from "central-icons-outlined/IconArrowRotateCounterClockwise";
-import { CardHeader } from "@/components/ui/card-header";
-import IconButton from "@/components/ui/icon-button";
+import { IconStepBack } from "central-icons-outlined/IconStepBack";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { cn } from "@/lib/utils";
 import { ColorPickerRow } from "./color-picker-row";
@@ -20,21 +18,6 @@ export function CustomizePanel({ className }: { className?: string }) {
         className
       )}
     >
-      <CardHeader title="Customize">
-        <IconButton
-          aria-label="Reset customization"
-          className="-mr-1"
-          onClick={state.reset}
-          size="xs"
-          title="Reset customization"
-          type="button"
-          variant="tertiary"
-        >
-          <span className="grid transition-transform duration-150 ease-in-out group-active:-rotate-45">
-            <IconArrowRotateCounterClockwise className="size-4" />
-          </span>
-        </IconButton>
-      </CardHeader>
       <SegmentedControl
         label="Size"
         onValueChange={state.setSizeIndex}
@@ -63,6 +46,16 @@ export function CustomizePanel({ className }: { className?: string }) {
         step={1}
         value={state.opacity}
       />
+      <div className="mt-auto flex justify-center">
+        <button
+          className="flex h-8 cursor-pointer items-center gap-1.5 rounded-lg px-2.5 font-medium text-content-subtle text-sm transition-[scale,background-color,color] duration-200 ease-out hover-hover:hover:bg-background-hovered hover-hover:hover:text-content active:scale-[0.97]"
+          onClick={state.reset}
+          type="button"
+        >
+          <IconStepBack className="size-4 shrink-0" />
+          Reset
+        </button>
+      </div>
     </div>
   );
 }

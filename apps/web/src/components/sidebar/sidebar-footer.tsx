@@ -45,7 +45,7 @@ function Nametag({
 
 export function SidebarFooter() {
   return (
-    <div className="border-border border-t pt-6">
+    <div className="border-border border-t pt-4">
       <Text className="text-content-subtle" size="sm">
         Crafted with care by <Nametag {...AUTHORS.jakub} /> and{" "}
         <Nametag {...AUTHORS.paul} />

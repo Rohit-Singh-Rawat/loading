@@ -6,13 +6,13 @@ export function InstallCommand({ command }: { command: string }) {
     <div className="flex h-11 w-full items-center gap-2 rounded-2xl border border-border bg-background pr-1 pl-4">
       <Text
         as="span"
-        className="font-berkeley-mono text-[13px] text-content-subtle"
+        className="font-paper-mono text-[13px] text-content-subtle"
       >
         $
       </Text>
       <Text
         as="span"
-        className="min-w-px flex-1 font-berkeley-mono text-[13px] text-content"
+        className="min-w-px flex-1 font-paper-mono text-[13px] text-content"
       >
         {command}
       </Text>

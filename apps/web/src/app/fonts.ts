@@ -14,15 +14,15 @@ export const interVariable = localFont({
   variable: "--font-inter",
 });
 
-export const berkeleyMono = localFont({
+export const paperMono = localFont({
   display: "swap",
   fallback: ["ui-monospace", "monospace"],
   src: [
     {
-      path: "./fonts/BerkeleyMono-Regular.woff2",
+      path: "./fonts/PaperMono-Regular.woff2",
       style: "normal",
       weight: "400",
     },
   ],
-  variable: "--font-berkeley-mono",
+  variable: "--font-paper-mono",
 });

@@ -65,7 +65,7 @@
 
   .code-inline {
     padding: 2px 0.25rem;
-    font-family: var(--font-berkeley-mono);
+    font-family: var(--font-paper-mono);
     font-size: 13px;
     background-color: var(--color-background);
     border: 1px solid var(--color-border);
@@ -161,8 +161,8 @@
   --shadow-custom: var(--shadow-custom);
   --font-sans: var(--font-inter);
   --font-sans--font-feature-settings: "cv01", "ss03";
-  --font-berkeley-mono: var(--font-berkeley-mono);
-  --font-berkeley-mono--font-feature-settings: normal;
+  --font-paper-mono: var(--font-paper-mono);
+  --font-paper-mono--font-feature-settings: normal;
 }
 
 @theme {

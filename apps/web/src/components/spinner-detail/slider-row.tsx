@@ -138,7 +138,7 @@ export function SliderRow({
         </span>
         <span
           className={cn(
-            "pointer-events-none absolute inset-y-0 right-2 z-20 flex select-none items-center font-berkeley-mono text-content-subtle text-sm transition-colors duration-200 ease-out hover-hover:group-hover:text-content",
+            "pointer-events-none absolute inset-y-0 right-2 z-20 flex select-none items-center font-paper-mono text-[13px] text-content-subtle transition-colors duration-200 ease-out hover-hover:group-hover:text-content",
             isDragging && "text-content"
           )}
           ref={valueRef}

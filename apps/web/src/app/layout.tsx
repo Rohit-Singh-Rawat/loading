@@ -14,7 +14,7 @@ import {
   TWITTER_HANDLE,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { berkeleyMono, interVariable } from "./fonts";
+import { interVariable, paperMono } from "./fonts";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   title: {
     default: "loading.dev",
-    template: "%s — loading.dev",
+    template: "loading.dev › %s",
   },
   twitter: {
     card: "summary_large_image",
@@ -70,7 +70,7 @@ export default function RootLayout({
       <body
         className={cn(
           interVariable.variable,
-          berkeleyMono.variable,
+          paperMono.variable,
           "bg-surface font-sans text-content antialiased"
         )}
       >
@@ -87,7 +87,7 @@ export default function RootLayout({
             <div className="min-h-dvh md:grid md:grid-cols-[15rem_minmax(0,1fr)]">
               <div />
               <Sidebar />
-              <div className="flex gap-12 px-5 py-10 sm:px-6 md:py-19 md:pl-0">
+              <div className="flex gap-12 px-5 py-10 sm:px-6 md:py-20 md:pl-0">
                 <main
                   className="mx-auto w-full max-w-160 focus-visible:outline-hidden"
                   id="content"

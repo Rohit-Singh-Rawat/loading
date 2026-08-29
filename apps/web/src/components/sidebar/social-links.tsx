@@ -1,6 +1,5 @@
 import { IconGithub } from "central-icons/IconGithub";
 import { IconNpm } from "central-icons/IconNpm";
-import { IconX } from "central-icons/IconX";
 import type { ComponentProps, ComponentType } from "react";
 import { NavItem } from "@/components/ui/nav-item";
 import { cn } from "@/lib/utils";
@@ -23,11 +22,6 @@ export const SOCIAL_LINKS: {
     href: "https://www.npmjs.com/package/loading-dev",
     icon: IconNpm,
     label: "npm",
-  },
-  {
-    href: "https://x.com/jakubkrehel",
-    icon: IconX,
-    label: "X",
   },
 ];
 
