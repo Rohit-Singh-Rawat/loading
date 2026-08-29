@@ -12,7 +12,7 @@ export function CodeBlockHeader({
     <div className="flex items-center justify-between gap-2 border-border border-b py-1.5 pr-1.5 pl-4">
       <div className="flex min-w-0 items-center gap-2">
         <LanguageIcon className="shrink-0" filename={filename} />
-        <span className="truncate font-berkeley-mono text-[13px] text-content-subtle">
+        <span className="truncate font-semimedium text-content-subtle text-sm">
           {filename}
         </span>
       </div>

@@ -1,10 +1,5 @@
-import { AsideShell } from "@/components/aside/aside-shell";
-import { SocialLinks } from "@/components/aside/social-links";
-
+// The overview has no aside, but the slot still needs a segment matching "/":
+// without one, navigating here from a spinner page would leave its TOC behind.
 export default function AsideOverview() {
-  return (
-    <AsideShell sticky={false}>
-      <SocialLinks />
-    </AsideShell>
-  );
+  return null;
 }

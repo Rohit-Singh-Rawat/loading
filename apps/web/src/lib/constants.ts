@@ -8,8 +8,13 @@ export const TWITTER_HANDLE = "@jakubkrehel";
 
 export const PREVIEW_SECTION_ID = "preview";
 
+// The hostname is also listed in `next.config.ts` under `images.remotePatterns`,
+// which cannot import from `src`.
+export const BLOB_BASE =
+  "https://ru2qm1zsj1gavqlm.public.blob.vercel-storage.com";
+
 export const OG_IMAGE = {
-  height: 1008,
-  url: "https://ru2qm1zsj1gavqlm.public.blob.vercel-storage.com/og.png",
-  width: 1920,
+  height: 1280,
+  url: `${BLOB_BASE}/loading-og-image.png`,
+  width: 2560,
 } as const;

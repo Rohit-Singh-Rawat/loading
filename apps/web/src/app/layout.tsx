@@ -14,7 +14,7 @@ import {
   TWITTER_HANDLE,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { berkeleyMono, interVariable } from "./fonts";
+import { interVariable, paperMono } from "./fonts";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
     index: true,
   },
   title: {
-    default: "Spinners",
-    template: "%s — Spinners",
+    default: "loading.dev",
+    template: "loading.dev › %s",
   },
   twitter: {
     card: "summary_large_image",
@@ -70,7 +70,7 @@ export default function RootLayout({
       <body
         className={cn(
           interVariable.variable,
-          berkeleyMono.variable,
+          paperMono.variable,
           "bg-surface font-sans text-content antialiased"
         )}
       >
@@ -84,10 +84,10 @@ export default function RootLayout({
               Skip to content
             </a>
             <MobileNav />
-            <div className="mx-auto flex min-h-dvh justify-center gap-12 px-5 sm:px-6">
-              <Sidebar />
+            <Sidebar />
+            <div className="flex min-h-dvh gap-12 px-5 py-10 sm:px-6 md:py-20 md:pl-[calc(var(--sidebar-width)_+_1.5rem)]">
               <main
-                className="w-full max-w-160 py-10 focus-visible:outline-hidden md:py-25"
+                className="mx-auto w-full max-w-160 focus-visible:outline-hidden"
                 id="content"
                 tabIndex={-1}
               >

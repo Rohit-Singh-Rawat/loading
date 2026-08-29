@@ -52,7 +52,7 @@ export function SegmentedControl<Value extends string | number>({
             />
             {isActive && (
               <m.span
-                className="pointer-events-none absolute inset-0 rounded-lg border border-border bg-background-hovered"
+                className="pointer-events-none absolute inset-0 rounded-lg border border-border bg-background"
                 layoutId={`segmented-control-${groupId}`}
                 transition={INDICATOR_TRANSITION}
               />

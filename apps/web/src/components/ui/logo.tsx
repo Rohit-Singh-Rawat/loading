@@ -1,19 +1,48 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
+// Eight spinner segments on a 15-unit grid, each a 2×2 block of pixels, fading
+// counter-clockwise behind the leading segment on the right.
+const SEGMENTS = [
+  { opacity: 1, x: 12, y: 6 },
+  { opacity: 0.9, x: 10, y: 2 },
+  { opacity: 0.8, x: 6, y: 0 },
+  { opacity: 0.7, x: 2, y: 2 },
+  { opacity: 0.6, x: 0, y: 6 },
+  { opacity: 0.5, x: 2, y: 10 },
+  { opacity: 0.4, x: 6, y: 12 },
+  { opacity: 0.3, x: 10, y: 10 },
+];
+
 export function Logo({ className }: { className?: string }) {
   return (
     <Link
       aria-label="Home"
       className={cn(
-        "link-outline flex size-8 shrink-0 items-center justify-center rounded-full bg-[#D5D5D5] p-1 dark:bg-[#333]",
+        "link-outline block size-7.5 shrink-0 rounded-sm text-orange",
         className
       )}
       href="/"
     >
-      <div className="flex size-4 size-full items-center justify-center rounded-full bg-[#999] p-1 dark:bg-[#555]">
-        <div className="size-full rounded-full bg-[#777]" />
-      </div>
+      <svg
+        aria-hidden="true"
+        className="size-full"
+        fill="currentColor"
+        viewBox="0 0 15 15"
+      >
+        {SEGMENTS.map(({ opacity, x, y }) => (
+          <g
+            key={`${x}-${y}`}
+            opacity={opacity}
+            transform={`translate(${x} ${y})`}
+          >
+            <rect height="1" width="1" x="0" y="0" />
+            <rect height="1" width="1" x="2" y="0" />
+            <rect height="1" width="1" x="0" y="2" />
+            <rect height="1" width="1" x="2" y="2" />
+          </g>
+        ))}
+      </svg>
     </Link>
   );
 }

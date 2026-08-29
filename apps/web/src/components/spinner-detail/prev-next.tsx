@@ -1,47 +1,42 @@
-import { IconArrowLeft } from "central-icons-outlined/IconArrowLeft";
-import { IconArrowRight } from "central-icons-outlined/IconArrowRight";
 import Link from "next/link";
 import type { SpinnerItem } from "@/components/spinners";
 import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 
-const LINK_CLASSNAME =
-  "flex min-w-0 flex-1 items-center justify-between rounded-xl border border-border bg-background px-3.5 py-3 transition-[background-color,color,scale] duration-200 ease-out will-change-transform hover:bg-background-hovered active:scale-[0.97]";
-
 function PrevNextLink({
-  direction,
+  align,
   item,
+  label,
 }: {
-  direction: "next" | "previous";
+  align: "end" | "start";
   item: SpinnerItem;
+  label: string;
 }) {
-  const isPrevious = direction === "previous";
-  const Icon = isPrevious ? IconArrowLeft : IconArrowRight;
-  const icon = <Icon className="size-4 shrink-0 text-content-subtle" />;
-
   return (
-    <Link className={LINK_CLASSNAME} href={`/spinners/${item.slug}`}>
-      {isPrevious && icon}
-      <span
-        className={cn(
-          "flex min-w-0 flex-col",
-          isPrevious ? "items-end" : "items-start"
-        )}
+    <Link
+      className={cn(
+        "group flex max-w-40 select-none flex-col gap-1 sm:max-w-80",
+        align === "start" ? "items-start" : "items-end"
+      )}
+      href={`/spinners/${item.slug}`}
+    >
+      <Text
+        as="span"
+        className="text-content-subtle transition-colors duration-200 ease-out group-hover:text-content"
+        size="sm"
+        weight="medium"
       >
-        <Text as="span" className="text-content-subtle" size="sm">
-          {isPrevious ? "Previous" : "Next"}
-        </Text>
-        <Text
-          as="span"
-          className="text-content"
-          size="sm"
-          truncate
-          weight="semimedium"
-        >
-          {item.name}
-        </Text>
-      </span>
-      {!isPrevious && icon}
+        {label}
+      </Text>
+      <Text
+        as="span"
+        className="w-full text-content"
+        size="sm"
+        truncate
+        weight="medium"
+      >
+        {item.name}
+      </Text>
     </Link>
   );
 }
@@ -58,17 +53,16 @@ export function PrevNext({
   }
 
   return (
-    <div className="flex w-full gap-8">
+    <nav
+      aria-label="More spinners"
+      className="flex w-full items-center justify-between"
+    >
       {previous ? (
-        <PrevNextLink direction="previous" item={previous} />
+        <PrevNextLink align="start" item={previous} label="Previous" />
       ) : (
-        <div className="flex-1" />
+        <div />
       )}
-      {next ? (
-        <PrevNextLink direction="next" item={next} />
-      ) : (
-        <div className="flex-1" />
-      )}
-    </div>
+      {next ? <PrevNextLink align="end" item={next} label="Next" /> : <div />}
+    </nav>
   );
 }

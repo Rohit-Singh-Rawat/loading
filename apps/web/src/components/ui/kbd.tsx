@@ -21,7 +21,7 @@ export function Kbd({
         "transition-[background-color,border-color,color,scale] duration-100 ease-out motion-reduce:transition-none",
         uppercase ? "uppercase" : "normal-case",
         variant === "default" && "bg-background-subtle",
-        variant === "raised" && "bg-popover font-[450]",
+        variant === "raised" && "bg-popover font-semimedium",
         pressed && "scale-97 bg-background-hovered text-content",
         className
       )}

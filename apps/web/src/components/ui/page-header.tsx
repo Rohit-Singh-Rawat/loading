@@ -1,18 +1,21 @@
 import type { ReactNode } from "react";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
+import { cn } from "@/lib/utils";
 
 export function PageHeader({
+  className,
   description,
   eyebrow,
   title,
 }: {
+  className?: string;
   description?: ReactNode;
   eyebrow?: ReactNode;
   title: ReactNode;
 }) {
   return (
-    <header className="flex flex-col gap-5">
+    <header className={cn("flex flex-col gap-5", className)}>
       <Heading as="h1" size={1} weight="semibold">
         {eyebrow && (
           <span className="block text-content-subtle">{eyebrow}</span>

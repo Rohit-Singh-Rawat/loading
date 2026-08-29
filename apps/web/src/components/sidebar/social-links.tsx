@@ -1,17 +1,11 @@
 import { IconGithub } from "central-icons/IconGithub";
 import { IconNpm } from "central-icons/IconNpm";
-import { IconX } from "central-icons/IconX";
 import type { ComponentProps, ComponentType } from "react";
 import { NavItem } from "@/components/ui/nav-item";
-import { cn } from "@/lib/utils";
-
-type SocialIcon = ComponentType<
-  ComponentProps<"svg"> & { mode?: "masked" | "raw" }
->;
 
 export const SOCIAL_LINKS: {
   href: string;
-  icon: SocialIcon;
+  icon: ComponentType<ComponentProps<typeof IconGithub>>;
   label: string;
 }[] = [
   {
@@ -24,16 +18,11 @@ export const SOCIAL_LINKS: {
     icon: IconNpm,
     label: "npm",
   },
-  {
-    href: "https://x.com/jakubkrehel",
-    icon: IconX,
-    label: "X",
-  },
 ];
 
-export function SocialLinks({ className }: { className?: string }) {
+export function SocialLinks() {
   return (
-    <nav aria-label="Social" className={cn("flex flex-col gap-0.5", className)}>
+    <nav aria-label="Social" className="flex flex-col gap-0.5 p-4">
       {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
         <NavItem
           href={href}

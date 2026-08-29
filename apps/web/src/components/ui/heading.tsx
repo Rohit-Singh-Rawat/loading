@@ -61,7 +61,7 @@ const headingWeightClasses = {
   medium: "font-medium",
   regular: "font-normal",
   semibold: "font-semibold",
-  semimedium: "font-[450]",
+  semimedium: "font-semimedium",
 } as const;
 
 type HeadingSize = keyof typeof headingSizeClasses;
