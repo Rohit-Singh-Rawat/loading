@@ -14,7 +14,7 @@ export interface SpinnerDocument {
 
 const TOKEN = /^```[\s\S]*?^```|^##\s+(.+?)\s*$|<Demo\s+name="([^"]+)"\s*\/>/gm;
 
-async function parse(source: string): Promise<SpinnerDocument> {
+async function parse(source: string, slug: string): Promise<SpinnerDocument> {
   const slugger = new GithubSlugger();
   const headings: DocumentHeading[] = [];
   const parts: (string | Promise<string>)[] = [];
@@ -32,7 +32,7 @@ async function parse(source: string): Promise<SpinnerDocument> {
 
     parts.push(
       source.slice(cursor, match.index),
-      readContent("demos", `${demo}.mdx`)
+      readContent("demos", slug, `${demo}.mdx`)
     );
     cursor = match.index + token.length;
   }
@@ -49,11 +49,11 @@ export async function getSpinnerDocument(
     return null;
   }
 
-  const [raw, snippet] = await Promise.all([
-    readContent("spinners", `${slug}.mdx`),
+  const [shared, snippet] = await Promise.all([
+    readContent("spinners", "_shared.mdx"),
     readContent("snippets", `${slug}.mdx`),
   ]);
-  const { headings, markdown } = await parse(raw);
+  const { headings, markdown } = await parse(shared, slug);
 
   return {
     headings,

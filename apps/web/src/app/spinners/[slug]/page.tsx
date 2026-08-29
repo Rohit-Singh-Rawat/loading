@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Demo } from "@/components/mdx/demo";
 import { PrevNext } from "@/components/spinner-detail/prev-next";
 import { SpinnerCustomizationProvider } from "@/components/spinner-detail/spinner-customization";
 import { SpinnerPreview } from "@/components/spinner-detail/spinner-preview";
@@ -9,6 +10,7 @@ import {
   SPINNER_ITEMS,
 } from "@/components/spinners";
 import { PageHeader } from "@/components/ui/page-header";
+import Shared from "@/content/spinners/_shared.mdx";
 import { SITE_DESCRIPTION } from "@/lib/constants";
 import type { MDXModule } from "@/lib/mdx";
 
@@ -47,11 +49,13 @@ export default async function SpinnerPage({
 
   const { next, previous } = getAdjacentSpinners(slug);
 
-  const [{ default: Content }, { default: Snippet }]: [MDXModule, MDXModule] =
-    await Promise.all([
-      import(`@/content/spinners/${slug}.mdx`),
-      import(`@/content/snippets/${slug}.mdx`),
-    ]);
+  const { default: Snippet }: MDXModule = await import(
+    `@/content/snippets/${slug}.mdx`
+  );
+
+  const components = {
+    Demo: (props: { name: string }) => <Demo {...props} slug={slug} />,
+  };
 
   return (
     <div className="flex flex-col gap-8">
@@ -68,7 +72,7 @@ export default async function SpinnerPage({
             <div className="mt-2.5">
               <Snippet />
             </div>
-            <Content />
+            <Shared components={components} />
           </div>
         </div>
       </SpinnerCustomizationProvider>
