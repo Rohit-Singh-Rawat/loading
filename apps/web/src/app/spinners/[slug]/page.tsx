@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Demo } from "@/components/mdx/demo";
 import { PrevNext } from "@/components/spinner-detail/prev-next";
 import { SpinnerCustomizationProvider } from "@/components/spinner-detail/spinner-customization";
 import { SpinnerPreview } from "@/components/spinner-detail/spinner-preview";
@@ -9,8 +10,9 @@ import {
   SPINNER_ITEMS,
 } from "@/components/spinners";
 import { PageHeader } from "@/components/ui/page-header";
+import Shared from "@/content/spinners/_shared.mdx";
 import { SITE_DESCRIPTION } from "@/lib/constants";
-import type { MDXModule, SpinnerMDXModule } from "@/lib/mdx";
+import type { MDXModule } from "@/lib/mdx";
 
 interface Params {
   slug: string;
@@ -47,16 +49,15 @@ export default async function SpinnerPage({
 
   const { next, previous } = getAdjacentSpinners(slug);
 
-  const [{ default: Shared }, Unique, { default: Snippet }] = await Promise.all(
-    [
-      import("@/content/spinners/_shared.mdx") as Promise<SpinnerMDXModule>,
-      import(`@/content/spinners/${slug}.mdx`).then(
-        (module: SpinnerMDXModule) => module.default,
-        () => null
-      ),
-      import(`@/content/snippets/${slug}.mdx`) as Promise<MDXModule>,
-    ]
+  const { default: Snippet }: MDXModule = await import(
+    `@/content/snippets/${slug}.mdx`
   );
+
+  // `Demo` resolves its files under the spinner's own directory, so bind the
+  // slug here rather than threading it through every tag in the MDX source.
+  const components = {
+    Demo: (props: { name: string }) => <Demo {...props} slug={slug} />,
+  };
 
   return (
     <div className="flex flex-col gap-8">
@@ -73,8 +74,7 @@ export default async function SpinnerPage({
             <div className="mt-2.5">
               <Snippet />
             </div>
-            <Shared slug={slug} />
-            {Unique && <Unique slug={slug} />}
+            <Shared components={components} />
           </div>
         </div>
       </SpinnerCustomizationProvider>
