@@ -33,7 +33,7 @@ export const SOCIAL_LINKS: {
 
 export function SocialLinks({ className }: { className?: string }) {
   return (
-    <nav aria-label="Social" className={cn("flex flex-col gap-0.5", className)}>
+    <div className={cn("flex flex-col gap-0.5", className)}>
       {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
         <NavItem
           href={href}
@@ -43,6 +43,6 @@ export function SocialLinks({ className }: { className?: string }) {
           label={label}
         />
       ))}
-    </nav>
+    </div>
   );
 }

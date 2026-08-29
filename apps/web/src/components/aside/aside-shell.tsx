@@ -9,8 +9,8 @@ export function AsideShell({
   sticky?: boolean;
 }) {
   return (
-    <aside className="hidden w-60 shrink-0 py-25 xl:block">
-      <div className={cn("flex flex-col gap-4", sticky && "sticky top-25")}>
+    <aside className="hidden w-60 shrink-0 xl:block">
+      <div className={cn("flex flex-col gap-4", sticky && "sticky top-19")}>
         {children}
       </div>
     </aside>

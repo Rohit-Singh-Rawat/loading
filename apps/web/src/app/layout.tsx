@@ -84,16 +84,19 @@ export default function RootLayout({
               Skip to content
             </a>
             <MobileNav />
-            <div className="mx-auto flex min-h-dvh justify-center gap-12 px-5 sm:px-6">
+            <div className="min-h-dvh md:grid md:grid-cols-[15rem_minmax(0,1fr)]">
+              <div />
               <Sidebar />
-              <main
-                className="w-full max-w-160 py-10 focus-visible:outline-hidden md:py-25"
-                id="content"
-                tabIndex={-1}
-              >
-                {children}
-              </main>
-              {aside}
+              <div className="flex gap-12 px-5 py-10 sm:px-6 md:py-19 md:pl-0">
+                <main
+                  className="mx-auto w-full max-w-160 focus-visible:outline-hidden"
+                  id="content"
+                  tabIndex={-1}
+                >
+                  {children}
+                </main>
+                {aside}
+              </div>
             </div>
           </SearchProvider>
         </MotionProvider>
