@@ -14,6 +14,11 @@ export interface SpinnerDocument {
 
 const TOKEN = /^```[\s\S]*?^```|^##\s+(.+?)\s*$|<Demo\s+name="([^"]+)"\s*\/>/gm;
 
+async function demoFence(slug: string, demo: string): Promise<string> {
+  const source = await readContent("demos", slug, `${demo}.tsx`);
+  return `\`\`\`tsx title="${slug}.tsx"\n${source}\n\`\`\``;
+}
+
 async function parse(source: string, slug: string): Promise<SpinnerDocument> {
   const slugger = new GithubSlugger();
   const headings: DocumentHeading[] = [];
@@ -30,10 +35,7 @@ async function parse(source: string, slug: string): Promise<SpinnerDocument> {
       continue;
     }
 
-    parts.push(
-      source.slice(cursor, match.index),
-      readContent("demos", slug, `${demo}.mdx`)
-    );
+    parts.push(source.slice(cursor, match.index), demoFence(slug, demo));
     cursor = match.index + token.length;
   }
   parts.push(source.slice(cursor));

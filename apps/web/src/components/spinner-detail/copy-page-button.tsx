@@ -14,11 +14,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Text } from "@/components/ui/text";
 import { DOMAIN } from "@/lib/constants";
-import { useCopy } from "@/lib/use-copy";
+import { COPY_FAILED_MESSAGE, useCopy } from "@/lib/use-copy";
 
 const messages = {
   copied: "Page copied as Markdown",
-  failed: "Unable to copy. Select the page text and copy it manually.",
+  failed: COPY_FAILED_MESSAGE,
 } as const;
 
 function assistantPrompt(markdownUrl: string) {

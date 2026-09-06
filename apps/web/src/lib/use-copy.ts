@@ -6,6 +6,9 @@ export type CopyStatus = "copied" | "failed" | "idle";
 
 const RESET_DELAY_MS = 2000;
 
+export const COPY_FAILED_MESSAGE =
+  "Unable to copy. Select the text and copy it manually.";
+
 export function useCopy() {
   const [status, setStatus] = useState<CopyStatus>("idle");
   const timeoutRef = useRef<number | null>(null);

@@ -11,4 +11,4 @@ pnpm dev     # tsup --watch and next dev, in parallel
 pnpm lint    # Biome
 ```
 
-Adding a spinner touches both packages — the library file, the motion contract, the site catalog, the MDX page and its demos. The order is written out in `AGENTS.md`; `CONTEXT.md` explains the words (spinner, motion contract, catalog, document).
+Adding a spinner touches both packages — the library file, the motion contract, the site catalog, the snippet and its demos. The order is written out in `AGENTS.md`; `CONTEXT.md` explains the words (spinner, motion contract, catalog, document).

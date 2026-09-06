@@ -48,10 +48,6 @@ export function PrevNext({
   next?: SpinnerItem;
   previous?: SpinnerItem;
 }) {
-  if (!(previous || next)) {
-    return null;
-  }
-
   return (
     <nav
       aria-label="More spinners"

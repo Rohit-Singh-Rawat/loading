@@ -13,14 +13,9 @@ import {
 } from "loading-dev";
 import type { ComponentType } from "react";
 
-export interface SpinnerSize {
-  label: string;
-  value: number;
-}
-
-export interface SpinnerCustomization {
-  sizes: SpinnerSize[];
-  speed: { default: number; max: number; min: number };
+interface SpeedRange {
+  max: number;
+  min: number;
 }
 
 interface CatalogEntry {
@@ -28,14 +23,18 @@ interface CatalogEntry {
   description: string;
   name: string;
   slug: SpinnerName;
-  speed: { max: number; min: number };
+  speed: SpeedRange;
 }
 
-export interface SpinnerItem extends Omit<CatalogEntry, "speed"> {
-  customization: SpinnerCustomization;
+export interface SpinnerItem extends CatalogEntry {
+  speed: SpeedRange & { default: number };
 }
 
-const SIZES: SpinnerSize[] = [
+export interface SpinnerParams {
+  slug: string;
+}
+
+export const SIZES = [
   { label: "Small", value: 24 },
   { label: "Medium", value: 48 },
   { label: "Large", value: 96 },
@@ -102,15 +101,14 @@ const CATALOG: CatalogEntry[] = [
   },
 ];
 
-export const SPINNER_ITEMS: SpinnerItem[] = CATALOG.map(
-  ({ speed, ...entry }) => ({
-    ...entry,
-    customization: {
-      sizes: SIZES,
-      speed: { default: SPINNER_MOTION[entry.slug].duration, ...speed },
-    },
-  })
-);
+export const SPINNER_ITEMS: SpinnerItem[] = CATALOG.map((entry) => ({
+  ...entry,
+  speed: { default: SPINNER_MOTION[entry.slug].duration, ...entry.speed },
+}));
+
+export function spinnerParams(): SpinnerParams[] {
+  return SPINNER_ITEMS.map(({ slug }) => ({ slug }));
+}
 
 export function getSpinner(slug: string): SpinnerItem | undefined {
   return SPINNER_ITEMS.find((item) => item.slug === slug);

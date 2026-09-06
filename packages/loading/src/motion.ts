@@ -2,7 +2,7 @@ export const DURATION_VAR = "--ld-duration";
 
 export const PLAY_STATE_VAR = "--ld-play-state";
 
-export const SIZE_VAR = "--spinner-size";
+export const SIZE_VAR = "--ld-size";
 
 export const DEFAULT_SIZE = 20;
 

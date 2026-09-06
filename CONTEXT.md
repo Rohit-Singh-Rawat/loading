@@ -28,7 +28,7 @@ ancestor's value still reaches the spinner. Precedence is prop, then ancestor,
 then the spinner's own default. `color` rides the same rule through the plain
 CSS `color` property, which the spinners paint with via `currentColor`.
 
-`--spinner-size` is not part of that: `spinnerRoot` always writes it, resolving
+`--ld-size` is not part of that: `spinnerRoot` always writes it, resolving
 the `size` prop against the package default. It carries the number into the
 spinner's own CSS rather than offering a second way in, so size is a prop and
 nothing else.
@@ -73,10 +73,16 @@ playback, which is a separate control outside the panel.
 
 ## Document
 
-A spinner's MDX file in `apps/web/src/content/spinners/<slug>.mdx` — prose and
-a `<Demo />` tag per section. Its filename is the spinner's slug, and its `##`
+The prose every spinner page shares, in
+`apps/web/src/content/spinners/_shared.mdx` — one file, with a `##` heading and
+a `<Demo />` tag per section. There is no per-spinner prose; what makes a
+spinner distinct is its description in the catalog and its demos. The `##`
 headings become the table of contents in the aside, slugged the same way
 `rehype-slug` slugs them.
+
+A demo is `content/demos/<slug>/<demo>.tsx`, and it is the single source. Its
+`.mdx` twin is a one-line fence that pulls the file in at build time, so the
+code the reader sees is the code that renders.
 
 The opening code example is **not** in the document. It is its own file,
 `content/snippets/<slug>.mdx`, and it is static — the customization controls
@@ -85,5 +91,5 @@ drive the preview, not it.
 `/spinners/<slug>/markdown` serves the document as plain Markdown for anything
 reading rather than browsing. It is assembled, not served verbatim: the
 snippet goes above the prose the way it sits on the page, and each `<Demo />`
-tag is replaced by the fenced block from the demo's `.mdx`, so the reader gets
+tag is replaced by a fenced block holding the demo's `.tsx`, so the reader gets
 the code the tag would have rendered.

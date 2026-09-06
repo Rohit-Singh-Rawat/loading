@@ -5,6 +5,7 @@ import { createContext, type ReactNode, useContext, useState } from "react";
 import {
   DEFAULT_SIZE_INDEX,
   getSpinner,
+  SIZES,
   type SpinnerItem,
 } from "@/components/spinners";
 
@@ -34,19 +35,17 @@ const SpinnerCustomizationContext =
   createContext<SpinnerCustomizationValue | null>(null);
 
 function useCustomizationState(item: SpinnerItem): SpinnerCustomizationState {
-  const { sizes, speed } = item.customization;
-
   const [paused, setPaused] = useState(false);
   const [sizeIndex, setSizeIndex] = useState(DEFAULT_SIZE_INDEX);
   const [color, setColor] = useState<string | null>(null);
-  const [speedMs, setSpeedMs] = useState(speed.default);
+  const [speedMs, setSpeedMs] = useState(item.speed.default);
   const [opacity, setOpacity] = useState(FULLY_OPAQUE);
 
   const spinnerProps: SpinnerProps = {
     color: color ?? undefined,
     duration: speedMs,
     playState: paused ? "paused" : "running",
-    size: sizes[sizeIndex].value,
+    size: SIZES[sizeIndex].value,
   };
 
   return {
@@ -56,7 +55,7 @@ function useCustomizationState(item: SpinnerItem): SpinnerCustomizationState {
     reset: () => {
       setSizeIndex(DEFAULT_SIZE_INDEX);
       setColor(null);
-      setSpeedMs(speed.default);
+      setSpeedMs(item.speed.default);
       setOpacity(FULLY_OPAQUE);
     },
     setColor,

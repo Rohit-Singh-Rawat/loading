@@ -19,11 +19,7 @@ function SearchShortcutHint({ enabled }: { enabled: boolean }) {
 }
 
 export function SidebarSearch() {
-  const context = useSearchContext();
-  if (!context) {
-    return null;
-  }
-  const { isSearchOpen, openSearch } = context;
+  const { isSearchOpen, openSearch } = useSearchContext();
 
   return (
     <button

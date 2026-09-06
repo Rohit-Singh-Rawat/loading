@@ -1,24 +1,18 @@
 import { AsideShell } from "@/components/aside/aside-shell";
 import { CopyPageButton } from "@/components/spinner-detail/copy-page-button";
 import { Toc, type TocItem } from "@/components/spinner-detail/toc";
-import { SPINNER_ITEMS } from "@/components/spinners";
+import { type SpinnerParams, spinnerParams } from "@/components/spinners";
 import { PREVIEW_SECTION_ID } from "@/lib/constants";
 import { getSpinnerDocument } from "@/lib/spinner-markdown";
 
-interface Params {
-  slug: string;
-}
-
 const PREVIEW_ITEM: TocItem = { id: PREVIEW_SECTION_ID, label: "Preview" };
 
-export function generateStaticParams(): Params[] {
-  return SPINNER_ITEMS.map(({ slug }) => ({ slug }));
-}
+export const generateStaticParams = spinnerParams;
 
 export default async function SpinnerAside({
   params,
 }: {
-  params: Promise<Params>;
+  params: Promise<SpinnerParams>;
 }) {
   const { slug } = await params;
   const document = await getSpinnerDocument(slug);

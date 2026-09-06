@@ -3,7 +3,7 @@
 import { IconCircleCheck } from "central-icons/IconCircleCheck";
 import { IconSquareBehindSquare1 } from "central-icons-outlined/IconSquareBehindSquare1";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
-import { useCopy } from "@/lib/use-copy";
+import { COPY_FAILED_MESSAGE, useCopy } from "@/lib/use-copy";
 import { cn } from "@/lib/utils";
 
 const roundedClasses = {
@@ -13,7 +13,7 @@ const roundedClasses = {
 
 const labels = {
   copied: "Copied",
-  failed: "Unable to copy. Select the text and copy it manually",
+  failed: COPY_FAILED_MESSAGE,
   idle: "Copy to clipboard",
 } as const;
 

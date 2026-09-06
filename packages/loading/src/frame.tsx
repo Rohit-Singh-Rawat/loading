@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import { classNames } from "./class-names";
 import {
   DEFAULT_SIZE,
   DURATION_VAR,
@@ -37,7 +36,7 @@ export function spinnerRoot(
 ) {
   return {
     "aria-hidden": true,
-    className: classNames(`ld-${name}`, className),
+    className: [`ld-${name}`, className].filter(Boolean).join(" "),
     style: {
       [SIZE_VAR]: `${size}px`,
       ...(color === undefined ? null : { color }),

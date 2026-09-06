@@ -12,39 +12,6 @@ const textSizeClasses = {
   xl: "text-xl",
 } as const;
 
-const textSizeClassesByBreakpoint = {
-  "2xl": {
-    base: "2xl:text-base",
-    lg: "2xl:text-lg",
-    sm: "2xl:text-sm",
-    xl: "2xl:text-xl",
-  },
-  lg: {
-    base: "lg:text-base",
-    lg: "lg:text-lg",
-    sm: "lg:text-sm",
-    xl: "lg:text-xl",
-  },
-  md: {
-    base: "md:text-base",
-    lg: "md:text-lg",
-    sm: "md:text-sm",
-    xl: "md:text-xl",
-  },
-  sm: {
-    base: "sm:text-base",
-    lg: "sm:text-lg",
-    sm: "sm:text-sm",
-    xl: "sm:text-xl",
-  },
-  xl: {
-    base: "xl:text-base",
-    lg: "xl:text-lg",
-    sm: "xl:text-sm",
-    xl: "xl:text-xl",
-  },
-} as const;
-
 const textWeightClasses = {
   medium: "font-medium",
   regular: "font-normal",
@@ -54,39 +21,10 @@ const textWeightClasses = {
 
 type TextSize = keyof typeof textSizeClasses;
 type TextWeight = keyof typeof textWeightClasses;
-type ResponsiveBreakpoint = keyof typeof textSizeClassesByBreakpoint;
-type ResponsiveTextSize =
-  | TextSize
-  | ({ initial?: TextSize } & Partial<Record<ResponsiveBreakpoint, TextSize>>);
-
-const RESPONSIVE_BREAKPOINTS: readonly ResponsiveBreakpoint[] = [
-  "sm",
-  "md",
-  "lg",
-  "xl",
-  "2xl",
-];
-
-function resolveTextSize(size: ResponsiveTextSize): string {
-  if (typeof size === "string") {
-    return textSizeClasses[size];
-  }
-  const parts: string[] = [];
-  if (size.initial) {
-    parts.push(textSizeClasses[size.initial]);
-  }
-  for (const bp of RESPONSIVE_BREAKPOINTS) {
-    const value = size[bp];
-    if (value) {
-      parts.push(textSizeClassesByBreakpoint[bp][value]);
-    }
-  }
-  return parts.join(" ");
-}
 
 interface TextOwnProps {
   className?: string;
-  size?: ResponsiveTextSize;
+  size?: TextSize;
   truncate?: boolean;
   weight?: TextWeight;
 }
@@ -108,7 +46,7 @@ export function Text<E extends ElementType = "p">({
   return (
     <Component
       className={cn(
-        resolveTextSize(size),
+        textSizeClasses[size],
         textWeightClasses[weight],
         truncate && "truncate",
         className

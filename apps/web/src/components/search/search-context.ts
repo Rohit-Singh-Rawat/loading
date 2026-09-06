@@ -9,6 +9,10 @@ export interface SearchContextValue {
 
 export const SearchContext = createContext<SearchContextValue | null>(null);
 
-export function useSearchContext(): SearchContextValue | null {
-  return useContext(SearchContext);
+export function useSearchContext(): SearchContextValue {
+  const value = useContext(SearchContext);
+  if (!value) {
+    throw new Error("useSearchContext must be used inside a SearchProvider");
+  }
+  return value;
 }

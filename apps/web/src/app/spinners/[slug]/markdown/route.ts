@@ -1,13 +1,11 @@
-import { SPINNER_ITEMS } from "@/components/spinners";
+import { type SpinnerParams, spinnerParams } from "@/components/spinners";
 import { getSpinnerDocument } from "@/lib/spinner-markdown";
 
-export function generateStaticParams(): { slug: string }[] {
-  return SPINNER_ITEMS.map(({ slug }) => ({ slug }));
-}
+export const generateStaticParams = spinnerParams;
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ slug: string }> }
+  { params }: { params: Promise<SpinnerParams> }
 ) {
   const { slug } = await params;
   const document = await getSpinnerDocument(slug);

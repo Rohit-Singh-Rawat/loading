@@ -7,25 +7,20 @@ import { SpinnerPreview } from "@/components/spinner-detail/spinner-preview";
 import {
   getAdjacentSpinners,
   getSpinner,
-  SPINNER_ITEMS,
+  type SpinnerParams,
+  spinnerParams,
 } from "@/components/spinners";
 import { PageHeader } from "@/components/ui/page-header";
 import Shared from "@/content/spinners/_shared.mdx";
 import { SITE_DESCRIPTION } from "@/lib/constants";
 import type { MDXModule } from "@/lib/mdx";
 
-interface Params {
-  slug: string;
-}
-
-export function generateStaticParams(): Params[] {
-  return SPINNER_ITEMS.map(({ slug }) => ({ slug }));
-}
+export const generateStaticParams = spinnerParams;
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<Params>;
+  params: Promise<SpinnerParams>;
 }): Promise<Metadata> {
   const { slug } = await params;
   const item = getSpinner(slug);
@@ -38,7 +33,7 @@ export async function generateMetadata({
 export default async function SpinnerPage({
   params,
 }: {
-  params: Promise<Params>;
+  params: Promise<SpinnerParams>;
 }) {
   const { slug } = await params;
   const item = getSpinner(slug);

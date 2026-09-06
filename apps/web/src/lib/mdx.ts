@@ -1,6 +1,5 @@
-import type { MDXProps } from "mdx/types";
-import type { ComponentType } from "react";
+import type { MDXContent } from "mdx/types";
 
 export interface MDXModule {
-  default: ComponentType<MDXProps>;
+  default: MDXContent;
 }
