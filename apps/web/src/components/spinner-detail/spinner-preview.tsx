@@ -4,12 +4,13 @@ import { IconPause } from "central-icons/IconPause";
 import { IconPlay } from "central-icons/IconPlay";
 import { IconSidebarHiddenRightWide } from "central-icons-outlined/IconSidebarHiddenRightWide";
 import { type ReactNode, useState } from "react";
+import { getSpinner } from "@/components/spinners";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
 import IconButton from "@/components/ui/icon-button";
 import { PREVIEW_SECTION_ID } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { CustomizePanel } from "./customize-panel";
-import { useSpinnerCustomization } from "./spinner-customization";
+import { useCustomizationState } from "./spinner-customization";
 
 const CUSTOMIZE_PANEL_ID = "customize-panel";
 
@@ -33,9 +34,13 @@ function CustomizeDrawer({
   );
 }
 
-export function SpinnerPreview() {
+export function SpinnerPreview({ slug }: { slug: string }) {
   const [customizeOpen, setCustomizeOpen] = useState(true);
-  const { item, state } = useSpinnerCustomization();
+  const item = getSpinner(slug);
+  if (!item) {
+    throw new Error(`No spinner registered for slug "${slug}"`);
+  }
+  const state = useCustomizationState(item);
   const Spinner = item.component;
 
   return (
@@ -81,7 +86,11 @@ export function SpinnerPreview() {
         </IconButton>
       </div>
       <CustomizeDrawer open={customizeOpen}>
-        <CustomizePanel className="max-sm:mt-1 sm:ms-1" />
+        <CustomizePanel
+          className="max-sm:mt-1 sm:ms-1"
+          speed={item.speed}
+          state={state}
+        />
       </CustomizeDrawer>
     </section>
   );

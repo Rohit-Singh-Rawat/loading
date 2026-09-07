@@ -1,26 +1,16 @@
 "use client";
 
 import type { ChangeEvent, CSSProperties } from "react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 
 const FOCUS_RING =
   "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-content has-[:focus-visible]:outline-offset-2";
-const HANDLE_INSET = 10;
-const HANDLE_HALF_WIDTH = 2;
 
 const FILL_TRANSFORM = "scaleX(calc(var(--slider-percent) / 100))";
 const HANDLE_TRANSFORM =
-  "translateX(clamp(2px, calc(var(--slider-percent) * 1% - 10px), calc(100% - 2px)))";
-
-interface OverlapBounds {
-  labelEnd: number;
-  labelStart: number;
-  trackWidth: number;
-  valueEnd: number;
-  valueStart: number;
-}
+  "translateX(clamp(2px, calc(var(--slider-percent) * 1% - var(--slider-thumb-width) / 2), calc(100% - 2px)))";
 
 export function SliderRow({
   format,
@@ -42,7 +32,7 @@ export function SliderRow({
   const [isDragging, setIsDragging] = useState(false);
   const [isHandleOverText, setIsHandleOverText] = useState(false);
   const labelRef = useRef<HTMLSpanElement>(null);
-  const overlapBoundsRef = useRef<OverlapBounds | null>(null);
+  const handleRef = useRef<HTMLSpanElement>(null);
   const valueRef = useRef<HTMLSpanElement>(null);
   const percent = ((value - min) / (max - min)) * 100;
   let handleState = "scale-[0.8] opacity-0";
@@ -53,53 +43,39 @@ export function SliderRow({
       : "scale-100 opacity-80";
   }
 
-  function handleOverlapsText(nextValue: number, bounds: OverlapBounds) {
-    const nextPercent = (nextValue - min) / (max - min);
-    const handleCenter = Math.min(
-      bounds.trackWidth - HANDLE_HALF_WIDTH,
-      Math.max(
-        HANDLE_HALF_WIDTH,
-        bounds.trackWidth * nextPercent - HANDLE_INSET
-      )
-    );
-    const handleStart = handleCenter - HANDLE_HALF_WIDTH;
-    const handleEnd = handleCenter + HANDLE_HALF_WIDTH;
-
-    return (
-      (handleEnd >= bounds.labelStart && handleStart <= bounds.labelEnd) ||
-      (handleEnd >= bounds.valueStart && handleStart <= bounds.valueEnd)
-    );
-  }
-
-  function startDragging(input: HTMLInputElement) {
-    const labelElement = labelRef.current;
-    const valueLabel = valueRef.current;
-    if (labelElement && valueLabel) {
-      const trackRect = input.getBoundingClientRect();
-      const labelRect = labelElement.getBoundingClientRect();
-      const valueRect = valueLabel.getBoundingClientRect();
-      const bounds = {
-        labelEnd: labelRect.right - trackRect.left,
-        labelStart: labelRect.left - trackRect.left,
-        trackWidth: trackRect.width,
-        valueEnd: valueRect.right - trackRect.left,
-        valueStart: valueRect.left - trackRect.left,
-      };
-      overlapBoundsRef.current = bounds;
-      setIsHandleOverText(handleOverlapsText(value, bounds));
+  useEffect(() => {
+    if (!isDragging) {
+      return;
     }
-    setIsDragging(true);
-  }
+    let frame: number;
+    const measure = () => {
+      const handle = handleRef.current?.getBoundingClientRect();
+      if (handle) {
+        setIsHandleOverText(
+          [labelRef, valueRef].some((ref) => {
+            const text = ref.current?.getBoundingClientRect();
+            return (
+              text !== undefined &&
+              handle.right >= text.left &&
+              handle.left <= text.right
+            );
+          })
+        );
+      }
+      frame = requestAnimationFrame(measure);
+    };
+    frame = requestAnimationFrame(measure);
+    return () => cancelAnimationFrame(frame);
+  }, [isDragging]);
 
   function stopDragging() {
     setIsDragging(false);
     setIsHandleOverText(false);
-    overlapBoundsRef.current = null;
   }
 
   return (
     <div
-      className={cn("group relative rounded-lg", FOCUS_RING)}
+      className={cn("slider-row group relative rounded-lg", FOCUS_RING)}
       style={{ "--slider-percent": percent } as CSSProperties}
     >
       <div className="relative h-8 w-full overflow-hidden rounded-lg bg-background">
@@ -113,12 +89,17 @@ export function SliderRow({
           style={{ transform: HANDLE_TRANSFORM }}
         >
           <span
-            className={cn(
-              "absolute top-1/2 left-0 block h-4 w-[3px] -translate-x-1/2 -translate-y-1/2 rounded-full transition-[opacity,scale,background-color] duration-300 ease-out motion-reduce:transition-none",
-              isHandleOverText ? "bg-content-subtle/50" : "bg-content-subtle",
-              handleState
-            )}
-          />
+            className="absolute top-1/2 left-0 h-4 w-[3px] -translate-x-1/2 -translate-y-1/2"
+            ref={handleRef}
+          >
+            <span
+              className={cn(
+                "block size-full rounded-full transition-[opacity,scale,background-color] duration-300 ease-out motion-reduce:transition-none",
+                isHandleOverText ? "bg-content-subtle/50" : "bg-content-subtle",
+                handleState
+              )}
+            />
+          </span>
         </span>
         <span
           className="pointer-events-none absolute inset-y-0 left-2 z-20 flex items-center"
@@ -153,14 +134,14 @@ export function SliderRow({
         min={min}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
           const nextValue = Number(event.target.value);
-          const bounds = overlapBoundsRef.current;
-          if (bounds) {
-            setIsHandleOverText(handleOverlapsText(nextValue, bounds));
-          }
           onChange(nextValue);
         }}
+        onLostPointerCapture={stopDragging}
         onPointerCancel={stopDragging}
-        onPointerDown={(event) => startDragging(event.currentTarget)}
+        onPointerDown={(event) => {
+          event.currentTarget.setPointerCapture(event.pointerId);
+          setIsDragging(true);
+        }}
         onPointerUp={stopDragging}
         step={step}
         type="range"

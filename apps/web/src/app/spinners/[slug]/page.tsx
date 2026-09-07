@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Demo } from "@/components/mdx/demo";
 import { PrevNext } from "@/components/spinner-detail/prev-next";
-import { SpinnerCustomizationProvider } from "@/components/spinner-detail/spinner-customization";
 import { SpinnerPreview } from "@/components/spinner-detail/spinner-preview";
 import {
   getAdjacentSpinners,
@@ -60,17 +59,15 @@ export default async function SpinnerPage({
         eyebrow="Component/"
         title={item.name}
       />
-      <SpinnerCustomizationProvider slug={slug}>
-        <div className="flex flex-col">
-          <SpinnerPreview />
-          <div className="flex flex-col [&>figure]:mt-6">
-            <div className="mt-2.5">
-              <Snippet />
-            </div>
-            <Shared components={components} />
+      <div className="flex flex-col">
+        <SpinnerPreview key={slug} slug={slug} />
+        <div className="flex flex-col [&>figure]:mt-6">
+          <div className="mt-2.5">
+            <Snippet />
           </div>
+          <Shared components={components} />
         </div>
-      </SpinnerCustomizationProvider>
+      </div>
       {(previous || next) && (
         <>
           <hr className="border-border" />

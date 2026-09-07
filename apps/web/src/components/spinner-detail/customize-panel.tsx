@@ -1,17 +1,23 @@
 "use client";
 
 import { IconStepBack } from "central-icons-outlined/IconStepBack";
-import { SIZES } from "@/components/spinners";
+import { SIZES, type SpinnerItem } from "@/components/spinners";
 import { Button } from "@/components/ui/button";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { cn } from "@/lib/utils";
 import { ColorPickerRow } from "./color-picker-row";
 import { SliderRow } from "./slider-row";
-import { useSpinnerCustomization } from "./spinner-customization";
+import type { SpinnerCustomizationState } from "./spinner-customization";
 
-export function CustomizePanel({ className }: { className?: string }) {
-  const { item, state } = useSpinnerCustomization();
-
+export function CustomizePanel({
+  className,
+  speed,
+  state,
+}: {
+  className?: string;
+  speed: SpinnerItem["speed"];
+  state: SpinnerCustomizationState;
+}) {
   return (
     <div
       className={cn(
@@ -32,8 +38,8 @@ export function CustomizePanel({ className }: { className?: string }) {
       <SliderRow
         format={(value) => `${value}ms`}
         label="Speed"
-        max={item.speed.max}
-        min={item.speed.min}
+        max={speed.max}
+        min={speed.min}
         onChange={state.setSpeedMs}
         step={10}
         value={state.speedMs}

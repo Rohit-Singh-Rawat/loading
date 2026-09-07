@@ -13,15 +13,12 @@
     counter-increment: line;
   }
 
-  /*
-   * The visible handle is a div; this only sizes the invisible native thumb,
-   * which is what a touch actually grabs. The default thumb is a ~20px square
-   * centred in the input, so it is far shorter than the row and easy to miss on
-   * a phone. Width stays 20px because the handle's position formula offsets by
-   * half of it.
-   */
+  .slider-row {
+    --slider-thumb-width: 20px;
+  }
+
   .slider-thumb-target::-webkit-slider-thumb {
-    width: 20px;
+    width: var(--slider-thumb-width);
     height: 100%;
     -webkit-appearance: none;
     appearance: none;
@@ -30,7 +27,7 @@
   }
 
   .slider-thumb-target::-moz-range-thumb {
-    width: 20px;
+    width: var(--slider-thumb-width);
     height: 100%;
     background: transparent;
     border: 0;

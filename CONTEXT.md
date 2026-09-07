@@ -59,14 +59,11 @@ names and ordering are site copy and stay out of the published package.
 ## Customization
 
 What the controls beside a preview change: size, colour, speed, opacity, and
-playback. Owned by `SpinnerCustomizationProvider`, which is a provider rather
-than a hook because the preview and the code snippet are separate subtrees
-reading the same state.
+playback. Owned by `SpinnerPreview` through `useCustomizationState`, with the
+controls passed directly to its `CustomizePanel` child.
 
-The snippet tracks **size only**. Size has a fixed set of options, so every
-snippet a reader can reach is highlighted on the server ahead of time and no
-highlighter ships to the browser. Colour, speed and opacity are continuous and
-deliberately do not appear in the snippet — they are preview-only controls.
+The opening snippet is static and highlighted at build time. Customization
+changes only the preview; no highlighter ships to the browser.
 
 "Reset" restores the customization controls. It deliberately does not touch
 playback, which is a separate control outside the panel.
