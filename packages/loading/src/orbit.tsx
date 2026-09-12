@@ -1,6 +1,9 @@
+import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
+
+export interface OrbitProps extends SpinnerProps, EasingProps {}
 
 const css = `
 .ld-orbit {
@@ -17,8 +20,11 @@ const css = `
   background: conic-gradient(from 180deg, transparent 0deg, currentColor 180deg, transparent 180deg);
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--ld-orbit-stroke)), #000 0);
   mask: radial-gradient(farthest-side, transparent calc(100% - var(--ld-orbit-stroke)), #000 0);
-  animation: ld-orbit-rotate ${duration("orbit")} linear infinite;
-  animation-play-state: ${PLAY_STATE};
+}
+
+.ld-orbit-layer {
+  position: absolute;
+  inset: 0;
 }
 
 .ld-orbit-dot {
@@ -32,26 +38,24 @@ const css = `
   transform: translate(-50%, -50%);
 }
 
-@keyframes ld-orbit-rotate {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ld-orbit-track {
-    animation: none;
-  }
-}
+${rotationCss("orbit")}
 `;
 
-export function Orbit(props: SpinnerProps) {
+export function Orbit({ easing = "linear", ...rest }: OrbitProps) {
+  const track = (
+    <div className={`ld-orbit-track ${spinClass("orbit", easing)}`} />
+  );
+
   return (
     <>
       <SpinnerStyle name="orbit">{css}</SpinnerStyle>
-      <div {...spinnerRoot("orbit", props)}>
+      <div {...spinnerRoot("orbit", rest)}>
         <div className="ld-orbit-dot" />
-        <div className="ld-orbit-track" />
+        {easing === "stacked" ? (
+          <div className="ld-orbit-layer">{track}</div>
+        ) : (
+          track
+        )}
       </div>
     </>
   );

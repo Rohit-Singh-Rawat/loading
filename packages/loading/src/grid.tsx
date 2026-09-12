@@ -1,20 +1,40 @@
+import type { CSSProperties } from "react";
 import { SpinnerStyle, spinnerRoot } from "./frame";
 import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-const CELLS = Array.from({ length: 16 }, (_, index) => index);
+/**
+ * Which way the lit cells sweep across the grid: `rows` top to bottom,
+ * `columns` left to right, `diagonal` from the top-left corner down.
+ */
+export type GridDirection = "columns" | "diagonal" | "rows";
+
+export interface GridProps extends SpinnerProps {
+  /** Which way the lit cells sweep across the grid. Defaults to `rows`. */
+  direction?: GridDirection;
+}
+
+const CELLS = Array.from({ length: 16 }, (_, index) => ({
+  column: index % 4,
+  row: Math.floor(index / 4),
+}));
+
+const STEPS = 4;
+
+// The wave has four phases, so a cell's step is its distance along the sweep,
+// wrapped to that count. Steps beyond it would need a positive delay, which
+// would show the cell unlit before its animation began.
+function step(cell: (typeof CELLS)[number], direction: GridDirection) {
+  if (direction === "columns") {
+    return cell.column;
+  }
+  if (direction === "diagonal") {
+    return (cell.row + cell.column) % STEPS;
+  }
+  return cell.row;
+}
 
 const dur = duration("grid");
-
-const ROW_RULES = [1, 2, 3]
-  .map((row) => {
-    const first = row * 4 + 1;
-    return `
-.ld-grid-cell:nth-child(n + ${first}):nth-child(-n + ${first + 3}) {
-  animation-delay: calc(${dur} * -${((4 - row) / 4).toFixed(2)});
-}`;
-  })
-  .join("\n");
 
 const css = `
 .ld-grid {
@@ -29,9 +49,9 @@ const css = `
 .ld-grid-cell {
   background: currentColor;
   animation: ld-grid-wave ${dur} linear infinite;
+  animation-delay: calc(${dur} * (var(--ld-grid-step) - ${STEPS}) / ${STEPS});
   animation-play-state: ${PLAY_STATE};
 }
-${ROW_RULES}
 
 @keyframes ld-grid-wave {
   0%, 24.99% {
@@ -56,13 +76,17 @@ ${ROW_RULES}
 }
 `;
 
-export function Grid(props: SpinnerProps) {
+export function Grid({ direction = "rows", ...rest }: GridProps) {
   return (
     <>
       <SpinnerStyle name="grid">{css}</SpinnerStyle>
-      <div {...spinnerRoot("grid", props)}>
-        {CELLS.map((cell) => (
-          <div className="ld-grid-cell" key={cell} />
+      <div {...spinnerRoot("grid", rest)}>
+        {CELLS.map((cell, index) => (
+          <div
+            className="ld-grid-cell"
+            key={index}
+            style={{ "--ld-grid-step": step(cell, direction) } as CSSProperties}
+          />
         ))}
       </div>
     </>

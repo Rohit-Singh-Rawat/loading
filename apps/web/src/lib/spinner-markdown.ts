@@ -1,6 +1,6 @@
 import GithubSlugger from "github-slugger";
 import { getSpinner } from "@/components/spinners";
-import { readContent } from "@/lib/content";
+import { hasContent, readContent } from "@/lib/content";
 
 export interface DocumentHeading {
   id: string;
@@ -43,6 +43,11 @@ async function parse(source: string, slug: string): Promise<SpinnerDocument> {
   return { headings, markdown: (await Promise.all(parts)).join("").trim() };
 }
 
+/** Whether a spinner has sections of its own beyond the shared document. */
+export function hasOwnDocument(slug: string): Promise<boolean> {
+  return hasContent("spinners", `${slug}.mdx`);
+}
+
 export async function getSpinnerDocument(
   slug: string
 ): Promise<SpinnerDocument | null> {
@@ -51,11 +56,17 @@ export async function getSpinnerDocument(
     return null;
   }
 
-  const [shared, snippet] = await Promise.all([
+  const [shared, snippet, own] = await Promise.all([
     readContent("spinners", "_shared.mdx"),
     readContent("snippets", `${slug}.mdx`),
+    hasOwnDocument(slug).then((exists) =>
+      exists ? readContent("spinners", `${slug}.mdx`) : null
+    ),
   ]);
-  const { headings, markdown } = await parse(shared, slug);
+  const { headings, markdown } = await parse(
+    own ? `${shared}\n\n${own}` : shared,
+    slug
+  );
 
   return {
     headings,

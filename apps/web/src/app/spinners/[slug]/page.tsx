@@ -13,6 +13,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import Shared from "@/content/spinners/_shared.mdx";
 import { SITE_DESCRIPTION } from "@/lib/constants";
 import type { MDXModule } from "@/lib/mdx";
+import { hasOwnDocument } from "@/lib/spinner-markdown";
 
 export const generateStaticParams = spinnerParams;
 
@@ -46,6 +47,9 @@ export default async function SpinnerPage({
   const { default: Snippet }: MDXModule = await import(
     `@/content/snippets/${slug}.mdx`
   );
+  const Own = (await hasOwnDocument(slug))
+    ? ((await import(`@/content/spinners/${slug}.mdx`)) as MDXModule).default
+    : null;
 
   const components = {
     Demo: (props: { name: string }) => <Demo {...props} slug={slug} />,
@@ -66,6 +70,7 @@ export default async function SpinnerPage({
         </div>
         <div className="flex flex-col px-4 [&>figure]:mt-6">
           <Shared components={components} />
+          {Own && <Own components={components} />}
         </div>
       </div>
       {(previous || next) && (

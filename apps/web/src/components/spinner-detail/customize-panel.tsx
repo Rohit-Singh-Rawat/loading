@@ -11,10 +11,12 @@ import type { SpinnerCustomizationState } from "./spinner-customization";
 
 export function CustomizePanel({
   className,
+  options,
   speed,
   state,
 }: {
   className?: string;
+  options?: SpinnerItem["options"];
   speed: SpinnerItem["speed"];
   state: SpinnerCustomizationState;
 }) {
@@ -34,6 +36,15 @@ export function CustomizePanel({
         }))}
         value={state.sizeIndex}
       />
+      {options?.map((option) => (
+        <SegmentedControl
+          key={option.prop}
+          label={option.label}
+          onValueChange={(value) => state.setOption(option.prop, value)}
+          options={option.values}
+          value={state.options[option.prop]}
+        />
+      ))}
       <ColorPickerRow color={state.color} onChange={state.setColor} />
       <SliderRow
         format={(value) => `${value}ms`}

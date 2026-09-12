@@ -56,6 +56,24 @@ Every spinner accepts the same props:
 | `playState` | `"running" \| "paused"`  | —       | Whether the animation runs             |
 | `className` | `string`                 | —       | Extra class names for the root element |
 
+A few spinners take one more:
+
+| Prop        | Spinners                          | Type                                       | Default    | Description                            |
+| ----------- | --------------------------------- | ------------------------------------------ | ---------- | -------------------------------------- |
+| `easing`    | `Arc`, `Comet`, `Orbit`, `Ring`   | `"linear" \| "ease-in-out" \| "stacked"` | `"linear"` | How the spinner travels around its circle |
+| `direction` | `Grid`                            | `"rows" \| "columns" \| "diagonal"`      | `"rows"`   | Which way the lit cells sweep          |
+
+For `easing`, `linear` keeps a constant speed, `ease-in-out` surges through
+each turn and pauses at its end, and `stacked` layers the two — one linear
+rotation under one eased — so the spinner surges without ever coming to rest.
+For `direction`, `rows` sweeps top to bottom, `columns` left to right, and
+`diagonal` from the top-left corner down.
+
+```tsx
+<Ring easing="stacked" />
+<Grid direction="diagonal" />
+```
+
 ## Motion
 
 `duration` and `playState` set one spinner. The same values are also CSS custom

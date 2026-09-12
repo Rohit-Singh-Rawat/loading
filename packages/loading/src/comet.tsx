@@ -1,6 +1,9 @@
+import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
+
+export interface CometProps extends SpinnerProps, EasingProps {}
 
 const css = `
 .ld-comet {
@@ -8,8 +11,12 @@ const css = `
   position: relative;
   width: ${SIZE};
   height: ${SIZE};
-  animation: ld-comet-rotate ${duration("comet")} linear infinite;
-  animation-play-state: ${PLAY_STATE};
+}
+
+.ld-comet-spin,
+.ld-comet-layer {
+  position: absolute;
+  inset: 0;
 }
 
 .ld-comet-tail {
@@ -32,26 +39,26 @@ const css = `
   transform: translateX(-50%);
 }
 
-@keyframes ld-comet-rotate {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ld-comet {
-    animation: none;
-  }
-}
+${rotationCss("comet")}
 `;
 
-export function Comet(props: SpinnerProps) {
+export function Comet({ easing = "linear", ...rest }: CometProps) {
+  const spin = (
+    <div className={spinClass("comet", easing)}>
+      <div className="ld-comet-tail" />
+      <div className="ld-comet-head" />
+    </div>
+  );
+
   return (
     <>
       <SpinnerStyle name="comet">{css}</SpinnerStyle>
-      <div {...spinnerRoot("comet", props)}>
-        <div className="ld-comet-tail" />
-        <div className="ld-comet-head" />
+      <div {...spinnerRoot("comet", rest)}>
+        {easing === "stacked" ? (
+          <div className="ld-comet-layer">{spin}</div>
+        ) : (
+          spin
+        )}
       </div>
     </>
   );

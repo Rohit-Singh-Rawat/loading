@@ -117,6 +117,7 @@ export function SpinnerPreview({ slug }: { slug: string }) {
       <CustomizeDrawer open={customizeOpen}>
         <CustomizePanel
           className="max-sm:mt-1"
+          options={item.options}
           speed={item.speed}
           state={state}
         />

@@ -1,27 +1,30 @@
+import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE, duration, PLAY_STATE } from "./motion";
+import { DEFAULT_SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-const css = `
-.ld-arc {
-  animation: ld-arc-rotate ${duration("arc")} linear infinite;
-  animation-play-state: ${PLAY_STATE};
-}
+export interface ArcProps extends SpinnerProps, EasingProps {}
 
-@keyframes ld-arc-rotate {
-  to {
-    transform: rotate(360deg);
-  }
-}
+const css = rotationCss("arc");
 
-@media (prefers-reduced-motion: reduce) {
-  .ld-arc {
-    animation: none;
-  }
-}
-`;
+export function Arc({
+  easing = "linear",
+  size = DEFAULT_SIZE,
+  ...rest
+}: ArcProps) {
+  const stroke = (
+    <circle
+      className={spinClass("arc", easing)}
+      cx="12"
+      cy="12"
+      r="10"
+      stroke="currentColor"
+      strokeDasharray="18 44.8"
+      strokeLinecap="round"
+      strokeWidth="2.5"
+    />
+  );
 
-export function Arc({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="arc">{css}</SpinnerStyle>
@@ -33,15 +36,11 @@ export function Arc({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
         viewBox="0 0 24 24"
         width={size}
       >
-        <circle
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          strokeDasharray="18 44.8"
-          strokeLinecap="round"
-          strokeWidth="2.5"
-        />
+        {easing === "stacked" ? (
+          <g className="ld-arc-layer">{stroke}</g>
+        ) : (
+          stroke
+        )}
       </svg>
     </>
   );

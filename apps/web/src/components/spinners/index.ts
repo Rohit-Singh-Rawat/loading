@@ -3,7 +3,9 @@ import {
   BouncingDots,
   Classic,
   Comet,
+  type Easing,
   Grid,
+  type GridDirection,
   Orbit,
   Ring,
   Ripple,
@@ -18,10 +20,22 @@ interface SpeedRange {
   min: number;
 }
 
+/**
+ * A choice a spinner offers beyond the shared props, shown as a control beside
+ * its preview. Array position is the control's order, and the first value must
+ * be the library's default so the preview starts where the snippet does.
+ */
+export interface SpinnerOption {
+  label: string;
+  prop: string;
+  values: readonly { label: string; value: string }[];
+}
+
 interface CatalogEntry {
   component: ComponentType<SpinnerProps>;
   description: string;
   name: string;
+  options?: readonly SpinnerOption[];
   slug: SpinnerName;
   speed: SpeedRange;
 }
@@ -42,11 +56,30 @@ export const SIZES = [
 
 export const DEFAULT_SIZE_INDEX = 1;
 
+const EASINGS: readonly { label: string; value: Easing }[] = [
+  { label: "Linear", value: "linear" },
+  { label: "Eased", value: "ease-in-out" },
+  { label: "Stacked", value: "stacked" },
+];
+
+const EASING_OPTION: SpinnerOption = {
+  label: "Easing",
+  prop: "easing",
+  values: EASINGS,
+};
+
+const DIRECTIONS: readonly { label: string; value: GridDirection }[] = [
+  { label: "Rows", value: "rows" },
+  { label: "Columns", value: "columns" },
+  { label: "Diagonal", value: "diagonal" },
+];
+
 const CATALOG: CatalogEntry[] = [
   {
     component: Arc,
     description: "A single open stroke rotating in a circle.",
     name: "Arc",
+    options: [EASING_OPTION],
     slug: "arc",
     speed: { max: 2000, min: 200 },
   },
@@ -61,6 +94,7 @@ const CATALOG: CatalogEntry[] = [
     component: Ring,
     description: "An arc rotating in a faint circle.",
     name: "Ring",
+    options: [EASING_OPTION],
     slug: "ring",
     speed: { max: 2000, min: 200 },
   },
@@ -75,6 +109,7 @@ const CATALOG: CatalogEntry[] = [
     component: Comet,
     description: "A full ring fading into its tail.",
     name: "Comet",
+    options: [EASING_OPTION],
     slug: "comet",
     speed: { max: 2000, min: 200 },
   },
@@ -82,6 +117,7 @@ const CATALOG: CatalogEntry[] = [
     component: Orbit,
     description: "A fading half-arc rotating around a dot.",
     name: "Orbit",
+    options: [EASING_OPTION],
     slug: "orbit",
     speed: { max: 2000, min: 200 },
   },
@@ -89,6 +125,7 @@ const CATALOG: CatalogEntry[] = [
     component: Grid,
     description: "A pixel grid lit row by row in a sequence.",
     name: "Grid",
+    options: [{ label: "Direction", prop: "direction", values: DIRECTIONS }],
     slug: "grid",
     speed: { max: 2400, min: 400 },
   },
