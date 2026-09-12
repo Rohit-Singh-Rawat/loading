@@ -55,7 +55,7 @@ export function NavItem({
       href={href}
       onClick={onClick}
       size="sm"
-      weight="medium"
+      weight="semimedium"
       {...props}
     >
       {icon}

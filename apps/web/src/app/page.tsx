@@ -8,7 +8,7 @@ export default function Home() {
     <div className="flex flex-col gap-6">
       <PageHeader
         className="px-4"
-        description="A small, lightweight package full of beautiful loading indicators."
+        description="A small, lightweight library full of beautiful loading indicators."
         title={
           <>
             Loading,
