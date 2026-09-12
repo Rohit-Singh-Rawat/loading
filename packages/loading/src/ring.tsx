@@ -17,8 +17,8 @@ export function Ring({
       className={spinClass("ring", easing)}
       cx="12"
       cy="12"
-      r="10"
-      stroke="currentColor"
+    r="10"
+     stroke="currentColor"
       strokeDasharray="16 46.8"
       strokeLinecap="round"
       strokeWidth="2.5"
