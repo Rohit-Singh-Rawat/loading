@@ -1,22 +1,15 @@
-import type { CSSProperties } from "react";
-import { SpinnerStyle, spinnerRoot } from "./frame";
+import { cssVars, SpinnerStyle, spinnerRoot } from "./frame";
 import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-/** The shape of each cell: rounded squares or circles. */
 export type DriveShape = "circle" | "square";
 
 export interface DriveProps extends SpinnerProps {
-  /** The shape of each cell. Defaults to `square`. */
   shape?: DriveShape;
 }
 
 const COLUMNS = 3;
 
-// A lit arrowhead — one full column plus the middle cell of the next — drives
-// one column to the right each third of a cycle and wraps around. Cells in the
-// middle row are lit for two thirds: as the tip of one arrow, then as the base
-// of the next. Each cell's step is where in the cycle its lit window starts.
 const CELLS = Array.from({ length: COLUMNS * COLUMNS }, (_, index) => {
   const column = index % COLUMNS;
   const middle = Math.floor(index / COLUMNS) === 1;
@@ -95,7 +88,7 @@ export function Drive({ shape = "square", ...rest }: DriveProps) {
               .filter(Boolean)
               .join(" ")}
             key={index}
-            style={{ "--ld-drive-step": cell.step } as CSSProperties}
+            style={cssVars({ "--ld-drive-step": cell.step })}
           />
         ))}
       </div>

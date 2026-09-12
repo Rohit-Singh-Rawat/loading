@@ -12,19 +12,6 @@ export function Arc({
   size = DEFAULT_SIZE,
   ...rest
 }: ArcProps) {
-  const stroke = (
-    <circle
-      className={spinClass("arc", easing)}
-      cx="12"
-      cy="12"
-      r="10"
-      stroke="currentColor"
-      strokeDasharray="18 44.8"
-      strokeLinecap="round"
-      strokeWidth="2.5"
-    />
-  );
-
   return (
     <>
       <SpinnerStyle name="arc">{css}</SpinnerStyle>
@@ -36,11 +23,16 @@ export function Arc({
         viewBox="0 0 24 24"
         width={size}
       >
-        {easing === "stacked" ? (
-          <g className="ld-arc-layer">{stroke}</g>
-        ) : (
-          stroke
-        )}
+        <circle
+          className={spinClass("arc", easing)}
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeDasharray="18 44.8"
+          strokeLinecap="round"
+          strokeWidth="2.5"
+        />
       </svg>
     </>
   );

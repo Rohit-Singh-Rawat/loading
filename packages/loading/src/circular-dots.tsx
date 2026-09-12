@@ -2,33 +2,45 @@ import { SpinnerStyle, spinnerRoot } from "./frame";
 import { DEFAULT_SIZE, duration, PLAY_STATE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-// Clockwise from twelve o'clock, the head first and its trail fading behind it.
 const DOTS = [
-  { cx: 8, cy: 1.5, opacity: 1 },
-  { cx: 12.5, cy: 3.5, opacity: 0.2 },
-  { cx: 14.5, cy: 8, opacity: 0.3 },
-  { cx: 12.5, cy: 12.5, opacity: 0.4 },
-  { cx: 8, cy: 14.5, opacity: 0.6 },
-  { cx: 3.5, cy: 12.5, opacity: 0.7 },
-  { cx: 1.5, cy: 8, opacity: 0.8 },
-  { cx: 3.5, cy: 3.5, opacity: 0.9 },
-];
+  [8, 1.5],
+  [12.5962, 3.4038],
+  [14.5, 8],
+  [12.5962, 12.5962],
+  [8, 14.5],
+  [3.4038, 12.5962],
+  [1.5, 8],
+  [3.4038, 3.4038],
+] as const;
+
+const dur = duration("circular-dots");
+
+const DOT_RULES = DOTS.map(
+  (_, dot) => `
+.ld-circular-dots-dot:nth-child(${dot + 1}) {
+  animation-delay: calc(${dur} * -${(((DOTS.length - dot) % DOTS.length) / DOTS.length).toFixed(4)});
+}`
+).join("\n");
 
 const css = `
-.ld-circular-dots-spin {
-  transform-origin: center;
-  animation: ld-circular-dots-rotate ${duration("circular-dots")} steps(${DOTS.length}) infinite;
+.ld-circular-dots-dot {
+  animation: ld-circular-dots-fade ${dur} linear infinite;
   animation-play-state: ${PLAY_STATE};
 }
+${DOT_RULES}
 
-@keyframes ld-circular-dots-rotate {
+@keyframes ld-circular-dots-fade {
+  from {
+    opacity: 1;
+  }
   to {
-    transform: rotate(360deg);
+    opacity: 0.2;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ld-circular-dots-spin {
+  .ld-circular-dots-dot {
+    opacity: 0.6;
     animation: none;
   }
 }
@@ -40,24 +52,21 @@ export function CircularDots({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
       <SpinnerStyle name="circular-dots">{css}</SpinnerStyle>
       <svg
         {...spinnerRoot("circular-dots", { ...rest, size })}
-        fill="none"
+        fill="currentColor"
         height={size}
         role="presentation"
         viewBox="0 0 16 16"
         width={size}
       >
-        <g className="ld-circular-dots-spin">
-          {DOTS.map((dot) => (
-            <circle
-              cx={dot.cx}
-              cy={dot.cy}
-              fill="currentColor"
-              key={`${dot.cx}-${dot.cy}`}
-              opacity={dot.opacity}
-              r="1.5"
-            />
-          ))}
-        </g>
+        {DOTS.map(([cx, cy]) => (
+          <circle
+            className="ld-circular-dots-dot"
+            cx={cx}
+            cy={cy}
+            key={`${cx}-${cy}`}
+            r="1.5"
+          />
+        ))}
       </svg>
     </>
   );

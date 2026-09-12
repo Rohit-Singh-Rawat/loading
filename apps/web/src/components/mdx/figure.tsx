@@ -19,6 +19,13 @@ function extractText(node: ReactNode): string {
   return "";
 }
 
+function isFenceTitle(node: ReactNode): boolean {
+  return (
+    isValidElement(node) &&
+    "data-rehype-pretty-code-title" in (node.props as Record<string, unknown>)
+  );
+}
+
 export function MDXFigure({
   children,
   ...rest
@@ -29,24 +36,14 @@ export function MDXFigure({
     return <figure {...rest}>{children}</figure>;
   }
 
-  const items = Children.toArray(children);
-  const titleChild = items.find(
-    (item) =>
-      isValidElement(item) &&
-      "data-rehype-pretty-code-title" in (item.props as Record<string, unknown>)
-  );
-  const preChild = items.find((item) => item !== titleChild);
-
-  if (!(titleChild && isValidElement(titleChild))) {
-    return <figure className={FIGURE_CLASSES}>{children}</figure>;
-  }
-
-  const code = extractText(preChild);
+  // rehype-pretty-code puts the fence title beside the <pre>. The site shows
+  // the code alone with a copy button, so the title is dropped here.
+  const pre = Children.toArray(children).filter((item) => !isFenceTitle(item));
 
   return (
     <figure className={cn(FIGURE_CLASSES, "relative")}>
-      <CopyButton className="absolute top-2 right-2" text={code} />
-      {preChild}
+      <CopyButton className="absolute top-2 right-2" text={extractText(pre)} />
+      {pre}
     </figure>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { CodePanel } from "@/components/mdx/code-panel";
 import { Demo } from "@/components/mdx/demo";
 import { PrevNext } from "@/components/spinner-detail/prev-next";
 import { SpinnerPreview } from "@/components/spinner-detail/spinner-preview";
@@ -13,7 +14,6 @@ import { PageHeader } from "@/components/ui/page-header";
 import Shared from "@/content/spinners/_shared.mdx";
 import { SITE_DESCRIPTION } from "@/lib/constants";
 import type { MDXModule } from "@/lib/mdx";
-import { hasOwnDocument } from "@/lib/spinner-markdown";
 
 export const generateStaticParams = spinnerParams;
 
@@ -47,7 +47,7 @@ export default async function SpinnerPage({
   const { default: Snippet }: MDXModule = await import(
     `@/content/snippets/${slug}.mdx`
   );
-  const Own = (await hasOwnDocument(slug))
+  const Own = item.options
     ? ((await import(`@/content/spinners/${slug}.mdx`)) as MDXModule).default
     : null;
 
@@ -64,10 +64,10 @@ export default async function SpinnerPage({
         title={item.name}
       />
       <div className="flex flex-col">
-        <div className="overflow-hidden rounded-2xl bg-background-subtle [&>figure]:rounded-none [&>figure]:border-0 [&>figure]:bg-transparent">
+        <CodePanel>
           <SpinnerPreview key={slug} slug={slug} />
           <Snippet />
-        </div>
+        </CodePanel>
         <div className="flex flex-col px-4 [&>figure]:mt-6">
           <Shared components={components} />
           {Own && <Own components={components} />}

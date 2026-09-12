@@ -22,11 +22,6 @@ const css = `
   mask: radial-gradient(farthest-side, transparent calc(100% - var(--ld-orbit-stroke)), #000 0);
 }
 
-.ld-orbit-layer {
-  position: absolute;
-  inset: 0;
-}
-
 .ld-orbit-dot {
   position: absolute;
   top: 50%;
@@ -42,20 +37,12 @@ ${rotationCss("orbit")}
 `;
 
 export function Orbit({ easing = "linear", ...rest }: OrbitProps) {
-  const track = (
-    <div className={`ld-orbit-track ${spinClass("orbit", easing)}`} />
-  );
-
   return (
     <>
       <SpinnerStyle name="orbit">{css}</SpinnerStyle>
       <div {...spinnerRoot("orbit", rest)}>
         <div className="ld-orbit-dot" />
-        {easing === "stacked" ? (
-          <div className="ld-orbit-layer">{track}</div>
-        ) : (
-          track
-        )}
+        <div className={`ld-orbit-track ${spinClass("orbit", easing)}`} />
       </div>
     </>
   );

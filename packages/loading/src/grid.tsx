@@ -1,5 +1,4 @@
-import type { CSSProperties } from "react";
-import { SpinnerStyle, spinnerRoot } from "./frame";
+import { cssVars, SpinnerStyle, spinnerRoot } from "./frame";
 import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
@@ -85,7 +84,7 @@ export function Grid({ direction = "rows", ...rest }: GridProps) {
           <div
             className="ld-grid-cell"
             key={index}
-            style={{ "--ld-grid-step": step(cell, direction) } as CSSProperties}
+            style={cssVars({ "--ld-grid-step": step(cell, direction) })}
           />
         ))}
       </div>

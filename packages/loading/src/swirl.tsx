@@ -1,5 +1,4 @@
-import type { CSSProperties } from "react";
-import { SpinnerStyle, spinnerRoot } from "./frame";
+import { cssVars, SpinnerStyle, spinnerRoot } from "./frame";
 import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
@@ -63,7 +62,7 @@ export function Swirl(props: SpinnerProps) {
             <div
               className="ld-swirl-cell"
               key={index}
-              style={{ "--ld-swirl-step": cell.step } as CSSProperties}
+              style={cssVars({ "--ld-swirl-step": cell.step })}
             />
           )
         )}

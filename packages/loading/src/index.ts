@@ -6,7 +6,7 @@ export { Clock, type ClockProps } from "./clock";
 export { Comet, type CometProps } from "./comet";
 export { Compass } from "./compass";
 export { Drive, type DriveProps, type DriveShape } from "./drive";
-export type { Easing } from "./easing";
+export type { Easing, EasingProps } from "./easing";
 export { Grid, type GridDirection, type GridProps } from "./grid";
 export { LinearDots } from "./linear-dots";
 export {

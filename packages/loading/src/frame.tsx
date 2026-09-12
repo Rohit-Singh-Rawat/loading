@@ -23,6 +23,16 @@ export function SpinnerStyle({
 }
 
 /**
+ * Inline custom properties a spinner sets per element. React's `CSSProperties`
+ * has no room for them, so this is the one place that admits them.
+ */
+export function cssVars(
+  vars: CSSProperties & { [variable: `--ld-${string}`]: number | string }
+): CSSProperties {
+  return vars;
+}
+
+/**
  * Each appearance prop sets its CSS property on the root element, and only when
  * passed — an omitted prop leaves the property unset so an ancestor's value
  * still cascades in. Precedence is prop, then ancestor, then the default: the
@@ -37,11 +47,11 @@ export function spinnerRoot(
   return {
     "aria-hidden": true,
     className: [`ld-${name}`, className].filter(Boolean).join(" "),
-    style: {
+    style: cssVars({
       [SIZE_VAR]: `${size}px`,
       ...(color === undefined ? null : { color }),
       ...(duration === undefined ? null : { [DURATION_VAR]: `${duration}ms` }),
       ...(playState === undefined ? null : { [PLAY_STATE_VAR]: playState }),
-    } as CSSProperties,
+    }),
   };
 }

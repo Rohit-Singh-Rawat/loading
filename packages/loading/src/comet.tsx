@@ -13,8 +13,7 @@ const css = `
   height: ${SIZE};
 }
 
-.ld-comet-spin,
-.ld-comet-layer {
+.ld-comet-spin {
   position: absolute;
   inset: 0;
 }
@@ -43,22 +42,14 @@ ${rotationCss("comet")}
 `;
 
 export function Comet({ easing = "linear", ...rest }: CometProps) {
-  const spin = (
-    <div className={spinClass("comet", easing)}>
-      <div className="ld-comet-tail" />
-      <div className="ld-comet-head" />
-    </div>
-  );
-
   return (
     <>
       <SpinnerStyle name="comet">{css}</SpinnerStyle>
       <div {...spinnerRoot("comet", rest)}>
-        {easing === "stacked" ? (
-          <div className="ld-comet-layer">{spin}</div>
-        ) : (
-          spin
-        )}
+        <div className={spinClass("comet", easing)}>
+          <div className="ld-comet-tail" />
+          <div className="ld-comet-head" />
+        </div>
       </div>
     </>
   );

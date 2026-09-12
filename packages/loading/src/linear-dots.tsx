@@ -1,19 +1,17 @@
-import { SpinnerStyle, spinnerRoot } from "./frame";
+import { cssVars, SpinnerStyle, spinnerRoot } from "./frame";
 import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-const DOTS = [0, 1, 2];
-
-const dur = duration("linear-dots");
+const COUNT = 3;
 
 // Each dot peaks a third of a cycle after the one before it, so the bright dot
-// travels left to right and leaves a fading pair behind.
-const DOT_RULES = DOTS.map(
-  (dot) => `
-.ld-linear-dots-dot:nth-child(${dot + 1}) {
-  animation-delay: calc(${dur} * -${(((3 - dot) % 3) / 3).toFixed(4)});
-}`
-).join("\n");
+// travels left to right and leaves a fading pair behind. A dot's step is where
+// in the cycle its peak falls.
+const DOTS = Array.from({ length: COUNT }, (_, index) => ({
+  step: (COUNT - index) % COUNT,
+}));
+
+const dur = duration("linear-dots");
 
 const css = `
 .ld-linear-dots {
@@ -29,9 +27,9 @@ const css = `
   background: currentColor;
   border-radius: 9999px;
   animation: ld-linear-dots-fade ${dur} linear infinite;
+  animation-delay: calc(${dur} * var(--ld-linear-dots-step) / -${COUNT});
   animation-play-state: ${PLAY_STATE};
 }
-${DOT_RULES}
 
 @keyframes ld-linear-dots-fade {
   0% {
@@ -58,8 +56,12 @@ export function LinearDots(props: SpinnerProps) {
     <>
       <SpinnerStyle name="linear-dots">{css}</SpinnerStyle>
       <div {...spinnerRoot("linear-dots", props)}>
-        {DOTS.map((dot) => (
-          <div className="ld-linear-dots-dot" key={dot} />
+        {DOTS.map((dot, index) => (
+          <div
+            className="ld-linear-dots-dot"
+            key={index}
+            style={cssVars({ "--ld-linear-dots-step": dot.step })}
+          />
         ))}
       </div>
     </>
