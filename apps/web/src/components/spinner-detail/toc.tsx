@@ -1,7 +1,7 @@
 "use client";
 
 import { m } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Text } from "@/components/ui/text";
 import { PROSE_SECTION_ID } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -10,6 +10,9 @@ export interface TocItem {
   id: string;
   label: string;
 }
+
+const ROW_HEIGHT_REM = 2;
+const ROW_GAP_REM = 0.125;
 
 const HIGHLIGHT_SPRING = {
   damping: 80,
@@ -47,19 +50,6 @@ function visibleSections(targets: (HTMLElement | null)[]) {
   return visible;
 }
 
-function measureHighlight(list: HTMLElement, visible: number[]) {
-  const rows = list.querySelectorAll<HTMLElement>(":scope > li");
-  const first = rows[visible[0]];
-  const last = rows[visible.at(-1) ?? -1];
-  if (!(first && last)) {
-    return null;
-  }
-  return {
-    height: last.offsetTop + last.offsetHeight - first.offsetTop,
-    y: first.offsetTop,
-  };
-}
-
 function TocLink({
   current,
   item,
@@ -74,11 +64,12 @@ function TocLink({
       aria-current={current ? "location" : undefined}
       as="a"
       className={cn(
-        "link-outline relative flex h-8 w-full items-center rounded-lg px-3 transition-colors duration-200 ease-out after:absolute after:inset-x-0 after:-inset-y-px after:content-['']",
+        "link-outline relative flex w-full items-center rounded-lg px-3 transition-colors duration-200 ease-out after:absolute after:inset-x-0 after:-inset-y-px after:content-['']",
         visible ? "text-content" : "text-content-subtle hover:text-content"
       )}
       href={`#${item.id}`}
       size="sm"
+      style={{ height: `${ROW_HEIGHT_REM}rem` }}
       weight="semimedium"
     >
       <span className="min-w-0 flex-1 truncate">{item.label}</span>
@@ -87,11 +78,7 @@ function TocLink({
 }
 
 export function Toc({ items }: { items: TocItem[] }) {
-  const listRef = useRef<HTMLUListElement>(null);
-  const [state, setState] = useState<{
-    highlight: { height: number; y: number } | null;
-    visible: number[];
-  }>({ highlight: null, visible: [] });
+  const [visible, setVisible] = useState<number[]>([]);
 
   useEffect(() => {
     if (items.length === 0) {
@@ -103,17 +90,8 @@ export function Toc({ items }: { items: TocItem[] }) {
 
     const update = () => {
       frame = 0;
-      const visible = visibleSections(targets);
-      setState((previous) => {
-        if (sameIndexes(previous.visible, visible)) {
-          return previous;
-        }
-        const list = listRef.current;
-        return {
-          highlight: list ? measureHighlight(list, visible) : null,
-          visible,
-        };
-      });
+      const next = visibleSections(targets);
+      setVisible((previous) => (sameIndexes(previous, next) ? previous : next));
     };
 
     const schedule = () => {
@@ -133,12 +111,22 @@ export function Toc({ items }: { items: TocItem[] }) {
     };
   }, [items]);
 
-  const { highlight, visible } = state;
   const [first] = visible;
+  const last = visible.at(-1);
+  const highlight =
+    first === undefined || last === undefined
+      ? null
+      : {
+          height: `${(last - first + 1) * ROW_HEIGHT_REM + (last - first) * ROW_GAP_REM}rem`,
+          y: `${first * (ROW_HEIGHT_REM + ROW_GAP_REM)}rem`,
+        };
 
   return (
     <nav aria-label="On this page">
-      <ul className="relative isolate flex flex-col gap-0.5" ref={listRef}>
+      <ul
+        className="relative isolate flex flex-col"
+        style={{ gap: `${ROW_GAP_REM}rem` }}
+      >
         {highlight && (
           <m.div
             animate={highlight}
