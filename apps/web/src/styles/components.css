@@ -1,9 +1,9 @@
 @layer components {
-  code[data-line-numbers] {
+  pre > code {
     counter-reset: line;
   }
 
-  code[data-line-numbers] [data-line]::before {
+  pre > code [data-line]::before {
     display: inline-block;
     width: 1.25rem;
     margin-right: 0.75rem;
