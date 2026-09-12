@@ -2,14 +2,9 @@ import { cssVars, SpinnerStyle, spinnerRoot } from "./frame";
 import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-/**
- * Which way the lit cells sweep across the grid: `rows` top to bottom,
- * `columns` left to right, `diagonal` from the top-left corner down.
- */
 export type GridDirection = "columns" | "diagonal" | "rows";
 
 export interface GridProps extends SpinnerProps {
-  /** Which way the lit cells sweep across the grid. Defaults to `rows`. */
   direction?: GridDirection;
 }
 
@@ -20,9 +15,6 @@ const CELLS = Array.from({ length: 16 }, (_, index) => ({
 
 const STEPS = 4;
 
-// The wave has four phases, so a cell's step is its distance along the sweep,
-// wrapped to that count. Steps beyond it would need a positive delay, which
-// would show the cell unlit before its animation began.
 function step(cell: (typeof CELLS)[number], direction: GridDirection) {
   if (direction === "columns") {
     return cell.column;

@@ -2,8 +2,6 @@ import { SpinnerStyle, spinnerRoot } from "./frame";
 import { DEFAULT_SIZE, duration, PLAY_STATE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-// The four ticks are symmetric, so a quarter turn lands on the same picture
-// and each cycle reads as one snap from tick to tick.
 const css = `
 .ld-compass-ticks {
   transform-origin: center;

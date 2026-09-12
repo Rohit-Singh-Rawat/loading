@@ -10,8 +10,6 @@ export interface TocItem {
   label: string;
 }
 
-// Every NavItem is `h-8` and the list is `gap-0.5`, so the highlight behind
-// the visible items is arithmetic rather than measurement.
 const ITEM_HEIGHT = 32;
 const ITEM_GAP = 2;
 
@@ -26,8 +24,6 @@ function sameIndexes(a: number[], b: number[]) {
   return a.length === b.length && a.every((value, index) => value === b[index]);
 }
 
-// A section runs from its own anchor to the next one; the last runs to the end
-// of the container the anchor sits in — on a spinner page, the prose column.
 function visibleSections(targets: (HTMLElement | null)[]) {
   const viewportHeight = window.innerHeight;
   const tops = targets.map(

@@ -1,10 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-/**
- * A subtle panel that stacks an example above its code figure. The panel is
- * the only frame, so the figure inside gives up its own border and corners.
- */
 export function CodePanel({
   children,
   className,

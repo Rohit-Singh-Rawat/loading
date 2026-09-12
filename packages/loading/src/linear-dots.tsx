@@ -4,9 +4,6 @@ import type { SpinnerProps } from "./types";
 
 const COUNT = 3;
 
-// Each dot peaks a third of a cycle after the one before it, so the bright dot
-// travels left to right and leaves a fading pair behind. A dot's step is where
-// in the cycle its peak falls.
 const DOTS = Array.from({ length: COUNT }, (_, index) => ({
   step: (COUNT - index) % COUNT,
 }));

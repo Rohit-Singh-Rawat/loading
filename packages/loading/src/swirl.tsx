@@ -2,8 +2,6 @@ import { cssVars, SpinnerStyle, spinnerRoot } from "./frame";
 import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-// The eight ring cells in grid order, each with its place clockwise from the
-// top-left corner. The centre of the grid stays empty.
 const RING = [0, 1, 2, 7, null, 3, 6, 5, 4];
 
 const CELLS = RING.map((place) => ({

@@ -4,9 +4,6 @@
     outline-offset: 2px;
   }
 
-  /* Base UI ScrollArea.Viewport: fades each vertical edge by the amount of
-     content hidden past it, up to 32px. The variables are set on the viewport
-     itself, so this class goes there and nowhere else. */
   .scroll-fade-y {
     mask-image: linear-gradient(
       to bottom,

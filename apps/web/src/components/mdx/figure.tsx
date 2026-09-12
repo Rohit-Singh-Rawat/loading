@@ -36,8 +36,6 @@ export function MDXFigure({
     return <figure {...rest}>{children}</figure>;
   }
 
-  // rehype-pretty-code puts the fence title beside the <pre>. The site shows
-  // the code alone with a copy button, so the title is dropped here.
   const pre = Children.toArray(children).filter((item) => !isFenceTitle(item));
 
   return (

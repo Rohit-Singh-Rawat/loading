@@ -22,24 +22,12 @@ export function SpinnerStyle({
   );
 }
 
-/**
- * Inline custom properties a spinner sets per element. React's `CSSProperties`
- * has no room for them, so this is the one place that admits them.
- */
 export function cssVars(
   vars: CSSProperties & { [variable: `--ld-${string}`]: number | string }
 ): CSSProperties {
   return vars;
 }
 
-/**
- * Each appearance prop sets its CSS property on the root element, and only when
- * passed — an omitted prop leaves the property unset so an ancestor's value
- * still cascades in. Precedence is prop, then ancestor, then the default: the
- * spinner's own duration, and the surrounding text color. `size` is the one
- * exception — it always resolves here, so a spinner only destructures it when
- * its markup needs the number too.
- */
 export function spinnerRoot(
   name: SpinnerName,
   { className, color, duration, playState, size = DEFAULT_SIZE }: SpinnerProps
