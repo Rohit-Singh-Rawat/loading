@@ -8,13 +8,11 @@ export async function Demo({ name, slug }: { name: string; slug: string }) {
     ]);
 
   return (
-    <div className="mt-8 w-full overflow-hidden rounded-2xl border border-border">
-      <div className="flex min-h-36 items-center justify-center border-border border-b bg-background-subtle px-4 py-8">
+    <div className="-mx-4 mt-8 overflow-hidden rounded-2xl bg-background-subtle [&>figure]:rounded-none [&>figure]:border-0 [&>figure]:bg-transparent">
+      <div className="flex min-h-60 items-center justify-center rounded-2xl border border-border bg-surface p-1">
         <Example />
       </div>
-      <div className="[&>figure]:rounded-none [&>figure]:border-0">
-        <Snippet />
-      </div>
+      <Snippet />
     </div>
   );
 }

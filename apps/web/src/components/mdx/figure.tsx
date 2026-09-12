@@ -1,6 +1,7 @@
 import { Children, isValidElement, type ReactNode } from "react";
-import { CodeBlockHeader } from "@/components/mdx/code-block-header";
+import { CopyButton } from "@/components/ui/copy-button";
 import { FIGURE_CLASSES } from "@/lib/code-block";
+import { cn } from "@/lib/utils";
 
 function extractText(node: ReactNode): string {
   if (typeof node === "string") {
@@ -20,11 +21,9 @@ function extractText(node: ReactNode): string {
 
 export function MDXFigure({
   children,
-  header = true,
   ...rest
 }: {
   children: ReactNode;
-  header?: boolean;
 } & Record<string, unknown>) {
   if (!("data-rehype-pretty-code-figure" in rest)) {
     return <figure {...rest}>{children}</figure>;
@@ -42,16 +41,11 @@ export function MDXFigure({
     return <figure className={FIGURE_CLASSES}>{children}</figure>;
   }
 
-  const titleProps = titleChild.props as {
-    children?: ReactNode;
-    "data-language"?: string;
-  };
-  const filename = extractText(titleProps.children);
   const code = extractText(preChild);
 
   return (
-    <figure className={FIGURE_CLASSES}>
-      {header && <CodeBlockHeader code={code} filename={filename} />}
+    <figure className={cn(FIGURE_CLASSES, "relative")}>
+      <CopyButton className="absolute top-2 right-2" text={code} />
       {preChild}
     </figure>
   );
