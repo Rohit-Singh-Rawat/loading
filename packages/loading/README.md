@@ -37,12 +37,20 @@ spinner underneath.
 | -------------- | ----------------------------------------------- |
 | `Arc`          | A rotating arc stroke                           |
 | `BouncingDots` | Three dots bouncing with a stagger              |
+| `CircularDots` | Eight dots in a ring, the bright one hopping    |
 | `Classic`      | The classic 12-bar spinner                      |
+| `Clock`        | A clock hand sweeping around a faint face       |
 | `Comet`        | A full ring fading into a bright leading head   |
+| `Compass`      | Four ticks snapping a quarter turn at a time    |
+| `Drive`        | A lit arrowhead driving across a 3-by-3 grid    |
 | `Grid`         | A four-by-four pixel grid lit row by row        |
+| `LinearDots`   | Three dots lighting up in turn                  |
 | `Orbit`        | A fading half-arc circling a fixed center dot   |
+| `Pulse`        | A ring rippling outward from a dot              |
+| `Radar`        | A fading beam sweeping around a dish            |
 | `Ring`         | A rotating arc over a faint track ring          |
 | `Ripple`       | A pixel grid pulsing outward from its center    |
+| `Swirl`        | A bright cell chasing its trail round a square  |
 
 ## Props
 
@@ -58,20 +66,23 @@ Every spinner accepts the same props:
 
 A few spinners take one more:
 
-| Prop        | Spinners                          | Type                                       | Default    | Description                            |
-| ----------- | --------------------------------- | ------------------------------------------ | ---------- | -------------------------------------- |
-| `easing`    | `Arc`, `Comet`, `Orbit`, `Ring`   | `"linear" \| "ease-in-out" \| "stacked"` | `"linear"` | How the spinner travels around its circle |
-| `direction` | `Grid`                            | `"rows" \| "columns" \| "diagonal"`      | `"rows"`   | Which way the lit cells sweep          |
+| Prop        | Spinners                                          | Type                                       | Default    | Description                               |
+| ----------- | ------------------------------------------------- | ------------------------------------------ | ---------- | ----------------------------------------- |
+| `easing`    | `Arc`, `Clock`, `Comet`, `Orbit`, `Radar`, `Ring` | `"linear" \| "ease-in-out" \| "stacked"` | `"linear"` | How the spinner travels around its circle |
+| `direction` | `Grid`                                            | `"rows" \| "columns" \| "diagonal"`      | `"rows"`   | Which way the lit cells sweep             |
+| `shape`     | `Drive`                                           | `"square" \| "circle"`                    | `"square"` | The shape of each cell                    |
 
 For `easing`, `linear` keeps a constant speed, `ease-in-out` surges through
 each turn and pauses at its end, and `stacked` layers the two — one linear
 rotation under one eased — so the spinner surges without ever coming to rest.
 For `direction`, `rows` sweeps top to bottom, `columns` left to right, and
-`diagonal` from the top-left corner down.
+`diagonal` from the top-left corner down. For `shape`, `square` draws rounded
+squares and `circle` draws dots.
 
 ```tsx
 <Ring easing="stacked" />
 <Grid direction="diagonal" />
+<Drive shape="circle" />
 ```
 
 ## Motion

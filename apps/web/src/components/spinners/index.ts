@@ -1,17 +1,26 @@
 import {
   Arc,
   BouncingDots,
+  CircularDots,
   Classic,
+  Clock,
   Comet,
+  Compass,
+  Drive,
+  type DriveShape,
   type Easing,
   Grid,
   type GridDirection,
+  LinearDots,
   Orbit,
+  Pulse,
+  Radar,
   Ring,
   Ripple,
   SPINNER_MOTION,
   type SpinnerName,
   type SpinnerProps,
+  Swirl,
 } from "loading-dev";
 import type { ComponentType } from "react";
 
@@ -74,6 +83,11 @@ const DIRECTIONS: readonly { label: string; value: GridDirection }[] = [
   { label: "Diagonal", value: "diagonal" },
 ];
 
+const SHAPES: readonly { label: string; value: DriveShape }[] = [
+  { label: "Square", value: "square" },
+  { label: "Circle", value: "circle" },
+];
+
 const CATALOG: CatalogEntry[] = [
   {
     component: Arc,
@@ -134,6 +148,65 @@ const CATALOG: CatalogEntry[] = [
     description: "A pixel grid pulsing outward from its center.",
     name: "Ripple",
     slug: "ripple",
+    speed: { max: 2400, min: 400 },
+  },
+  {
+    component: LinearDots,
+    description: "Three dots lighting up in turn from left to right.",
+    name: "Linear dots",
+    slug: "linear-dots",
+    speed: { max: 2400, min: 300 },
+  },
+  {
+    component: Clock,
+    description: "A clock hand sweeping around a faint face.",
+    name: "Clock",
+    options: [EASING_OPTION],
+    slug: "clock",
+    speed: { max: 3000, min: 300 },
+  },
+  {
+    component: Radar,
+    description: "A fading beam sweeping around a dish.",
+    name: "Radar",
+    options: [EASING_OPTION],
+    slug: "radar",
+    speed: { max: 3000, min: 300 },
+  },
+  {
+    component: CircularDots,
+    description: "Eight dots in a ring, the brightest hopping around.",
+    name: "Circular dots",
+    slug: "circular-dots",
+    speed: { max: 2000, min: 200 },
+  },
+  {
+    component: Pulse,
+    description: "A ring rippling outward from a dot.",
+    name: "Pulse",
+    slug: "pulse",
+    speed: { max: 2400, min: 400 },
+  },
+  {
+    component: Compass,
+    description: "Four ticks snapping a quarter turn at a time.",
+    name: "Compass",
+    slug: "compass",
+    speed: { max: 1200, min: 150 },
+  },
+  {
+    component: Drive,
+    description: "A lit arrowhead driving across a three-by-three grid.",
+    name: "Drive",
+    options: [{ label: "Shape", prop: "shape", values: SHAPES }],
+    slug: "drive",
+    speed: { max: 2400, min: 300 },
+  },
+  {
+    component: Swirl,
+    description: "A bright cell chasing its trail around a square.",
+    name: "Swirl",
+    slug: "swirl",
     speed: { max: 2400, min: 400 },
   },
 ];

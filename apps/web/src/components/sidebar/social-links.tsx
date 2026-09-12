@@ -22,7 +22,7 @@ export const SOCIAL_LINKS: {
 
 export function SocialLinks() {
   return (
-    <nav aria-label="Social" className="flex flex-col gap-0.5 p-4">
+    <nav aria-label="Social" className="flex flex-col gap-0.5 px-4 pb-4">
       {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
         <NavItem
           href={href}
