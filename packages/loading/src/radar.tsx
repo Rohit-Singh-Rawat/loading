@@ -9,11 +9,7 @@ const BEAM_GRADIENT = "ld-radar-beam";
 
 const css = rotationCss("radar");
 
-export function Radar({
-  easing = "linear",
-  size = DEFAULT_SIZE,
-  ...rest
-}: RadarProps) {
+export function Radar({ easing, size = DEFAULT_SIZE, ...rest }: RadarProps) {
   return (
     <>
       <SpinnerStyle name="radar">{css}</SpinnerStyle>

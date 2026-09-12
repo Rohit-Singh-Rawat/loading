@@ -17,7 +17,7 @@ export function AnchorLink({ id }: { id: string }) {
   return (
     <a
       aria-label="Copy link to this section"
-      className="link-outline absolute top-1/2 left-0 flex size-6 -translate-y-1/2 items-center justify-center rounded opacity-0 transition-opacity duration-200 ease-out before:absolute before:-inset-1.5 before:content-[''] focus-visible:opacity-100 group-hover:opacity-100"
+      className="link-outline absolute top-1/2 -left-7 flex size-6 -translate-y-1/2 items-center justify-center rounded opacity-0 transition-opacity duration-200 ease-out before:absolute before:-inset-1.5 before:content-[''] focus-visible:opacity-100 group-hover:opacity-100"
       href={`#${id}`}
       onClick={copyHref}
     >

@@ -1,4 +1,3 @@
-import { Separator } from "@base-ui/react/separator";
 import Image from "next/image";
 import { Text } from "@/components/ui/text";
 import { BLOB_BASE } from "@/lib/constants";
@@ -34,7 +33,7 @@ function Nametag({
 export function SidebarFooter() {
   return (
     <div className="flex flex-col gap-6 px-4 pb-4">
-      <Separator className="h-px bg-border" />
+      <hr className="border-border" />
       <Text className="text-content-subtle leading-relaxed" size="sm">
         Crafted with care by{" "}
         <Nametag
@@ -48,7 +47,7 @@ export function SidebarFooter() {
           href="https://x.com/paulfaivret"
           name="Paul"
         />
-      </Text>
-    </div>
+    </Text>
+   </div>
   );
 }

@@ -7,11 +7,7 @@ export interface ArcProps extends SpinnerProps, EasingProps {}
 
 const css = rotationCss("arc");
 
-export function Arc({
-  easing = "linear",
-  size = DEFAULT_SIZE,
-  ...rest
-}: ArcProps) {
+export function Arc({ easing, size = DEFAULT_SIZE, ...rest }: ArcProps) {
   return (
     <>
       <SpinnerStyle name="arc">{css}</SpinnerStyle>

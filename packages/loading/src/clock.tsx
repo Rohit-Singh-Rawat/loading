@@ -7,11 +7,7 @@ export interface ClockProps extends SpinnerProps, EasingProps {}
 
 const css = rotationCss("clock");
 
-export function Clock({
-  easing = "linear",
-  size = DEFAULT_SIZE,
-  ...rest
-}: ClockProps) {
+export function Clock({ easing, size = DEFAULT_SIZE, ...rest }: ClockProps) {
   return (
     <>
       <SpinnerStyle name="clock">{css}</SpinnerStyle>

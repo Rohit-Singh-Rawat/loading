@@ -1,4 +1,4 @@
-import { SpinnerStyle, spinnerRoot } from "./frame";
+import { cssVars, SpinnerStyle, spinnerRoot } from "./frame";
 import { DEFAULT_SIZE, duration, PLAY_STATE } from "./motion";
 import type { SpinnerProps } from "./types";
 
@@ -15,19 +15,12 @@ const DOTS = [
 
 const dur = duration("circular-dots");
 
-const DOT_RULES = DOTS.map(
-  (_, dot) => `
-.ld-circular-dots-dot:nth-child(${dot + 1}) {
-  animation-delay: calc(${dur} * -${(((DOTS.length - dot) % DOTS.length) / DOTS.length).toFixed(4)});
-}`
-).join("\n");
-
 const css = `
 .ld-circular-dots-dot {
   animation: ld-circular-dots-fade ${dur} linear infinite;
+  animation-delay: calc(${dur} * (var(--ld-circular-dots-step) - ${DOTS.length}) / ${DOTS.length});
   animation-play-state: ${PLAY_STATE};
 }
-${DOT_RULES}
 
 @keyframes ld-circular-dots-fade {
   from {
@@ -58,13 +51,14 @@ export function CircularDots({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
         viewBox="0 0 16 16"
         width={size}
       >
-        {DOTS.map(([cx, cy]) => (
+        {DOTS.map(([cx, cy], step) => (
           <circle
             className="ld-circular-dots-dot"
             cx={cx}
             cy={cy}
             key={`${cx}-${cy}`}
             r="1.5"
+            style={cssVars({ "--ld-circular-dots-step": step })}
           />
         ))}
       </svg>

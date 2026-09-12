@@ -34,7 +34,7 @@ interface SpeedRange {
  * its preview. Array position is the control's order, and the first value must
  * be the library's default so the preview starts where the snippet does.
  */
-export interface SpinnerOption {
+interface SpinnerOption {
   label: string;
   prop: string;
   values: readonly { label: string; value: string }[];

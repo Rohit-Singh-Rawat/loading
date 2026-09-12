@@ -24,7 +24,6 @@ const kinds: Record<
 
 export function NavItem({
   active = false,
-  className,
   href,
   icon,
   kind = "route",
@@ -32,7 +31,6 @@ export function NavItem({
   onClick,
 }: {
   active?: boolean;
-  className?: string;
   href: string;
   icon?: ReactNode;
   kind?: NavItemKind;
@@ -49,8 +47,7 @@ export function NavItem({
         "link-outline relative flex h-8 w-full items-center gap-2 rounded-lg px-3 after:absolute after:inset-x-0 after:-inset-y-px after:content-['']",
         active
           ? "bg-background text-content"
-          : "text-content-subtle hover:bg-background hover:text-content",
-        className
+          : "text-content-subtle hover:bg-background hover:text-content"
       )}
       href={href}
       onClick={onClick}

@@ -10,12 +10,18 @@ export interface DriveProps extends SpinnerProps {
 
 const COLUMNS = 3;
 
-const CELLS = Array.from({ length: COLUMNS * COLUMNS }, (_, index) => {
-  const column = index % COLUMNS;
-  const middle = Math.floor(index / COLUMNS) === 1;
-  const start = middle ? (column + COLUMNS - 1) % COLUMNS : column;
-  return { middle, step: (COLUMNS - start) % COLUMNS };
-});
+// The lit cells form an arrowhead pointing right: one whole column, plus the
+// middle cell of the column ahead as its tip. Each cell lists the column the
+// arrowhead is in when it lights, so the middle row stays lit for two columns.
+const LIT_AT = [
+  [0, 1, 2],
+  [2, 0, 1],
+  [0, 1, 2],
+];
+
+const CELLS = LIT_AT.flatMap((row, rowIndex) =>
+  row.map((step) => ({ middle: rowIndex === 1, step }))
+);
 
 const dur = duration("drive");
 
@@ -35,7 +41,7 @@ const css = `
   background: currentColor;
   border-radius: calc(${SIZE} * 0.03125);
   animation: ld-drive-column ${dur} linear infinite;
-  animation-delay: calc(${dur} * var(--ld-drive-step) / -${COLUMNS});
+  animation-delay: calc(${dur} * (var(--ld-drive-step) - ${COLUMNS}) / ${COLUMNS});
   animation-play-state: ${PLAY_STATE};
 }
 

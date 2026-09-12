@@ -82,6 +82,7 @@ export function SpinnerPreview({ slug }: { slug: string }) {
   }
   const state = useCustomizationState(item);
   const Spinner = item.component;
+  const playLabel = state.paused ? "Play animation" : "Pause animation";
 
   return (
     <section
@@ -94,33 +95,34 @@ export function SpinnerPreview({ slug }: { slug: string }) {
             <Spinner {...state.spinnerProps} />
           </div>
         </div>
-        <IconButton
-          aria-label={state.paused ? "Play animation" : "Pause animation"}
-          aria-pressed={state.paused}
-          onClick={state.togglePaused}
-          size="sm"
-          title={state.paused ? "Play animation" : "Pause animation"}
-          type="button"
-          variant="ghost"
-        >
-          <AnimatedIcon
-            active={state.paused}
-            activeIcon={<IconPlay className="size-4.5" />}
-            idleIcon={<IconPause className="size-4.5" />}
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <IconButton
+                aria-label={playLabel}
+                aria-pressed={state.paused}
+                onClick={state.togglePaused}
+                size="sm"
+                type="button"
+                variant="ghost"
+              >
+                <AnimatedIcon
+                  active={state.paused}
+                  activeIcon={<IconPlay className="size-4.5" />}
+                  idleIcon={<IconPause className="size-4.5" />}
+                />
+              </IconButton>
+            }
           />
-        </IconButton>
+          <TooltipContent>{playLabel}</TooltipContent>
+        </Tooltip>
       </div>
       <DrawerHandle
         onToggle={() => setCustomizeOpen((value) => !value)}
         open={customizeOpen}
       />
       <CustomizeDrawer open={customizeOpen}>
-        <CustomizePanel
-          className="max-sm:mt-1"
-          options={item.options}
-          speed={item.speed}
-          state={state}
-        />
+        <CustomizePanel className="max-sm:mt-1" item={item} state={state} />
       </CustomizeDrawer>
     </section>
   );

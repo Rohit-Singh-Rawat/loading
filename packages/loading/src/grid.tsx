@@ -8,9 +8,11 @@ export interface GridProps extends SpinnerProps {
   direction?: GridDirection;
 }
 
-const CELLS = Array.from({ length: 16 }, (_, index) => ({
-  column: index % 4,
-  row: Math.floor(index / 4),
+const COLUMNS = 4;
+
+const CELLS = Array.from({ length: COLUMNS * COLUMNS }, (_, index) => ({
+  column: index % COLUMNS,
+  row: Math.floor(index / COLUMNS),
 }));
 
 const STEPS = 4;
@@ -30,8 +32,8 @@ const dur = duration("grid");
 const css = `
 .ld-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(${COLUMNS}, 1fr);
+  grid-template-rows: repeat(${COLUMNS}, 1fr);
   gap: calc(${SIZE} / 7);
   width: ${SIZE};
   height: ${SIZE};

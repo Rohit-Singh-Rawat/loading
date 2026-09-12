@@ -11,7 +11,7 @@ export function CodePanel({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-2xl bg-background-subtle [&>figure]:rounded-none [&>figure]:border-0 [&>figure]:bg-transparent",
+        "overflow-hidden rounded-2xl bg-background-subtle",
         className
       )}
     >

@@ -1,7 +1,6 @@
 import { Children, isValidElement, type ReactNode } from "react";
 import { CopyButton } from "@/components/ui/copy-button";
 import { FIGURE_CLASSES } from "@/lib/code-block";
-import { cn } from "@/lib/utils";
 
 function extractText(node: ReactNode): string {
   if (typeof node === "string") {
@@ -39,7 +38,7 @@ export function MDXFigure({
   const pre = Children.toArray(children).filter((item) => !isFenceTitle(item));
 
   return (
-    <figure className={cn(FIGURE_CLASSES, "relative")}>
+    <figure className={FIGURE_CLASSES}>
       <CopyButton className="absolute top-2 right-2" text={extractText(pre)} />
       {pre}
     </figure>

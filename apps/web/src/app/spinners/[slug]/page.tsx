@@ -12,7 +12,7 @@ import {
 } from "@/components/spinners";
 import { PageHeader } from "@/components/ui/page-header";
 import Shared from "@/content/spinners/_shared.mdx";
-import { SITE_DESCRIPTION } from "@/lib/constants";
+import { PROSE_SECTION_ID, SITE_DESCRIPTION } from "@/lib/constants";
 import type { MDXModule } from "@/lib/mdx";
 
 export const generateStaticParams = spinnerParams;
@@ -47,9 +47,10 @@ export default async function SpinnerPage({
   const { default: Snippet }: MDXModule = await import(
     `@/content/snippets/${slug}.mdx`
   );
-  const Own = item.options
-    ? ((await import(`@/content/spinners/${slug}.mdx`)) as MDXModule).default
+  const own: MDXModule | null = item.options
+    ? await import(`@/content/spinners/${slug}.mdx`)
     : null;
+  const Own = own?.default;
 
   const components = {
     Demo: (props: { name: string }) => <Demo {...props} slug={slug} />,
@@ -68,7 +69,7 @@ export default async function SpinnerPage({
           <SpinnerPreview key={slug} slug={slug} />
           <Snippet />
         </CodePanel>
-        <div className="flex flex-col px-4 [&>figure]:mt-6">
+        <div className="flex flex-col [&>figure]:mt-6" id={PROSE_SECTION_ID}>
           <Shared components={components} />
           {Own && <Own components={components} />}
         </div>

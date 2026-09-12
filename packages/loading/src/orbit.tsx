@@ -36,7 +36,7 @@ const css = `
 ${rotationCss("orbit")}
 `;
 
-export function Orbit({ easing = "linear", ...rest }: OrbitProps) {
+export function Orbit({ easing, ...rest }: OrbitProps) {
   return (
     <>
       <SpinnerStyle name="orbit">{css}</SpinnerStyle>

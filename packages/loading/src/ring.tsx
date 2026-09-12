@@ -7,11 +7,7 @@ export interface RingProps extends SpinnerProps, EasingProps {}
 
 const css = rotationCss("ring");
 
-export function Ring({
-  easing = "linear",
-  size = DEFAULT_SIZE,
-  ...rest
-}: RingProps) {
+export function Ring({ easing, size = DEFAULT_SIZE, ...rest }: RingProps) {
   return (
     <>
       <SpinnerStyle name="ring">{css}</SpinnerStyle>

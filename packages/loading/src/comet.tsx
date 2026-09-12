@@ -41,7 +41,7 @@ const css = `
 ${rotationCss("comet")}
 `;
 
-export function Comet({ easing = "linear", ...rest }: CometProps) {
+export function Comet({ easing, ...rest }: CometProps) {
   return (
     <>
       <SpinnerStyle name="comet">{css}</SpinnerStyle>
