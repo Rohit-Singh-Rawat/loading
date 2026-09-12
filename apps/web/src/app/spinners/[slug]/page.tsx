@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { ComponentProps } from "react";
 import { Demo } from "@/components/mdx/demo";
+import { MDXFigure } from "@/components/mdx/figure";
 import { PrevNext } from "@/components/spinner-detail/prev-next";
 import { SpinnerPreview } from "@/components/spinner-detail/spinner-preview";
 import {
@@ -50,6 +52,9 @@ export default async function SpinnerPage({
   const components = {
     Demo: (props: { name: string }) => <Demo {...props} slug={slug} />,
   };
+  const SnippetFigure = (props: ComponentProps<typeof MDXFigure>) => (
+    <MDXFigure {...props} header={false} />
+  );
 
   return (
     <div className="flex flex-col gap-8">
@@ -60,11 +65,11 @@ export default async function SpinnerPage({
         title={item.name}
       />
       <div className="flex flex-col">
-        <SpinnerPreview key={slug} slug={slug} />
+        <div className="overflow-hidden rounded-2xl bg-background-subtle [&>figure]:rounded-none [&>figure]:border-0 [&>figure]:bg-transparent">
+          <SpinnerPreview key={slug} slug={slug} />
+          <Snippet components={{ figure: SnippetFigure }} />
+        </div>
         <div className="flex flex-col [&>figure]:mt-6">
-          <div className="mt-2.5">
-            <Snippet />
-          </div>
           <Shared components={components} />
         </div>
       </div>

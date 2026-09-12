@@ -20,9 +20,11 @@ function extractText(node: ReactNode): string {
 
 export function MDXFigure({
   children,
+  header = true,
   ...rest
 }: {
   children: ReactNode;
+  header?: boolean;
 } & Record<string, unknown>) {
   if (!("data-rehype-pretty-code-figure" in rest)) {
     return <figure {...rest}>{children}</figure>;
@@ -49,7 +51,7 @@ export function MDXFigure({
 
   return (
     <figure className={FIGURE_CLASSES}>
-      <CodeBlockHeader code={code} filename={filename} />
+      {header && <CodeBlockHeader code={code} filename={filename} />}
       {preChild}
     </figure>
   );

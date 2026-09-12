@@ -2,17 +2,57 @@
 
 import { IconPause } from "central-icons/IconPause";
 import { IconPlay } from "central-icons/IconPlay";
-import { IconSidebarHiddenRightWide } from "central-icons-outlined/IconSidebarHiddenRightWide";
+import { IconChevronLargeLeft } from "central-icons-outlined/IconChevronLargeLeft";
 import { type ReactNode, useState } from "react";
 import { getSpinner } from "@/components/spinners";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
 import IconButton from "@/components/ui/icon-button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { PREVIEW_SECTION_ID } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { CustomizePanel } from "./customize-panel";
 import { useCustomizationState } from "./spinner-customization";
 
 const CUSTOMIZE_PANEL_ID = "customize-panel";
+
+function DrawerHandle({
+  onToggle,
+  open,
+}: {
+  onToggle: () => void;
+  open: boolean;
+}) {
+  const label = open ? "Hide customization" : "Show customization";
+
+  return (
+    <Tooltip trackCursorAxis="y">
+      <TooltipTrigger
+        render={
+          <button
+            aria-controls={CUSTOMIZE_PANEL_ID}
+            aria-expanded={open}
+            aria-label={label}
+            className="relative z-10 -mr-1 -ml-5 hidden h-full w-9 shrink-0 cursor-pointer items-center justify-end pr-1.5 text-content-subtle transition-colors duration-200 ease-out hover-hover:hover:text-content sm:flex"
+            onClick={onToggle}
+            type="button"
+          >
+            <IconChevronLargeLeft
+              className={cn(
+                "size-4 transition-[rotate] duration-200 ease-out",
+                open ? "rotate-180" : "rotate-0"
+              )}
+            />
+          </button>
+        }
+      />
+      <TooltipContent side="left">{label}</TooltipContent>
+    </Tooltip>
+  );
+}
 
 function CustomizeDrawer({
   children,
@@ -25,7 +65,7 @@ function CustomizeDrawer({
     <div
       className={cn(
         "shrink-0 overflow-hidden transition-[width,opacity,visibility] duration-300 ease-out max-sm:w-full sm:h-full",
-        open ? "sm:w-61 sm:opacity-100" : "sm:invisible sm:w-0 sm:opacity-0"
+        open ? "sm:w-60 sm:opacity-100" : "sm:invisible sm:w-0 sm:opacity-0"
       )}
       id={CUSTOMIZE_PANEL_ID}
     >
@@ -45,25 +85,10 @@ export function SpinnerPreview({ slug }: { slug: string }) {
 
   return (
     <section
-      className="flex w-full flex-col rounded-2xl bg-background-subtle p-1 sm:h-100 sm:flex-row"
+      className="flex w-full flex-col rounded-2xl border border-border bg-surface p-1 sm:h-100 sm:flex-row"
       id={PREVIEW_SECTION_ID}
     >
-      <div className="relative flex min-h-64 min-w-0 flex-1 flex-col items-center px-4 pt-13 pb-2">
-        <IconButton
-          aria-controls={CUSTOMIZE_PANEL_ID}
-          aria-expanded={customizeOpen}
-          aria-label={
-            customizeOpen ? "Hide customization" : "Show customization"
-          }
-          className="absolute top-2 right-2 max-sm:hidden"
-          onClick={() => setCustomizeOpen((value) => !value)}
-          size="xs"
-          title={customizeOpen ? "Hide customization" : "Show customization"}
-          type="button"
-          variant="tertiary"
-        >
-          <IconSidebarHiddenRightWide className="size-4.5" />
-        </IconButton>
+      <div className="flex min-h-64 min-w-0 flex-1 flex-col items-center px-4 pt-13 pb-2">
         <div className="flex min-h-0 w-full flex-1 items-center justify-center">
           <div style={{ opacity: `${state.opacity}%` }}>
             <Spinner {...state.spinnerProps} />
@@ -85,9 +110,13 @@ export function SpinnerPreview({ slug }: { slug: string }) {
           />
         </IconButton>
       </div>
+      <DrawerHandle
+        onToggle={() => setCustomizeOpen((value) => !value)}
+        open={customizeOpen}
+      />
       <CustomizeDrawer open={customizeOpen}>
         <CustomizePanel
-          className="max-sm:mt-1 sm:ms-1"
+          className="max-sm:mt-1"
           speed={item.speed}
           state={state}
         />
