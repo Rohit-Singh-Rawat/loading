@@ -1,16 +1,14 @@
 # loading
 
-The home of [loading.dev](https://loading.dev) and `loading-dev`, a collection of loading spinners for React.
+React spinners for [loading.dev](https://loading.dev) and the `loading-dev` npm package.
 
-- `packages/loading` contains the spinners published to npm. They use React 19, ship as ES modules, and have no dependencies. Styles are included, so there is no CSS file to import. See the [package README](packages/loading/README.md) for usage.
-- `apps/web` is the website, where you can try each spinner and read the docs.
-- `examples/consumer` is a small app for checking a release. It installs the package from npm and stays outside the workspace so it tests the published version instead of the local code.
-
-To work on the project locally:
+- `packages/loading`: spinner components
+- `apps/web`: website and docs
+- `examples/consumer`: checks the published npm package
 
 ```sh
-pnpm dev     # Start the website and watch for package changes
-pnpm lint    # Check formatting and lint rules with Biome
+pnpm dev     # Start development
+pnpm lint    # Check formatting and lint rules
 ```
 
-To add a spinner, follow the steps in [AGENTS.md](AGENTS.md). They cover the component, its animation settings, and the examples and docs on the website. [CONTEXT.md](CONTEXT.md) explains how those pieces fit together.
+See [AGENTS.md](AGENTS.md) for adding spinners and [CONTEXT.md](CONTEXT.md) for project terminology.
