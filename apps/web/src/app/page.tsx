@@ -2,13 +2,14 @@ import { InstallCommand } from "@/components/install-command/install-command";
 import { SpinnerCard } from "@/components/spinner-card/spinner-card";
 import { SPINNER_ITEMS } from "@/components/spinners";
 import { PageHeader } from "@/components/ui/page-header";
+import { SITE_DESCRIPTION } from "@/lib/constants";
 
 export default function Home() {
   return (
     <div className="flex flex-col gap-6">
       <PageHeader
         className="sm:px-4"
-        description="A lightweight library full of beautiful loading indicators for React."
+        description={SITE_DESCRIPTION}
         title={
           <>
             Loading,

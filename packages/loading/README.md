@@ -8,7 +8,7 @@ Loading, made beautiful. A small and lightweight library full of beautiful loadi
 npm install loading-dev
 ```
 
-Requires React 19 or later. Styles are included, so there is no CSS file to import.
+Requires React 19 or later.
 
 ## Usage
 
@@ -33,9 +33,9 @@ Spinners use the surrounding text color by default. Use `size` and `color` to ch
 <Arc size={24} color="royalblue" duration={1000} />
 ```
 
-`size` is in pixels. `duration` is the time for one animation cycle, in milliseconds. Use `playState="paused"` to pause a spinner.
+`size` is in pixels. `duration` is the time for one animation cycle, in milliseconds. `playState=` exposes the state of the spinner.
 
-All spinners work in Server Components and stop animating when someone has reduced motion enabled.
+All spinners work in Server Components and they follow reduced motion preference out of the box.
 
 ## Spinners
 
@@ -58,7 +58,7 @@ All spinners work in Server Components and stop animating when someone has reduc
 
 ## Documentation
 
-[Browse the spinners and their options](https://loading.dev).
+[loading.dev](https://loading.dev).
 
 ## License
 

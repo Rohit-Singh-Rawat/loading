@@ -2,11 +2,11 @@ import type {
   DriveProps,
   EasingProps,
   GridProps,
+  SPINNERS,
   SpinnerName,
   SpinnerProps,
 } from "loading-dev";
 import type { ComponentProps } from "react";
-import type { SPINNER_COMPONENTS } from "./components";
 
 interface SpeedRange {
   max: number;
@@ -36,6 +36,7 @@ type OptionOf<P> = {
 
 export interface SpinnerItem {
   description: string;
+  href: string;
   name: string;
   options?: readonly SpinnerOption[];
   slug: SpinnerName;
@@ -43,14 +44,14 @@ export interface SpinnerItem {
 }
 
 function entry<S extends SpinnerName>(
-  definition: Omit<SpinnerItem, "slug" | "options"> & {
+  definition: Omit<SpinnerItem, "href" | "slug" | "options"> & {
     slug: S;
     options?: readonly OptionOf<
-      ComponentProps<(typeof SPINNER_COMPONENTS)[NoInfer<S>]>
+      ComponentProps<(typeof SPINNERS)[NoInfer<S>]>
     >[];
   }
 ): SpinnerItem {
-  return definition;
+  return { ...definition, href: `/spinners/${definition.slug}` };
 }
 
 export interface SpinnerParams {
@@ -161,13 +162,13 @@ const CATALOG: SpinnerItem[] = [
     slug: "clock",
     speed: { max: 3000, min: 300 },
   }),
-  entry({
-    description: "A fading beam sweeping around a dish.",
-    name: "Radar",
-    options: [EASING_OPTION],
-    slug: "radar",
-    speed: { max: 3000, min: 300 },
-  }),
+  // entry({
+  //   description: "A fading beam sweeping around a dish.",
+  //   name: "Radar",
+  //   options: [EASING_OPTION],
+  //   slug: "radar",
+  //   speed: { max: 3000, min: 300 },
+  // }),
   entry({
     description: "Eight dots in a ring, the brightest hopping around.",
     name: "Circular dots",

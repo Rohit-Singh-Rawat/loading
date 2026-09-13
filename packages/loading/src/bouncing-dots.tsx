@@ -14,24 +14,24 @@ const css = `
   height: ${SIZE};
 }
 
-.ld-dot {
+.ld-bouncing-dots-dot {
   width: calc(${SIZE} * 0.22);
   height: calc(${SIZE} * 0.22);
   background: currentColor;
   border-radius: 9999px;
-  animation: ld-dots-bounce ${dur} ease-in-out infinite alternate;
+  animation: ld-bouncing-dots-bounce ${dur} ease-in-out infinite alternate;
   animation-play-state: ${PLAY_STATE};
 }
 
-.ld-dot:nth-child(1) {
+.ld-bouncing-dots-dot:nth-child(1) {
   animation-delay: calc(${dur} * -0.64);
 }
 
-.ld-dot:nth-child(2) {
+.ld-bouncing-dots-dot:nth-child(2) {
   animation-delay: calc(${dur} * -0.32);
 }
 
-@keyframes ld-dots-bounce {
+@keyframes ld-bouncing-dots-bounce {
   from {
     transform: translateY(28%);
   }
@@ -41,7 +41,7 @@ const css = `
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ld-dot {
+  .ld-bouncing-dots-dot {
     animation: none;
   }
 }
@@ -53,7 +53,7 @@ export function BouncingDots(props: SpinnerProps) {
       <SpinnerStyle name="bouncing-dots">{css}</SpinnerStyle>
       <div {...spinnerRoot("bouncing-dots", props)}>
         {DOTS.map((dot) => (
-          <div className="ld-dot" key={dot} />
+          <div className="ld-bouncing-dots-dot" key={dot} />
         ))}
       </div>
     </>

@@ -2,6 +2,7 @@ import path from "node:path";
 import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 import { CODE_THEMES } from "./src/lib/code-theme";
+import { BLOB_BASE } from "./src/lib/constants";
 
 const demoDependenciesLoader = path.resolve(
   import.meta.dirname,
@@ -19,7 +20,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: "ru2qm1zsj1gavqlm.public.blob.vercel-storage.com",
+        hostname: new URL(BLOB_BASE).hostname,
         protocol: "https",
       },
     ],

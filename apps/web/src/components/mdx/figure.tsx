@@ -1,4 +1,9 @@
-import { Children, isValidElement, type ReactNode } from "react";
+import {
+  Children,
+  type ComponentPropsWithoutRef,
+  isValidElement,
+  type ReactNode,
+} from "react";
 import { CopyButton } from "@/components/ui/copy-button";
 import { FIGURE_CLASSES } from "@/lib/code-block";
 
@@ -28,9 +33,7 @@ function isFenceTitle(node: ReactNode): boolean {
 export function MDXFigure({
   children,
   ...rest
-}: {
-  children: ReactNode;
-} & Record<string, unknown>) {
+}: ComponentPropsWithoutRef<"figure">) {
   if (!("data-rehype-pretty-code-figure" in rest)) {
     return <figure {...rest}>{children}</figure>;
   }

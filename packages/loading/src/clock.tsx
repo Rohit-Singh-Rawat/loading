@@ -1,23 +1,28 @@
 import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE } from "./motion";
+import { SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 export interface ClockProps extends SpinnerProps, EasingProps {}
 
-const css = rotationCss("clock");
+const css = `
+.ld-clock {
+  width: ${SIZE};
+  height: ${SIZE};
+}
 
-export function Clock({ easing, size = DEFAULT_SIZE, ...rest }: ClockProps) {
+${rotationCss("clock")}
+`;
+
+export function Clock({ easing, ...rest }: ClockProps) {
   return (
     <>
       <SpinnerStyle name="clock">{css}</SpinnerStyle>
       <svg
-        {...spinnerRoot("clock", { ...rest, size })}
+        {...spinnerRoot("clock", rest)}
         fill="none"
-        height={size}
         role="presentation"
         viewBox="0 0 16 16"
-        width={size}
       >
         <circle cx="8" cy="8" fill="currentColor" opacity="0.1" r="8" />
         <path

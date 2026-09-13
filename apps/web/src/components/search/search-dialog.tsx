@@ -10,19 +10,10 @@ import { IconMagnifyingGlass } from "central-icons-outlined/IconMagnifyingGlass"
 import { Command, useCommandState } from "cmdk";
 import { usePathname, useRouter } from "next/navigation";
 import { type RefObject, useRef, useState } from "react";
-import { SPINNER_ITEMS } from "@/components/spinners";
+import { NAV_ITEMS } from "@/components/sidebar/nav-items";
 import { Kbd } from "@/components/ui/kbd";
 import { useKeysPressed } from "@/lib/use-keys-pressed";
 import { cn } from "@/lib/utils";
-
-const ROWS: { href: string; keywords?: string[]; title: string }[] = [
-  { href: "/", title: "Overview" },
-  ...SPINNER_ITEMS.map((item) => ({
-    href: `/spinners/${item.slug}`,
-    keywords: [item.slug],
-    title: item.name,
-  })),
-];
 
 const ITEM_CLASSNAME =
   "group flex cursor-pointer select-none items-center gap-1 rounded-xl p-2 text-content text-[13px] data-[selected=true]:bg-background-hovered";
@@ -132,16 +123,16 @@ export function SearchDialog({
                   }}
                 />
 
-                {ROWS.map((row) => (
+                {NAV_ITEMS.map((row) => (
                   <Command.Item
                     className={ITEM_CLASSNAME}
                     key={row.href}
                     keywords={row.keywords}
                     onSelect={() => navigateTo(row.href)}
-                    value={row.title}
+                    value={row.label}
                   >
                     <span className="min-w-0 flex-1 truncate px-1 font-semimedium">
-                      {row.title}
+                      {row.label}
                     </span>
                   </Command.Item>
                 ))}

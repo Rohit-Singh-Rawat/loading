@@ -2,13 +2,11 @@
 
 import { Menu } from "@base-ui/react/menu";
 import type React from "react";
-import { useRef } from "react";
-import { useBreakpointChange } from "@/lib/use-breakpoint-change";
+import { useCloseOnBreakpointChange } from "@/lib/use-breakpoint-change";
 import { cn } from "@/lib/utils";
 
 function DropdownMenu({ ...props }: React.ComponentProps<typeof Menu.Root>) {
-  const actionsRef = useRef<Menu.Root.Actions | null>(null);
-  useBreakpointChange(() => actionsRef.current?.close());
+  const actionsRef = useCloseOnBreakpointChange<Menu.Root.Actions>();
 
   return (
     <Menu.Root data-slot="dropdown-menu" {...props} actionsRef={actionsRef} />

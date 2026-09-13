@@ -1,23 +1,28 @@
 import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE } from "./motion";
+import { SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 export interface RingProps extends SpinnerProps, EasingProps {}
 
-const css = rotationCss("ring");
+const css = `
+.ld-ring {
+  width: ${SIZE};
+  height: ${SIZE};
+}
 
-export function Ring({ easing, size = DEFAULT_SIZE, ...rest }: RingProps) {
+${rotationCss("ring")}
+`;
+
+export function Ring({ easing, ...rest }: RingProps) {
   return (
     <>
       <SpinnerStyle name="ring">{css}</SpinnerStyle>
       <svg
-        {...spinnerRoot("ring", { ...rest, size })}
+        {...spinnerRoot("ring", rest)}
         fill="none"
-        height={size}
         role="presentation"
         viewBox="0 0 24 24"
-        width={size}
       >
         <circle
           cx="12"

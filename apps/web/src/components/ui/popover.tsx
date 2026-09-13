@@ -1,15 +1,14 @@
 "use client";
 
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
-import { useRef } from "react";
-import { useBreakpointChange } from "@/lib/use-breakpoint-change";
+import { useCloseOnBreakpointChange } from "@/lib/use-breakpoint-change";
 import { cn } from "@/lib/utils";
 
 function Popover({
   ...props
 }: React.ComponentProps<typeof PopoverPrimitive.Root>) {
-  const actionsRef = useRef<PopoverPrimitive.Root.Actions | null>(null);
-  useBreakpointChange(() => actionsRef.current?.close());
+  const actionsRef =
+    useCloseOnBreakpointChange<PopoverPrimitive.Root.Actions>();
 
   return (
     <PopoverPrimitive.Root

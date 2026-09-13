@@ -1,15 +1,16 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import { Text } from "@/components/ui/text";
+import { cn } from "@/lib/utils";
 
 export function MDXParagraph({
-  children,
+  className,
   ...rest
-}: {
-  children: ReactNode;
-} & Record<string, unknown>) {
+}: ComponentPropsWithoutRef<"p">) {
   return (
-    <Text className="text-content-subtle sm:px-4" size="base" {...rest}>
-      {children}
-    </Text>
+    <Text
+      className={cn("text-content-subtle sm:px-4", className)}
+      size="base"
+      {...rest}
+    />
   );
 }

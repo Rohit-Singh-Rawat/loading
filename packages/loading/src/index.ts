@@ -20,5 +20,6 @@ export { Pulse } from "./pulse";
 export { Radar, type RadarProps } from "./radar";
 export { Ring, type RingProps } from "./ring";
 export { Ripple } from "./ripple";
+export { SPINNERS } from "./spinners";
 export { Swirl } from "./swirl";
 export type { SpinnerProps } from "./types";

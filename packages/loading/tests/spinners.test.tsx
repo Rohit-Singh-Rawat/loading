@@ -1,51 +1,8 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import {
-  Arc,
-  BouncingDots,
-  CircularDots,
-  Classic,
-  Clock,
-  Comet,
-  Compass,
-  Drive,
-  Grid,
-  LinearDots,
-  Orbit,
-  Pulse,
-  Radar,
-  Ring,
-  Ripple,
-  SPINNER_MOTION,
-  Swirl,
-} from "../src";
+import { SPINNERS } from "../src";
 
-const spinners = {
-  arc: Arc,
-  "bouncing-dots": BouncingDots,
-  "circular-dots": CircularDots,
-  classic: Classic,
-  clock: Clock,
-  comet: Comet,
-  compass: Compass,
-  drive: Drive,
-  grid: Grid,
-  "linear-dots": LinearDots,
-  orbit: Orbit,
-  pulse: Pulse,
-  radar: Radar,
-  ring: Ring,
-  ripple: Ripple,
-  swirl: Swirl,
-};
-
-it("covers every spinner in the motion contract", () => {
-  expect(Object.keys(spinners).sort()).toEqual(
-    Object.keys(SPINNER_MOTION).sort()
-  );
-});
-
-describe.each(Object.entries(spinners))("%s", (name, Spinner) => {
+describe.each(Object.entries(SPINNERS))("%s", (name, Spinner) => {
   it("renders decoratively without overriding inherited appearance or motion", () => {
     const html = renderToStaticMarkup(<Spinner />);
 
