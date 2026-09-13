@@ -10,5 +10,3 @@ React spinners for [loading.dev](https://loading.dev) and the `loading-dev` npm 
 pnpm dev     # Start development
 pnpm lint    # Check formatting and lint rules
 ```
-
-See [AGENTS.md](AGENTS.md) for adding spinners and [CONTEXT.md](CONTEXT.md) for project terminology.
