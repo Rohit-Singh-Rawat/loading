@@ -8,7 +8,7 @@ import { Logo } from "@/components/ui/logo";
 export function Sidebar() {
   return (
     <aside className="fixed inset-y-(--sidebar-inset) left-(--sidebar-inset) z-40 hidden w-(--sidebar-width) flex-col gap-6 rounded-2xl bg-background-subtle md:flex">
-      <div className="px-7 pt-6 pb-2">
+      <div className="px-6 pt-6 pb-2">
         <Logo />
       </div>
       <div className="px-4">
