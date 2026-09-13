@@ -9,7 +9,7 @@ export function Sidebar() {
   return (
     <aside className="fixed inset-y-(--sidebar-inset) left-(--sidebar-inset) z-40 hidden w-(--sidebar-width) flex-col gap-6 rounded-2xl bg-background-subtle md:flex">
       <div className="px-6 pt-6 pb-2">
-        <Logo />
+        <Logo className="[&>svg]:transition-transform [&>svg]:duration-200 [&>svg]:ease-out hover:[&>svg]:rotate-45 motion-reduce:[&>svg]:transition-none" />
       </div>
       <div className="px-4">
         <SidebarSearch />
