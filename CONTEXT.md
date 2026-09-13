@@ -5,7 +5,7 @@ the code — if a term drifts, fix the code or fix this file.
 
 ## Spinner
 
-One loading indicator: a React component in `packages/loading/src/<name>.tsx`,
+One loading indicator: a React component in `src/<name>.tsx`,
 its CSS, and its default motion. Decorative — every spinner is `aria-hidden`,
 so whatever surrounds it is responsible for announcing that something is
 loading.
@@ -33,7 +33,7 @@ the `size` prop against the package default. It carries the number into the
 spinner's own CSS rather than offering a second way in, so size is a prop and
 nothing else.
 
-`SPINNER_MOTION` in `packages/loading/src/motion.ts` is the machine-readable
+`SPINNER_MOTION` in `src/motion.ts` is the machine-readable
 half — each spinner's default duration, in milliseconds. It is the single
 definition: the CSS interpolates its fallback from it, and the showcase seeds
 the speed control from it rather than restating the number.
@@ -59,7 +59,7 @@ the label the control shows, and its values in control order, the first being
 the library's default. The catalog only describes the choice; the prop itself
 lives in the library.
 
-`SPINNERS` in `packages/loading/src/spinners.ts` is the library's registry:
+`SPINNERS` in `src/spinners.ts` is the library's registry:
 every spinner under its `ld-` key. The showcase renders from it, the tests and
 the consumer check iterate it, and the catalog checks an entry's options against
 the component registered under its slug through a type-only import. An option's

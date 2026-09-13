@@ -22,8 +22,8 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
-      # Lint scans the whole repository, but tests need only the library.
-      # Excluding web also avoids its licensed icon installation scripts.
-      - run: pnpm install --frozen-lockfile --filter loading --filter loading-dev
+      # Lint scans the whole repository, but tests need only the library at
+      # the root. Excluding web also avoids its licensed icon installation scripts.
+      - run: pnpm install --frozen-lockfile --filter loading-dev
       - run: pnpm lint
       - run: pnpm test

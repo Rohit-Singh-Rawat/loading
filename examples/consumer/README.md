@@ -8,8 +8,8 @@ library edits appear instantly during `pnpm dev`; this app deliberately does the
 
 ## Why it lives outside the pnpm workspace
 
-`pnpm-workspace.yaml` globs only `apps/*` and `packages/*`. Keeping this app at `examples/`
-means pnpm cannot symlink the local `packages/loading` into it, so `node_modules/loading-dev`
+`pnpm-workspace.yaml` lists only the root and `apps/*`. Keeping this app at `examples/`
+means pnpm cannot symlink the local library into it, so `node_modules/loading-dev`
 is a genuine registry download. If this app were added to the workspace, the test would
 silently start passing against local source and stop being a test at all.
 

@@ -23,7 +23,7 @@ jobs:
       # Trusted publishing needs npm >= 11.5.1, which is newer than the npm
       # bundled with some Node 24 releases.
       - run: npm install --global npm@latest
-      # Scoped to the published package on purpose: a full workspace install
+      # Scoped to the root package on purpose: a full workspace install
       # pulls in apps/web, whose licensed icon packages throw from a preinstall
       # script unless CENTRAL_LICENSE_KEY is in the environment.
       - run: pnpm install --frozen-lockfile --filter loading-dev
@@ -31,4 +31,3 @@ jobs:
       # loading-dev has no workspace: dependencies for pnpm to rewrite.
       # prepublishOnly runs tsup, so dist/ is built from the tagged source.
       - run: npm publish
-        working-directory: packages/loading

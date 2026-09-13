@@ -1,19 +1,59 @@
 {
-  "name": "loading",
-  "private": true,
+  "name": "loading-dev",
+  "version": "0.3.0",
+  "description": "A lightweight library full of beautiful loading indicators for React.",
+  "keywords": [
+    "react",
+    "spinner",
+    "loading",
+    "loader",
+    "indicator"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakubkrehel/loading.git"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "pnpm -r build",
-    "dev": "pnpm --parallel -r dev",
+    "build": "tsup",
+    "build:web": "pnpm --filter web build",
+    "dev": "pnpm run \"/^dev:/\"",
+    "dev:lib": "tsup --watch src",
+    "dev:web": "pnpm --filter web dev",
     "fix": "biome check --write .",
     "format": "biome format --write .",
     "lint": "biome check .",
+    "prepublishOnly": "tsup",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.13",
+    "@types/react": "^19",
+    "@types/react-dom": "^19.2.4",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "tsup": "^8.5.0",
+    "typescript": "^5",
     "ultracite": "^7.11.1",
     "vitest": "^4.1.11"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
   },
   "packageManager": "pnpm@11.8.0"
 }

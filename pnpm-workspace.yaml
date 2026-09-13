@@ -1,6 +1,6 @@
 packages:
+  - "."
   - "apps/*"
-  - "packages/*"
 
 allowBuilds:
   '@central-icons-react/round-filled-radius-3-stroke-2': true
