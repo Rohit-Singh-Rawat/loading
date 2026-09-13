@@ -1,3 +1,4 @@
+import { Separator } from "@base-ui/react/separator";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CodePanel } from "@/components/mdx/code-panel";
@@ -76,7 +77,7 @@ export default async function SpinnerPage({
       </div>
       {(previous || next) && (
         <>
-          <hr className="border-border" />
+          <Separator className="h-px bg-border" />
           <PrevNext next={next} previous={previous} />
         </>
       )}
