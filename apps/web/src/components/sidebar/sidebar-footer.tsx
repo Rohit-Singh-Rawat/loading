@@ -48,7 +48,7 @@ export function SidebarFooter() {
           href="https://x.com/paulfaivret"
           name="Paul"
         />
-    </Text>
-   </div>
+      </Text>
+    </div>
   );
 }

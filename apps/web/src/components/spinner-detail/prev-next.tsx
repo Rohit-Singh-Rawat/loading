@@ -46,7 +46,13 @@ function PrevNextLink({
         >
           {label}
         </Text>
-        <Text as="span" className="w-full text-content" size="sm" truncate>
+        <Text
+          as="span"
+          className="w-full text-content"
+          size="sm"
+          truncate
+          weight="semimedium"
+        >
           {item.name}
         </Text>
       </span>
