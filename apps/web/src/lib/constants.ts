@@ -7,6 +7,7 @@ export const SITE_DESCRIPTION =
 export const TWITTER_HANDLE = "@jakubkrehel";
 
 export const PREVIEW_SECTION_ID = "preview";
+export const PROSE_SECTION_ID = "prose";
 
 // The hostname is also listed in `next.config.ts` under `images.remotePatterns`,
 // which cannot import from `src`.

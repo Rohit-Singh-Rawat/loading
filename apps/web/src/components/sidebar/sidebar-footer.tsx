@@ -1,3 +1,4 @@
+import { Separator } from "@base-ui/react/separator";
 import Image from "next/image";
 import { Text } from "@/components/ui/text";
 import { BLOB_BASE } from "@/lib/constants";
@@ -32,11 +33,12 @@ function Nametag({
 
 export function SidebarFooter() {
   return (
-    <div className="border-border border-t p-4">
+    <div className="flex flex-col gap-6 px-4 pb-4">
+      <Separator className="h-px bg-border" />
       <Text className="text-content-subtle leading-relaxed" size="sm">
         Crafted with care by{" "}
         <Nametag
-          avatar={`${BLOB_BASE}/jakub.png`}
+          avatar={`${BLOB_BASE}/jakub.png?v=2`}
           href="https://x.com/jakubkrehel"
           name="Jakub"
         />{" "}

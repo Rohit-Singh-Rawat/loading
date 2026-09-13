@@ -2,25 +2,41 @@ import { readFile } from "node:fs/promises";
 import {
   Arc,
   BouncingDots,
+  CircularDots,
   Classic,
+  Clock,
   Comet,
+  Compass,
+  Drive,
   Grid,
+  LinearDots,
   Orbit,
+  Pulse,
+  Radar,
   Ring,
   Ripple,
   SPINNER_MOTION,
+  Swirl,
 } from "loading-dev";
 import type { CSSProperties, ReactNode } from "react";
 
 const SPINNERS = [
   { Component: Arc, name: "Arc" },
   { Component: BouncingDots, name: "BouncingDots" },
+  { Component: CircularDots, name: "CircularDots" },
   { Component: Classic, name: "Classic" },
+  { Component: Clock, name: "Clock" },
   { Component: Comet, name: "Comet" },
+  { Component: Compass, name: "Compass" },
+  { Component: Drive, name: "Drive" },
   { Component: Grid, name: "Grid" },
+  { Component: LinearDots, name: "LinearDots" },
   { Component: Orbit, name: "Orbit" },
+  { Component: Pulse, name: "Pulse" },
+  { Component: Radar, name: "Radar" },
   { Component: Ring, name: "Ring" },
   { Component: Ripple, name: "Ripple" },
+  { Component: Swirl, name: "Swirl" },
 ] as const;
 
 async function installedVersion(): Promise<string> {

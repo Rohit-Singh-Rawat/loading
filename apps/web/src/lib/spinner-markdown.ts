@@ -51,11 +51,15 @@ export async function getSpinnerDocument(
     return null;
   }
 
-  const [shared, snippet] = await Promise.all([
+  const [shared, snippet, own] = await Promise.all([
     readContent("spinners", "_shared.mdx"),
     readContent("snippets", `${slug}.mdx`),
+    item.options ? readContent("spinners", `${slug}.mdx`) : null,
   ]);
-  const { headings, markdown } = await parse(shared, slug);
+  const { headings, markdown } = await parse(
+    own ? `${shared}\n\n${own}` : shared,
+    slug
+  );
 
   return {
     headings,

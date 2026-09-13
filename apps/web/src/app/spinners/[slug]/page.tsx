@@ -1,5 +1,7 @@
+import { Separator } from "@base-ui/react/separator";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { CodePanel } from "@/components/mdx/code-panel";
 import { Demo } from "@/components/mdx/demo";
 import { PrevNext } from "@/components/spinner-detail/prev-next";
 import { SpinnerPreview } from "@/components/spinner-detail/spinner-preview";
@@ -11,7 +13,7 @@ import {
 } from "@/components/spinners";
 import { PageHeader } from "@/components/ui/page-header";
 import Shared from "@/content/spinners/_shared.mdx";
-import { SITE_DESCRIPTION } from "@/lib/constants";
+import { PROSE_SECTION_ID, SITE_DESCRIPTION } from "@/lib/constants";
 import type { MDXModule } from "@/lib/mdx";
 
 export const generateStaticParams = spinnerParams;
@@ -46,6 +48,10 @@ export default async function SpinnerPage({
   const { default: Snippet }: MDXModule = await import(
     `@/content/snippets/${slug}.mdx`
   );
+  const own: MDXModule | null = item.options
+    ? await import(`@/content/spinners/${slug}.mdx`)
+    : null;
+  const Own = own?.default;
 
   const components = {
     Demo: (props: { name: string }) => <Demo {...props} slug={slug} />,
@@ -60,17 +66,18 @@ export default async function SpinnerPage({
         title={item.name}
       />
       <div className="flex flex-col">
-        <SpinnerPreview key={slug} slug={slug} />
-        <div className="flex flex-col [&>figure]:mt-6">
-          <div className="mt-2.5">
-            <Snippet />
-          </div>
+        <CodePanel>
+          <SpinnerPreview key={slug} slug={slug} />
+          <Snippet />
+        </CodePanel>
+        <div className="flex flex-col [&>figure]:mt-6" id={PROSE_SECTION_ID}>
           <Shared components={components} />
+          {Own && <Own components={components} />}
         </div>
       </div>
       {(previous || next) && (
         <>
-          <hr className="border-border" />
+          <Separator className="h-px bg-border" />
           <PrevNext next={next} previous={previous} />
         </>
       )}

@@ -1,27 +1,13 @@
+import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE, duration, PLAY_STATE } from "./motion";
+import { DEFAULT_SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-const css = `
-.ld-arc {
-  animation: ld-arc-rotate ${duration("arc")} linear infinite;
-  animation-play-state: ${PLAY_STATE};
-}
+export interface ArcProps extends SpinnerProps, EasingProps {}
 
-@keyframes ld-arc-rotate {
-  to {
-    transform: rotate(360deg);
-  }
-}
+const css = rotationCss("arc");
 
-@media (prefers-reduced-motion: reduce) {
-  .ld-arc {
-    animation: none;
-  }
-}
-`;
-
-export function Arc({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
+export function Arc({ easing, size = DEFAULT_SIZE, ...rest }: ArcProps) {
   return (
     <>
       <SpinnerStyle name="arc">{css}</SpinnerStyle>
@@ -34,6 +20,7 @@ export function Arc({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
         width={size}
       >
         <circle
+          className={spinClass("arc", easing)}
           cx="12"
           cy="12"
           r="10"

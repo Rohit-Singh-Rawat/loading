@@ -6,7 +6,6 @@ import { IconCircleX } from "central-icons/IconCircleX";
 import { IconArrowCornerDownLeft } from "central-icons-outlined/IconArrowCornerDownLeft";
 import { IconArrowDown } from "central-icons-outlined/IconArrowDown";
 import { IconArrowUp } from "central-icons-outlined/IconArrowUp";
-import { IconCrossMedium } from "central-icons-outlined/IconCrossMedium";
 import { IconMagnifyingGlass } from "central-icons-outlined/IconMagnifyingGlass";
 import { Command, useCommandState } from "cmdk";
 import { usePathname, useRouter } from "next/navigation";
@@ -116,14 +115,6 @@ export function SearchDialog({
                     value={query}
                   />
                 </div>
-                <button
-                  aria-label="Close search"
-                  className="-mr-1 flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-md text-content-subtle transition-colors duration-200 ease-out hover-hover:hover:text-content"
-                  onClick={() => onOpenChange(false)}
-                  type="button"
-                >
-                  <IconCrossMedium className="size-4" />
-                </button>
               </div>
             </div>
             <div className="h-px w-full bg-border" />

@@ -1,42 +1,61 @@
+import { IconArrowLeft } from "central-icons-outlined/IconArrowLeft";
+import { IconArrowRight } from "central-icons-outlined/IconArrowRight";
 import Link from "next/link";
 import type { SpinnerItem } from "@/components/spinners";
 import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 
+const directions = {
+  next: {
+    icon: IconArrowRight,
+    label: "Next",
+    link: "flex-row-reverse",
+    text: "items-start",
+  },
+  previous: {
+    icon: IconArrowLeft,
+    label: "Previous",
+    link: "flex-row",
+    text: "items-end text-end",
+  },
+};
+
 function PrevNextLink({
-  align,
+  direction,
   item,
-  label,
 }: {
-  align: "end" | "start";
+  direction: keyof typeof directions;
   item: SpinnerItem;
-  label: string;
 }) {
+  const { icon: Icon, label, link, text } = directions[direction];
+
   return (
     <Link
       className={cn(
-        "group flex max-w-40 select-none flex-col gap-1 sm:max-w-80",
-        align === "start" ? "items-start" : "items-end"
+        "group flex min-w-0 flex-1 select-none items-center justify-between gap-3 rounded-xl border border-border px-3.5 py-3 transition-colors duration-200 ease-out hover-hover:hover:bg-background-hovered",
+        link
       )}
       href={`/spinners/${item.slug}`}
     >
-      <Text
-        as="span"
-        className="text-content-subtle transition-colors duration-200 ease-out group-hover:text-content"
-        size="sm"
-        weight="medium"
-      >
-        {label}
-      </Text>
-      <Text
-        as="span"
-        className="w-full text-content"
-        size="sm"
-        truncate
-        weight="medium"
-      >
-        {item.name}
-      </Text>
+      <Icon className="size-4 shrink-0 text-content-subtle transition-colors duration-200 ease-out group-hover:text-content" />
+      <span className={cn("flex min-w-0 flex-col", text)}>
+        <Text
+          as="span"
+          className="text-content-subtle transition-colors duration-200 ease-out group-hover:text-content"
+          size="sm"
+        >
+          {label}
+        </Text>
+        <Text
+          as="span"
+          className="w-full text-content"
+          size="sm"
+          truncate
+          weight="semimedium"
+        >
+          {item.name}
+        </Text>
+      </span>
     </Link>
   );
 }
@@ -49,16 +68,17 @@ export function PrevNext({
   previous?: SpinnerItem;
 }) {
   return (
-    <nav
-      aria-label="More spinners"
-      className="flex w-full items-center justify-between"
-    >
+    <nav aria-label="More spinners" className="flex w-full gap-8">
       {previous ? (
-        <PrevNextLink align="start" item={previous} label="Previous" />
+        <PrevNextLink direction="previous" item={previous} />
       ) : (
-        <div />
+        <div className="flex-1" />
       )}
-      {next ? <PrevNextLink align="end" item={next} label="Next" /> : <div />}
+      {next ? (
+        <PrevNextLink direction="next" item={next} />
+      ) : (
+        <div className="flex-1" />
+      )}
     </nav>
   );
 }

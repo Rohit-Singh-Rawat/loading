@@ -53,6 +53,12 @@ an entry cannot end up pointing at another spinner's motion.
 **The array's order is the order everywhere**: the homepage grid, the sidebar,
 and previous/next on a spinner page. Reordering it reorders all three.
 
+An entry's **options** are the props a spinner has beyond the shared ones —
+`easing` on the rotating spinners, `direction` on `Grid`. Each names the prop,
+the label the control shows, and its values in control order, the first being
+the library's default. The catalog only describes the choice; the prop itself
+lives in the library.
+
 The library owns motion; the catalog owns presentation. Descriptions, display
 names and ordering are site copy and stay out of the published package.
 
@@ -72,10 +78,11 @@ playback, which is a separate control outside the panel.
 
 The prose every spinner page shares, in
 `apps/web/src/content/spinners/_shared.mdx` — one file, with a `##` heading and
-a `<Demo />` tag per section. There is no per-spinner prose; what makes a
-spinner distinct is its description in the catalog and its demos. The `##`
-headings become the table of contents in the aside, slugged the same way
-`rehype-slug` slugs them.
+a `<Demo />` tag per section. What makes a spinner distinct is its description
+in the catalog and its demos. A spinner with options of its own also has
+`content/spinners/<slug>.mdx` — one section per option, rendered after the
+shared ones. The `##` headings of both become the table of contents in the
+aside, slugged the same way `rehype-slug` slugs them.
 
 A demo is `content/demos/<slug>/<demo>.tsx`, and it is the single source. Its
 `.mdx` twin is a one-line fence that pulls the file in at build time, so the

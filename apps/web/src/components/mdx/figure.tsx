@@ -1,5 +1,5 @@
 import { Children, isValidElement, type ReactNode } from "react";
-import { CodeBlockHeader } from "@/components/mdx/code-block-header";
+import { CopyButton } from "@/components/ui/copy-button";
 import { FIGURE_CLASSES } from "@/lib/code-block";
 
 function extractText(node: ReactNode): string {
@@ -18,6 +18,13 @@ function extractText(node: ReactNode): string {
   return "";
 }
 
+function isFenceTitle(node: ReactNode): boolean {
+  return (
+    isValidElement(node) &&
+    "data-rehype-pretty-code-title" in (node.props as Record<string, unknown>)
+  );
+}
+
 export function MDXFigure({
   children,
   ...rest
@@ -28,29 +35,12 @@ export function MDXFigure({
     return <figure {...rest}>{children}</figure>;
   }
 
-  const items = Children.toArray(children);
-  const titleChild = items.find(
-    (item) =>
-      isValidElement(item) &&
-      "data-rehype-pretty-code-title" in (item.props as Record<string, unknown>)
-  );
-  const preChild = items.find((item) => item !== titleChild);
-
-  if (!(titleChild && isValidElement(titleChild))) {
-    return <figure className={FIGURE_CLASSES}>{children}</figure>;
-  }
-
-  const titleProps = titleChild.props as {
-    children?: ReactNode;
-    "data-language"?: string;
-  };
-  const filename = extractText(titleProps.children);
-  const code = extractText(preChild);
+  const pre = Children.toArray(children).filter((item) => !isFenceTitle(item));
 
   return (
     <figure className={FIGURE_CLASSES}>
-      <CodeBlockHeader code={code} filename={filename} />
-      {preChild}
+      <CopyButton className="absolute top-2 right-2" text={extractText(pre)} />
+      {pre}
     </figure>
   );
 }
