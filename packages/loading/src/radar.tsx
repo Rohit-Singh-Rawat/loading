@@ -1,26 +1,31 @@
 import { useId } from "react";
 import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE } from "./motion";
+import { SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 export interface RadarProps extends SpinnerProps, EasingProps {}
 
-const css = rotationCss("radar");
+const css = `
+.ld-radar {
+  width: ${SIZE};
+  height: ${SIZE};
+}
 
-export function Radar({ easing, size = DEFAULT_SIZE, ...rest }: RadarProps) {
+${rotationCss("radar")}
+`;
+
+export function Radar({ easing, ...rest }: RadarProps) {
   const beamGradient = useId();
 
   return (
     <>
       <SpinnerStyle name="radar">{css}</SpinnerStyle>
       <svg
-        {...spinnerRoot("radar", { ...rest, size })}
+        {...spinnerRoot("radar", rest)}
         fill="none"
-        height={size}
         role="presentation"
         viewBox="0 0 16 16"
-        width={size}
       >
         <defs>
           <radialGradient

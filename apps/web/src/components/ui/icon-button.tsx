@@ -27,7 +27,7 @@ type IconButtonProps = Omit<
   variant?: ButtonVariant;
 };
 
-export default function IconButton({
+export function IconButton({
   children,
   className,
   rounded = false,

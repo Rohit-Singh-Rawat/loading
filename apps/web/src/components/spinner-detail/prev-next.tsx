@@ -35,7 +35,7 @@ function PrevNextLink({
         "group flex min-w-0 flex-1 select-none items-center justify-between gap-3 rounded-xl border border-border px-3.5 py-3 transition-colors duration-200 ease-out hover-hover:hover:bg-background-hovered",
         link
       )}
-      href={`/spinners/${item.slug}`}
+      href={item.href}
     >
       <Icon className="size-4 shrink-0 text-content-subtle transition-colors duration-200 ease-out group-hover:text-content" />
       <span className={cn("flex min-w-0 flex-col", text)}>

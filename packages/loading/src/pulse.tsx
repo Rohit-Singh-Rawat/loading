@@ -1,8 +1,13 @@
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE, duration, PLAY_STATE } from "./motion";
+import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
+.ld-pulse {
+  width: ${SIZE};
+  height: ${SIZE};
+}
+
 .ld-pulse-ring {
   transform-origin: center;
   animation: ld-pulse-ripple ${duration("pulse")} ease-out infinite;
@@ -28,17 +33,15 @@ const css = `
 }
 `;
 
-export function Pulse({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
+export function Pulse(props: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="pulse">{css}</SpinnerStyle>
       <svg
-        {...spinnerRoot("pulse", { ...rest, size })}
+        {...spinnerRoot("pulse", props)}
         fill="none"
-        height={size}
         role="presentation"
         viewBox="0 0 16 16"
-        width={size}
       >
         <circle
           className="ld-pulse-ring"

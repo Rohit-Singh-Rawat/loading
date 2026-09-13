@@ -1,16 +1,12 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 
 export function MDXCode({
   children,
   className,
   ...rest
-}: {
-  children: ReactNode;
-  className?: string;
-} & Record<string, unknown>) {
+}: ComponentPropsWithoutRef<"code">) {
   const isBlock =
-    "data-language" in rest ||
-    (typeof className === "string" && className.startsWith("language-"));
+    "data-language" in rest || className?.startsWith("language-") === true;
   if (isBlock) {
     return (
       <code className={className} {...rest}>

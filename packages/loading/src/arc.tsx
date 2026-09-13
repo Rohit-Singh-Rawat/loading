@@ -1,23 +1,28 @@
 import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE } from "./motion";
+import { SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 export interface ArcProps extends SpinnerProps, EasingProps {}
 
-const css = rotationCss("arc");
+const css = `
+.ld-arc {
+  width: ${SIZE};
+  height: ${SIZE};
+}
 
-export function Arc({ easing, size = DEFAULT_SIZE, ...rest }: ArcProps) {
+${rotationCss("arc")}
+`;
+
+export function Arc({ easing, ...rest }: ArcProps) {
   return (
     <>
       <SpinnerStyle name="arc">{css}</SpinnerStyle>
       <svg
-        {...spinnerRoot("arc", { ...rest, size })}
+        {...spinnerRoot("arc", rest)}
         fill="none"
-        height={size}
         role="presentation"
         viewBox="0 0 24 24"
-        width={size}
       >
         <circle
           className={spinClass("arc", easing)}

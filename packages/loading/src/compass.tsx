@@ -1,8 +1,13 @@
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE, duration, PLAY_STATE } from "./motion";
+import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
+.ld-compass {
+  width: ${SIZE};
+  height: ${SIZE};
+}
+
 .ld-compass-ticks {
   transform-origin: center;
   animation: ld-compass-turn ${duration("compass")} ease-in-out infinite;
@@ -22,17 +27,15 @@ const css = `
 }
 `;
 
-export function Compass({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
+export function Compass(props: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="compass">{css}</SpinnerStyle>
       <svg
-        {...spinnerRoot("compass", { ...rest, size })}
+        {...spinnerRoot("compass", props)}
         fill="none"
-        height={size}
         role="presentation"
         viewBox="0 0 16 16"
-        width={size}
       >
         <g className="ld-compass-ticks" fill="currentColor">
           <path d="M7.33334 0.666667C7.33334 0.298477 7.63181 0 8 0C8.36819 0 8.66667 0.298477 8.66667 0.666667V3.33333C8.66667 3.70152 8.36819 4 8 4C7.63181 4 7.33334 3.70152 7.33334 3.33333V0.666667Z" />

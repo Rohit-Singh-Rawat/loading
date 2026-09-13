@@ -14,7 +14,7 @@ is a genuine registry download. If this app were added to the workspace, the tes
 silently start passing against local source and stop being a test at all.
 
 The trade-off: it has its own `package-lock.json` and is not covered by a root `pnpm install`.
-That is intentional — a clean install is the thing being verified.
+That is intentional. A clean install is the thing being verified.
 
 ## Usage
 

@@ -42,7 +42,7 @@ the speed control from it rather than restating the number.
 
 `CATALOG` in `apps/web/src/components/spinners/index.ts` — the showcase's list
 of spinners and everything the site knows about each one that the library does
-not: display name, description, and the speed slider's range. It is exported
+not: display name, description, its `href`, and the speed slider's range. It is exported
 as `SPINNER_ITEMS`. Preview customization reads the default duration directly
 from `SPINNER_MOTION`, so metadata consumers need no library runtime imports.
 
@@ -59,10 +59,11 @@ the label the control shows, and its values in control order, the first being
 the library's default. The catalog only describes the choice; the prop itself
 lives in the library.
 
-The component registry in `apps/web/src/components/spinners/components.ts` maps
-each slug to its implementation. Only rendering components import it at runtime;
-metadata consumers use the catalog. The catalog checks options against the
-registered component through a type-only import, and requires a nonempty value list.
+`SPINNERS` in `packages/loading/src/spinners.ts` is the library's registry:
+every spinner under its `ld-` key. The showcase renders from it, the tests and
+the consumer check iterate it, and the catalog checks an entry's options against
+the component registered under its slug through a type-only import. An option's
+value list is a nonempty tuple, so the default is always the first value.
 
 The library owns motion; the catalog owns presentation. Descriptions, display
 names and ordering are site copy and stay out of the published package.

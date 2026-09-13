@@ -68,7 +68,7 @@ export default async function SpinnerPage({
       />
       <div className="flex flex-col">
         <CodePanel>
-          <SpinnerPreview key={slug} slug={slug} />
+          <SpinnerPreview item={item} key={slug} />
           <Snippet />
         </CodePanel>
         <div className="flex flex-col [&>figure]:mt-6" id={PROSE_SECTION_ID}>

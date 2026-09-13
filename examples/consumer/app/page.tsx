@@ -1,43 +1,8 @@
 import { readFile } from "node:fs/promises";
-import {
-  Arc,
-  BouncingDots,
-  CircularDots,
-  Classic,
-  Clock,
-  Comet,
-  Compass,
-  Drive,
-  Grid,
-  LinearDots,
-  Orbit,
-  Pulse,
-  Radar,
-  Ring,
-  Ripple,
-  SPINNER_MOTION,
-  Swirl,
-} from "loading-dev";
+import { SPINNER_MOTION, SPINNERS } from "loading-dev";
 import type { CSSProperties, ReactNode } from "react";
 
-const SPINNERS = [
-  { Component: Arc, name: "Arc" },
-  { Component: BouncingDots, name: "BouncingDots" },
-  { Component: CircularDots, name: "CircularDots" },
-  { Component: Classic, name: "Classic" },
-  { Component: Clock, name: "Clock" },
-  { Component: Comet, name: "Comet" },
-  { Component: Compass, name: "Compass" },
-  { Component: Drive, name: "Drive" },
-  { Component: Grid, name: "Grid" },
-  { Component: LinearDots, name: "LinearDots" },
-  { Component: Orbit, name: "Orbit" },
-  { Component: Pulse, name: "Pulse" },
-  { Component: Radar, name: "Radar" },
-  { Component: Ring, name: "Ring" },
-  { Component: Ripple, name: "Ripple" },
-  { Component: Swirl, name: "Swirl" },
-] as const;
+const ENTRIES = Object.entries(SPINNERS);
 
 async function installedVersion(): Promise<string> {
   try {
@@ -115,7 +80,7 @@ export default async function Page() {
         title="Default size"
       >
         <Row>
-          {SPINNERS.map(({ name, Component }) => (
+          {ENTRIES.map(([name, Component]) => (
             <Cell key={name} label={name}>
               <Component />
             </Cell>
@@ -128,7 +93,7 @@ export default async function Page() {
         title="Explicit size"
       >
         <Row>
-          {SPINNERS.map(({ name, Component }) => (
+          {ENTRIES.map(([name, Component]) => (
             <Cell key={name} label={`${name} size={48}`}>
               <Component size={48} />
             </Cell>
@@ -142,7 +107,7 @@ export default async function Page() {
       >
         <div style={{ color: "#e5484d" }}>
           <Row>
-            {SPINNERS.map(({ name, Component }) => (
+            {ENTRIES.map(([name, Component]) => (
               <Cell key={name} label={name}>
                 <Component size={32} />
               </Cell>
@@ -157,7 +122,7 @@ export default async function Page() {
       >
         <div style={{ "--ld-duration": "3s" } as CSSProperties}>
           <Row>
-            {SPINNERS.map(({ name, Component }) => (
+            {ENTRIES.map(([name, Component]) => (
               <Cell key={name} label={name}>
                 <Component size={32} />
               </Cell>
@@ -184,7 +149,7 @@ export default async function Page() {
         title="Reduced motion"
       >
         <Row>
-          {SPINNERS.map(({ name, Component }) => (
+          {ENTRIES.map(([name, Component]) => (
             <Cell key={name} label={name}>
               <Component size={32} />
             </Cell>

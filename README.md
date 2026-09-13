@@ -1,14 +1,16 @@
 # loading
 
-This is a monorepo for [loading.dev](https://loading.dev) website and the `loading-dev` package on npm.
+The home of [loading.dev](https://loading.dev) and `loading-dev`, a collection of loading spinners for React.
 
-- `packages/loading` — the published package. React 19, ESM only, zero dependencies, styles hoisted from inside the components so there is no CSS to import. Its own README documents the API.
-- `apps/web` — the showcase and docs site.
-- `examples/consumer` — installs `loading-dev` from the registry after a release and checks it actually works. It sits outside the workspace on purpose, so pnpm can't quietly symlink local source into the test.
+- `packages/loading` contains the spinners published to npm. They use React 19, ship as ES modules, and have no dependencies. Styles are included, so there is no CSS file to import. See the [package README](packages/loading/README.md) for usage.
+- `apps/web` is the website, where you can try each spinner and read the docs.
+- `examples/consumer` is a small app for checking a release. It installs the package from npm and stays outside the workspace so it tests the published version instead of the local code.
+
+To work on the project locally:
 
 ```sh
-pnpm dev     # tsup --watch and next dev, in parallel
-pnpm lint    # Biome
+pnpm dev     # Start the website and watch for package changes
+pnpm lint    # Check formatting and lint rules with Biome
 ```
 
-Adding a spinner touches both packages — the library file, the motion contract, the site catalog, the snippet and its demos. The order is written out in `AGENTS.md`; `CONTEXT.md` explains the words (spinner, motion contract, catalog, document).
+To add a spinner, follow the steps in [AGENTS.md](AGENTS.md). They cover the component, its animation settings, and the examples and docs on the website. [CONTEXT.md](CONTEXT.md) explains how those pieces fit together.

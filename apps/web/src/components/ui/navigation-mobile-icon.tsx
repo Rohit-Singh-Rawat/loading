@@ -17,11 +17,7 @@ const lineVariants = {
   }),
 };
 
-export default function NavigationMobileIcon({
-  isExpanded,
-}: {
-  isExpanded: boolean;
-}) {
+export function NavigationMobileIcon({ isExpanded }: { isExpanded: boolean }) {
   return (
     <div className="relative flex size-6 flex-col items-center justify-center will-change-transform">
       {(["top", "bottom"] as const).map((position) => (

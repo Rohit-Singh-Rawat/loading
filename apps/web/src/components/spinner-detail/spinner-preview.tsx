@@ -3,11 +3,11 @@
 import { IconPause } from "central-icons/IconPause";
 import { IconPlay } from "central-icons/IconPlay";
 import { IconChevronLargeLeft } from "central-icons-outlined/IconChevronLargeLeft";
+import { SPINNERS } from "loading-dev";
 import { type ReactNode, useState } from "react";
-import { getSpinner } from "@/components/spinners";
-import { SPINNER_COMPONENTS } from "@/components/spinners/components";
+import type { SpinnerItem } from "@/components/spinners";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
-import IconButton from "@/components/ui/icon-button";
+import { IconButton } from "@/components/ui/icon-button";
 import {
   Tooltip,
   TooltipContent,
@@ -75,14 +75,10 @@ function CustomizeDrawer({
   );
 }
 
-export function SpinnerPreview({ slug }: { slug: string }) {
+export function SpinnerPreview({ item }: { item: SpinnerItem }) {
   const [customizeOpen, setCustomizeOpen] = useState(true);
-  const item = getSpinner(slug);
-  if (!item) {
-    throw new Error(`No spinner registered for slug "${slug}"`);
-  }
   const state = useCustomizationState(item);
-  const Spinner = SPINNER_COMPONENTS[item.slug];
+  const Spinner = SPINNERS[item.slug];
   const playLabel = state.paused ? "Play animation" : "Pause animation";
 
   return (

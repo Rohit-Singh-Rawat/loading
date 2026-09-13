@@ -1,5 +1,5 @@
 import { cssVars, SpinnerStyle, spinnerRoot } from "./frame";
-import { DEFAULT_SIZE, duration, PLAY_STATE } from "./motion";
+import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const DOTS = [
@@ -16,6 +16,11 @@ const DOTS = [
 const dur = duration("circular-dots");
 
 const css = `
+.ld-circular-dots {
+  width: ${SIZE};
+  height: ${SIZE};
+}
+
 .ld-circular-dots-dot {
   animation: ld-circular-dots-fade ${dur} linear infinite;
   animation-delay: calc(${dur} * (var(--ld-circular-dots-step) - ${DOTS.length}) / ${DOTS.length});
@@ -39,17 +44,15 @@ const css = `
 }
 `;
 
-export function CircularDots({ size = DEFAULT_SIZE, ...rest }: SpinnerProps) {
+export function CircularDots(props: SpinnerProps) {
   return (
     <>
       <SpinnerStyle name="circular-dots">{css}</SpinnerStyle>
       <svg
-        {...spinnerRoot("circular-dots", { ...rest, size })}
+        {...spinnerRoot("circular-dots", props)}
         fill="currentColor"
-        height={size}
         role="presentation"
         viewBox="0 0 16 16"
-        width={size}
       >
         {DOTS.map(([cx, cy], step) => (
           <circle

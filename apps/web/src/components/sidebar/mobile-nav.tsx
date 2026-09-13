@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NAV_ITEMS } from "@/components/sidebar/nav-items";
 import { SOCIAL_LINKS } from "@/components/sidebar/social-links";
-import IconButton from "@/components/ui/icon-button";
+import { IconButton } from "@/components/ui/icon-button";
 import { Logo } from "@/components/ui/logo";
-import NavigationMobileIcon from "@/components/ui/navigation-mobile-icon";
+import { NavigationMobileIcon } from "@/components/ui/navigation-mobile-icon";
 import { Text } from "@/components/ui/text";
 import { useBreakpointChange } from "@/lib/use-breakpoint-change";
 
