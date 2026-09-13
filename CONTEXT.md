@@ -79,10 +79,11 @@ playback, which is a separate control outside the panel.
 The prose every spinner page shares, in
 `apps/web/src/content/spinners/_shared.mdx` — one file, with a `##` heading and
 a `<Demo />` tag per section. What makes a spinner distinct is its description
-in the catalog and its demos. A spinner with options of its own also has
-`content/spinners/<slug>.mdx` — one section per option, rendered after the
-shared ones. The `##` headings of both become the table of contents in the
-aside, slugged the same way `rehype-slug` slugs them.
+in the catalog and its demos. An option is documented once, in `content/options/<prop>.mdx` — one section
+per prop, keyed by the option's `prop` name and rendered after the shared
+ones by every spinner whose catalog entry lists it. The `##` headings of both
+become the table of contents in the aside, slugged the same way `rehype-slug`
+slugs them.
 
 A demo is `content/demos/<slug>/<demo>.tsx`, and it is the single source. Its
 `.mdx` twin is a one-line fence that pulls the file in at build time, so the

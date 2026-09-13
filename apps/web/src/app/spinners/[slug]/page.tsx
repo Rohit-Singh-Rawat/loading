@@ -48,10 +48,11 @@ export default async function SpinnerPage({
   const { default: Snippet }: MDXModule = await import(
     `@/content/snippets/${slug}.mdx`
   );
-  const own: MDXModule | null = item.options
-    ? await import(`@/content/spinners/${slug}.mdx`)
-    : null;
-  const Own = own?.default;
+  const options: MDXModule[] = await Promise.all(
+    (item.options ?? []).map(
+      (option) => import(`@/content/options/${option.prop}.mdx`)
+    )
+  );
 
   const components = {
     Demo: (props: { name: string }) => <Demo {...props} slug={slug} />,
@@ -72,7 +73,9 @@ export default async function SpinnerPage({
         </CodePanel>
         <div className="flex flex-col [&>figure]:mt-6" id={PROSE_SECTION_ID}>
           <Shared components={components} />
-          {Own && <Own components={components} />}
+          {options.map(({ default: Option }, index) => (
+            <Option components={components} key={item.options?.[index].prop} />
+          ))}
         </div>
       </div>
       {(previous || next) && (
