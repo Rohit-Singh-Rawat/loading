@@ -46,13 +46,16 @@ export function CopyButton({
         active={copied}
         activeIcon={
           <IconCircleCheck
-            className={cn("size-4 text-content-subtle", iconClassName)}
+            className={cn(
+              "size-4 text-content-subtle will-change-transform",
+              iconClassName
+            )}
           />
         }
         idleIcon={
           <IconSquareBehindSquare1
             className={cn(
-              "size-4 text-content-subtle transition-colors duration-200 ease-out group-hover:text-content",
+              "size-4 text-content-subtle transition-colors duration-200 ease-out will-change-transform group-hover:text-content",
               iconClassName
             )}
           />
