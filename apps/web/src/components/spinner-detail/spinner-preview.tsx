@@ -5,6 +5,7 @@ import { IconPlay } from "central-icons/IconPlay";
 import { IconChevronLargeLeft } from "central-icons-outlined/IconChevronLargeLeft";
 import { type ReactNode, useState } from "react";
 import { getSpinner } from "@/components/spinners";
+import { SPINNER_COMPONENTS } from "@/components/spinners/components";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
 import IconButton from "@/components/ui/icon-button";
 import {
@@ -81,7 +82,7 @@ export function SpinnerPreview({ slug }: { slug: string }) {
     throw new Error(`No spinner registered for slug "${slug}"`);
   }
   const state = useCustomizationState(item);
-  const Spinner = item.component;
+  const Spinner = SPINNER_COMPONENTS[item.slug];
   const playLabel = state.paused ? "Play animation" : "Pause animation";
 
   return (

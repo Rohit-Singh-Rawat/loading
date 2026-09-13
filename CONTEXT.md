@@ -42,9 +42,9 @@ the speed control from it rather than restating the number.
 
 `CATALOG` in `apps/web/src/components/spinners/index.ts` — the showcase's list
 of spinners and everything the site knows about each one that the library does
-not: display name, description, and the speed slider's range. `SPINNER_ITEMS`
-is derived from it, filling in each spinner's default duration from
-`SPINNER_MOTION`.
+not: display name, description, and the speed slider's range. It is exported
+as `SPINNER_ITEMS`. Preview customization reads the default duration directly
+from `SPINNER_MOTION`, so metadata consumers need no library runtime imports.
 
 An entry's `slug` is typed `SpinnerName`, so it is the same string as the
 spinner's `ld-` key. It is also the MDX filename. One identifier, not three —
@@ -58,6 +58,11 @@ An entry's **options** are the props a spinner has beyond the shared ones —
 the label the control shows, and its values in control order, the first being
 the library's default. The catalog only describes the choice; the prop itself
 lives in the library.
+
+The component registry in `apps/web/src/components/spinners/components.ts` maps
+each slug to its implementation. Only rendering components import it at runtime;
+metadata consumers use the catalog. The catalog checks options against the
+registered component through a type-only import, and requires a nonempty value list.
 
 The library owns motion; the catalog owns presentation. Descriptions, display
 names and ordering are site copy and stay out of the published package.
@@ -83,7 +88,8 @@ in the catalog and its demos. An option is documented once, in `content/options/
 per prop, keyed by the option's `prop` name and rendered after the shared
 ones by every spinner whose catalog entry lists it. The `##` headings of both
 become the table of contents in the aside, slugged the same way `rehype-slug`
-slugs them.
+slugs them. The document helper expects plain `##` headings and literal
+`<Demo name="demo-name" />` tags, matching the authored content.
 
 A demo is `content/demos/<slug>/<demo>.tsx`, and it is the single source. Its
 `.mdx` twin is a one-line fence that pulls the file in at build time, so the

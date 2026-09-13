@@ -1,6 +1,6 @@
 "use client";
 
-import type { SpinnerProps } from "loading-dev";
+import { SPINNER_MOTION, type SpinnerProps } from "loading-dev";
 import { useState } from "react";
 import {
   DEFAULT_SIZE_INDEX,
@@ -39,10 +39,11 @@ function defaultOptions(item: SpinnerItem): Record<string, string> {
 export function useCustomizationState(
   item: SpinnerItem
 ): SpinnerCustomizationState {
+  const defaultDuration = SPINNER_MOTION[item.slug].duration;
   const [paused, setPaused] = useState(false);
   const [sizeIndex, setSizeIndex] = useState(DEFAULT_SIZE_INDEX);
   const [color, setColor] = useState<string | null>(null);
-  const [speedMs, setSpeedMs] = useState(item.speed.default);
+  const [speedMs, setSpeedMs] = useState<number>(defaultDuration);
   const [opacity, setOpacity] = useState(FULLY_OPAQUE);
   const [options, setOptions] = useState(() => defaultOptions(item));
 
@@ -62,7 +63,7 @@ export function useCustomizationState(
     reset: () => {
       setSizeIndex(DEFAULT_SIZE_INDEX);
       setColor(null);
-      setSpeedMs(item.speed.default);
+      setSpeedMs(defaultDuration);
       setOpacity(FULLY_OPAQUE);
       setOptions(defaultOptions(item));
     },

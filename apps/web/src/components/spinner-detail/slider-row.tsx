@@ -128,12 +128,12 @@ export function SliderRow({
         ref={trackRef}
       >
         <div
-          className="absolute inset-0 origin-left bg-background transition-transform duration-100 ease-out will-change-transform motion-reduce:transition-none"
+          className="absolute inset-0 origin-left bg-background will-change-transform"
           style={{ transform: FILL_TRANSFORM }}
         />
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-full transition-transform duration-100 ease-out will-change-transform motion-reduce:transition-none"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-full will-change-transform"
           style={{ transform: HANDLE_TRANSFORM }}
         >
           <span

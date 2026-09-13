@@ -1,9 +1,10 @@
 import Link from "next/link";
 import type { SpinnerItem } from "@/components/spinners";
+import { SPINNER_COMPONENTS } from "@/components/spinners/components";
 import { Text } from "@/components/ui/text";
 
 export function SpinnerCard({ item }: { item: SpinnerItem }) {
-  const Spinner = item.component;
+  const Spinner = SPINNER_COMPONENTS[item.slug];
 
   return (
     <Link
