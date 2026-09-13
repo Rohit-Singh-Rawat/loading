@@ -105,8 +105,12 @@ export function SpinnerPreview({ item }: { item: SpinnerItem }) {
               >
                 <AnimatedIcon
                   active={state.paused}
-                  activeIcon={<IconPlay className="size-4.5" />}
-                  idleIcon={<IconPause className="size-4.5" />}
+                  activeIcon={
+                    <IconPlay className="size-4.5 will-change-transform" />
+                  }
+                  idleIcon={
+                    <IconPause className="size-4.5 will-change-transform" />
+                  }
                 />
               </IconButton>
             }
