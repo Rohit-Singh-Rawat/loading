@@ -110,6 +110,12 @@ const CATALOG: SpinnerItem[] = [
     speed: { max: 2400, min: 400 },
   }),
   entry({
+    description: "Two lit ticks stepping around a ring of eight.",
+    name: "Classic v2",
+    slug: "classic-v2",
+    speed: { max: 2000, min: 400 },
+  }),
+  entry({
     description: "An arc rotating in a faint circle.",
     name: "Ring",
     options: [EASING_OPTION],

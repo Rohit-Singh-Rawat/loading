@@ -43,6 +43,7 @@ All spinners work in Server Components and they follow reduced motion preference
 - `BouncingDots`
 - `CircularDots`
 - `Classic`
+- `ClassicV2`
 - `Clock`
 - `Comet`
 - `Compass`

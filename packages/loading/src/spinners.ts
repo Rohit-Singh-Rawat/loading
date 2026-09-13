@@ -3,6 +3,7 @@ import { Arc } from "./arc";
 import { BouncingDots } from "./bouncing-dots";
 import { CircularDots } from "./circular-dots";
 import { Classic } from "./classic";
+import { ClassicV2 } from "./classic-v2";
 import { Clock } from "./clock";
 import { Comet } from "./comet";
 import { Compass } from "./compass";
@@ -24,6 +25,7 @@ export const SPINNERS = {
   "bouncing-dots": BouncingDots,
   "circular-dots": CircularDots,
   classic: Classic,
+  "classic-v2": ClassicV2,
   clock: Clock,
   comet: Comet,
   compass: Compass,

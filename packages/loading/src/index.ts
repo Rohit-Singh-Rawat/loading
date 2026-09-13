@@ -2,6 +2,7 @@ export { Arc, type ArcProps } from "./arc";
 export { BouncingDots } from "./bouncing-dots";
 export { CircularDots } from "./circular-dots";
 export { Classic } from "./classic";
+export { ClassicV2 } from "./classic-v2";
 export { Clock, type ClockProps } from "./clock";
 export { Comet, type CometProps } from "./comet";
 export { Compass } from "./compass";

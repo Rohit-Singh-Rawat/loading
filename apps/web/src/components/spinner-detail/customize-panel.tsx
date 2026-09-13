@@ -43,7 +43,12 @@ export function CustomizePanel({
           value={state.options[option.prop]}
         />
       ))}
-      <ColorPickerRow color={state.color} onChange={state.setColor} />
+      <ColorPickerRow
+        color={state.color}
+        onChange={state.setColor}
+        onOpacityChange={state.setOpacity}
+        opacity={state.opacity}
+      />
       <SliderRow
         format={(value) => `${value}ms`}
         label="Speed"

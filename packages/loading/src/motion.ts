@@ -17,6 +17,7 @@ export const SPINNER_MOTION = {
   "bouncing-dots": { duration: 500 },
   "circular-dots": { duration: 800 },
   classic: { duration: 1200 },
+  "classic-v2": { duration: 800 },
   clock: { duration: 1200 },
   comet: { duration: 700 },
   compass: { duration: 500 },
