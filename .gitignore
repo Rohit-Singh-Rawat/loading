@@ -30,3 +30,6 @@ next-env.d.ts
 /.claude/worktrees/
 .vercel
 .env*.local
+
+# editor
+.vscode/settings.json
