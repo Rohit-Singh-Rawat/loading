@@ -23,7 +23,7 @@ export function ColorPickerRow({
     <Popover>
       <PopoverTrigger
         aria-label={`Color: ${color ?? "Auto"}`}
-        className="link-outline flex h-8 w-full shrink-0 items-center justify-between rounded-lg bg-background px-2"
+        className="link-outline flex h-8 pointer-coarse:h-10 w-full shrink-0 items-center justify-between rounded-lg bg-background px-2"
       >
         <Text
           as="span"

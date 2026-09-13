@@ -6,7 +6,7 @@ export function MDXHeading({ children, id }: ComponentPropsWithoutRef<"h2">) {
   return (
     <Heading
       as="h2"
-      className="group relative ms-4 mt-16 mb-1 w-fit scroll-mt-20"
+      className="group relative mt-16 mb-1 w-fit scroll-mt-20 sm:ms-4"
       id={id}
       size={4}
       weight="semibold"

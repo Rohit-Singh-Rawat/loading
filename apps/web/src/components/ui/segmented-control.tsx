@@ -26,7 +26,7 @@ export function SegmentedControl<Value extends string | number>({
   return (
     <fieldset
       aria-label={label}
-      className="flex h-8 w-full items-center rounded-lg bg-background"
+      className="flex h-8 pointer-coarse:h-10 w-full items-center rounded-lg bg-background"
     >
       {options.map((option) => {
         const isActive = option.value === value;
@@ -34,7 +34,7 @@ export function SegmentedControl<Value extends string | number>({
         return (
           <label
             className={cn(
-              "relative flex h-8 min-w-0 flex-1 cursor-pointer items-center justify-center rounded-lg font-medium text-sm transition-colors duration-200 ease-out",
+              "relative flex h-8 pointer-coarse:h-10 min-w-0 flex-1 cursor-pointer items-center justify-center rounded-lg font-medium text-sm transition-colors duration-200 ease-out",
               "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-content has-[:focus-visible]:outline-offset-2",
               isActive
                 ? "text-content"

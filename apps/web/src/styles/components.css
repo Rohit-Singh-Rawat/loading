@@ -12,24 +12,4 @@
     content: counter(line);
     counter-increment: line;
   }
-
-  .slider-row {
-    --slider-thumb-width: 20px;
-  }
-
-  .slider-thumb-target::-webkit-slider-thumb {
-    width: var(--slider-thumb-width);
-    height: 100%;
-    -webkit-appearance: none;
-    appearance: none;
-    background: transparent;
-    border: 0;
-  }
-
-  .slider-thumb-target::-moz-range-thumb {
-    width: var(--slider-thumb-width);
-    height: 100%;
-    background: transparent;
-    border: 0;
-  }
 }

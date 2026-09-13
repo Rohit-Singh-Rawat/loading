@@ -8,7 +8,7 @@ export function MDXParagraph({
   children: ReactNode;
 } & Record<string, unknown>) {
   return (
-    <Text className="px-4 text-content-subtle" size="base" {...rest}>
+    <Text className="text-content-subtle sm:px-4" size="base" {...rest}>
       {children}
     </Text>
   );

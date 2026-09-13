@@ -1,6 +1,6 @@
 "use client";
 
-import type { ChangeEvent, CSSProperties } from "react";
+import type { ChangeEvent, CSSProperties, PointerEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
@@ -10,7 +10,7 @@ const FOCUS_RING =
 
 const FILL_TRANSFORM = "scaleX(calc(var(--slider-percent) / 100))";
 const HANDLE_TRANSFORM =
-  "translateX(clamp(2px, calc(var(--slider-percent) * 1% - var(--slider-thumb-width) / 2), calc(100% - 2px)))";
+  "translateX(clamp(2px, var(--slider-percent) * 1%, 100% - 2px))";
 
 export function SliderRow({
   format,
@@ -31,8 +31,10 @@ export function SliderRow({
 }) {
   const [isDragging, setIsDragging] = useState(false);
   const [isHandleOverText, setIsHandleOverText] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
   const handleRef = useRef<HTMLSpanElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const valueRef = useRef<HTMLSpanElement>(null);
   const percent = ((value - min) / (max - min)) * 100;
   let handleState = "scale-[0.8] opacity-0";
@@ -68,6 +70,41 @@ export function SliderRow({
     return () => cancelAnimationFrame(frame);
   }, [isDragging]);
 
+  // The whole row scrubs, so a finger can land anywhere on it. The native
+  // range input underneath keeps keyboard and assistive tech behaviour but
+  // takes no pointer input of its own.
+  function valueAt(clientX: number) {
+    const track = trackRef.current?.getBoundingClientRect();
+    if (!track || track.width === 0) {
+      return value;
+    }
+    const ratio = Math.min(
+      Math.max((clientX - track.left) / track.width, 0),
+      1
+    );
+    const stepped = min + Math.round((ratio * (max - min)) / step) * step;
+    return Math.min(Math.max(stepped, min), max);
+  }
+
+  function startDragging(event: PointerEvent<HTMLDivElement>) {
+    if (event.button !== 0) {
+      return;
+    }
+    // Cancelling pointerdown skips the mousedown default, which would move
+    // focus off the input to the body straight after focusing it.
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    inputRef.current?.focus({ preventScroll: true });
+    setIsDragging(true);
+    onChange(valueAt(event.clientX));
+  }
+
+  function drag(event: PointerEvent<HTMLDivElement>) {
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      onChange(valueAt(event.clientX));
+    }
+  }
+
   function stopDragging() {
     setIsDragging(false);
     setIsHandleOverText(false);
@@ -75,10 +112,21 @@ export function SliderRow({
 
   return (
     <div
-      className={cn("slider-row group relative rounded-lg", FOCUS_RING)}
+      className={cn(
+        "group relative cursor-ew-resize touch-pan-y rounded-lg",
+        FOCUS_RING
+      )}
+      onLostPointerCapture={stopDragging}
+      onPointerCancel={stopDragging}
+      onPointerDown={startDragging}
+      onPointerMove={drag}
+      onPointerUp={stopDragging}
       style={{ "--slider-percent": percent } as CSSProperties}
     >
-      <div className="relative h-8 w-full overflow-hidden rounded-lg bg-background">
+      <div
+        className="relative h-8 pointer-coarse:h-10 w-full overflow-hidden rounded-lg bg-background"
+        ref={trackRef}
+      >
         <div
           className="absolute inset-0 origin-left bg-background transition-transform duration-100 ease-out will-change-transform motion-reduce:transition-none"
           style={{ transform: FILL_TRANSFORM }}
@@ -129,20 +177,13 @@ export function SliderRow({
       </div>
       <input
         aria-label={label}
-        className="slider-thumb-target absolute inset-x-0 -inset-y-1 z-30 w-full cursor-ew-resize opacity-0"
+        className="pointer-events-none absolute inset-x-0 -inset-y-1 z-30 w-full opacity-0"
         max={max}
         min={min}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
-          const nextValue = Number(event.target.value);
-          onChange(nextValue);
+          onChange(Number(event.target.value));
         }}
-        onLostPointerCapture={stopDragging}
-        onPointerCancel={stopDragging}
-        onPointerDown={(event) => {
-          event.currentTarget.setPointerCapture(event.pointerId);
-          setIsDragging(true);
-        }}
-        onPointerUp={stopDragging}
+        ref={inputRef}
         step={step}
         type="range"
         value={value}
