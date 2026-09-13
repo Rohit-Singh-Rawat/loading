@@ -14,6 +14,30 @@ const SEGMENTS = [
   { opacity: 0.3, x: 10, y: 10 },
 ];
 
+export function LogoMark({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={cn("size-full", className)}
+      fill="currentColor"
+      viewBox="0 0 15 15"
+    >
+      {SEGMENTS.map(({ opacity, x, y }) => (
+        <g
+          key={`${x}-${y}`}
+          opacity={opacity}
+          transform={`translate(${x} ${y})`}
+        >
+          <rect height="1" width="1" x="0" y="0" />
+          <rect height="1" width="1" x="2" y="0" />
+          <rect height="1" width="1" x="0" y="2" />
+          <rect height="1" width="1" x="2" y="2" />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 export function Logo({ className }: { className?: string }) {
   return (
     <Link
@@ -24,25 +48,7 @@ export function Logo({ className }: { className?: string }) {
       )}
       href="/"
     >
-      <svg
-        aria-hidden="true"
-        className="size-full"
-        fill="currentColor"
-        viewBox="0 0 15 15"
-      >
-        {SEGMENTS.map(({ opacity, x, y }) => (
-          <g
-            key={`${x}-${y}`}
-            opacity={opacity}
-            transform={`translate(${x} ${y})`}
-          >
-            <rect height="1" width="1" x="0" y="0" />
-            <rect height="1" width="1" x="2" y="0" />
-            <rect height="1" width="1" x="0" y="2" />
-            <rect height="1" width="1" x="2" y="2" />
-          </g>
-        ))}
-      </svg>
+      <LogoMark />
     </Link>
   );
 }

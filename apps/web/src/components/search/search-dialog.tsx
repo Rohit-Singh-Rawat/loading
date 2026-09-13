@@ -10,13 +10,22 @@ import { IconMagnifyingGlass } from "central-icons-outlined/IconMagnifyingGlass"
 import { Command, useCommandState } from "cmdk";
 import { usePathname, useRouter } from "next/navigation";
 import { type RefObject, useRef, useState } from "react";
-import { NAV_ITEMS } from "@/components/sidebar/nav-items";
+import {
+  GO_TO_KEY,
+  type NavItem,
+  SPINNER_NAV,
+  TOP_LEVEL_NAV,
+} from "@/components/sidebar/nav-items";
 import { Kbd } from "@/components/ui/kbd";
+import { LogoMark } from "@/components/ui/logo";
 import { useKeysPressed } from "@/lib/use-keys-pressed";
 import { cn } from "@/lib/utils";
 
 const ITEM_CLASSNAME =
-  "group flex cursor-pointer select-none items-center gap-1 rounded-xl p-2 text-content text-[13px] data-[selected=true]:bg-background-hovered";
+  "group flex cursor-pointer select-none items-center gap-1 rounded-xl p-2 text-[13px] text-content leading-5 data-[selected=true]:bg-background-hovered";
+
+const GROUP_CLASSNAME =
+  "p-1 **:[[cmdk-group-items]]:flex **:[[cmdk-group-items]]:flex-col **:[[cmdk-group-items]]:gap-0.5 **:[[cmdk-group-heading]]:px-3 **:[[cmdk-group-heading]]:py-2 **:[[cmdk-group-heading]]:text-[13px] **:[[cmdk-group-heading]]:text-content-subtle **:[[cmdk-group-heading]]:leading-5";
 
 export function SearchDialog({
   onOpenChange,
@@ -77,7 +86,7 @@ export function SearchDialog({
           className={cn(
             "fixed top-[18%] left-1/2 z-50 w-[calc(100vw-2.5rem)] max-w-180 -translate-x-1/2",
             "overflow-clip rounded-2xl bg-modal outline-hidden",
-            "shadow-popover transition-[transform,scale,opacity] duration-200 ease-out",
+            "shadow-custom transition-[transform,scale,opacity] duration-200 ease-out",
             "data-starting-style:scale-95 data-starting-style:opacity-0",
             "data-ending-style:scale-95 data-ending-style:opacity-0"
           )}
@@ -110,10 +119,10 @@ export function SearchDialog({
             </div>
             <div className="h-px w-full bg-border" />
 
-            <ScrollArea.Root className="relative py-1">
+            <ScrollArea.Root className="relative">
               <ScrollArea.Viewport
                 render={
-                  <Command.List className="h-(--cmdk-list-height) max-h-90 px-1 transition-[height] duration-150 ease-out" />
+                  <Command.List className="h-(--cmdk-list-height) max-h-92 scroll-py-1 transition-[height] duration-150 ease-out" />
                 }
               >
                 <EmptyRow
@@ -123,19 +132,17 @@ export function SearchDialog({
                   }}
                 />
 
-                {NAV_ITEMS.map((row) => (
-                  <Command.Item
-                    className={ITEM_CLASSNAME}
-                    key={row.href}
-                    keywords={row.keywords}
-                    onSelect={() => navigateTo(row.href)}
-                    value={row.label}
-                  >
-                    <span className="min-w-0 flex-1 truncate px-1 font-semimedium">
-                      {row.label}
-                    </span>
-                  </Command.Item>
-                ))}
+                <Command.Group className={GROUP_CLASSNAME}>
+                  {TOP_LEVEL_NAV.map((row) => (
+                    <NavRow key={row.href} onNavigate={navigateTo} row={row} />
+                  ))}
+                </Command.Group>
+                <Command.Separator className="h-px w-full bg-border" />
+                <Command.Group className={GROUP_CLASSNAME} heading="Components">
+                  {SPINNER_NAV.map((row) => (
+                    <NavRow key={row.href} onNavigate={navigateTo} row={row} />
+                  ))}
+                </Command.Group>
               </ScrollArea.Viewport>
               <ScrollArea.Scrollbar
                 className="my-1 me-px w-1.5 opacity-0 transition-opacity duration-100 ease-out data-hovering:opacity-100 data-scrolling:opacity-100"
@@ -153,6 +160,34 @@ export function SearchDialog({
   );
 }
 
+function NavRow({
+  onNavigate,
+  row,
+}: {
+  onNavigate: (href: string) => void;
+  row: NavItem;
+}) {
+  return (
+    <Command.Item
+      className={ITEM_CLASSNAME}
+      keywords={row.keywords}
+      onSelect={() => onNavigate(row.href)}
+      value={row.label}
+    >
+      <span className="min-w-0 flex-1 truncate px-1 font-semimedium">
+        {row.label}
+      </span>
+      {row.shortcut && (
+        <span className="flex flex-none items-center gap-1">
+          <Kbd>{GO_TO_KEY}</Kbd>
+          <span className="text-[11px] text-content-subtle">then</span>
+          <Kbd>{row.shortcut}</Kbd>
+        </span>
+      )}
+    </Command.Item>
+  );
+}
+
 function EmptyRow({ onClearQuery }: { onClearQuery: () => void }) {
   const isEmpty = useCommandState((state) => state.filtered.count === 0);
 
@@ -161,18 +196,22 @@ function EmptyRow({ onClearQuery }: { onClearQuery: () => void }) {
   }
 
   return (
-    <Command.Item
-      className={cn(ITEM_CLASSNAME, "justify-between")}
-      forceMount
-      onSelect={onClearQuery}
-      value="no-results-clear-search"
-    >
-      <span className="flex items-center gap-2.5">
-        <IconCircleX className="size-4 shrink-0 text-content-subtle" />
-        <span className="font-semimedium">No results found</span>
-      </span>
-      <span className="font-semimedium text-content-subtle">Clear search</span>
-    </Command.Item>
+    <div className="p-1">
+      <Command.Item
+        className={cn(ITEM_CLASSNAME, "justify-between")}
+        forceMount
+        onSelect={onClearQuery}
+        value="no-results-clear-search"
+      >
+        <span className="flex items-center gap-2.5">
+          <IconCircleX className="size-4 shrink-0 text-content-subtle" />
+          <span className="font-semimedium">No results found</span>
+        </span>
+        <span className="font-semimedium text-content-subtle">
+          Clear search
+        </span>
+      </Command.Item>
+    </div>
   );
 }
 
@@ -184,8 +223,9 @@ function SearchFooter() {
   return (
     <div
       aria-hidden
-      className="hidden items-center justify-end border-border border-t bg-background-subtle p-3 text-[13px] text-content-subtle sm:flex"
+      className="hidden items-center justify-between border-border border-t bg-background-subtle p-3 text-[13px] text-content-subtle sm:flex"
     >
+      <LogoMark className="size-4.5 text-orange" />
       <div className="flex select-none items-center gap-4">
         <span className="flex items-center gap-2">
           <span className="flex items-center gap-1">

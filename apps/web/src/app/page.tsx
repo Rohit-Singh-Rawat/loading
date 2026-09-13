@@ -1,4 +1,5 @@
 import { InstallCommand } from "@/components/install-command/install-command";
+import { SidebarFooter } from "@/components/sidebar/sidebar-footer";
 import { SpinnerCard } from "@/components/spinner-card/spinner-card";
 import { SPINNER_ITEMS } from "@/components/spinners";
 import { PageHeader } from "@/components/ui/page-header";
@@ -24,6 +25,7 @@ export default function Home() {
           <SpinnerCard item={item} key={item.slug} />
         ))}
       </div>
+      <SidebarFooter className="px-0 pb-0 md:hidden" />
     </div>
   );
 }

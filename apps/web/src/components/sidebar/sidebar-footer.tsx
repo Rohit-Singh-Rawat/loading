@@ -2,6 +2,7 @@ import { Separator } from "@base-ui/react/separator";
 import Image from "next/image";
 import { Text } from "@/components/ui/text";
 import { BLOB_BASE } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 function Nametag({
   avatar,
@@ -31,9 +32,9 @@ function Nametag({
   );
 }
 
-export function SidebarFooter() {
+export function SidebarFooter({ className }: { className?: string }) {
   return (
-    <div className="flex flex-col gap-6 px-4 pb-4">
+    <div className={cn("flex flex-col gap-6 px-4 pb-4", className)}>
       <Separator className="h-px bg-border" />
       <Text className="text-content-subtle leading-relaxed" size="sm">
         Crafted with care by{" "}
