@@ -85,7 +85,7 @@ export function SearchDialog({
         <Dialog.Popup
           className={cn(
             "fixed top-[18%] left-1/2 z-50 w-[calc(100vw-2.5rem)] max-w-180 -translate-x-1/2",
-            "overflow-clip rounded-2xl bg-popover outline-hidden",
+            "overflow-clip rounded-2xl bg-modal outline-hidden",
             "shadow-popover transition-[transform,scale,opacity] duration-200 ease-out",
             "data-starting-style:scale-95 data-starting-style:opacity-0",
             "data-ending-style:scale-95 data-ending-style:opacity-0"

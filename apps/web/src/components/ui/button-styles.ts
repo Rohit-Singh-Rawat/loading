@@ -3,7 +3,7 @@ export const buttonVariants = {
     "bg-transparent text-content-subtle hover-hover:hover:not-disabled:bg-background hover-hover:hover:not-disabled:text-content",
   primary: "bg-content text-surface",
   secondary:
-    "bg-popover text-content shadow-custom hover-hover:hover:not-disabled:bg-popover-hovered",
+    "bg-modal text-content shadow-custom hover-hover:hover:not-disabled:bg-modal-hovered",
   tertiary:
     "bg-background text-content-subtle hover-hover:hover:not-disabled:bg-background-hovered hover-hover:hover:not-disabled:text-content",
 };

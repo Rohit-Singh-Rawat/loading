@@ -12,7 +12,9 @@ function SearchShortcutHint({ enabled }: { enabled: boolean }) {
 
   return (
     <span aria-hidden className="flex items-center gap-0.5">
-      <Kbd pressed={pressed.meta}>⌘</Kbd>
+      <Kbd className="pt-[0.5px]" pressed={pressed.meta}>
+        ⌘
+      </Kbd>
       <Kbd pressed={pressed.k}>K</Kbd>
     </span>
   );
@@ -24,7 +26,7 @@ export function SidebarSearch() {
   return (
     <button
       aria-keyshortcuts="Meta+K"
-      className="flex h-8 w-full items-center gap-2 rounded-lg border border-border bg-background px-2 text-left transition-colors duration-200 ease-out hover-hover:hover:bg-background-hovered"
+      className="flex h-8 w-full items-center gap-2 rounded-lg border border-border bg-background pr-1.5 pl-2 text-left transition-colors duration-200 ease-out hover-hover:hover:bg-background-hovered"
       onClick={openSearch}
       type="button"
     >
