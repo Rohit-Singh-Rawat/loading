@@ -1,16 +1,14 @@
 export const DOMAIN = "https://loading.dev";
 
-export const SITE_NAME = "Loading.dev";
+export const SITE_NAME = "loading.dev";
 export const SITE_DESCRIPTION =
-  "A collection of loading indicators for interfaces that care about the details.";
+  "A lightweight library full of beautiful loading indicators for React.";
 
 export const TWITTER_HANDLE = "@jakubkrehel";
 
 export const PREVIEW_SECTION_ID = "preview";
 export const PROSE_SECTION_ID = "prose";
 
-// The hostname is also listed in `next.config.ts` under `images.remotePatterns`,
-// which cannot import from `src`.
 export const BLOB_BASE =
   "https://ru2qm1zsj1gavqlm.public.blob.vercel-storage.com";
 

@@ -1,7 +1,7 @@
 {
   "name": "loading-dev",
   "version": "0.3.0",
-  "description": "Spinners. No more, no less.",
+  "description": "A lightweight library full of beautiful loading indicators for React.",
   "keywords": [
     "react",
     "spinner",
