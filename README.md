@@ -24,7 +24,7 @@ The library itself is at the root and the website is in `apps/web`. `pnpm dev` r
 
 ## Credits
 
-Made by [Jakub](https://x.com/jakubkrehel) and [Paul](https://x.com/paulfaivret).
+Made with care by [Jakub](https://x.com/jakubkrehel) and [Paul](https://x.com/paulfaivret).
 
 ## License
 
