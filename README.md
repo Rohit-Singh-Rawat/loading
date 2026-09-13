@@ -1,78 +1,30 @@
 # loading-dev
 
-Loading, made beautiful. A small and lightweight library full of beautiful loading indicators.
-
-## Install
+Loading, made beautiful. A small library of loading indicators for React.
 
 ```sh
 npm install loading-dev
 ```
 
-Requires React 19 or later.
-
-## Usage
-
-Import any spinner and place it where you want to show a loading state:
-
 ```tsx
 import { Arc } from "loading-dev";
 
-export function SubmitButton() {
-  return (
-    <button disabled type="submit">
-      <Arc size={16} />
-      Saving…
-    </button>
-  );
-}
+<Arc size={16} />
 ```
 
-Spinners use the surrounding text color by default. Use `size` and `color` to change how they look, or `duration` to change how fast they move:
+You can set `size`, `color`, `duration` and `easing`. The library exposes `playState` and also allows you to add custom styling. They work in Server Components and respect reduced motion out of the box. Requires React 19 or later.
 
-```tsx
-<Arc size={24} color="royalblue" duration={1000} />
-```
+Available: `Arc`, `BouncingDots`, `CircularDots`, `Classic`, `ClassicV2`, `Clock`, `Comet`, `Compass`, `Drive`, `Grid`, `LinearDots`, `Orbit`, `Pulse`, `Radar`, `Ring`, `Ripple`, `Swirl`.
 
-`size` is in pixels. `duration` is the time for one animation cycle, in milliseconds. `playState=` exposes the state of the spinner.
-
-All spinners work in Server Components and they follow reduced motion preference out of the box.
-
-## Spinners
-
-- `Arc`
-- `BouncingDots`
-- `CircularDots`
-- `Classic`
-- `ClassicV2`
-- `Clock`
-- `Comet`
-- `Compass`
-- `Drive`
-- `Grid`
-- `LinearDots`
-- `Orbit`
-- `Pulse`
-- `Radar`
-- `Ring`
-- `Ripple`
-- `Swirl`
-
-## Documentation
-
-[loading.dev](https://loading.dev).
+You can find docs and live previews at [loading.dev](https://loading.dev).
 
 ## Development
 
-The library lives at the root. The site and the release check sit beside it:
+The library itself is at the root and the website is in `apps/web`. `pnpm dev` runs both.
 
-- `apps/web`: [loading.dev](https://loading.dev), the website and docs
-- `examples/consumer`: checks the published npm package
+## Credits
 
-```sh
-pnpm dev     # Watch the library and run the site
-pnpm lint    # Check formatting and lint rules
-pnpm test    # Render every spinner and check the motion contract
-```
+Made by [Jakub](https://x.com/jakubkrehel) and [Paul](https://x.com/paulfaivret).
 
 ## License
 
