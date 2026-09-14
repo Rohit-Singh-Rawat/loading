@@ -6,7 +6,6 @@ import {
   ArrowDownIcon,
   ArrowUpIcon,
   CrossCircledIcon,
-  EnterIcon,
   MagnifyingGlassIcon,
 } from "@radix-ui/react-icons";
 import { Command, useCommandState } from "cmdk";
@@ -242,7 +241,7 @@ function SearchFooter() {
         </span>
         <span className="flex items-center gap-2">
           <Kbd pressed={pressed.enter} variant="raised">
-            <EnterIcon className="size-3" />
+            ⏎
           </Kbd>
           Select
         </span>

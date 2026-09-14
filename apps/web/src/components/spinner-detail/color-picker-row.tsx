@@ -18,7 +18,7 @@ const MAX_OPACITY = 100;
 const FIELD =
   "flex h-8 pointer-coarse:h-10 items-center gap-2 rounded-lg bg-popover-hovered px-2 has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-popover-content has-[input:focus-visible]:outline-offset-0";
 const FIELD_INPUT =
-  "min-w-0 flex-1 bg-transparent font-paper-mono text-[13px] text-popover-content outline-none";
+  "min-w-0 flex-1 bg-transparent font-paper-mono text-[12px] text-popover-content outline-none";
 
 export function ColorPickerRow({
   color,
@@ -62,7 +62,7 @@ export function ColorPickerRow({
         <span className="flex items-center gap-2">
           <span
             className={cn(
-              "font-paper-mono text-[13px] text-content-subtle transition-colors duration-150 hover-hover:group-hover:text-content group-data-popup-open:text-content",
+              "font-paper-mono text-[12px] text-content-subtle transition-colors duration-150 hover-hover:group-hover:text-content group-data-popup-open:text-content",
               color && "uppercase"
             )}
           >
