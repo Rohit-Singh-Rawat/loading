@@ -218,6 +218,22 @@ function EmptyRow({ onClearQuery }: { onClearQuery: () => void }) {
 
 const FOOTER_KEYS = ["arrowup", "arrowdown", "enter", "escape"] as const;
 
+function ReturnIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      viewBox="0 0 15 15"
+    >
+      <path d="M11.5 3.75v4.5h-8M6 5.75 3.5 8.25 6 10.75" />
+    </svg>
+  );
+}
+
 function SearchFooter() {
   const pressed = useKeysPressed(FOOTER_KEYS);
 
@@ -241,7 +257,7 @@ function SearchFooter() {
         </span>
         <span className="flex items-center gap-2">
           <Kbd pressed={pressed.enter} variant="raised">
-            ⏎
+            <ReturnIcon className="size-3" />
           </Kbd>
           Select
         </span>
