@@ -14,8 +14,8 @@ export function Sidebar() {
       <div className="px-4">
         <SidebarSearch />
       </div>
-      <ScrollArea.Root className="flex min-h-0 grow flex-col">
-        <ScrollArea.Viewport className="scroll-fade-y min-h-0 grow">
+      <ScrollArea.Root className="-my-1 flex min-h-0 grow flex-col">
+        <ScrollArea.Viewport className="scroll-fade-y min-h-0 grow py-1">
           <NavSections />
         </ScrollArea.Viewport>
         <ScrollArea.Scrollbar
