@@ -100,7 +100,7 @@ export function MobileNav() {
                       target="_blank"
                       weight="medium"
                     >
-                      <Icon className="size-5 shrink-0" mode="raw" />
+                      <Icon className="size-5 shrink-0" />
                       {label}
                     </Text>
                   </li>

@@ -1,6 +1,6 @@
 "use client";
 
-import { IconMagnifyingGlass } from "central-icons-outlined/IconMagnifyingGlass";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useSearchContext } from "@/components/search/search-context";
 import { Kbd } from "@/components/ui/kbd";
 import { useKeysPressed } from "@/lib/use-keys-pressed";
@@ -30,7 +30,7 @@ export function SidebarSearch() {
       onClick={openSearch}
       type="button"
     >
-      <IconMagnifyingGlass
+      <MagnifyingGlassIcon
         aria-hidden="true"
         className="size-4 shrink-0 text-content-subtle"
       />

@@ -1,10 +1,9 @@
 "use client";
 
-import { IconChevronDownMedium } from "central-icons/IconChevronDownMedium";
+import { ChevronDownIcon, CopyIcon } from "@radix-ui/react-icons";
 import { IconClaudeai } from "central-icons/IconClaudeai";
 import { IconMarkdown } from "central-icons/IconMarkdown";
 import { IconOpenai } from "central-icons/IconOpenai";
-import { IconSquareBehindSquare1 } from "central-icons/IconSquareBehindSquare1";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,12 +49,12 @@ export function CopyPageButton({
           >
             Copy page
           </Text>
-          <IconChevronDownMedium className="size-4 text-content-subtle transition-transform duration-200 ease-out group-data-popup-open:rotate-180" />
+          <ChevronDownIcon className="size-4 text-content-subtle transition-transform duration-200 ease-out group-data-popup-open:rotate-180" />
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="start" className="w-(--anchor-width)">
           <DropdownMenuItem onClick={() => copy(markdown)}>
-            <IconSquareBehindSquare1 />
+            <CopyIcon />
             Copy to clipboard
           </DropdownMenuItem>
           <DropdownMenuItem

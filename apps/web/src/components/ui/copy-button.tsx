@@ -1,7 +1,6 @@
 "use client";
 
-import { IconCircleCheck } from "central-icons/IconCircleCheck";
-import { IconSquareBehindSquare1 } from "central-icons-outlined/IconSquareBehindSquare1";
+import { CheckCircledIcon, CopyIcon } from "@radix-ui/react-icons";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
 import { COPY_FAILED_MESSAGE, useCopy } from "@/lib/use-copy";
 import { cn } from "@/lib/utils";
@@ -45,7 +44,7 @@ export function CopyButton({
       <AnimatedIcon
         active={copied}
         activeIcon={
-          <IconCircleCheck
+          <CheckCircledIcon
             className={cn(
               "size-4 text-content-subtle will-change-transform",
               iconClassName
@@ -53,7 +52,7 @@ export function CopyButton({
           />
         }
         idleIcon={
-          <IconSquareBehindSquare1
+          <CopyIcon
             className={cn(
               "size-4 text-content-subtle transition-colors duration-200 ease-out will-change-transform group-hover:text-content",
               iconClassName

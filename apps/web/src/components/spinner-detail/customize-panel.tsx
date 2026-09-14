@@ -1,6 +1,6 @@
 "use client";
 
-import { IconStepBack } from "central-icons-outlined/IconStepBack";
+import { ResetIcon } from "@radix-ui/react-icons";
 import { SIZES, type SpinnerItem } from "@/components/spinners";
 import { Button } from "@/components/ui/button";
 import { SegmentedControl } from "@/components/ui/segmented-control";
@@ -69,7 +69,7 @@ export function CustomizePanel({
       />
       <div className="mt-auto flex justify-center">
         <Button onClick={state.reset} type="button" variant="ghost">
-          <IconStepBack className="size-4 shrink-0" />
+          <ResetIcon className="size-4 shrink-0" />
           Reset
         </Button>
       </div>
