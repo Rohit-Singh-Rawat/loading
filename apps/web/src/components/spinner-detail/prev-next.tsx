@@ -1,5 +1,4 @@
-import { IconArrowLeft } from "central-icons-outlined/IconArrowLeft";
-import { IconArrowRight } from "central-icons-outlined/IconArrowRight";
+import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import type { SpinnerItem } from "@/components/spinners";
 import { Text } from "@/components/ui/text";
@@ -7,13 +6,13 @@ import { cn } from "@/lib/utils";
 
 const directions = {
   next: {
-    icon: IconArrowRight,
+    icon: ArrowRightIcon,
     label: "Next",
     link: "flex-row-reverse",
     text: "items-start",
   },
   previous: {
-    icon: IconArrowLeft,
+    icon: ArrowLeftIcon,
     label: "Previous",
     link: "flex-row",
     text: "items-end text-end",

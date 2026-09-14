@@ -1,7 +1,6 @@
 "use client";
 
-import { IconChainLink4 } from "central-icons/IconChainLink4";
-import { IconCircleCheck } from "central-icons/IconCircleCheck";
+import { CheckCircledIcon, Link2Icon } from "@radix-ui/react-icons";
 import type { MouseEvent } from "react";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
 import { useCopy } from "@/lib/use-copy";
@@ -23,10 +22,8 @@ export function AnchorLink({ id }: { id: string }) {
     >
       <AnimatedIcon
         active={status === "copied"}
-        activeIcon={<IconCircleCheck className="size-4 text-content-subtle" />}
-        idleIcon={
-          <IconChainLink4 className="mb-px size-4 text-content-subtle" />
-        }
+        activeIcon={<CheckCircledIcon className="size-4 text-content-subtle" />}
+        idleIcon={<Link2Icon className="mb-px size-4 text-content-subtle" />}
       />
     </a>
   );

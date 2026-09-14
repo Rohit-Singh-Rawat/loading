@@ -7,15 +7,15 @@ import { Logo } from "@/components/ui/logo";
 
 export function Sidebar() {
   return (
-    <aside className="fixed inset-y-(--sidebar-inset) left-(--sidebar-inset) z-40 hidden w-(--sidebar-width) flex-col gap-6 rounded-2xl bg-background-subtle md:flex">
+    <aside className="fixed inset-y-0 left-0 z-40 hidden w-(--sidebar-width) flex-col gap-6 border-border border-r bg-background-subtle md:flex">
       <div className="px-6 pt-6 pb-2">
         <Logo className="[&>svg]:transition-transform [&>svg]:duration-200 [&>svg]:ease-out hover:[&>svg]:rotate-45 motion-reduce:[&>svg]:transition-none" />
       </div>
       <div className="px-4">
         <SidebarSearch />
       </div>
-      <ScrollArea.Root className="flex min-h-0 grow flex-col">
-        <ScrollArea.Viewport className="scroll-fade-y min-h-0 grow">
+      <ScrollArea.Root className="-my-1 flex min-h-0 grow flex-col">
+        <ScrollArea.Viewport className="scroll-fade-y min-h-0 grow py-1">
           <NavSections />
         </ScrollArea.Viewport>
         <ScrollArea.Scrollbar

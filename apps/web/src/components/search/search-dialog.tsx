@@ -2,11 +2,12 @@
 
 import { Dialog } from "@base-ui/react/dialog";
 import { ScrollArea } from "@base-ui/react/scroll-area";
-import { IconCircleX } from "central-icons/IconCircleX";
-import { IconArrowCornerDownLeft } from "central-icons-outlined/IconArrowCornerDownLeft";
-import { IconArrowDown } from "central-icons-outlined/IconArrowDown";
-import { IconArrowUp } from "central-icons-outlined/IconArrowUp";
-import { IconMagnifyingGlass } from "central-icons-outlined/IconMagnifyingGlass";
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  CrossCircledIcon,
+  MagnifyingGlassIcon,
+} from "@radix-ui/react-icons";
 import { Command, useCommandState } from "cmdk";
 import { usePathname, useRouter } from "next/navigation";
 import { type RefObject, useRef, useState } from "react";
@@ -105,10 +106,10 @@ export function SearchDialog({
           <Command label="Search spinners">
             <div className="flex items-center p-2">
               <div className="flex h-8 min-w-0 flex-1 items-center gap-2 rounded-lg px-2">
-                <IconMagnifyingGlass className="size-4 shrink-0 text-content-subtle" />
+                <MagnifyingGlassIcon className="size-4 shrink-0 text-content-subtle" />
                 <div className="h-full min-w-0 flex-1">
                   <Command.Input
-                    className="h-full w-[calc(100%/0.8125)] origin-left scale-[0.8125] bg-transparent text-base text-content leading-[calc(1.125/0.8125)] outline-none placeholder:text-content-subtle placeholder:opacity-50 sm:w-full sm:scale-100 sm:text-[13px]"
+                    className="h-full w-[calc(100%/0.8125)] origin-left scale-[0.8125] bg-transparent text-[16px] text-content leading-[calc(1.125/0.8125)] outline-none placeholder:text-content-subtle placeholder:opacity-50 sm:w-full sm:scale-100 sm:text-[13px]"
                     onValueChange={setQuery}
                     placeholder="Search"
                     ref={inputRef}
@@ -204,7 +205,7 @@ function EmptyRow({ onClearQuery }: { onClearQuery: () => void }) {
         value="no-results-clear-search"
       >
         <span className="flex items-center gap-2.5">
-          <IconCircleX className="size-4 shrink-0 text-content-subtle" />
+          <CrossCircledIcon className="size-4 shrink-0 text-content-subtle" />
           <span className="font-semimedium">No results found</span>
         </span>
         <span className="font-semimedium text-content-subtle">
@@ -230,17 +231,17 @@ function SearchFooter() {
         <span className="flex items-center gap-2">
           <span className="flex items-center gap-1">
             <Kbd pressed={pressed.arrowdown} variant="raised">
-              <IconArrowDown className="size-3" />
+              <ArrowDownIcon className="size-3" />
             </Kbd>
             <Kbd pressed={pressed.arrowup} variant="raised">
-              <IconArrowUp className="size-3" />
+              <ArrowUpIcon className="size-3" />
             </Kbd>
           </span>
           Navigate
         </span>
         <span className="flex items-center gap-2">
           <Kbd pressed={pressed.enter} variant="raised">
-            <IconArrowCornerDownLeft className="size-3" />
+            ⏎
           </Kbd>
           Select
         </span>

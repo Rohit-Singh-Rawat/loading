@@ -23,7 +23,7 @@ export function NavigationMobileIcon({ isExpanded }: { isExpanded: boolean }) {
       {(["top", "bottom"] as const).map((position) => (
         <m.div
           animate={isExpanded ? "expanded" : "collapsed"}
-          className="absolute h-0.5 w-4 rounded-xs bg-content"
+          className="absolute h-0.5 w-4 bg-content"
           custom={position}
           initial={false}
           key={position}

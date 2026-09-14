@@ -1,6 +1,6 @@
 "use client";
 
-import { IconMagnifyingGlass } from "central-icons-outlined/IconMagnifyingGlass";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useSearchContext } from "@/components/search/search-context";
 import { Kbd } from "@/components/ui/kbd";
 import { useKeysPressed } from "@/lib/use-keys-pressed";
@@ -26,11 +26,11 @@ export function SidebarSearch() {
   return (
     <button
       aria-keyshortcuts="Meta+K"
-      className="flex h-8 w-full items-center gap-2 rounded-lg border border-border bg-background pr-1.5 pl-2 text-left transition-colors duration-200 ease-out hover-hover:hover:bg-background-hovered"
+      className="flex h-8 w-full items-center gap-2 rounded-lg border border-border pr-1.5 pl-2 text-left transition-colors duration-200 ease-out hover-hover:hover:bg-background"
       onClick={openSearch}
       type="button"
     >
-      <IconMagnifyingGlass
+      <MagnifyingGlassIcon
         aria-hidden="true"
         className="size-4 shrink-0 text-content-subtle"
       />

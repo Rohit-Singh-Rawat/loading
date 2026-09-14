@@ -43,7 +43,6 @@
       0px 2px 4px 0px rgba(0, 0, 0, 0.04);
 
     --sidebar-width: 16rem;
-    --sidebar-inset: 1rem;
 
     --shadow-popover:
       0px 2px 6px 0px rgba(0, 0, 0, 0.02),
@@ -188,6 +187,11 @@
 
 @theme {
   --font-weight-semimedium: 450;
+
+  --text-sm: 13px;
+  --text-sm--line-height: calc(20 / 13);
+  --text-base: 15px;
+  --text-base--line-height: calc(24 / 15);
 
   --shadow-custom-light:
     0px 0px 0px 1px rgba(0, 0, 0, 0.06),

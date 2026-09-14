@@ -1,8 +1,6 @@
 "use client";
 
-import { IconPause } from "central-icons/IconPause";
-import { IconPlay } from "central-icons/IconPlay";
-import { IconChevronLargeLeft } from "central-icons-outlined/IconChevronLargeLeft";
+import { ChevronLeftIcon, PauseIcon, PlayIcon } from "@radix-ui/react-icons";
 import { SPINNERS } from "loading-dev";
 import { type ReactNode, useState } from "react";
 import type { SpinnerItem } from "@/components/spinners";
@@ -41,7 +39,7 @@ function DrawerHandle({
             onClick={onToggle}
             type="button"
           >
-            <IconChevronLargeLeft
+            <ChevronLeftIcon
               className={cn(
                 "size-4 transition-[rotate] duration-200 ease-out",
                 open ? "rotate-180" : "rotate-0"
@@ -106,10 +104,10 @@ export function SpinnerPreview({ item }: { item: SpinnerItem }) {
                 <AnimatedIcon
                   active={state.paused}
                   activeIcon={
-                    <IconPlay className="size-4.5 will-change-transform" />
+                    <PlayIcon className="size-4.5 will-change-transform" />
                   }
                   idleIcon={
-                    <IconPause className="size-4.5 will-change-transform" />
+                    <PauseIcon className="size-4.5 will-change-transform" />
                   }
                 />
               </IconButton>
