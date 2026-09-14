@@ -24,7 +24,7 @@ export function InstallCommand({ command }: { command: string }) {
       </Text>
       <CopyButton
         className="size-10 rounded-xl"
-        iconClassName="size-4.5"
+        iconClassName="size-4"
         text={command}
       />
     </div>
