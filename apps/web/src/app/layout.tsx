@@ -1,3 +1,4 @@
+import { InterfereProvider } from "@interfere/next/provider";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
@@ -74,30 +75,32 @@ export default function RootLayout({
           "bg-surface font-sans text-content leading-relaxed antialiased"
         )}
       >
-        <DisableThemeTransitions />
-        <MotionProvider>
-          <SearchProvider>
-            <a
-              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-lg focus:border focus:border-border focus:bg-modal focus:px-4 focus:py-2 focus:font-medium focus:text-content focus:text-sm focus:shadow-custom"
-              href="#content"
-            >
-              Skip to content
-            </a>
-            <MobileNav />
-            <Sidebar />
-            <div className="flex min-h-dvh gap-12 px-5 py-10 sm:px-6 md:py-20 md:pl-[calc(var(--sidebar-width)_+_1rem)]">
-              <main
-                className="mx-auto w-full max-w-160 focus-visible:outline-hidden"
-                id="content"
-                tabIndex={-1}
+        <InterfereProvider>
+          <DisableThemeTransitions />
+          <MotionProvider>
+            <SearchProvider>
+              <a
+                className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-lg focus:border focus:border-border focus:bg-modal focus:px-4 focus:py-2 focus:font-medium focus:text-content focus:text-sm focus:shadow-custom"
+                href="#content"
               >
-                {children}
-              </main>
-              {aside}
-            </div>
-          </SearchProvider>
-        </MotionProvider>
-        <Analytics />
+                Skip to content
+              </a>
+              <MobileNav />
+              <Sidebar />
+              <div className="flex min-h-dvh gap-12 px-5 py-10 sm:px-6 md:py-20 md:pl-[calc(var(--sidebar-width)_+_1rem)]">
+                <main
+                  className="mx-auto w-full max-w-160 focus-visible:outline-hidden"
+                  id="content"
+                  tabIndex={-1}
+                >
+                  {children}
+                </main>
+                {aside}
+              </div>
+            </SearchProvider>
+          </MotionProvider>
+          <Analytics />
+        </InterfereProvider>
       </body>
     </html>
   );

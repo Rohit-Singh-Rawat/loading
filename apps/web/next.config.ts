@@ -1,4 +1,5 @@
 import path from "node:path";
+import { withInterfere } from "@interfere/next/config";
 import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 import { CODE_THEMES } from "./src/lib/code-theme";
@@ -57,4 +58,4 @@ const withMDX = createMDX({
   },
 });
 
-export default withMDX(nextConfig);
+export default withInterfere(withMDX(nextConfig));
