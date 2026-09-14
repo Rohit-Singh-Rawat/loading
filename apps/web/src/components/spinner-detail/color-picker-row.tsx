@@ -12,6 +12,9 @@ import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 
 const DEFAULT_COLOR = "#888888";
+// Hex of `--color-content`, which is what `currentColor` resolves to by default.
+const DEFAULT_COLOR_LIGHT = "#141413";
+const DEFAULT_COLOR_DARK = "#e0d9d3";
 const MIN_OPACITY = 0;
 const MAX_OPACITY = 100;
 
@@ -47,10 +50,7 @@ export function ColorPickerRow({
 
   return (
     <Popover>
-      <PopoverTrigger
-        aria-label={`Color: ${color ?? "Auto"}`}
-        className="link-outline group flex h-8 pointer-coarse:h-10 w-full shrink-0 items-center justify-between rounded-lg bg-background px-2 transition-colors duration-200 ease-out data-popup-open:inset-ring data-popup-open:inset-ring-border data-popup-open:bg-background-hovered"
-      >
+      <PopoverTrigger className="link-outline group flex h-8 pointer-coarse:h-10 w-full shrink-0 items-center justify-between rounded-lg bg-background px-2 transition-colors duration-200 ease-out data-popup-open:inset-ring data-popup-open:inset-ring-border data-popup-open:bg-background-hovered">
         <Text
           as="span"
           className="select-none text-content-subtle transition-colors duration-150 hover-hover:group-hover:text-content group-data-popup-open:text-content"
@@ -60,13 +60,13 @@ export function ColorPickerRow({
           Color
         </Text>
         <span className="flex items-center gap-2">
-          <span
-            className={cn(
-              "font-paper-mono text-[12px] text-content-subtle transition-colors duration-150 hover-hover:group-hover:text-content group-data-popup-open:text-content",
-              color && "uppercase"
+          <span className="font-paper-mono text-[12px] text-content-subtle uppercase transition-colors duration-150 hover-hover:group-hover:text-content group-data-popup-open:text-content">
+            {color ?? (
+              <>
+                <span className="dark:hidden">{DEFAULT_COLOR_LIGHT}</span>
+                <span className="hidden dark:inline">{DEFAULT_COLOR_DARK}</span>
+              </>
             )}
-          >
-            {color ?? "Auto"}
           </span>
           <span
             aria-hidden="true"

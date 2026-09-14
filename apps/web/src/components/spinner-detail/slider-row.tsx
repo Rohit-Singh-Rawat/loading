@@ -11,6 +11,7 @@ const FOCUS_RING =
 const FILL_TRANSFORM = "scaleX(calc(var(--slider-percent) / 100))";
 const HANDLE_TRANSFORM =
   "translateX(clamp(2px, var(--slider-percent) * 1%, 100% - 2px))";
+const TICKS = Array.from({ length: 9 }, (_, index) => index);
 
 export function SliderRow({
   format,
@@ -70,9 +71,6 @@ export function SliderRow({
     return () => cancelAnimationFrame(frame);
   }, [isDragging]);
 
-  // The whole row scrubs, so a finger can land anywhere on it. The native
-  // range input underneath keeps keyboard and assistive tech behaviour but
-  // takes no pointer input of its own.
   function valueAt(clientX: number) {
     const track = trackRef.current?.getBoundingClientRect();
     if (!track || track.width === 0) {
@@ -90,8 +88,6 @@ export function SliderRow({
     if (event.button !== 0) {
       return;
     }
-    // Cancelling pointerdown skips the mousedown default, which would move
-    // focus off the input to the body straight after focusing it.
     event.preventDefault();
     event.currentTarget.setPointerCapture(event.pointerId);
     inputRef.current?.focus({ preventScroll: true });
@@ -127,6 +123,17 @@ export function SliderRow({
         className="relative h-8 pointer-coarse:h-10 w-full overflow-hidden rounded-lg bg-background"
         ref={trackRef}
       >
+        <span
+          aria-hidden="true"
+          className={cn(
+            "pointer-events-none absolute inset-0 flex items-center justify-around opacity-0 transition-opacity duration-200 ease-out hover-hover:group-hover:opacity-100 motion-reduce:transition-none",
+            isDragging && "opacity-100"
+          )}
+        >
+          {TICKS.map((tick) => (
+            <span className="h-1.75 w-px rounded-full bg-border" key={tick} />
+          ))}
+        </span>
         <div
           className="absolute inset-0 origin-left bg-background will-change-transform"
           style={{ transform: FILL_TRANSFORM }}
@@ -137,7 +144,7 @@ export function SliderRow({
           style={{ transform: HANDLE_TRANSFORM }}
         >
           <span
-            className="absolute top-1/2 left-0 h-4 w-[3px] -translate-x-1/2 -translate-y-1/2"
+            className="absolute top-1/2 left-0 h-4 w-0.75 -translate-x-1/2 -translate-y-1/2"
             ref={handleRef}
           >
             <span

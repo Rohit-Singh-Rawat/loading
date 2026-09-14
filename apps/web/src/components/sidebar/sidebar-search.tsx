@@ -34,7 +34,7 @@ export function SidebarSearch() {
         aria-hidden="true"
         className="size-4 shrink-0 text-content-subtle"
       />
-      <span className="min-w-0 flex-1 truncate font-[450] text-content-subtle text-sm">
+      <span className="min-w-0 flex-1 truncate font-semimedium text-content-subtle text-sm">
         Search
       </span>
       <SearchShortcutHint enabled={!isSearchOpen} />

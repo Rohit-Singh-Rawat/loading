@@ -14,13 +14,10 @@ export function InstallCommand({ command }: { command: string }) {
       </Text>
       <Text
         as="span"
-        className="min-w-px flex-1 font-paper-mono text-[13px] text-content"
+        className="min-w-px flex-1 font-paper-mono text-[13px] text-content-subtle"
       >
-        <span className="text-[light-dark(#6437da,#9d72ff)]">{manager}</span>{" "}
-        {action}{" "}
-        <span className="text-[light-dark(#36833e,#73d272)]">
-          {packages.join(" ")}
-        </span>
+        {manager} {action}{" "}
+        <span className="text-orange">{packages.join(" ")}</span>
       </Text>
       <CopyButton
         className="size-10 rounded-xl"

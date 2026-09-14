@@ -74,6 +74,7 @@
       --color-content-subtle: oklch(0.696 0.008 61.399);
 
       --shadow-custom: 0 0 0 1px oklch(1 0 0 / 0.1);
+      --shadow-popover: none;
       color-scheme: dark;
     }
   }

@@ -16,7 +16,7 @@ export function PageHeader({
 }) {
   return (
     <header className={cn("flex flex-col gap-5", className)}>
-      <Heading as="h1" size={1} weight="semibold">
+      <Heading as="h1" size={1} weight="medium">
         {eyebrow && (
           <span className="block text-content-subtle">{eyebrow}</span>
         )}

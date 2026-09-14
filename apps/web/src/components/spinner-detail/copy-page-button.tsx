@@ -1,9 +1,6 @@
 "use client";
 
 import { ChevronDownIcon, CopyIcon } from "@radix-ui/react-icons";
-import { IconClaudeai } from "central-icons/IconClaudeai";
-import { IconMarkdown } from "central-icons/IconMarkdown";
-import { IconOpenai } from "central-icons/IconOpenai";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +9,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Text } from "@/components/ui/text";
+import { ClaudeIcon } from "@/icons/claude-icon";
+import { MarkdownIcon } from "@/icons/markdown-icon";
+import { OpenaiIcon } from "@/icons/openai-icon";
 import { DOMAIN } from "@/lib/constants";
 import { COPY_FAILED_MESSAGE, useCopy } from "@/lib/use-copy";
 
@@ -60,7 +60,7 @@ export function CopyPageButton({
           <DropdownMenuItem
             render={<a href={markdownPath} rel="noreferrer" target="_blank" />}
           >
-            <IconMarkdown />
+            <MarkdownIcon />
             View as markdown
           </DropdownMenuItem>
 
@@ -75,7 +75,7 @@ export function CopyPageButton({
               />
             }
           >
-            <IconOpenai />
+            <OpenaiIcon />
             Open in ChatGPT
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -87,7 +87,7 @@ export function CopyPageButton({
               />
             }
           >
-            <IconClaudeai />
+            <ClaudeIcon />
             Open in Claude
           </DropdownMenuItem>
         </DropdownMenuContent>

@@ -59,9 +59,6 @@ importers:
       '@vercel/analytics':
         specifier: ^2.0.1
         version: 2.0.1(next@16.3.0(@opentelemetry/api@1.9.1)(@types/node@24.13.3)(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
-      central-icons:
-        specifier: npm:@central-icons-react/round-filled-radius-3-stroke-2@^1.1.306
-        version: '@central-icons-react/round-filled-radius-3-stroke-2@1.1.306(react@19.2.6)'
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -255,11 +252,6 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
-
-  '@central-icons-react/round-filled-radius-3-stroke-2@1.1.306':
-    resolution: {integrity: sha512-6vVK0PW30Qk00sdKFYyBcZVUA/azc1Qc44OpCw2IXq9KWZUXZt/vv2X1E08ucBh/VKjYYHdalhdDaQ5Z9X0BQA==}
-    peerDependencies:
-      react: '>=14.0.0 <= 19'
 
   '@clack/core@1.5.0':
     resolution: {integrity: sha512-zNikCcd8BbcEvzzG1sbXFrRHFk5kHPrpwZwksPvf9qyQO1Teb7JaXaOAxXZei9nZLDW0gaZawiuTCji88bTBhw==}
@@ -3212,10 +3204,6 @@ snapshots:
 
   '@biomejs/cli-win32-x64@2.5.13':
     optional: true
-
-  '@central-icons-react/round-filled-radius-3-stroke-2@1.1.306(react@19.2.6)':
-    dependencies:
-      react: 19.2.6
 
   '@clack/core@1.5.0':
     dependencies:

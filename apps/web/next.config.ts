@@ -12,11 +12,7 @@ const demoDependenciesLoader = path.resolve(
 
 const nextConfig = {
   experimental: {
-    optimizePackageImports: [
-      "central-icons",
-      "central-icons-outlined",
-      "motion",
-    ],
+    optimizePackageImports: ["motion"],
   },
   images: {
     remotePatterns: [

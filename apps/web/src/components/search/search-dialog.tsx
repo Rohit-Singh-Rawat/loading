@@ -246,28 +246,23 @@ function SearchFooter() {
       <div className="flex select-none items-center gap-4">
         <span className="flex items-center gap-2">
           <span className="flex items-center gap-1">
-            <Kbd pressed={pressed.arrowdown} variant="raised">
+            <Kbd pressed={pressed.arrowdown}>
               <ArrowDownIcon className="size-3" />
             </Kbd>
-            <Kbd pressed={pressed.arrowup} variant="raised">
+            <Kbd pressed={pressed.arrowup}>
               <ArrowUpIcon className="size-3" />
             </Kbd>
           </span>
           Navigate
         </span>
         <span className="flex items-center gap-2">
-          <Kbd pressed={pressed.enter} variant="raised">
+          <Kbd pressed={pressed.enter}>
             <ReturnIcon className="size-3" />
           </Kbd>
           Select
         </span>
         <span className="flex items-center gap-2 leading-none">
-          <Kbd
-            className="px-1.5"
-            pressed={pressed.escape}
-            uppercase={false}
-            variant="raised"
-          >
+          <Kbd className="px-1.5" pressed={pressed.escape} uppercase={false}>
             <span className="mb-px">esc</span>
           </Kbd>
           Close
