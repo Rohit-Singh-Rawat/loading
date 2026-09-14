@@ -60,7 +60,7 @@ function DropdownMenuItem({
   return (
     <Menu.Item
       className={cn(
-        "relative flex cursor-pointer select-none items-center gap-2 rounded-lg px-2 py-1.5 text-sm hover-hover:hover:bg-popover-hovered focus:bg-popover-hovered focus:text-popover-content focus-visible:outline-popover-content focus-visible:-outline-offset-2 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-popover-content-subtle hover-hover:hover:[&_svg:not([class*='text-'])]:text-popover-content focus:[&_svg:not([class*='text-'])]:text-popover-content [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "relative flex h-7 cursor-pointer select-none items-center gap-2 rounded-lg px-2 text-sm hover-hover:hover:bg-popover-hovered focus:bg-popover-hovered focus:text-popover-content focus-visible:outline-popover-content focus-visible:-outline-offset-2 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-popover-content-subtle hover-hover:hover:[&_svg:not([class*='text-'])]:text-popover-content focus:[&_svg:not([class*='text-'])]:text-popover-content [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className
       )}
       data-slot="dropdown-menu-item"
@@ -75,7 +75,7 @@ function DropdownMenuSeparator({
 }: React.ComponentProps<typeof Menu.Separator>) {
   return (
     <Menu.Separator
-      className={cn("-mx-1 my-1 h-px bg-border", className)}
+      className={cn("mx-2 my-1.5 h-px bg-border", className)}
       data-slot="dropdown-menu-separator"
       {...props}
     />
