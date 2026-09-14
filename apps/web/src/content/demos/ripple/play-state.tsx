@@ -1,5 +1,0 @@
-import { Ripple } from "loading-dev";
-
-export default function RipplePlayState() {
-  return <Ripple playState="paused" size={32} />;
-}

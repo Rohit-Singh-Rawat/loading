@@ -1,7 +1,5 @@
 import type {
-  DriveProps,
   EasingProps,
-  GridProps,
   SPINNERS,
   SpinnerName,
   SpinnerProps,
@@ -76,25 +74,6 @@ const EASING_OPTION: OptionOf<EasingProps> = {
   ],
 };
 
-const DIRECTION_OPTION: OptionOf<GridProps> = {
-  label: "Direction",
-  prop: "direction",
-  values: [
-    { label: "Rows", value: "rows" },
-    { label: "Columns", value: "columns" },
-    { label: "Diagonal", value: "diagonal" },
-  ],
-};
-
-const SHAPE_OPTION: OptionOf<DriveProps> = {
-  label: "Shape",
-  prop: "shape",
-  values: [
-    { label: "Square", value: "square" },
-    { label: "Circle", value: "circle" },
-  ],
-};
-
 const CATALOG: SpinnerItem[] = [
   entry({
     description: "A single open stroke rotating in a circle.",
@@ -143,19 +122,6 @@ const CATALOG: SpinnerItem[] = [
     speed: { max: 2000, min: 200 },
   }),
   entry({
-    description: "A pixel grid lit row by row in a sequence.",
-    name: "Grid",
-    options: [DIRECTION_OPTION],
-    slug: "grid",
-    speed: { max: 2400, min: 400 },
-  }),
-  entry({
-    description: "A pixel grid pulsing outward from its center.",
-    name: "Ripple",
-    slug: "ripple",
-    speed: { max: 2400, min: 400 },
-  }),
-  entry({
     description: "Three dots lighting up in turn from left to right.",
     name: "Linear dots",
     slug: "linear-dots",
@@ -192,13 +158,6 @@ const CATALOG: SpinnerItem[] = [
     name: "Compass",
     slug: "compass",
     speed: { max: 1200, min: 150 },
-  }),
-  entry({
-    description: "A lit arrowhead driving across a three-by-three grid.",
-    name: "Drive",
-    options: [SHAPE_OPTION],
-    slug: "drive",
-    speed: { max: 2400, min: 300 },
   }),
   entry({
     description: "A bright cell chasing its trail around a square.",

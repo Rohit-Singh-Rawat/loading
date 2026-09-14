@@ -1,5 +1,0 @@
-import { Ripple } from "loading-dev";
-
-export default function RippleColor() {
-  return <Ripple color="#f97316" size={32} />;
-}

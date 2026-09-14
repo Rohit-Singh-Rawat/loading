@@ -21,14 +21,11 @@ export const SPINNER_MOTION = {
   clock: { duration: 1200 },
   comet: { duration: 700 },
   compass: { duration: 500 },
-  drive: { duration: 900 },
-  grid: { duration: 1200 },
   "linear-dots": { duration: 900 },
   orbit: { duration: 750 },
   pulse: { duration: 1200 },
   radar: { duration: 1500 },
   ring: { duration: 800 },
-  ripple: { duration: 1200 },
   swirl: { duration: 1200 },
 } as const satisfies Record<string, SpinnerMotion>;
 

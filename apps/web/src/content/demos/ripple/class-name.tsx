@@ -1,5 +1,0 @@
-import { Ripple } from "loading-dev";
-
-export default function RippleClassName() {
-  return <Ripple className="opacity-40" size={32} />;
-}

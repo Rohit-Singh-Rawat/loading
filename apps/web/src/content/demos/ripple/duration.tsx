@@ -1,5 +1,0 @@
-import { Ripple } from "loading-dev";
-
-export default function RippleDuration() {
-  return <Ripple duration={2400} size={32} />;
-}
