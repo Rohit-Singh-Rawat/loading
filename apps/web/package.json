@@ -4,7 +4,8 @@
   "scripts": {
     "build": "pnpm --filter loading-dev build && next build",
     "dev": "next dev",
-    "start": "next start"
+    "start": "next start",
+    "typecheck": "INTERFERE_ENVIRONMENT=preview next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

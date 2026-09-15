@@ -1,6 +1,10 @@
 "use client";
 
-import { SPINNER_MOTION, type SpinnerProps } from "loading-dev";
+import {
+  type EasingProps,
+  SPINNER_MOTION,
+  type SpinnerProps,
+} from "loading-dev";
 import { useState } from "react";
 import {
   DEFAULT_SIZE_INDEX,
@@ -13,27 +17,21 @@ const FULLY_OPAQUE = 100;
 export interface SpinnerCustomizationState {
   color: string | null;
   opacity: number;
-  options: Record<string, string>;
+  options: EasingProps;
   paused: boolean;
   reset: () => void;
   setColor: (color: string) => void;
   setOpacity: (percent: number) => void;
-  setOption: (prop: string, value: string) => void;
+  setOption: <K extends keyof EasingProps>(
+    prop: K,
+    value: NonNullable<EasingProps[K]>
+  ) => void;
   setSizeIndex: (index: number) => void;
   setSpeedMs: (speedMs: number) => void;
   sizeIndex: number;
   speedMs: number;
-  spinnerProps: SpinnerProps & Record<string, unknown>;
+  spinnerProps: SpinnerProps & EasingProps;
   togglePaused: () => void;
-}
-
-function defaultOptions(item: SpinnerItem): Record<string, string> {
-  return Object.fromEntries(
-    (item.options ?? []).map((option) => {
-      const [first] = option.values;
-      return [option.prop, first.value];
-    })
-  );
 }
 
 export function useCustomizationState(
@@ -45,9 +43,9 @@ export function useCustomizationState(
   const [color, setColor] = useState<string | null>(null);
   const [speedMs, setSpeedMs] = useState<number>(defaultDuration);
   const [opacity, setOpacity] = useState(FULLY_OPAQUE);
-  const [options, setOptions] = useState(() => defaultOptions(item));
+  const [options, setOptions] = useState<EasingProps>({});
 
-  const spinnerProps: SpinnerProps & Record<string, unknown> = {
+  const spinnerProps: SpinnerProps & EasingProps = {
     ...options,
     color: color ?? undefined,
     duration: speedMs,
@@ -65,7 +63,7 @@ export function useCustomizationState(
       setColor(null);
       setSpeedMs(defaultDuration);
       setOpacity(FULLY_OPAQUE);
-      setOptions(defaultOptions(item));
+      setOptions({});
     },
     setColor,
     setOpacity,

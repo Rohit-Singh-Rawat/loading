@@ -44,7 +44,7 @@ the speed control from it rather than restating the number.
 of spinners and everything the site knows about each one that the library does
 not: display name, description, its `href`, and the speed slider's range. It is exported
 as `SPINNER_ITEMS`. Preview customization reads the default duration directly
-from `SPINNER_MOTION`, so metadata consumers need no library runtime imports.
+from `SPINNER_MOTION`, and option defaults come from the library too.
 
 An entry's `slug` is typed `SpinnerName`, so it is the same string as the
 spinner's `ld-` key. It is also the MDX filename. One identifier, not three —
@@ -55,15 +55,16 @@ and previous/next on a spinner page. Reordering it reorders all three.
 
 An entry's **options** are the props a spinner has beyond the shared ones —
 `easing` on the rotating spinners. Each names the prop,
-the label the control shows, and its values in control order, the first being
-the library's default. The catalog only describes the choice; the prop itself
+the label the control shows, its values in control order, and an explicit
+`defaultValue` from the library. The catalog only describes the choice; the prop itself
 lives in the library.
 
 `SPINNERS` in `src/spinners.ts` is the library's registry:
-every spinner under its `ld-` key. The showcase renders from it, the tests and
-the consumer check iterate it, and the catalog checks an entry's options against
+every spinner under its `ld-` key. The showcase and motion tests render from it;
+the export tests and consumer check also cover the public named imports.
+The catalog checks an entry's options against
 the component registered under its slug through a type-only import. An option's
-value list is a nonempty tuple, so the default is always the first value.
+value list is a nonempty tuple; its order does not determine the default.
 
 The library owns motion; the catalog owns presentation. Descriptions, display
 names and ordering are site copy and stay out of the published package.
@@ -76,6 +77,9 @@ controls passed directly to its `CustomizePanel` child.
 
 The opening snippet is static and highlighted at build time. Customization
 changes only the preview; no highlighter ships to the browser.
+
+Option state contains only explicit overrides. Unchanged options are omitted
+from the preview props, so the library owns their default behavior.
 
 "Reset" restores the customization controls. It deliberately does not touch
 playback, which is a separate control outside the panel.

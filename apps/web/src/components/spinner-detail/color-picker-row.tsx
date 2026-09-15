@@ -1,7 +1,7 @@
 "use client";
 
 import type { ChangeEvent, KeyboardEvent } from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import {
   Popover,
@@ -11,10 +11,6 @@ import {
 import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 
-const DEFAULT_COLOR = "#888888";
-// Hex of `--color-content`, which is what `currentColor` resolves to by default.
-const DEFAULT_COLOR_LIGHT = "#141413";
-const DEFAULT_COLOR_DARK = "#e0d9d3";
 const MIN_OPACITY = 0;
 const MAX_OPACITY = 100;
 
@@ -34,7 +30,33 @@ export function ColorPickerRow({
   onOpacityChange: (percent: number) => void;
   opacity: number;
 }) {
-  const pickerColor = color ?? DEFAULT_COLOR;
+  const swatchRef = useRef<HTMLSpanElement>(null);
+  const [inheritedColor, setInheritedColor] = useState<string | null>(null);
+  const pickerColor = color ?? inheritedColor;
+
+  useEffect(() => {
+    const swatch = swatchRef.current;
+    const canvas = document.createElement("canvas");
+    canvas.width = 1;
+    canvas.height = 1;
+    const context = canvas.getContext("2d");
+    if (!(swatch && context)) {
+      return;
+    }
+
+    const update = () => {
+      context.fillStyle = getComputedStyle(swatch).color;
+      context.fillRect(0, 0, 1, 1);
+      const channels = context.getImageData(0, 0, 1, 1).data.slice(0, 3);
+      setInheritedColor(
+        `#${Array.from(channels, (channel) => channel.toString(16).padStart(2, "0")).join("")}`
+      );
+    };
+    const theme = window.matchMedia("(prefers-color-scheme: dark)");
+    update();
+    theme.addEventListener("change", update);
+    return () => theme.removeEventListener("change", update);
+  }, []);
   const [opacityDraft, setOpacityDraft] = useState<string | null>(null);
 
   function commitOpacity() {
@@ -61,67 +83,65 @@ export function ColorPickerRow({
         </Text>
         <span className="flex items-center gap-2">
           <span className="font-paper-mono text-[12px] text-content-subtle uppercase transition-colors duration-150 hover-hover:group-hover:text-content group-data-popup-open:text-content">
-            {color ?? (
-              <>
-                <span className="dark:hidden">{DEFAULT_COLOR_LIGHT}</span>
-                <span className="hidden dark:inline">{DEFAULT_COLOR_DARK}</span>
-              </>
-            )}
+            {pickerColor}
           </span>
           <span
             aria-hidden="true"
             className="size-4 rounded-sm border border-border bg-current text-content"
+            ref={swatchRef}
             style={color ? { backgroundColor: color } : undefined}
           />
         </span>
       </PopoverTrigger>
-      <PopoverContent
-        align="end"
-        aria-label="Choose a color"
-        className="flex flex-col gap-2 rounded-2xl p-2 shadow-popover"
-      >
-        <HexColorPicker
-          className="color-picker"
-          color={pickerColor}
-          onChange={onChange}
-        />
-        <div className="flex w-50 gap-2">
-          <div className={cn(FIELD, "min-w-0 flex-1")}>
-            <Text as="span" className="text-popover-content-subtle" size="sm">
-              #
-            </Text>
-            <HexColorInput
-              aria-label="Hex color"
-              className={cn(FIELD_INPUT, "text-right uppercase")}
-              color={pickerColor}
-              onChange={onChange}
-            />
+      {pickerColor !== null && (
+        <PopoverContent
+          align="end"
+          aria-label="Choose a color"
+          className="flex flex-col gap-2 rounded-2xl p-2 shadow-popover"
+        >
+          <HexColorPicker
+            className="color-picker"
+            color={pickerColor}
+            onChange={onChange}
+          />
+          <div className="flex w-50 gap-2">
+            <div className={cn(FIELD, "min-w-0 flex-1")}>
+              <Text as="span" className="text-popover-content-subtle" size="sm">
+                #
+              </Text>
+              <HexColorInput
+                aria-label="Hex color"
+                className={cn(FIELD_INPUT, "text-right uppercase")}
+                color={pickerColor}
+                onChange={onChange}
+              />
+            </div>
+            <div className={cn(FIELD, "w-15.5")}>
+              <input
+                aria-label="Opacity"
+                className={FIELD_INPUT}
+                inputMode="numeric"
+                onBlur={commitOpacity}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  setOpacityDraft(
+                    event.target.value.replace(/\D/g, "").slice(0, 3)
+                  );
+                }}
+                onKeyDown={(event: KeyboardEvent<HTMLInputElement>) => {
+                  if (event.key === "Enter") {
+                    event.currentTarget.blur();
+                  }
+                }}
+                type="text"
+                value={opacityDraft ?? String(opacity)}
+              />
+              <Text as="span" className="text-popover-content-subtle" size="sm">
+                %
+              </Text>
+            </div>
           </div>
-          <div className={cn(FIELD, "w-15.5")}>
-            <input
-              aria-label="Opacity"
-              className={FIELD_INPUT}
-              inputMode="numeric"
-              onBlur={commitOpacity}
-              onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setOpacityDraft(
-                  event.target.value.replace(/\D/g, "").slice(0, 3)
-                );
-              }}
-              onKeyDown={(event: KeyboardEvent<HTMLInputElement>) => {
-                if (event.key === "Enter") {
-                  event.currentTarget.blur();
-                }
-              }}
-              type="text"
-              value={opacityDraft ?? String(opacity)}
-            />
-            <Text as="span" className="text-popover-content-subtle" size="sm">
-              %
-            </Text>
-          </div>
-        </div>
-      </PopoverContent>
+        </PopoverContent>
+      )}
     </Popover>
   );
 }

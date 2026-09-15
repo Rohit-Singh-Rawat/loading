@@ -1,6 +1,6 @@
 "use client";
 
-import type { ChangeEvent, CSSProperties, PointerEvent } from "react";
+import { Slider } from "@base-ui/react/slider";
 import { useEffect, useRef, useState } from "react";
 import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
@@ -8,9 +8,6 @@ import { cn } from "@/lib/utils";
 const FOCUS_RING =
   "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-content has-[:focus-visible]:outline-offset-2";
 
-const FILL_TRANSFORM = "scaleX(calc(var(--slider-percent) / 100))";
-const HANDLE_TRANSFORM =
-  "translateX(clamp(2px, var(--slider-percent) * 1%, 100% - 2px))";
 const TICKS = Array.from({ length: 9 }, (_, index) => index);
 
 export function SliderRow({
@@ -30,142 +27,85 @@ export function SliderRow({
   step: number;
   value: number;
 }) {
-  const [isDragging, setIsDragging] = useState(false);
   const [isHandleOverText, setIsHandleOverText] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
-  const handleRef = useRef<HTMLSpanElement>(null);
+  const handleRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const valueRef = useRef<HTMLSpanElement>(null);
-  const percent = ((value - min) / (max - min)) * 100;
-  let handleState = "scale-[0.8] opacity-0";
-
-  if (isDragging) {
-    handleState = isHandleOverText
-      ? "scale-[0.92] opacity-55"
-      : "scale-100 opacity-80";
-  }
 
   useEffect(() => {
-    if (!isDragging) {
+    const track = trackRef.current;
+    const labelElement = labelRef.current;
+    const valueElement = valueRef.current;
+    if (!(track && labelElement && valueElement)) {
       return;
     }
-    let frame: number;
+
     const measure = () => {
       const handle = handleRef.current?.getBoundingClientRect();
       if (handle) {
         setIsHandleOverText(
-          [labelRef, valueRef].some((ref) => {
-            const text = ref.current?.getBoundingClientRect();
-            return (
-              text !== undefined &&
-              handle.right >= text.left &&
-              handle.left <= text.right
-            );
+          [labelElement, valueElement].some((element) => {
+            const text = element.getBoundingClientRect();
+            return handle.right >= text.left && handle.left <= text.right;
           })
         );
       }
-      frame = requestAnimationFrame(measure);
     };
-    frame = requestAnimationFrame(measure);
-    return () => cancelAnimationFrame(frame);
-  }, [isDragging]);
-
-  function valueAt(clientX: number) {
-    const track = trackRef.current?.getBoundingClientRect();
-    if (!track || track.width === 0) {
-      return value;
-    }
-    const ratio = Math.min(
-      Math.max((clientX - track.left) / track.width, 0),
-      1
-    );
-    const stepped = min + Math.round((ratio * (max - min)) / step) * step;
-    return Math.min(Math.max(stepped, min), max);
-  }
-
-  function startDragging(event: PointerEvent<HTMLDivElement>) {
-    if (event.button !== 0) {
-      return;
-    }
-    event.preventDefault();
-    event.currentTarget.setPointerCapture(event.pointerId);
-    inputRef.current?.focus({ preventScroll: true });
-    setIsDragging(true);
-    onChange(valueAt(event.clientX));
-  }
-
-  function drag(event: PointerEvent<HTMLDivElement>) {
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      onChange(valueAt(event.clientX));
-    }
-  }
-
-  function stopDragging() {
-    setIsDragging(false);
-    setIsHandleOverText(false);
-  }
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(track);
+    observer.observe(labelElement);
+    observer.observe(valueElement);
+    return () => observer.disconnect();
+  }, [value]);
 
   return (
-    <div
-      className={cn(
-        "group relative cursor-ew-resize touch-pan-y rounded-lg",
-        FOCUS_RING
-      )}
-      onLostPointerCapture={stopDragging}
-      onPointerCancel={stopDragging}
-      onPointerDown={startDragging}
-      onPointerMove={drag}
-      onPointerUp={stopDragging}
-      style={{ "--slider-percent": percent } as CSSProperties}
+    <Slider.Root
+      className={cn("group relative rounded-lg", FOCUS_RING)}
+      max={max}
+      min={min}
+      onValueChange={onChange}
+      step={step}
+      thumbAlignment="edge"
+      value={value}
     >
-      <div
-        className="relative h-8 pointer-coarse:h-10 w-full overflow-hidden rounded-lg bg-background"
+      <Slider.Control
+        className="relative h-8 pointer-coarse:h-10 w-full cursor-ew-resize touch-pan-y overflow-hidden rounded-lg bg-background"
         ref={trackRef}
       >
         <span
           aria-hidden="true"
-          className={cn(
-            "pointer-events-none absolute inset-0 flex items-center justify-around opacity-0 transition-opacity duration-200 ease-out hover-hover:group-hover:opacity-100 motion-reduce:transition-none",
-            isDragging && "opacity-100"
-          )}
+          className="pointer-events-none absolute inset-0 flex items-center justify-around opacity-0 transition-opacity duration-200 ease-out hover-hover:group-hover:opacity-100 group-data-dragging:opacity-100 motion-reduce:transition-none"
         >
           {TICKS.map((tick) => (
             <span className="h-1.75 w-px rounded-full bg-border" key={tick} />
           ))}
         </span>
-        <div
-          className="absolute inset-0 origin-left bg-background will-change-transform"
-          style={{ transform: FILL_TRANSFORM }}
-        />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-full will-change-transform"
-          style={{ transform: HANDLE_TRANSFORM }}
+        <Slider.Indicator className="absolute inset-y-0 bg-background" />
+        <Slider.Thumb
+          aria-label={label}
+          className="z-10 h-4 w-0.75 outline-none"
+          getAriaValueText={(_formatted, raw) => format(raw)}
+          ref={handleRef}
         >
           <span
-            className="absolute top-1/2 left-0 h-4 w-0.75 -translate-x-1/2 -translate-y-1/2"
-            ref={handleRef}
-          >
-            <span
-              className={cn(
-                "block size-full rounded-full transition-[opacity,scale,background-color] duration-300 ease-out motion-reduce:transition-none",
-                isHandleOverText ? "bg-content-subtle/50" : "bg-content-subtle",
-                handleState
-              )}
-            />
-          </span>
-        </span>
+            aria-hidden="true"
+            className={cn(
+              "block size-full scale-[0.8] rounded-full opacity-0 transition-[opacity,scale,background-color] duration-300 ease-out motion-reduce:transition-none",
+              isHandleOverText
+                ? "bg-content-subtle/50 group-data-dragging:scale-[0.92] group-data-dragging:opacity-55"
+                : "bg-content-subtle group-data-dragging:scale-100 group-data-dragging:opacity-80"
+            )}
+          />
+        </Slider.Thumb>
         <span
           className="pointer-events-none absolute inset-y-0 left-2 z-20 flex items-center"
           ref={labelRef}
         >
           <Text
             as="span"
-            className={cn(
-              "select-none text-content-subtle transition-colors duration-150 hover-hover:group-hover:text-content",
-              isDragging && "text-content"
-            )}
+            className="select-none text-content-subtle transition-colors duration-150 hover-hover:group-hover:text-content group-data-dragging:text-content"
             size="sm"
             weight="medium"
           >
@@ -173,28 +113,12 @@ export function SliderRow({
           </Text>
         </span>
         <span
-          className={cn(
-            "pointer-events-none absolute inset-y-0 right-2 z-20 flex select-none items-center font-paper-mono text-[12px] text-content-subtle transition-colors duration-200 ease-out hover-hover:group-hover:text-content",
-            isDragging && "text-content"
-          )}
+          className="pointer-events-none absolute inset-y-0 right-2 z-20 flex select-none items-center font-paper-mono text-[12px] text-content-subtle transition-colors duration-200 ease-out hover-hover:group-hover:text-content group-data-dragging:text-content"
           ref={valueRef}
         >
           {format(value)}
         </span>
-      </div>
-      <input
-        aria-label={label}
-        className="pointer-events-none absolute inset-x-0 -inset-y-1 z-30 w-full opacity-0"
-        max={max}
-        min={min}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => {
-          onChange(Number(event.target.value));
-        }}
-        ref={inputRef}
-        step={step}
-        type="range"
-        value={value}
-      />
-    </div>
+      </Slider.Control>
+    </Slider.Root>
   );
 }

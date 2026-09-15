@@ -1,8 +1,9 @@
-import type {
-  EasingProps,
-  SPINNERS,
-  SpinnerName,
-  SpinnerProps,
+import {
+  DEFAULT_EASING,
+  type EasingProps,
+  type SPINNERS,
+  type SpinnerName,
+  type SpinnerProps,
 } from "loading-dev";
 import type { ComponentProps } from "react";
 
@@ -16,16 +17,11 @@ type OptionValues<Value extends string> = readonly [
   ...{ label: string; value: Value }[],
 ];
 
-interface SpinnerOption {
-  label: string;
-  prop: string;
-  values: OptionValues<string>;
-}
-
 type OwnProp<P> = Exclude<keyof P, keyof SpinnerProps> & string;
 
 type OptionOf<P> = {
   [K in OwnProp<P>]: {
+    defaultValue: NonNullable<P[K]> & string;
     label: string;
     prop: K;
     values: OptionValues<NonNullable<P[K]> & string>;
@@ -36,13 +32,13 @@ export interface SpinnerItem {
   description: string;
   href: string;
   name: string;
-  options?: readonly SpinnerOption[];
+  options?: readonly OptionOf<EasingProps>[];
   slug: SpinnerName;
   speed: SpeedRange;
 }
 
 function entry<S extends SpinnerName>(
-  definition: Omit<SpinnerItem, "href" | "slug" | "options"> & {
+  definition: Omit<SpinnerItem, "href" | "slug"> & {
     slug: S;
     options?: readonly OptionOf<
       ComponentProps<(typeof SPINNERS)[NoInfer<S>]>
@@ -65,6 +61,7 @@ export const SIZES = [
 export const DEFAULT_SIZE_INDEX = 1;
 
 const EASING_OPTION: OptionOf<EasingProps> = {
+  defaultValue: DEFAULT_EASING,
   label: "Easing",
   prop: "easing",
   values: [

@@ -31,8 +31,8 @@ npm run dev        # inspect the spinners at http://localhost:3001
 
 - The package installs from the registry with no peer-dependency conflicts
 - The `exports` map resolves under `moduleResolution: "bundler"`
-- Every name in `src/index.ts` is actually exported, and `dist/index.d.ts` types it
-  (the named imports in `app/page.tsx` fail the build otherwise)
+- Every spinner has a public named export with types in `dist/index.d.ts`
+  (the explicit named imports in `app/page.tsx` fail the build otherwise)
 - Components render in a **Server Component** with no `"use client"` boundary
 - React 19 style hoisting emits the `<style data-precedence="loading-dev">` tags server-side
 

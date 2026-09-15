@@ -6,7 +6,7 @@ export { ClassicV2 } from "./classic-v2";
 export { Clock, type ClockProps } from "./clock";
 export { Comet, type CometProps } from "./comet";
 export { Compass } from "./compass";
-export type { Easing, EasingProps } from "./easing";
+export { DEFAULT_EASING, type Easing, type EasingProps } from "./easing";
 export { LinearDots } from "./linear-dots";
 export {
   DURATION_VAR,

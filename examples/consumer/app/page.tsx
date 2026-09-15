@@ -1,8 +1,40 @@
 import { readFile } from "node:fs/promises";
-import { SPINNER_MOTION, SPINNERS } from "loading-dev";
+import {
+  Arc,
+  BouncingDots,
+  CircularDots,
+  Classic,
+  ClassicV2,
+  Clock,
+  Comet,
+  Compass,
+  LinearDots,
+  Orbit,
+  Pulse,
+  Radar,
+  Ring,
+  SPINNER_MOTION,
+  type SPINNERS,
+  Swirl,
+} from "loading-dev";
 import type { CSSProperties, ReactNode } from "react";
 
-const ENTRIES = Object.entries(SPINNERS);
+const ENTRIES = Object.entries({
+  arc: Arc,
+  "bouncing-dots": BouncingDots,
+  "circular-dots": CircularDots,
+  classic: Classic,
+  "classic-v2": ClassicV2,
+  clock: Clock,
+  comet: Comet,
+  compass: Compass,
+  "linear-dots": LinearDots,
+  orbit: Orbit,
+  pulse: Pulse,
+  radar: Radar,
+  ring: Ring,
+  swirl: Swirl,
+} satisfies typeof SPINNERS);
 
 async function installedVersion(): Promise<string> {
   try {

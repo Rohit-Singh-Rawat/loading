@@ -38,7 +38,8 @@
     "lint": "biome check .",
     "prepublishOnly": "tsup",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit && pnpm build && pnpm --filter web typecheck"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.13",

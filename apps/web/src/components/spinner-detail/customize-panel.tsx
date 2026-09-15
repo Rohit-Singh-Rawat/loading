@@ -40,7 +40,7 @@ export function CustomizePanel({
           label={option.label}
           onValueChange={(value) => state.setOption(option.prop, value)}
           options={option.values}
-          value={state.options[option.prop]}
+          value={state.options[option.prop] ?? option.defaultValue}
         />
       ))}
       <ColorPickerRow
