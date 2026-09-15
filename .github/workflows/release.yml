@@ -23,9 +23,8 @@ jobs:
       # Trusted publishing needs npm >= 11.5.1, which is newer than the npm
       # bundled with some Node 24 releases.
       - run: npm install --global npm@latest
-      # Scoped to the root package on purpose: a full workspace install
-      # pulls in apps/web, whose licensed icon packages throw from a preinstall
-      # script unless CENTRAL_LICENSE_KEY is in the environment.
+      # Scoped to the root package: publishing needs only the library's own
+      # dependencies, not the showcase's.
       - run: pnpm install --frozen-lockfile --filter loading-dev
       # npm, not pnpm: pnpm 11 still 404s on OIDC publish. Safe here because
       # loading-dev has no workspace: dependencies for pnpm to rewrite.

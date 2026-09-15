@@ -1,9 +1,4 @@
 @layer utilities {
-  .link-outline:focus-visible {
-    outline: 2px solid var(--color-content);
-    outline-offset: 2px;
-  }
-
   .scroll-fade-y {
     mask-image: linear-gradient(
       to bottom,

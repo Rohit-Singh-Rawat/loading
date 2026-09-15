@@ -2,12 +2,7 @@
 
 import { Dialog } from "@base-ui/react/dialog";
 import { ScrollArea } from "@base-ui/react/scroll-area";
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  CrossCircledIcon,
-  MagnifyingGlassIcon,
-} from "@radix-ui/react-icons";
+import { CrossCircledIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Command, useCommandState } from "cmdk";
 import { usePathname, useRouter } from "next/navigation";
 import { type RefObject, useRef, useState } from "react";
@@ -18,15 +13,18 @@ import {
   TOP_LEVEL_NAV,
 } from "@/components/sidebar/nav-items";
 import { Kbd } from "@/components/ui/kbd";
-import { LogoMark } from "@/components/ui/logo";
-import { useKeysPressed } from "@/lib/use-keys-pressed";
 import { cn } from "@/lib/utils";
+import { SearchFooter } from "./search-footer";
 
 const ITEM_CLASSNAME =
   "group flex cursor-pointer select-none items-center gap-1 rounded-xl p-2 text-[13px] text-content leading-5 data-[selected=true]:bg-background-hovered";
 
 const GROUP_CLASSNAME =
   "p-1 **:[[cmdk-group-items]]:flex **:[[cmdk-group-items]]:flex-col **:[[cmdk-group-items]]:gap-0.5 **:[[cmdk-group-heading]]:px-3 **:[[cmdk-group-heading]]:py-2 **:[[cmdk-group-heading]]:text-[13px] **:[[cmdk-group-heading]]:text-content-subtle **:[[cmdk-group-heading]]:leading-5";
+
+type CloseAction =
+  | { reason: "dismiss" }
+  | { reason: "navigate"; href: string; completed: boolean };
 
 export function SearchDialog({
   onOpenChange,
@@ -40,8 +38,7 @@ export function SearchDialog({
   const router = useRouter();
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
-  const navigatedRef = useRef(false);
-  const pendingHrefRef = useRef<string | null>(null);
+  const closeActionRef = useRef<CloseAction>({ reason: "dismiss" });
 
   const [query, setQuery] = useState("");
   const [wasOpen, setWasOpen] = useState(open);
@@ -49,13 +46,11 @@ export function SearchDialog({
     setWasOpen(open);
     if (open) {
       setQuery("");
-      pendingHrefRef.current = null;
     }
   }
 
   const navigateTo = (href: string) => {
-    navigatedRef.current = true;
-    pendingHrefRef.current = href;
+    closeActionRef.current = { completed: false, href, reason: "navigate" };
     if (href !== pathname) {
       router.prefetch(href);
     }
@@ -63,12 +58,12 @@ export function SearchDialog({
   };
 
   const runPendingNavigation = () => {
-    const href = pendingHrefRef.current;
-    if (!href) {
+    const action = closeActionRef.current;
+    if (action.reason !== "navigate" || action.completed) {
       return;
     }
-    pendingHrefRef.current = null;
-    router.push(href);
+    action.completed = true;
+    router.push(action.href);
   };
 
   return (
@@ -92,14 +87,16 @@ export function SearchDialog({
             "data-ending-style:scale-95 data-ending-style:opacity-0"
           )}
           finalFocus={() => {
-            if (navigatedRef.current) {
-              navigatedRef.current = false;
+            if (closeActionRef.current.reason === "navigate") {
               return false;
             }
             const element = returnFocusRef.current;
             return element?.isConnected ? element : false;
           }}
-          initialFocus={inputRef}
+          initialFocus={() => {
+            closeActionRef.current = { reason: "dismiss" };
+            return inputRef.current;
+          }}
         >
           <Dialog.Title className="sr-only">Search spinners</Dialog.Title>
 
@@ -212,62 +209,6 @@ function EmptyRow({ onClearQuery }: { onClearQuery: () => void }) {
           Clear search
         </span>
       </Command.Item>
-    </div>
-  );
-}
-
-const FOOTER_KEYS = ["arrowup", "arrowdown", "enter", "escape"] as const;
-
-function ReturnIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      viewBox="0 0 15 15"
-    >
-      <path d="M11.5 3.75v4.5h-8M6 5.75 3.5 8.25 6 10.75" />
-    </svg>
-  );
-}
-
-function SearchFooter() {
-  const pressed = useKeysPressed(FOOTER_KEYS);
-
-  return (
-    <div
-      aria-hidden
-      className="hidden items-center justify-between border-border border-t bg-background-subtle p-3 text-[13px] text-content-subtle sm:flex"
-    >
-      <LogoMark className="size-4.5 text-orange" />
-      <div className="flex select-none items-center gap-4">
-        <span className="flex items-center gap-2">
-          <span className="flex items-center gap-1">
-            <Kbd pressed={pressed.arrowdown}>
-              <ArrowDownIcon className="size-3" />
-            </Kbd>
-            <Kbd pressed={pressed.arrowup}>
-              <ArrowUpIcon className="size-3" />
-            </Kbd>
-          </span>
-          Navigate
-        </span>
-        <span className="flex items-center gap-2">
-          <Kbd pressed={pressed.enter}>
-            <ReturnIcon className="size-3" />
-          </Kbd>
-          Select
-        </span>
-        <span className="flex items-center gap-2 leading-none">
-          <Kbd className="px-1.5" pressed={pressed.escape} uppercase={false}>
-            <span className="mb-px">esc</span>
-          </Kbd>
-          Close
-        </span>
-      </div>
     </div>
   );
 }

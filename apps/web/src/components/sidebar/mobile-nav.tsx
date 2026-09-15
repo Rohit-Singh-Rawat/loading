@@ -73,7 +73,7 @@ export function MobileNav() {
                             pathname === item.href ? "page" : undefined
                           }
                           as={Link}
-                          className="link-outline flex h-12 w-full items-center text-content"
+                          className="flex h-12 w-full items-center text-content"
                           href={item.href}
                           size="xl"
                           weight="medium"
@@ -93,7 +93,7 @@ export function MobileNav() {
                   <li key={label}>
                     <Text
                       as="a"
-                      className="link-outline flex h-10 w-full items-center gap-3 text-content-subtle"
+                      className="flex h-10 w-full items-center gap-3 text-content-subtle"
                       href={href}
                       rel="noreferrer"
                       size="base"

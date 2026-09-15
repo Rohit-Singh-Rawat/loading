@@ -6,12 +6,8 @@ import {
 import { cn } from "@/lib/utils";
 
 const sizes = {
-  lg: "size-11",
   md: "size-10",
   sm: "size-9",
-  xl: "size-12",
-  xs: "size-8",
-  xxs: "size-7",
 };
 
 type IconButtonSize = keyof typeof sizes;

@@ -1,52 +1,7 @@
-import {
-  DEFAULT_EASING,
-  type EasingProps,
-  type SPINNERS,
-  type SpinnerName,
-  type SpinnerProps,
-} from "loading-dev";
-import type { ComponentProps } from "react";
+import { DEFAULT_EASING, type EasingProps } from "loading-dev";
+import { entry, type OptionOf, type SpinnerItem } from "./catalog";
 
-interface SpeedRange {
-  max: number;
-  min: number;
-}
-
-type OptionValues<Value extends string> = readonly [
-  { label: string; value: Value },
-  ...{ label: string; value: Value }[],
-];
-
-type OwnProp<P> = Exclude<keyof P, keyof SpinnerProps> & string;
-
-type OptionOf<P> = {
-  [K in OwnProp<P>]: {
-    defaultValue: NonNullable<P[K]> & string;
-    label: string;
-    prop: K;
-    values: OptionValues<NonNullable<P[K]> & string>;
-  };
-}[OwnProp<P>];
-
-export interface SpinnerItem {
-  description: string;
-  href: string;
-  name: string;
-  options?: readonly OptionOf<EasingProps>[];
-  slug: SpinnerName;
-  speed: SpeedRange;
-}
-
-function entry<S extends SpinnerName>(
-  definition: Omit<SpinnerItem, "href" | "slug"> & {
-    slug: S;
-    options?: readonly OptionOf<
-      ComponentProps<(typeof SPINNERS)[NoInfer<S>]>
-    >[];
-  }
-): SpinnerItem {
-  return { ...definition, href: `/spinners/${definition.slug}` };
-}
+export type { SpinnerItem, SpinnerOptions } from "./catalog";
 
 export interface SpinnerParams {
   slug: string;
@@ -58,7 +13,7 @@ export const SIZES = [
   { label: "Large", value: 96 },
 ];
 
-export const DEFAULT_SIZE_INDEX = 1;
+export const DEFAULT_PREVIEW_SIZE = 48;
 
 const EASING_OPTION: OptionOf<EasingProps> = {
   defaultValue: DEFAULT_EASING,

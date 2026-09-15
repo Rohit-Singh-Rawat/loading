@@ -64,7 +64,7 @@ function TocLink({
       aria-current={current ? "location" : undefined}
       as="a"
       className={cn(
-        "link-outline relative flex w-full items-center rounded-lg px-3 transition-colors duration-200 ease-out after:absolute after:inset-x-0 after:-inset-y-px after:content-['']",
+        "relative flex w-full items-center rounded-lg px-3 transition-colors duration-200 ease-out after:absolute after:inset-x-0 after:-inset-y-px after:content-['']",
         visible ? "text-content" : "text-content-subtle hover:text-content"
       )}
       href={`#${item.id}`}

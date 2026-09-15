@@ -34,7 +34,7 @@ export function CopyButton({
     <button
       aria-label={labels[status]}
       className={cn(
-        "link-outline group grid size-7 shrink-0 place-items-center transition-[scale,background-color] duration-200 ease-out hover-hover:hover:bg-background-hovered active:scale-[0.97]",
+        "group grid size-7 shrink-0 place-items-center transition-[scale,background-color] duration-200 ease-out hover-hover:hover:bg-background-hovered active:scale-[0.97]",
         roundedClasses[rounded],
         className
       )}

@@ -1,15 +1,10 @@
-import { cssVars, SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { SpinnerStyle, spinnerRoot, step } from "./frame";
+import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const RING = [0, 1, 2, 7, null, 3, 6, 5, 4];
 
-const CELLS = RING.map((place) => ({
-  place,
-  step: place === null ? null : (8 - place) % 8,
-}));
-
-const dur = duration("swirl");
+const PLACES = RING.filter((place) => place !== null).length;
 
 const css = `
 .ld-swirl {
@@ -26,8 +21,8 @@ const css = `
 .ld-swirl-cell {
   background: currentColor;
   border-radius: calc(${SIZE} * 0.0625);
-  animation: ld-swirl-fade ${dur} linear infinite;
-  animation-delay: calc(${dur} * var(--ld-swirl-step) / -8);
+  animation: ld-swirl-fade ${duration("swirl")} linear infinite;
+  animation-delay: ${stagger("swirl", PLACES)};
   animation-play-state: ${PLAY_STATE};
 }
 
@@ -53,15 +48,11 @@ export function Swirl(props: SpinnerProps) {
     <>
       <SpinnerStyle name="swirl">{css}</SpinnerStyle>
       <div {...spinnerRoot("swirl", props)}>
-        {CELLS.map((cell, index) =>
-          cell.step === null ? (
+        {RING.map((place, index) =>
+          place === null ? (
             <div key={index} />
           ) : (
-            <div
-              className="ld-swirl-cell"
-              key={index}
-              style={cssVars({ "--ld-swirl-step": cell.step })}
-            />
+            <div className="ld-swirl-cell" key={index} style={step(place)} />
           )
         )}
       </div>

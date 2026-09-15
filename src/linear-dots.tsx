@@ -1,14 +1,8 @@
-import { cssVars, SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { SpinnerStyle, spinnerRoot, step } from "./frame";
+import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
-const COUNT = 3;
-
-const DOTS = Array.from({ length: COUNT }, (_, index) => ({
-  step: (COUNT - index) % COUNT,
-}));
-
-const dur = duration("linear-dots");
+const DOTS = Array.from({ length: 3 }, (_, index) => index);
 
 const css = `
 .ld-linear-dots {
@@ -23,8 +17,8 @@ const css = `
   height: calc(${SIZE} * 0.1875);
   background: currentColor;
   border-radius: 9999px;
-  animation: ld-linear-dots-fade ${dur} linear infinite;
-  animation-delay: calc(${dur} * var(--ld-linear-dots-step) / -${COUNT});
+  animation: ld-linear-dots-fade ${duration("linear-dots")} linear infinite;
+  animation-delay: ${stagger("linear-dots", DOTS.length)};
   animation-play-state: ${PLAY_STATE};
 }
 
@@ -53,12 +47,8 @@ export function LinearDots(props: SpinnerProps) {
     <>
       <SpinnerStyle name="linear-dots">{css}</SpinnerStyle>
       <div {...spinnerRoot("linear-dots", props)}>
-        {DOTS.map((dot, index) => (
-          <div
-            className="ld-linear-dots-dot"
-            key={index}
-            style={cssVars({ "--ld-linear-dots-step": dot.step })}
-          />
+        {DOTS.map((dot) => (
+          <div className="ld-linear-dots-dot" key={dot} style={step(dot)} />
         ))}
       </div>
     </>

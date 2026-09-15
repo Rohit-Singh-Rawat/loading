@@ -1,13 +1,8 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 @import "./components.css";
 @import "./utilities.css";
 
 @plugin "easing-gradients";
-
-@utility ease {
-  transition-timing-function: ease;
-}
 
 @custom-variant hover-hover (@media (hover: hover) and (pointer: fine));
 
@@ -193,25 +188,4 @@
   --text-sm--line-height: calc(20 / 13);
   --text-base: 15px;
   --text-base--line-height: calc(24 / 15);
-
-  --shadow-custom-light:
-    0px 0px 0px 1px rgba(0, 0, 0, 0.06),
-    0px 1px 2px -1px rgba(0, 0, 0, 0.06),
-    0px 2px 4px 0px rgba(0, 0, 0, 0.04);
-  --shadow-custom-light-hover:
-    0px 0px 0px 1px rgba(0, 0, 0, 0.08),
-    0px 1px 2px -1px rgba(0, 0, 0, 0.08),
-    0px 2px 4px 0px rgba(0, 0, 0, 0.06);
-
-  --animate-caret-blink: caret-blink 1s ease-in-out infinite;
-
-  @keyframes caret-blink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-  }
 }

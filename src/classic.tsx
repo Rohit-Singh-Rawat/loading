@@ -1,18 +1,8 @@
-import { SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { SpinnerStyle, spinnerRoot, step } from "./frame";
+import { duration, PLAY_STATE, SIZE, STEP_VAR, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const BARS = Array.from({ length: 12 }, (_, index) => index);
-
-const dur = duration("classic");
-
-const BAR_RULES = BARS.map(
-  (bar) => `
-.ld-classic-bar:nth-child(${bar + 1}) {
-  transform: rotate(${bar === 0 ? "0.0001" : bar * 30}deg) translate(146%);
-  animation-delay: calc(${dur} * ${(bar / 12 - 1).toFixed(4)});
-}`
-).join("\n");
 
 const css = `
 .ld-classic {
@@ -36,10 +26,11 @@ const css = `
   height: 8%;
   background: currentColor;
   border-radius: 6px;
-  animation: ld-classic-spin ${dur} linear infinite;
+  transform: rotate(calc(var(${STEP_VAR}) * 30deg)) translate(146%);
+  animation: ld-classic-spin ${duration("classic")} linear infinite;
+  animation-delay: ${stagger("classic", BARS.length)};
   animation-play-state: ${PLAY_STATE};
 }
-${BAR_RULES}
 
 @keyframes ld-classic-spin {
   0% {
@@ -65,7 +56,7 @@ export function Classic(props: SpinnerProps) {
       <div {...spinnerRoot("classic", props)}>
         <div className="ld-classic-inner">
           {BARS.map((bar) => (
-            <div className="ld-classic-bar" key={bar} />
+            <div className="ld-classic-bar" key={bar} style={step(bar)} />
           ))}
         </div>
       </div>

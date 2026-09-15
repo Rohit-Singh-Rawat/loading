@@ -45,14 +45,15 @@ export default async function SpinnerPage({
 
   const { next, previous } = getAdjacentSpinners(slug);
 
-  const { default: Snippet }: MDXModule = await import(
-    `@/content/snippets/${slug}.mdx`
-  );
-  const options: MDXModule[] = await Promise.all(
-    (item.options ?? []).map(
-      (option) => import(`@/content/options/${option.prop}.mdx`)
-    )
-  );
+  const [{ default: Snippet }, options]: [MDXModule, MDXModule[]] =
+    await Promise.all([
+      import(`@/content/snippets/${slug}.mdx`),
+      Promise.all(
+        (item.options ?? []).map(
+          (option) => import(`@/content/options/${option.prop}.mdx`)
+        )
+      ),
+    ]);
 
   const components = {
     Demo: (props: { name: string }) => <Demo {...props} slug={slug} />,

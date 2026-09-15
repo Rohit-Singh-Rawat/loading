@@ -1,15 +1,11 @@
 "use client";
 
-import {
-  type EasingProps,
-  SPINNER_MOTION,
-  type SpinnerProps,
-} from "loading-dev";
+import { SPINNER_MOTION, type SpinnerProps } from "loading-dev";
 import { useState } from "react";
 import {
-  DEFAULT_SIZE_INDEX,
-  SIZES,
+  DEFAULT_PREVIEW_SIZE,
   type SpinnerItem,
+  type SpinnerOptions,
 } from "@/components/spinners";
 
 const FULLY_OPAQUE = 100;
@@ -17,40 +13,40 @@ const FULLY_OPAQUE = 100;
 export interface SpinnerCustomizationState {
   color: string | null;
   opacity: number;
-  options: EasingProps;
+  options: SpinnerOptions;
   paused: boolean;
   reset: () => void;
   setColor: (color: string) => void;
   setOpacity: (percent: number) => void;
-  setOption: <K extends keyof EasingProps>(
+  setOption: <K extends keyof SpinnerOptions>(
     prop: K,
-    value: NonNullable<EasingProps[K]>
+    value: NonNullable<SpinnerOptions[K]>
   ) => void;
-  setSizeIndex: (index: number) => void;
+  setSize: (size: number) => void;
   setSpeedMs: (speedMs: number) => void;
-  sizeIndex: number;
+  size: number;
   speedMs: number;
-  spinnerProps: SpinnerProps & EasingProps;
+  spinnerProps: SpinnerProps & SpinnerOptions;
   togglePaused: () => void;
 }
 
 export function useCustomizationState(
   item: SpinnerItem
 ): SpinnerCustomizationState {
-  const defaultDuration = SPINNER_MOTION[item.slug].duration;
+  const defaultDuration = SPINNER_MOTION[item.slug];
   const [paused, setPaused] = useState(false);
-  const [sizeIndex, setSizeIndex] = useState(DEFAULT_SIZE_INDEX);
+  const [size, setSize] = useState(DEFAULT_PREVIEW_SIZE);
   const [color, setColor] = useState<string | null>(null);
   const [speedMs, setSpeedMs] = useState<number>(defaultDuration);
   const [opacity, setOpacity] = useState(FULLY_OPAQUE);
-  const [options, setOptions] = useState<EasingProps>({});
+  const [options, setOptions] = useState<SpinnerOptions>({});
 
-  const spinnerProps: SpinnerProps & EasingProps = {
+  const spinnerProps: SpinnerProps & SpinnerOptions = {
     ...options,
     color: color ?? undefined,
     duration: speedMs,
     playState: paused ? "paused" : "running",
-    size: SIZES[sizeIndex].value,
+    size,
   };
 
   return {
@@ -59,7 +55,7 @@ export function useCustomizationState(
     options,
     paused,
     reset: () => {
-      setSizeIndex(DEFAULT_SIZE_INDEX);
+      setSize(DEFAULT_PREVIEW_SIZE);
       setColor(null);
       setSpeedMs(defaultDuration);
       setOpacity(FULLY_OPAQUE);
@@ -69,9 +65,9 @@ export function useCustomizationState(
     setOpacity,
     setOption: (prop, value) =>
       setOptions((previous) => ({ ...previous, [prop]: value })),
-    setSizeIndex,
+    setSize,
     setSpeedMs,
-    sizeIndex,
+    size,
     speedMs,
     spinnerProps,
     togglePaused: () => setPaused((value) => !value),

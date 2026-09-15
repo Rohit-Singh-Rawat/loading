@@ -168,9 +168,9 @@ export default async function Page() {
         title="SPINNER_MOTION"
       >
         <Row>
-          {Object.entries(SPINNER_MOTION).map(([name, motion]) => (
+          {Object.entries(SPINNER_MOTION).map(([name, ms]) => (
             <code key={name} style={{ fontSize: "0.75rem", opacity: 0.6 }}>
-              {name}: {motion.duration}ms
+              {name}: {ms}ms
             </code>
           ))}
         </Row>

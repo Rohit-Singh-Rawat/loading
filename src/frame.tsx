@@ -5,6 +5,7 @@ import {
   PLAY_STATE_VAR,
   SIZE_VAR,
   type SpinnerName,
+  STEP_VAR,
 } from "./motion";
 import type { SpinnerProps } from "./types";
 
@@ -26,6 +27,10 @@ export function cssVars(
   vars: CSSProperties & { [variable: `--ld-${string}`]: number | string }
 ): CSSProperties {
   return vars;
+}
+
+export function step(index: number): CSSProperties {
+  return cssVars({ [STEP_VAR]: index });
 }
 
 export function spinnerRoot(

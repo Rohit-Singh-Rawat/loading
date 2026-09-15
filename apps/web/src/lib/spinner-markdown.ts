@@ -58,10 +58,20 @@ export async function getSpinnerDocument(
       readContent("options", `${option.prop}.mdx`)
     ),
   ]);
-  const { headings, markdown } = await parse(
-    [shared, ...options].join("\n\n"),
-    slug
+  const documents = await Promise.all(
+    [shared, ...options].map((source) => parse(source, slug))
   );
+  const headings = documents.flatMap((document) => document.headings);
+  const ids = new Set<string>();
+  for (const heading of headings) {
+    if (ids.has(heading.id)) {
+      throw new Error(
+        `Duplicate heading ID "${heading.id}" in spinner "${slug}"`
+      );
+    }
+    ids.add(heading.id);
+  }
+  const markdown = documents.map((document) => document.markdown).join("\n\n");
 
   return {
     headings,

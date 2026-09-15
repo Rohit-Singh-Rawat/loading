@@ -72,7 +72,7 @@ export function ColorPickerRow({
 
   return (
     <Popover>
-      <PopoverTrigger className="link-outline group flex h-8 pointer-coarse:h-10 w-full shrink-0 items-center justify-between rounded-lg bg-background px-2 transition-colors duration-200 ease-out data-popup-open:inset-ring data-popup-open:inset-ring-border data-popup-open:bg-background-hovered">
+      <PopoverTrigger className="group flex h-8 pointer-coarse:h-10 w-full shrink-0 items-center justify-between rounded-lg bg-background px-2 transition-colors duration-200 ease-out data-popup-open:inset-ring data-popup-open:inset-ring-border data-popup-open:bg-background-hovered">
         <Text
           as="span"
           className="select-none text-content-subtle transition-colors duration-150 hover-hover:group-hover:text-content group-data-popup-open:text-content"

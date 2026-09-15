@@ -27,12 +27,9 @@ export function CustomizePanel({
     >
       <SegmentedControl
         label="Size"
-        onValueChange={state.setSizeIndex}
-        options={SIZES.map((size, index) => ({
-          label: size.label,
-          value: index,
-        }))}
-        value={state.sizeIndex}
+        onValueChange={state.setSize}
+        options={SIZES}
+        value={state.size}
       />
       {item.options?.map((option) => (
         <SegmentedControl

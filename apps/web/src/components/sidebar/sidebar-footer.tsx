@@ -15,7 +15,7 @@ function Nametag({
 }) {
   return (
     <a
-      className="link-outline group whitespace-nowrap transition-colors hover:text-content"
+      className="group whitespace-nowrap transition-colors hover:text-content"
       href={href}
       rel="noreferrer"
       target="_blank"

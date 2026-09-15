@@ -6,10 +6,6 @@
       "performance": {
         // React Compiler memoizes inline handlers; useCallback is banned here
         "noJsxPropsBind": "off"
-      },
-      "suspicious": {
-        // False positives: flags reachable switch cases on useState union types
-        "noUnnecessaryConditions": "off"
       }
     }
   },

@@ -43,7 +43,7 @@ export function Logo({ className }: { className?: string }) {
     <Link
       aria-label="Home"
       className={cn(
-        "link-outline block size-7.5 shrink-0 rounded-sm text-orange",
+        "block size-7.5 shrink-0 rounded-sm text-orange",
         className
       )}
       href="/"
