@@ -13,7 +13,6 @@ import { LinearDots } from "./linear-dots";
 import { Loading } from "./loading";
 import type { SpinnerName } from "./motion";
 import { Orbit } from "./orbit";
-import { Pie } from "./pie";
 import { Pulse } from "./pulse";
 import { Radar } from "./radar";
 import { Ring } from "./ring";
@@ -36,7 +35,6 @@ export const SPINNERS = {
   "linear-dots": LinearDots,
   loading: Loading,
   orbit: Orbit,
-  pie: Pie,
   pulse: Pulse,
   radar: Radar,
   ring: Ring,

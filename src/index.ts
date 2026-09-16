@@ -23,7 +23,6 @@ export {
   type SpinnerName,
 } from "./motion";
 export { Orbit, type OrbitProps } from "./orbit";
-export { Pie } from "./pie";
 export { Pulse } from "./pulse";
 export { Radar, type RadarProps } from "./radar";
 export { Ring, type RingProps } from "./ring";

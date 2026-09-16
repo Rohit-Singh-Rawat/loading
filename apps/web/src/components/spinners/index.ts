@@ -191,12 +191,6 @@ const CATALOG: SpinnerItem[] = [
     slug: "loading",
     speed: { max: 2400, min: 300 },
   }),
-  entry({
-    description: "A ring filling up and emptying out clockwise.",
-    name: "Pie",
-    slug: "pie",
-    speed: { max: 2400, min: 300 },
-  }),
 ];
 
 export { CATALOG as SPINNER_ITEMS };

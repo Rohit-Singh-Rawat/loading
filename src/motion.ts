@@ -24,7 +24,6 @@ export const SPINNER_MOTION = {
   "linear-dots": 900,
   loading: 1000,
   orbit: 750,
-  pie: 1000,
   pulse: 1200,
   radar: 1500,
   ring: 800,
