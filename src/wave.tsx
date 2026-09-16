@@ -8,7 +8,7 @@ export const DEFAULT_WAVE_ORIGIN: WaveOrigin = "center";
 
 export interface WaveProps extends SpinnerProps {
   /**
-   * Where the bars grow from. `center` scales them from the middle, `bottom`
+   * Where the bars grow from. `center` grows them from the middle, `bottom`
    * keeps their base fixed so they rise from the baseline. Defaults to
    * `center`.
    */
@@ -31,29 +31,28 @@ const css = `
   height: 100%;
   background: currentColor;
   border-radius: 9999px;
-  transform-origin: center;
   animation: ld-wave-rise ${duration("wave")} ease-in-out infinite;
   animation-delay: ${stagger("wave", BARS.length)};
   animation-play-state: ${PLAY_STATE};
 }
 
 .ld-wave-bar-bottom {
-  transform-origin: bottom;
+  align-self: flex-end;
 }
 
 @keyframes ld-wave-rise {
   0%,
   100% {
-    transform: scaleY(0.3);
+    height: 30%;
   }
   50% {
-    transform: scaleY(1);
+    height: 100%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ld-wave-bar {
-    transform: scaleY(calc(0.4 + var(${STEP_VAR}) * 0.15));
+    height: calc((0.4 + var(${STEP_VAR}) * 0.15) * 100%);
     animation: none;
   }
 }
