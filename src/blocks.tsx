@@ -2,29 +2,29 @@ import { SpinnerStyle, spinnerRoot, step } from "./frame";
 import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
-export type BlocksWave = "columns" | "diagonal" | "rows";
+export type BlocksSweep = "columns" | "diagonal" | "rows";
 
-export const DEFAULT_BLOCKS_WAVE: BlocksWave = "diagonal";
+export const DEFAULT_BLOCKS_SWEEP: BlocksSweep = "diagonal";
 
 export interface BlocksProps extends SpinnerProps {
-  /**
-   * Which way the wave runs through the grid. `diagonal` goes from the top
-   * left corner to the bottom right, `rows` from top to bottom, `columns` from
-   * left to right. Defaults to `diagonal`.
-   */
-  wave?: BlocksWave;
+  sweep?: BlocksSweep;
 }
 
 const SIDE = 3;
 
-const CELLS = Array.from({ length: SIDE * SIDE }, (_, index) => ({
+interface Cell {
+  col: number;
+  row: number;
+}
+
+const CELLS: Cell[] = Array.from({ length: SIDE * SIDE }, (_, index) => ({
   col: index % SIDE,
   row: Math.floor(index / SIDE),
 }));
 
-const WAVES: Record<
-  BlocksWave,
-  { count: number; place: (cell: (typeof CELLS)[number]) => number }
+const SWEEPS: Record<
+  BlocksSweep,
+  { count: number; place: (cell: Cell) => number }
 > = {
   columns: { count: SIDE, place: ({ col }) => col },
   diagonal: { count: SIDE * 2 - 1, place: ({ col, row }) => row + col },
@@ -44,17 +44,19 @@ const css = `
 .ld-blocks-cell {
   background: currentColor;
   border-radius: calc(${SIZE} * 0.0625);
-  animation: ld-blocks-wave ${duration("blocks")} ease-in-out infinite;
-  animation-delay: ${stagger("blocks", WAVES.diagonal.count)};
+  animation: ld-blocks-sweep ${duration("blocks")} ease-in-out infinite;
   animation-play-state: ${PLAY_STATE};
 }
-
-.ld-blocks-cell-columns,
-.ld-blocks-cell-rows {
-  animation-delay: ${stagger("blocks", SIDE)};
+${Object.entries(SWEEPS)
+  .map(
+    ([sweep, { count }]) => `
+.ld-blocks-cell-${sweep} {
+  animation-delay: ${stagger("blocks", count)};
 }
-
-@keyframes ld-blocks-wave {
+`
+  )
+  .join("")}
+@keyframes ld-blocks-sweep {
   0%,
   70%,
   100% {
@@ -73,18 +75,18 @@ const css = `
 }
 `;
 
-export function Blocks({ wave = DEFAULT_BLOCKS_WAVE, ...rest }: BlocksProps) {
-  const cell =
-    wave === "diagonal"
-      ? "ld-blocks-cell"
-      : `ld-blocks-cell ld-blocks-cell-${wave}`;
-  const { place } = WAVES[wave];
+export function Blocks({ sweep = DEFAULT_BLOCKS_SWEEP, ...rest }: BlocksProps) {
+  const { place } = SWEEPS[sweep];
   return (
     <>
       <SpinnerStyle name="blocks">{css}</SpinnerStyle>
       <div {...spinnerRoot("blocks", rest)}>
-        {CELLS.map((position, index) => (
-          <div className={cell} key={index} style={step(place(position))} />
+        {CELLS.map((cell) => (
+          <div
+            className={`ld-blocks-cell ld-blocks-cell-${sweep}`}
+            key={`${cell.col}-${cell.row}`}
+            style={step(place(cell))}
+          />
         ))}
       </div>
     </>

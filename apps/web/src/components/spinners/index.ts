@@ -1,12 +1,9 @@
 import {
-  type BlocksProps,
-  DEFAULT_BLOCKS_WAVE,
+  DEFAULT_BLOCKS_SWEEP,
   DEFAULT_EASING,
   DEFAULT_RIPPLE_DIRECTION,
   DEFAULT_WAVE_ORIGIN,
   type EasingProps,
-  type RippleProps,
-  type WaveProps,
 } from "loading-dev";
 import { entry, type OptionOf, type SpinnerItem } from "./catalog";
 
@@ -32,37 +29,6 @@ const EASING_OPTION: OptionOf<EasingProps> = {
     { label: "Linear", value: "linear" },
     { label: "Eased", value: "ease-in-out" },
     { label: "Stacked", value: "stacked" },
-  ],
-};
-
-const DIRECTION_OPTION: OptionOf<RippleProps> = {
-  defaultValue: DEFAULT_RIPPLE_DIRECTION,
-  label: "Direction",
-  prop: "direction",
-  values: [
-    { label: "Out", value: "out" },
-    { label: "In", value: "in" },
-  ],
-};
-
-const ORIGIN_OPTION: OptionOf<WaveProps> = {
-  defaultValue: DEFAULT_WAVE_ORIGIN,
-  label: "Origin",
-  prop: "origin",
-  values: [
-    { label: "Center", value: "center" },
-    { label: "Bottom", value: "bottom" },
-  ],
-};
-
-const WAVE_OPTION: OptionOf<BlocksProps> = {
-  defaultValue: DEFAULT_BLOCKS_WAVE,
-  label: "Wave",
-  prop: "wave",
-  values: [
-    { label: "Diagonal", value: "diagonal" },
-    { label: "Rows", value: "rows" },
-    { label: "Columns", value: "columns" },
   ],
 };
 
@@ -160,21 +126,52 @@ const CATALOG: SpinnerItem[] = [
   entry({
     description: "Three rings spreading out from the center.",
     name: "Ripple",
-    options: [DIRECTION_OPTION],
+    options: [
+      {
+        defaultValue: DEFAULT_RIPPLE_DIRECTION,
+        label: "Direction",
+        prop: "direction",
+        values: [
+          { label: "Out", value: "out" },
+          { label: "In", value: "in" },
+        ],
+      },
+    ],
     slug: "ripple",
     speed: { max: 2400, min: 400 },
   }),
   entry({
     description: "Five bars rising and falling in a wave.",
     name: "Wave",
-    options: [ORIGIN_OPTION],
+    options: [
+      {
+        defaultValue: DEFAULT_WAVE_ORIGIN,
+        label: "Origin",
+        prop: "origin",
+        values: [
+          { label: "Center", value: "center" },
+          { label: "Bottom", value: "bottom" },
+        ],
+      },
+    ],
     slug: "wave",
     speed: { max: 2000, min: 300 },
   }),
   entry({
-    description: "Nine blocks shrinking and growing in a wave across a grid.",
+    description: "Nine blocks shrinking and growing in a sweep across a grid.",
     name: "Blocks",
-    options: [WAVE_OPTION],
+    options: [
+      {
+        defaultValue: DEFAULT_BLOCKS_SWEEP,
+        label: "Sweep",
+        prop: "sweep",
+        values: [
+          { label: "Diagonal", value: "diagonal" },
+          { label: "Rows", value: "rows" },
+          { label: "Columns", value: "columns" },
+        ],
+      },
+    ],
     slug: "blocks",
     speed: { max: 2600, min: 400 },
   }),

@@ -11,7 +11,6 @@ const TILT = 180 / ORBITS.length;
 
 const css = `
 .ld-atom {
-  --ld-atom-stroke: calc(${SIZE} * 0.07);
   position: relative;
   width: ${SIZE};
   height: ${SIZE};
@@ -29,7 +28,7 @@ const css = `
   position: absolute;
   inset: 0;
   box-sizing: border-box;
-  border: var(--ld-atom-stroke) solid currentColor;
+  border: calc(${SIZE} * 0.07) solid currentColor;
   border-radius: 9999px;
   transform: rotateX(90deg);
 }

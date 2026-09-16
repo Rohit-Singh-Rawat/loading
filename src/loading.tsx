@@ -2,8 +2,8 @@ import { SpinnerStyle, spinnerRoot, step } from "./frame";
 import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
-// The loading.dev mark: eight 2×2 blocks of pixels on a 15-unit grid, listed
-// clockwise from the right so the brightest one travels that way.
+const BLOCK = "M0 0h1v1H0zM2 0h1v1H2zM0 2h1v1H0zM2 2h1v1H2z";
+
 const SEGMENTS = [
   { x: 12, y: 6 },
   { x: 10, y: 10 },
@@ -55,17 +55,13 @@ export function Loading(props: SpinnerProps) {
         viewBox="0 0 15 15"
       >
         {SEGMENTS.map(({ x, y }, segment) => (
-          <g
+          <path
             className="ld-loading-segment"
+            d={BLOCK}
             key={`${x}-${y}`}
             style={step(segment)}
             transform={`translate(${x} ${y})`}
-          >
-            <rect height="1" width="1" x="0" y="0" />
-            <rect height="1" width="1" x="2" y="0" />
-            <rect height="1" width="1" x="0" y="2" />
-            <rect height="1" width="1" x="2" y="2" />
-          </g>
+          />
         ))}
       </svg>
     </>

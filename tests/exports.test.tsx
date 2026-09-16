@@ -11,7 +11,7 @@ import {
   Clock,
   Comet,
   Compass,
-  DEFAULT_BLOCKS_WAVE,
+  DEFAULT_BLOCKS_SWEEP,
   DEFAULT_EASING,
   DEFAULT_RIPPLE_DIRECTION,
   DEFAULT_WAVE_ORIGIN,
@@ -65,7 +65,7 @@ describe("public exports", () => {
 
   it("uses the exported defaults when a spinner's own prop is omitted", () => {
     expect(renderToStaticMarkup(<Blocks />)).toBe(
-      renderToStaticMarkup(<Blocks wave={DEFAULT_BLOCKS_WAVE} />)
+      renderToStaticMarkup(<Blocks sweep={DEFAULT_BLOCKS_SWEEP} />)
     );
     expect(renderToStaticMarkup(<Ripple />)).toBe(
       renderToStaticMarkup(<Ripple direction={DEFAULT_RIPPLE_DIRECTION} />)

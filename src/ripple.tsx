@@ -7,10 +7,6 @@ export type RippleDirection = "in" | "out";
 export const DEFAULT_RIPPLE_DIRECTION: RippleDirection = "out";
 
 export interface RippleProps extends SpinnerProps {
-  /**
-   * Which way the rings travel. `out` spreads them from the center, `in`
-   * draws them into it. Defaults to `out`.
-   */
   direction?: RippleDirection;
 }
 
@@ -18,7 +14,6 @@ const RINGS = Array.from({ length: 3 }, (_, index) => index);
 
 const css = `
 .ld-ripple {
-  --ld-ripple-stroke: calc(${SIZE} * 0.08);
   position: relative;
   width: ${SIZE};
   height: ${SIZE};
@@ -28,7 +23,7 @@ const css = `
   position: absolute;
   inset: 0;
   box-sizing: border-box;
-  border: var(--ld-ripple-stroke) solid currentColor;
+  border: calc(${SIZE} * 0.08) solid currentColor;
   border-radius: 9999px;
   animation: ld-ripple-spread ${duration("ripple")} ease-out infinite;
   animation-delay: ${stagger("ripple", RINGS.length)};
@@ -63,14 +58,16 @@ export function Ripple({
   direction = DEFAULT_RIPPLE_DIRECTION,
   ...rest
 }: RippleProps) {
-  const ring =
-    direction === "out" ? "ld-ripple-ring" : "ld-ripple-ring ld-ripple-ring-in";
   return (
     <>
       <SpinnerStyle name="ripple">{css}</SpinnerStyle>
       <div {...spinnerRoot("ripple", rest)}>
         {RINGS.map((index) => (
-          <div className={ring} key={index} style={step(index)} />
+          <div
+            className={`ld-ripple-ring ld-ripple-ring-${direction}`}
+            key={index}
+            style={step(index)}
+          />
         ))}
       </div>
     </>

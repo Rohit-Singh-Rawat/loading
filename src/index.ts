@@ -3,8 +3,8 @@ export { Atom, type AtomProps } from "./atom";
 export {
   Blocks,
   type BlocksProps,
-  type BlocksWave,
-  DEFAULT_BLOCKS_WAVE,
+  type BlocksSweep,
+  DEFAULT_BLOCKS_SWEEP,
 } from "./blocks";
 export { BouncingDots } from "./bouncing-dots";
 export { CircularDots } from "./circular-dots";

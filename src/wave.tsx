@@ -7,11 +7,6 @@ export type WaveOrigin = "bottom" | "center";
 export const DEFAULT_WAVE_ORIGIN: WaveOrigin = "center";
 
 export interface WaveProps extends SpinnerProps {
-  /**
-   * Where the bars grow from. `center` grows them from the middle, `bottom`
-   * keeps their base fixed so they rise from the baseline. Defaults to
-   * `center`.
-   */
   origin?: WaveOrigin;
 }
 
@@ -59,14 +54,16 @@ const css = `
 `;
 
 export function Wave({ origin = DEFAULT_WAVE_ORIGIN, ...rest }: WaveProps) {
-  const bar =
-    origin === "center" ? "ld-wave-bar" : `ld-wave-bar ld-wave-bar-${origin}`;
   return (
     <>
       <SpinnerStyle name="wave">{css}</SpinnerStyle>
       <div {...spinnerRoot("wave", rest)}>
         {BARS.map((index) => (
-          <div className={bar} key={index} style={step(index)} />
+          <div
+            className={`ld-wave-bar ld-wave-bar-${origin}`}
+            key={index}
+            style={step(index)}
+          />
         ))}
       </div>
     </>
