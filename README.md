@@ -12,9 +12,9 @@ import { Arc } from "loading-dev";
 <Arc size={16} />
 ```
 
-You can set `size`, `color`, `duration` and `easing`. The library exposes `playState` and also allows you to add custom styling. They work in Server Components and respect reduced motion out of the box. Requires React 19 or later.
+You can set `size`, `color` and `duration`, plus `easing` on the rotating spinners and a prop of its own on a few others. The library exposes `playState` and also allows you to add custom styling. They work in Server Components and respect reduced motion out of the box. Requires React 19 or later.
 
-Available: `Arc`, `BouncingDots`, `CircularDots`, `Classic`, `ClassicV2`, `Clock`, `Comet`, `Compass`, `LinearDots`, `Orbit`, `Pulse`, `Radar`, `Ring`, `Swirl`.
+Available: `Arc`, `Atom`, `Blocks`, `BouncingDots`, `CircularDots`, `Classic`, `ClassicV2`, `Clock`, `Comet`, `Compass`, `LinearDots`, `Loading`, `Orbit`, `Pulse`, `Radar`, `Ring`, `Ripple`, `Swirl`, `Wave`.
 
 You can find docs and live previews at [loading.dev](https://loading.dev).
 

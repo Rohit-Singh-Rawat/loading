@@ -1,4 +1,10 @@
-import { DEFAULT_EASING, type EasingProps } from "loading-dev";
+import {
+  DEFAULT_BLOCKS_SWEEP,
+  DEFAULT_EASING,
+  DEFAULT_RIPPLE_DIRECTION,
+  DEFAULT_WAVE_ORIGIN,
+  type EasingProps,
+} from "loading-dev";
 import { entry, type OptionOf, type SpinnerItem } from "./catalog";
 
 export type { SpinnerItem, SpinnerOptions } from "./catalog";
@@ -116,6 +122,71 @@ const CATALOG: SpinnerItem[] = [
     name: "Swirl",
     slug: "swirl",
     speed: { max: 2400, min: 400 },
+  }),
+  entry({
+    description: "Three rings spreading out from the center.",
+    name: "Ripple",
+    options: [
+      {
+        defaultValue: DEFAULT_RIPPLE_DIRECTION,
+        label: "Direction",
+        prop: "direction",
+        values: [
+          { label: "Out", value: "out" },
+          { label: "In", value: "in" },
+        ],
+      },
+    ],
+    slug: "ripple",
+    speed: { max: 2400, min: 400 },
+  }),
+  entry({
+    description: "Five bars rising and falling in a wave.",
+    name: "Wave",
+    options: [
+      {
+        defaultValue: DEFAULT_WAVE_ORIGIN,
+        label: "Origin",
+        prop: "origin",
+        values: [
+          { label: "Center", value: "center" },
+          { label: "Bottom", value: "bottom" },
+        ],
+      },
+    ],
+    slug: "wave",
+    speed: { max: 2000, min: 300 },
+  }),
+  entry({
+    description: "Nine blocks shrinking and growing in a sweep across a grid.",
+    name: "Blocks",
+    options: [
+      {
+        defaultValue: DEFAULT_BLOCKS_SWEEP,
+        label: "Sweep",
+        prop: "sweep",
+        values: [
+          { label: "Diagonal", value: "diagonal" },
+          { label: "Rows", value: "rows" },
+          { label: "Columns", value: "columns" },
+        ],
+      },
+    ],
+    slug: "blocks",
+    speed: { max: 2600, min: 400 },
+  }),
+  entry({
+    description: "Three rings tumbling around a shared center.",
+    name: "Atom",
+    options: [EASING_OPTION],
+    slug: "atom",
+    speed: { max: 2400, min: 300 },
+  }),
+  entry({
+    description: "The loading.dev mark, its brightest block circling the ring.",
+    name: "Loading",
+    slug: "loading",
+    speed: { max: 2400, min: 300 },
   }),
 ];
 
