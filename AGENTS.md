@@ -43,6 +43,8 @@ Plus one directory that is **not** a workspace member:
 
 - **`examples/consumer`** — release-validation app that installs `loading-dev` from the npm registry. It sits outside the workspace globs (`.` and `apps/*`) on purpose: inside the workspace, pnpm would symlink the local package and the check would silently test local source instead of the published tarball. It has its own `package-lock.json`, is not covered by a root `pnpm install`, and is run manually (`cd examples/consumer && npm run verify`) after publishing. Never migrate it into the workspace, and never point `apps/web` at the registry version — the showcase must track local source so `pnpm dev` stays live.
 
+Releases are cut with `gh release create vX.Y.Z --generate-notes` after bumping `version` in the root `package.json`. Publishing the GitHub release creates the tag and runs `release.yml`, which publishes to npm; a draft release publishes nothing.
+
 ### Library conventions (root `src/`)
 
 Each spinner is one self-contained `.tsx` file:
