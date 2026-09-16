@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { CodePanel } from "@/components/mdx/code-panel";
 import { Demo } from "@/components/mdx/demo";
 import { PrevNext } from "@/components/spinner-detail/prev-next";
+import { SNIPPET_COMPONENTS } from "@/components/spinner-detail/snippet-components";
+import { CustomizationProvider } from "@/components/spinner-detail/spinner-customization";
 import { SpinnerPreview } from "@/components/spinner-detail/spinner-preview";
 import {
   getAdjacentSpinners,
@@ -69,8 +71,10 @@ export default async function SpinnerPage({
       />
       <div className="flex flex-col">
         <CodePanel>
-          <SpinnerPreview item={item} key={slug} />
-          <Snippet />
+          <CustomizationProvider item={item} key={slug}>
+            <SpinnerPreview />
+            <Snippet components={SNIPPET_COMPONENTS} />
+          </CustomizationProvider>
         </CodePanel>
         <div className="flex flex-col [&>figure]:mt-6" id={PROSE_SECTION_ID}>
           <Shared components={components} />

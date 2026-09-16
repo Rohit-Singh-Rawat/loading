@@ -23,7 +23,7 @@ function extractText(node: ReactNode): string {
   return "";
 }
 
-function isFenceTitle(node: ReactNode): boolean {
+export function isFenceTitle(node: ReactNode): boolean {
   return (
     isValidElement(node) &&
     "data-rehype-pretty-code-title" in (node.props as Record<string, unknown>)

@@ -3,7 +3,6 @@
 import { ChevronLeftIcon, PauseIcon, PlayIcon } from "@radix-ui/react-icons";
 import { SPINNERS } from "loading-dev";
 import { type ReactNode, useState } from "react";
-import type { SpinnerItem } from "@/components/spinners";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
 import { IconButton } from "@/components/ui/icon-button";
 import {
@@ -14,7 +13,7 @@ import {
 import { PREVIEW_SECTION_ID } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { CustomizePanel } from "./customize-panel";
-import { useCustomizationState } from "./spinner-customization";
+import { useCustomization } from "./spinner-customization";
 
 const CUSTOMIZE_PANEL_ID = "customize-panel";
 
@@ -73,9 +72,9 @@ function CustomizeDrawer({
   );
 }
 
-export function SpinnerPreview({ item }: { item: SpinnerItem }) {
+export function SpinnerPreview() {
   const [customizeOpen, setCustomizeOpen] = useState(true);
-  const state = useCustomizationState(item);
+  const { item, state } = useCustomization();
   const Spinner = SPINNERS[item.slug];
   const playLabel = state.paused ? "Play animation" : "Pause animation";
 

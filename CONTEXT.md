@@ -72,17 +72,22 @@ names and ordering are site copy and stay out of the published package.
 ## Customization
 
 What the controls beside a preview change: size, colour, speed, opacity, and
-playback. Owned by `SpinnerPreview` through `useCustomizationState`, with the
-controls passed directly to its `CustomizePanel` child.
+playback. Owned by `CustomizationProvider`, which wraps the preview and the
+opening snippet; `SpinnerPreview` reads it and passes the controls to its
+`CustomizePanel` child.
 
-The opening snippet is static and highlighted at build time. Customization
-changes only the preview; no highlighter ships to the browser.
+The opening snippet follows the customization: it shows the props a consumer
+would write to get what the preview shows, and nothing still at its default.
+Opacity is a preview-only control and stays out of it. The snippet's block is
+still highlighted at build time — the live snippet borrows one colour per
+token kind from it, so no highlighter ships to the browser.
 
 Option state contains only explicit overrides. Unchanged options are omitted
 from the preview props, so the library owns their default behavior.
 
 "Reset" restores the customization controls. It deliberately does not touch
-playback, which is a separate control outside the panel.
+playback, which is a separate control outside the panel and, being a way of
+looking rather than a customization, never reaches the snippet.
 
 ## Document
 
@@ -101,8 +106,8 @@ A demo is `content/demos/<slug>/<demo>.tsx`, and it is the single source. Its
 code the reader sees is the code that renders.
 
 The opening code example is **not** in the document. It is its own file,
-`content/snippets/<slug>.mdx`, and it is static — the customization controls
-drive the preview, not it.
+`content/snippets/<slug>.mdx`. The file is the default state: on the page the
+customization controls rewrite it, and the markdown route serves it as written.
 
 `/spinners/<slug>/markdown` serves the document as plain Markdown for anything
 reading rather than browsing. It is assembled, not served verbatim: the
