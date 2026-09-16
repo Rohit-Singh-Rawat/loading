@@ -14,7 +14,7 @@ import { Arc } from "loading-dev";
 
 You can set `size`, `color`, `duration` and `easing`. The library exposes `playState` and also allows you to add custom styling. They work in Server Components and respect reduced motion out of the box. Requires React 19 or later.
 
-Available: `Arc`, `Atom`, `Blocks`, `BouncingDots`, `CircularDots`, `Classic`, `ClassicV2`, `Clock`, `Comet`, `Compass`, `LinearDots`, `Orbit`, `Pie`, `Pulse`, `Radar`, `Ring`, `Ripple`, `Swirl`, `Wave`.
+Available: `Arc`, `Atom`, `Blocks`, `BouncingDots`, `CircularDots`, `Classic`, `ClassicV2`, `Clock`, `Comet`, `Compass`, `LinearDots`, `Loading`, `Orbit`, `Pie`, `Pulse`, `Radar`, `Ring`, `Ripple`, `Swirl`, `Wave`.
 
 You can find docs and live previews at [loading.dev](https://loading.dev).
 

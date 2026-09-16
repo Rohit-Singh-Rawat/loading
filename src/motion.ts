@@ -22,6 +22,7 @@ export const SPINNER_MOTION = {
   comet: 700,
   compass: 500,
   "linear-dots": 900,
+  loading: 1000,
   orbit: 750,
   pie: 1000,
   pulse: 1200,

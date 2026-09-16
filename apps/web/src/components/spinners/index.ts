@@ -186,6 +186,12 @@ const CATALOG: SpinnerItem[] = [
     speed: { max: 2400, min: 300 },
   }),
   entry({
+    description: "The loading.dev mark, its brightest block circling the ring.",
+    name: "Loading",
+    slug: "loading",
+    speed: { max: 2400, min: 300 },
+  }),
+  entry({
     description: "A ring filling up and emptying out clockwise.",
     name: "Pie",
     slug: "pie",

@@ -15,6 +15,7 @@ export { Comet, type CometProps } from "./comet";
 export { Compass } from "./compass";
 export { DEFAULT_EASING, type Easing, type EasingProps } from "./easing";
 export { LinearDots } from "./linear-dots";
+export { Loading } from "./loading";
 export {
   DURATION_VAR,
   PLAY_STATE_VAR,

@@ -10,6 +10,7 @@ import { Clock } from "./clock";
 import { Comet } from "./comet";
 import { Compass } from "./compass";
 import { LinearDots } from "./linear-dots";
+import { Loading } from "./loading";
 import type { SpinnerName } from "./motion";
 import { Orbit } from "./orbit";
 import { Pie } from "./pie";
@@ -33,6 +34,7 @@ export const SPINNERS = {
   comet: Comet,
   compass: Compass,
   "linear-dots": LinearDots,
+  loading: Loading,
   orbit: Orbit,
   pie: Pie,
   pulse: Pulse,
