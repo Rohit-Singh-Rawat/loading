@@ -12,6 +12,8 @@ export const SIZE = `var(${SIZE_VAR}, ${DEFAULT_SIZE}px)`;
 
 export const SPINNER_MOTION = {
   arc: 800,
+  atom: 1000,
+  blocks: 1300,
   "bouncing-dots": 500,
   "circular-dots": 800,
   classic: 1200,
@@ -19,12 +21,17 @@ export const SPINNER_MOTION = {
   clock: 1200,
   comet: 700,
   compass: 500,
+  ellipsis: 1200,
+  hourglass: 1600,
   "linear-dots": 900,
   orbit: 750,
+  pie: 1000,
   pulse: 1200,
   radar: 1500,
   ring: 800,
+  ripple: 1200,
   swirl: 1200,
+  wave: 900,
 } as const satisfies Record<string, number>;
 
 export type SpinnerName = keyof typeof SPINNER_MOTION;
