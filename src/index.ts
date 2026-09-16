@@ -14,8 +14,6 @@ export { Clock, type ClockProps } from "./clock";
 export { Comet, type CometProps } from "./comet";
 export { Compass } from "./compass";
 export { DEFAULT_EASING, type Easing, type EasingProps } from "./easing";
-export { Ellipsis } from "./ellipsis";
-export { Hourglass } from "./hourglass";
 export { LinearDots } from "./linear-dots";
 export {
   DURATION_VAR,

@@ -9,8 +9,6 @@ import { ClassicV2 } from "./classic-v2";
 import { Clock } from "./clock";
 import { Comet } from "./comet";
 import { Compass } from "./compass";
-import { Ellipsis } from "./ellipsis";
-import { Hourglass } from "./hourglass";
 import { LinearDots } from "./linear-dots";
 import type { SpinnerName } from "./motion";
 import { Orbit } from "./orbit";
@@ -34,8 +32,6 @@ export const SPINNERS = {
   clock: Clock,
   comet: Comet,
   compass: Compass,
-  ellipsis: Ellipsis,
-  hourglass: Hourglass,
   "linear-dots": LinearDots,
   orbit: Orbit,
   pie: Pie,

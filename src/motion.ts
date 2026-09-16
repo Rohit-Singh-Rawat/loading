@@ -21,8 +21,6 @@ export const SPINNER_MOTION = {
   clock: 1200,
   comet: 700,
   compass: 500,
-  ellipsis: 1200,
-  hourglass: 1600,
   "linear-dots": 900,
   orbit: 750,
   pie: 1000,

@@ -191,18 +191,6 @@ const CATALOG: SpinnerItem[] = [
     slug: "pie",
     speed: { max: 2400, min: 300 },
   }),
-  entry({
-    description: "Three dots appearing one at a time, then starting over.",
-    name: "Ellipsis",
-    slug: "ellipsis",
-    speed: { max: 2400, min: 400 },
-  }),
-  entry({
-    description: "An hourglass resting, then flipping over.",
-    name: "Hourglass",
-    slug: "hourglass",
-    speed: { max: 3200, min: 500 },
-  }),
 ];
 
 export { CATALOG as SPINNER_ITEMS };
