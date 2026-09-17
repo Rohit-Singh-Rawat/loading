@@ -1,6 +1,7 @@
 import {
   DEFAULT_BLOCKS_SWEEP,
   DEFAULT_EASING,
+  DEFAULT_PENDULUM_PIVOT,
   DEFAULT_RIPPLE_DIRECTION,
   DEFAULT_WAVE_ORIGIN,
   type EasingProps,
@@ -187,6 +188,68 @@ const CATALOG: SpinnerItem[] = [
     name: "Loading",
     slug: "loading",
     speed: { max: 2400, min: 300 },
+  }),
+  entry({
+    description: "An arc stretching and shrinking as it circles.",
+    name: "Snake",
+    options: [EASING_OPTION],
+    slug: "snake",
+    speed: { max: 2800, min: 400 },
+  }),
+  entry({
+    description:
+      "Five dots chasing each other around a ring, bunching and spreading.",
+    name: "Chase",
+    slug: "chase",
+    speed: { max: 2400, min: 300 },
+  }),
+  entry({
+    description: "A dash tracing the outline of a rounded square.",
+    name: "Trace",
+    slug: "trace",
+    speed: { max: 2400, min: 300 },
+  }),
+  entry({
+    description: "A line swinging from a pivot.",
+    name: "Pendulum",
+    options: [
+      {
+        defaultValue: DEFAULT_PENDULUM_PIVOT,
+        label: "Pivot",
+        prop: "pivot",
+        values: [
+          { label: "Top", value: "top" },
+          { label: "Bottom", value: "bottom" },
+        ],
+      },
+    ],
+    slug: "pendulum",
+    speed: { max: 1400, min: 200 },
+  }),
+  entry({
+    description: "A square flipping over on one axis, then the other.",
+    name: "Flip",
+    slug: "flip",
+    speed: { max: 2400, min: 300 },
+  }),
+  entry({
+    description: "A square rounding into a circle and back as it turns.",
+    name: "Morph",
+    slug: "morph",
+    speed: { max: 2400, min: 300 },
+  }),
+  entry({
+    description: "Two arcs turning in opposite directions.",
+    name: "Dual",
+    options: [EASING_OPTION],
+    slug: "dual",
+    speed: { max: 2000, min: 250 },
+  }),
+  entry({
+    description: "A dot tracing a figure eight.",
+    name: "Figure eight",
+    slug: "figure-eight",
+    speed: { max: 3200, min: 400 },
   }),
 ];
 
