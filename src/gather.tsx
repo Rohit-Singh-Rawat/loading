@@ -9,6 +9,12 @@ const BLOCKS = [
   { corner: "bottom: 0; right: 0", x: -1, y: -1 },
 ];
 
+const BLOCK = 38;
+
+const GAP_IN = 8;
+
+const PULL = `${(((100 - 2 * BLOCK - GAP_IN) / 2 / BLOCK) * 100).toFixed(1)}%`;
+
 const css = `
 .ld-gather {
   width: ${SIZE};
@@ -25,8 +31,8 @@ const css = `
 
 .ld-gather-block {
   position: absolute;
-  width: 40%;
-  height: 40%;
+  width: ${BLOCK}%;
+  height: ${BLOCK}%;
   background: currentColor;
   border-radius: calc(${SIZE} * 0.14);
   animation: ld-gather-pull ${duration("gather")} ease-in-out infinite;
@@ -47,8 +53,8 @@ ${BLOCKS.map(
   30%,
   60% {
     transform: translate(
-      calc(var(--ld-gather-x) * 15%),
-      calc(var(--ld-gather-y) * 15%)
+      calc(var(--ld-gather-x) * ${PULL}),
+      calc(var(--ld-gather-y) * ${PULL})
     );
   }
 }

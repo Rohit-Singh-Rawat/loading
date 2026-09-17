@@ -2,10 +2,18 @@ import { cssVars, SpinnerStyle, spinnerRoot, step } from "./frame";
 import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
+const DOT = 34;
+
+const GAP = 20;
+
+const MARGIN = (100 - 2 * DOT - GAP) / 2;
+
+const FAR = `${(((DOT + GAP) / DOT) * 100).toFixed(1)}%`;
+
 const DOTS = [
-  { rest: "translate(150%, 0)", step: 0 },
+  { rest: `translate(${FAR}, 0)`, step: 0 },
   { rest: "translate(0, 0)", step: 1 },
-  { rest: "translate(0, 150%)", step: 2 },
+  { rest: `translate(0, ${FAR})`, step: 2 },
 ];
 
 const css = `
@@ -17,10 +25,10 @@ const css = `
 
 .ld-slide-dot {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 40%;
-  height: 40%;
+  top: ${MARGIN}%;
+  left: ${MARGIN}%;
+  width: ${DOT}%;
+  height: ${DOT}%;
   background: currentColor;
   border-radius: 50%;
   animation: ld-slide-walk ${duration("slide")} ease-in-out infinite;
@@ -30,15 +38,15 @@ const css = `
 
 @keyframes ld-slide-walk {
   0% {
-    transform: translate(150%, 0);
+    transform: translate(${FAR}, 0);
   }
   8.33%,
   25% {
-    transform: translate(150%, 150%);
+    transform: translate(${FAR}, ${FAR});
   }
   33.33%,
   50% {
-    transform: translate(0, 150%);
+    transform: translate(0, ${FAR});
   }
   58.33%,
   75% {
@@ -46,7 +54,7 @@ const css = `
   }
   83.33%,
   100% {
-    transform: translate(150%, 0);
+    transform: translate(${FAR}, 0);
   }
 }
 
