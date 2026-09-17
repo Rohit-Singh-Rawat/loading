@@ -25,8 +25,6 @@ function sameIndexes(a: number[], b: number[]) {
   return a.length === b.length && a.every((value, index) => value === b[index]);
 }
 
-// A section runs from its own anchor to the next one; the last runs to the end
-// of the prose column.
 function visibleSections(targets: (HTMLElement | null)[]) {
   const viewportHeight = window.innerHeight;
   const tops = targets.map(

@@ -65,7 +65,6 @@ export function useKeysPressed<const K extends readonly string[]>(
     };
 
     const handleKeyUp = (event: KeyboardEvent) => {
-      // Keys pressed while Meta is held never fire their own keyup.
       if (event.key === "Meta" && watched.has("meta")) {
         releaseAll();
         return;

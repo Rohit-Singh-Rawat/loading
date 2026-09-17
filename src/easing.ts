@@ -16,7 +16,11 @@ export function spinClass(
   return easing === "linear" ? base : `${base} ${base}-${easing}`;
 }
 
-export function rotationCss(name: SpinnerName): string {
+const ROTATE = `to {
+    transform: rotate(360deg);
+  }`;
+
+export function rotationCss(name: SpinnerName, turn = ROTATE): string {
   return `
 .ld-${name}-spin {
   transform-origin: center;
@@ -35,9 +39,7 @@ export function rotationCss(name: SpinnerName): string {
 }
 
 @keyframes ld-${name}-rotate {
-  to {
-    transform: rotate(360deg);
-  }
+  ${turn}
 }
 
 @media (prefers-reduced-motion: reduce) {

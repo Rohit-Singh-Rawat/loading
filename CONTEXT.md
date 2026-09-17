@@ -54,7 +54,7 @@ an entry cannot end up pointing at another spinner's motion.
 and previous/next on a spinner page. Reordering it reorders all three.
 
 An entry's **options** are the props a spinner has beyond the shared ones —
-`easing` on the rotating spinners. Each names the prop,
+`easing` on the rotating spinners, `cap` on the stroked ones. Each names the prop,
 the label the control shows, its values in control order, and an explicit
 `defaultValue` from the library. The catalog only describes the choice; the prop itself
 lives in the library.

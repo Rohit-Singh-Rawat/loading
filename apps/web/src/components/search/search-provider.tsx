@@ -40,8 +40,6 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open, openSearch]);
 
-  // "G then O" style chords for the pages that list a shortcut, as on
-  // interfaces. Off while the dialog is open or while typing in a field.
   useEffect(() => {
     if (open) {
       return;

@@ -1,9 +1,10 @@
+import { type CapProps, linecap } from "./cap";
 import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
 import { SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-export interface RingProps extends SpinnerProps, EasingProps {}
+export interface RingProps extends SpinnerProps, EasingProps, CapProps {}
 
 const css = `
 .ld-ring {
@@ -14,7 +15,7 @@ const css = `
 ${rotationCss("ring")}
 `;
 
-export function Ring({ easing, ...rest }: RingProps) {
+export function Ring({ cap, easing, ...rest }: RingProps) {
   return (
     <>
       <SpinnerStyle name="ring">{css}</SpinnerStyle>
@@ -39,7 +40,7 @@ export function Ring({ easing, ...rest }: RingProps) {
           r="10"
           stroke="currentColor"
           strokeDasharray="16 46.8"
-          strokeLinecap="round"
+          strokeLinecap={linecap(cap)}
           strokeWidth="2.5"
         />
       </svg>
