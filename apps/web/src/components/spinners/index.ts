@@ -53,7 +53,7 @@ const CATALOG: SpinnerItem[] = [
     speed: { max: 2000, min: 200 },
   }),
   entry({
-    description: "Three rings tumbling around a shared axis.",
+    description: "Three rings tumbling around a shared center.",
     name: "Atom",
     options: [EASING_OPTION],
     slug: "atom",

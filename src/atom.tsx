@@ -26,7 +26,7 @@ const css = `
 
 .ld-atom-ring {
   position: absolute;
-  inset: 0;
+  inset: 1px;
   box-sizing: border-box;
   border: calc(${SIZE} * 0.07) solid currentColor;
   border-radius: 9999px;
