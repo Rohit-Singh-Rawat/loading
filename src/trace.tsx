@@ -1,6 +1,10 @@
+import { type CapProps, linecap } from "./cap";
+import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
+
+export interface TraceProps extends SpinnerProps, EasingProps, CapProps {}
 
 const SIDE = 17.5;
 const RADIUS = 4;
@@ -8,31 +12,23 @@ const RADIUS = 4;
 const PERIMETER = 4 * (SIDE - 2 * RADIUS) + 2 * Math.PI * RADIUS;
 const DASH = 16;
 
+// One lap of the dash is one turn, so the easing contract applies as it does
+// to a rotation; only the property that makes the lap differs.
 const css = `
 .ld-trace {
   width: ${SIZE};
   height: ${SIZE};
 }
 
-.ld-trace-dash {
-  animation: ld-trace-run ${duration("trace")} linear infinite;
-  animation-play-state: ${PLAY_STATE};
-}
-
-@keyframes ld-trace-run {
-  to {
+${rotationCss(
+  "trace",
+  `to {
     stroke-dashoffset: ${-PERIMETER};
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ld-trace-dash {
-    animation: none;
-  }
-}
+  }`
+)}
 `;
 
-export function Trace(props: SpinnerProps) {
+export function Trace({ cap, easing, ...rest }: TraceProps) {
   const rect = {
     height: SIDE,
     rx: RADIUS,
@@ -44,7 +40,7 @@ export function Trace(props: SpinnerProps) {
     <>
       <SpinnerStyle name="trace">{css}</SpinnerStyle>
       <svg
-        {...spinnerRoot("trace", props)}
+        {...spinnerRoot("trace", rest)}
         fill="none"
         role="presentation"
         viewBox="0 0 20 20"
@@ -52,10 +48,10 @@ export function Trace(props: SpinnerProps) {
         <rect {...rect} opacity="0.2" stroke="currentColor" strokeWidth="2.5" />
         <rect
           {...rect}
-          className="ld-trace-dash"
+          className={spinClass("trace", easing)}
           stroke="currentColor"
           strokeDasharray={`${DASH} ${PERIMETER - DASH}`}
-          strokeLinecap="round"
+          strokeLinecap={linecap(cap)}
           strokeWidth="2.5"
         />
       </svg>

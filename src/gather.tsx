@@ -29,7 +29,7 @@ const css = `
   width: 40%;
   height: 40%;
   background: currentColor;
-  border-radius: calc(${SIZE} * 0.06);
+  border-radius: calc(${SIZE} * 0.14);
   animation: ld-gather-pull ${duration("gather")} ease-in-out infinite;
   animation-play-state: ${PLAY_STATE};
 }
@@ -48,8 +48,8 @@ ${BLOCKS.map(
   30%,
   60% {
     transform: translate(
-      calc(var(--ld-gather-x) * 25%),
-      calc(var(--ld-gather-y) * 25%)
+      calc(var(--ld-gather-x) * 15%),
+      calc(var(--ld-gather-y) * 15%)
     );
   }
 }

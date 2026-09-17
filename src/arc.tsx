@@ -1,9 +1,10 @@
+import { type CapProps, linecap } from "./cap";
 import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
 import { SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-export interface ArcProps extends SpinnerProps, EasingProps {}
+export interface ArcProps extends SpinnerProps, EasingProps, CapProps {}
 
 const css = `
 .ld-arc {
@@ -14,7 +15,7 @@ const css = `
 ${rotationCss("arc")}
 `;
 
-export function Arc({ easing, ...rest }: ArcProps) {
+export function Arc({ cap, easing, ...rest }: ArcProps) {
   return (
     <>
       <SpinnerStyle name="arc">{css}</SpinnerStyle>
@@ -31,7 +32,7 @@ export function Arc({ easing, ...rest }: ArcProps) {
           r="10"
           stroke="currentColor"
           strokeDasharray="18 44.8"
-          strokeLinecap="round"
+          strokeLinecap={linecap(cap)}
           strokeWidth="2.5"
         />
       </svg>

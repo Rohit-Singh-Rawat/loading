@@ -1,9 +1,10 @@
+import { type CapProps, linecap } from "./cap";
 import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
 import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-export interface SnakeProps extends SpinnerProps, EasingProps {}
+export interface SnakeProps extends SpinnerProps, EasingProps, CapProps {}
 
 // The gap outruns the circumference (62.83), so the dash never wraps: at the
 // end of the cycle only its first unit is still on the path, which is where the
@@ -44,7 +45,7 @@ ${rotationCss("snake")}
 }
 `;
 
-export function Snake({ easing, ...rest }: SnakeProps) {
+export function Snake({ cap, easing, ...rest }: SnakeProps) {
   return (
     <>
       <SpinnerStyle name="snake">{css}</SpinnerStyle>
@@ -61,7 +62,7 @@ export function Snake({ easing, ...rest }: SnakeProps) {
             cy="12"
             r="10"
             stroke="currentColor"
-            strokeLinecap="round"
+            strokeLinecap={linecap(cap)}
             strokeWidth="2.5"
           />
         </g>

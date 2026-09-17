@@ -1,9 +1,10 @@
+import { type CapProps, linecap } from "./cap";
 import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
 import { SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-export interface DualProps extends SpinnerProps, EasingProps {}
+export interface DualProps extends SpinnerProps, EasingProps, CapProps {}
 
 const css = `
 .ld-dual {
@@ -24,7 +25,7 @@ ${rotationCss("dual")}
 }
 `;
 
-export function Dual({ easing, ...rest }: DualProps) {
+export function Dual({ cap, easing, ...rest }: DualProps) {
   return (
     <>
       <SpinnerStyle name="dual">{css}</SpinnerStyle>
@@ -33,7 +34,7 @@ export function Dual({ easing, ...rest }: DualProps) {
         fill="none"
         role="presentation"
         stroke="currentColor"
-        strokeLinecap="round"
+        strokeLinecap={linecap(cap)}
         strokeWidth="2.5"
         viewBox="0 0 24 24"
       >

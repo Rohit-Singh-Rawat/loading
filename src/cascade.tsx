@@ -1,6 +1,9 @@
+import { type CapProps, linecap } from "./cap";
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
 import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
+
+export interface CascadeProps extends SpinnerProps, CapProps {}
 
 const RADII = [10.5, 7, 3.5];
 
@@ -35,16 +38,16 @@ const css = `
 }
 `;
 
-export function Cascade(props: SpinnerProps) {
+export function Cascade({ cap, ...rest }: CascadeProps) {
   return (
     <>
       <SpinnerStyle name="cascade">{css}</SpinnerStyle>
       <svg
-        {...spinnerRoot("cascade", props)}
+        {...spinnerRoot("cascade", rest)}
         fill="none"
         role="presentation"
         stroke="currentColor"
-        strokeLinecap="round"
+        strokeLinecap={linecap(cap)}
         strokeWidth="2"
         viewBox="0 0 24 24"
       >

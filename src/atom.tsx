@@ -9,17 +9,29 @@ const ORBITS = Array.from({ length: 3 }, (_, index) => index);
 
 const TILT = 180 / ORBITS.length;
 
+// The rings tumble inside a faint circle. Their tips stop short of it by half
+// a stroke, so however they turn, nothing crosses the outline.
+const STROKE = `calc(${SIZE} * 0.07)`;
+
 const css = `
 .ld-atom {
   position: relative;
   width: ${SIZE};
   height: ${SIZE};
-  perspective: calc(${SIZE} * 4);
+}
+
+.ld-atom-shell {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border: ${STROKE} solid currentColor;
+  border-radius: 9999px;
+  opacity: 0.2;
 }
 
 .ld-atom-orbit {
   position: absolute;
-  inset: 0;
+  inset: calc(${STROKE} * 1.5);
   transform-style: preserve-3d;
   transform: rotate(var(--ld-atom-tilt)) rotateX(90deg);
 }
@@ -28,7 +40,7 @@ const css = `
   position: absolute;
   inset: 0;
   box-sizing: border-box;
-  border: calc(${SIZE} * 0.07) solid currentColor;
+  border: ${STROKE} solid currentColor;
   border-radius: 9999px;
   transform: rotateX(90deg);
 }
@@ -54,6 +66,7 @@ export function Atom({ easing, ...rest }: AtomProps) {
     <>
       <SpinnerStyle name="atom">{css}</SpinnerStyle>
       <div {...spinnerRoot("atom", rest)}>
+        <div className="ld-atom-shell" />
         {ORBITS.map((index) => (
           <div
             className="ld-atom-orbit"

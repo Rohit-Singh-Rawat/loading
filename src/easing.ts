@@ -16,7 +16,14 @@ export function spinClass(
   return easing === "linear" ? base : `${base} ${base}-${easing}`;
 }
 
-export function rotationCss(name: SpinnerName): string {
+const ROTATE = `to {
+    transform: rotate(360deg);
+  }`;
+
+// `turn` is the keyframe body for one full turn. It defaults to a rotation;
+// a spinner whose lap is another additive property, like a dash running
+// round a path, passes its own.
+export function rotationCss(name: SpinnerName, turn = ROTATE): string {
   return `
 .ld-${name}-spin {
   transform-origin: center;
@@ -35,9 +42,7 @@ export function rotationCss(name: SpinnerName): string {
 }
 
 @keyframes ld-${name}-rotate {
-  to {
-    transform: rotate(360deg);
-  }
+  ${turn}
 }
 
 @media (prefers-reduced-motion: reduce) {

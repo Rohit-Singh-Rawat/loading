@@ -6,32 +6,25 @@ import {
   Blocks,
   BouncingDots,
   Cascade,
-  Chase,
   CircularDots,
   Classic,
   ClassicV2,
   Clock,
-  Collapse,
   Comet,
-  Compass,
   DEFAULT_BLOCKS_SWEEP,
+  DEFAULT_CAP,
   DEFAULT_EASING,
-  DEFAULT_PENDULUM_PIVOT,
   DEFAULT_RIPPLE_DIRECTION,
   DEFAULT_WAVE_ORIGIN,
   Dual,
   Eclipse,
-  FigureEight,
   Flip,
-  Fold,
   Gather,
   Leap,
   LinearDots,
   Loading,
   Morph,
-  Notch,
   Orbit,
-  Pendulum,
   Pulse,
   Radar,
   Ring,
@@ -50,27 +43,20 @@ const NAMED_SPINNERS = {
   blocks: Blocks,
   "bouncing-dots": BouncingDots,
   cascade: Cascade,
-  chase: Chase,
   "circular-dots": CircularDots,
   classic: Classic,
   "classic-v2": ClassicV2,
   clock: Clock,
-  collapse: Collapse,
   comet: Comet,
-  compass: Compass,
   dual: Dual,
   eclipse: Eclipse,
-  "figure-eight": FigureEight,
   flip: Flip,
-  fold: Fold,
   gather: Gather,
   leap: Leap,
   "linear-dots": LinearDots,
   loading: Loading,
   morph: Morph,
-  notch: Notch,
   orbit: Orbit,
-  pendulum: Pendulum,
   pulse: Pulse,
   radar: Radar,
   ring: Ring,
@@ -87,7 +73,7 @@ describe("public exports", () => {
     expect(NAMED_SPINNERS).toEqual(SPINNERS);
   });
 
-  it.each([Arc, Atom, Clock, Comet, Dual, Orbit, Radar, Ring, Snake])(
+  it.each([Arc, Atom, Clock, Comet, Dual, Orbit, Radar, Ring, Snake, Trace])(
     "uses the exported default when easing is omitted",
     (Spinner) => {
       expect(renderToStaticMarkup(<Spinner />)).toBe(
@@ -96,12 +82,18 @@ describe("public exports", () => {
     }
   );
 
+  it.each([Arc, Cascade, Dual, Ring, Snake, Trace])(
+    "uses the exported default when cap is omitted",
+    (Spinner) => {
+      expect(renderToStaticMarkup(<Spinner />)).toBe(
+        renderToStaticMarkup(<Spinner cap={DEFAULT_CAP} />)
+      );
+    }
+  );
+
   it("uses the exported defaults when a spinner's own prop is omitted", () => {
     expect(renderToStaticMarkup(<Blocks />)).toBe(
       renderToStaticMarkup(<Blocks sweep={DEFAULT_BLOCKS_SWEEP} />)
-    );
-    expect(renderToStaticMarkup(<Pendulum />)).toBe(
-      renderToStaticMarkup(<Pendulum pivot={DEFAULT_PENDULUM_PIVOT} />)
     );
     expect(renderToStaticMarkup(<Ripple />)).toBe(
       renderToStaticMarkup(<Ripple direction={DEFAULT_RIPPLE_DIRECTION} />)
