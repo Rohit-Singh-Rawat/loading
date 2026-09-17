@@ -9,26 +9,39 @@ const ORBITS = Array.from({ length: 3 }, (_, index) => index);
 
 const TILT = 180 / ORBITS.length;
 
+const STROKE = `calc(${SIZE} * 0.055)`;
+
+const INNER_STROKE = `calc(${SIZE} * 0.045)`;
+
+const INSET = "0";
+
 const css = `
 .ld-atom {
   position: relative;
   width: ${SIZE};
   height: ${SIZE};
-  perspective: calc(${SIZE} * 4);
+}
+
+.ld-atom-shell {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border: ${STROKE} solid currentColor;
+  border-radius: 9999px;
 }
 
 .ld-atom-orbit {
   position: absolute;
-  inset: 0;
+  inset: ${INSET};
   transform-style: preserve-3d;
   transform: rotate(var(--ld-atom-tilt)) rotateX(90deg);
 }
 
 .ld-atom-ring {
   position: absolute;
-  inset: 1px;
+  inset: 0;
   box-sizing: border-box;
-  border: calc(${SIZE} * 0.07) solid currentColor;
+  border: ${INNER_STROKE} solid currentColor;
   border-radius: 9999px;
   transform: rotateX(90deg);
 }
@@ -54,6 +67,7 @@ export function Atom({ easing, ...rest }: AtomProps) {
     <>
       <SpinnerStyle name="atom">{css}</SpinnerStyle>
       <div {...spinnerRoot("atom", rest)}>
+        <div className="ld-atom-shell" />
         {ORBITS.map((index) => (
           <div
             className="ld-atom-orbit"
