@@ -10,10 +10,10 @@ const MARGIN = (100 - 2 * DOT - GAP) / 2;
 
 const FAR = `${(((DOT + GAP) / DOT) * 100).toFixed(1)}%`;
 
-const DOTS = [
-  { rest: `translate(${FAR}, 0)`, step: 0 },
-  { rest: "translate(0, 0)", step: 1 },
-  { rest: `translate(0, ${FAR})`, step: 2 },
+const RESTS = [
+  `translate(${FAR}, 0)`,
+  "translate(0, 0)",
+  `translate(0, ${FAR})`,
 ];
 
 const css = `
@@ -32,7 +32,7 @@ const css = `
   background: currentColor;
   border-radius: 50%;
   animation: ld-slide-walk ${duration("slide")} ease-in-out infinite;
-  animation-delay: ${stagger("slide", DOTS.length)};
+  animation-delay: ${stagger("slide", RESTS.length)};
   animation-play-state: ${PLAY_STATE};
 }
 
@@ -71,10 +71,10 @@ export function Slide(props: SpinnerProps) {
     <>
       <SpinnerStyle name="slide">{css}</SpinnerStyle>
       <div {...spinnerRoot("slide", props)}>
-        {DOTS.map(({ rest, step: index }) => (
+        {RESTS.map((rest, index) => (
           <div
             className="ld-slide-dot"
-            key={index}
+            key={rest}
             style={cssVars({ ...step(index), "--ld-slide-rest": rest })}
           />
         ))}

@@ -21,6 +21,7 @@ export const SPINNER_MOTION = {
   "classic-v2": 800,
   clock: 1200,
   comet: 700,
+  compass: 500,
   dual: 1000,
   eclipse: 1200,
   flip: 1200,

@@ -13,8 +13,6 @@ const STROKE = `calc(${SIZE} * 0.055)`;
 
 const INNER_STROKE = `calc(${SIZE} * 0.045)`;
 
-const INSET = "0";
-
 const css = `
 .ld-atom {
   position: relative;
@@ -32,7 +30,7 @@ const css = `
 
 .ld-atom-orbit {
   position: absolute;
-  inset: ${INSET};
+  inset: 0;
   transform-style: preserve-3d;
   transform: rotate(var(--ld-atom-tilt)) rotateX(90deg);
 }

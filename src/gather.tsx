@@ -3,17 +3,19 @@ import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const BLOCKS = [
-  { corner: "top: 0; left: 0", x: 1, y: 1 },
-  { corner: "top: 0; right: 0", x: -1, y: 1 },
-  { corner: "bottom: 0; left: 0", x: 1, y: -1 },
-  { corner: "bottom: 0; right: 0", x: -1, y: -1 },
+  { x: 1, y: 1 },
+  { x: -1, y: 1 },
+  { x: 1, y: -1 },
+  { x: -1, y: -1 },
 ];
 
-const BLOCK = 38;
+const GAP = 24;
 
 const GAP_IN = 8;
 
-const PULL = `${(((100 - 2 * BLOCK - GAP_IN) / 2 / BLOCK) * 100).toFixed(1)}%`;
+const BLOCK = (100 - GAP) / 2;
+
+const PULL = `${(((GAP - GAP_IN) / 2 / BLOCK) * 100).toFixed(1)}%`;
 
 const css = `
 .ld-gather {
@@ -22,7 +24,9 @@ const css = `
 }
 
 .ld-gather-group {
-  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: ${GAP}%;
   width: 100%;
   height: 100%;
   animation: ld-gather-turn ${duration("gather")} ease-in-out infinite;
@@ -30,21 +34,12 @@ const css = `
 }
 
 .ld-gather-block {
-  position: absolute;
-  width: ${BLOCK}%;
-  height: ${BLOCK}%;
   background: currentColor;
   border-radius: calc(${SIZE} * 0.14);
   animation: ld-gather-pull ${duration("gather")} ease-in-out infinite;
   animation-play-state: ${PLAY_STATE};
 }
-${BLOCKS.map(
-  ({ corner }, index) => `
-.ld-gather-block:nth-child(${index + 1}) {
-  ${corner};
-}
-`
-).join("")}
+
 @keyframes ld-gather-pull {
   0%,
   100% {

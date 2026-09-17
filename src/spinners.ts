@@ -9,6 +9,7 @@ import { Classic } from "./classic";
 import { ClassicV2 } from "./classic-v2";
 import { Clock } from "./clock";
 import { Comet } from "./comet";
+import { Compass } from "./compass";
 import { Dual } from "./dual";
 import { Eclipse } from "./eclipse";
 import { Flip } from "./flip";
@@ -41,6 +42,7 @@ export const SPINNERS = {
   "classic-v2": ClassicV2,
   clock: Clock,
   comet: Comet,
+  compass: Compass,
   dual: Dual,
   eclipse: Eclipse,
   flip: Flip,

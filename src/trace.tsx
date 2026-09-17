@@ -6,10 +6,23 @@ import type { SpinnerProps } from "./types";
 
 export interface TraceProps extends SpinnerProps, EasingProps, CapProps {}
 
+const VIEW = 20;
+
 const SIDE = 17.5;
+
 const RADIUS = 4;
+
 const PERIMETER = 4 * (SIDE - 2 * RADIUS) + 2 * Math.PI * RADIUS;
+
 const DASH = 16;
+
+const RECT = {
+  height: SIDE,
+  rx: RADIUS,
+  width: SIDE,
+  x: (VIEW - SIDE) / 2,
+  y: (VIEW - SIDE) / 2,
+};
 
 const css = `
 .ld-trace {
@@ -26,13 +39,6 @@ ${rotationCss(
 `;
 
 export function Trace({ cap, easing, ...rest }: TraceProps) {
-  const rect = {
-    height: SIDE,
-    rx: RADIUS,
-    width: SIDE,
-    x: (20 - SIDE) / 2,
-    y: (20 - SIDE) / 2,
-  };
   return (
     <>
       <SpinnerStyle name="trace">{css}</SpinnerStyle>
@@ -40,16 +46,16 @@ export function Trace({ cap, easing, ...rest }: TraceProps) {
         {...spinnerRoot("trace", rest)}
         fill="none"
         role="presentation"
-        viewBox="0 0 20 20"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        viewBox={`0 0 ${VIEW} ${VIEW}`}
       >
-        <rect {...rect} opacity="0.2" stroke="currentColor" strokeWidth="2.5" />
+        <rect {...RECT} opacity="0.2" />
         <rect
-          {...rect}
+          {...RECT}
           className={spinClass("trace", easing)}
-          stroke="currentColor"
           strokeDasharray={`${DASH} ${PERIMETER - DASH}`}
           strokeLinecap={linecap(cap)}
-          strokeWidth="2.5"
         />
       </svg>
     </>
