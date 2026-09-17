@@ -251,6 +251,55 @@ const CATALOG: SpinnerItem[] = [
     slug: "figure-eight",
     speed: { max: 3200, min: 400 },
   }),
+  entry({
+    description: "Four panels folding in and away around a diamond.",
+    name: "Fold",
+    slug: "fold",
+    speed: { max: 4800, min: 600 },
+  }),
+  entry({
+    description: "Three dots sliding into the empty corner of a square.",
+    name: "Slide",
+    slug: "slide",
+    speed: { max: 4800, min: 600 },
+  }),
+  entry({
+    description: "Four blocks pulling together, turning, and pushing apart.",
+    name: "Gather",
+    slug: "gather",
+    speed: { max: 3200, min: 400 },
+  }),
+  entry({
+    description: "Two dots trading places, one passing behind the other.",
+    name: "Eclipse",
+    slug: "eclipse",
+    speed: { max: 2400, min: 300 },
+  }),
+  entry({
+    description: "A ring shrinking to a dot and swelling back.",
+    name: "Collapse",
+    slug: "collapse",
+    speed: { max: 2800, min: 400 },
+  }),
+  entry({
+    description: "Four notches opening and closing around a solid disc.",
+    name: "Notch",
+    slug: "notch",
+    speed: { max: 3200, min: 400 },
+  }),
+  entry({
+    description: "Three dots in a row, the last one leaping to the front.",
+    name: "Leap",
+    slug: "leap",
+    speed: { max: 3600, min: 500 },
+  }),
+  entry({
+    description:
+      "Three nested arcs fanning into a spiral and snapping back in line.",
+    name: "Cascade",
+    slug: "cascade",
+    speed: { max: 3000, min: 400 },
+  }),
 ];
 
 export { CATALOG as SPINNER_ITEMS };

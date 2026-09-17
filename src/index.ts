@@ -7,17 +7,23 @@ export {
   DEFAULT_BLOCKS_SWEEP,
 } from "./blocks";
 export { BouncingDots } from "./bouncing-dots";
+export { Cascade } from "./cascade";
 export { Chase } from "./chase";
 export { CircularDots } from "./circular-dots";
 export { Classic } from "./classic";
 export { ClassicV2 } from "./classic-v2";
 export { Clock, type ClockProps } from "./clock";
+export { Collapse } from "./collapse";
 export { Comet, type CometProps } from "./comet";
 export { Compass } from "./compass";
 export { Dual, type DualProps } from "./dual";
 export { DEFAULT_EASING, type Easing, type EasingProps } from "./easing";
+export { Eclipse } from "./eclipse";
 export { FigureEight } from "./figure-eight";
 export { Flip } from "./flip";
+export { Fold } from "./fold";
+export { Gather } from "./gather";
+export { Leap } from "./leap";
 export { LinearDots } from "./linear-dots";
 export { Loading } from "./loading";
 export { Morph } from "./morph";
@@ -27,6 +33,7 @@ export {
   SPINNER_MOTION,
   type SpinnerName,
 } from "./motion";
+export { Notch } from "./notch";
 export { Orbit, type OrbitProps } from "./orbit";
 export {
   DEFAULT_PENDULUM_PIVOT,
@@ -43,6 +50,7 @@ export {
   type RippleDirection,
   type RippleProps,
 } from "./ripple";
+export { Slide } from "./slide";
 export { Snake, type SnakeProps } from "./snake";
 export { SPINNERS } from "./spinners";
 export { Swirl } from "./swirl";
