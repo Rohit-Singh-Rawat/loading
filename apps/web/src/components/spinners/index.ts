@@ -44,7 +44,6 @@ const CAP_OPTION: OptionOf<CapProps> = {
   ],
 };
 
-// Alphabetical by name; the order here is the order everywhere on the site.
 const CATALOG: SpinnerItem[] = [
   entry({
     description: "A single open stroke rotating in a circle.",
@@ -54,7 +53,7 @@ const CATALOG: SpinnerItem[] = [
     speed: { max: 2000, min: 200 },
   }),
   entry({
-    description: "Three rings tumbling in a faint circle.",
+    description: "Three rings tumbling around a shared axis.",
     name: "Atom",
     options: [EASING_OPTION],
     slug: "atom",
@@ -186,13 +185,6 @@ const CATALOG: SpinnerItem[] = [
     slug: "pulse",
     speed: { max: 2400, min: 400 },
   }),
-  // entry({
-  //   description: "A fading beam sweeping around a dish.",
-  //   name: "Radar",
-  //   options: [EASING_OPTION],
-  //   slug: "radar",
-  //   speed: { max: 3000, min: 300 },
-  // }),
   entry({
     description: "An arc rotating in a faint circle.",
     name: "Ring",

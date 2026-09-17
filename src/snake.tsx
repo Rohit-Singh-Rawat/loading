@@ -6,9 +6,6 @@ import type { SpinnerProps } from "./types";
 
 export interface SnakeProps extends SpinnerProps, EasingProps, CapProps {}
 
-// The gap outruns the circumference (62.83), so the dash never wraps: at the
-// end of the cycle only its first unit is still on the path, which is where the
-// next cycle starts.
 const css = `
 .ld-snake {
   width: ${SIZE};

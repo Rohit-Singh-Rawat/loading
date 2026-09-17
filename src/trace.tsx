@@ -8,12 +8,9 @@ export interface TraceProps extends SpinnerProps, EasingProps, CapProps {}
 
 const SIDE = 17.5;
 const RADIUS = 4;
-// Four straight runs plus one full circle's worth of corners.
 const PERIMETER = 4 * (SIDE - 2 * RADIUS) + 2 * Math.PI * RADIUS;
 const DASH = 16;
 
-// One lap of the dash is one turn, so the easing contract applies as it does
-// to a rotation; only the property that makes the lap differs.
 const css = `
 .ld-trace {
   width: ${SIZE};

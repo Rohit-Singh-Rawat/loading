@@ -2,8 +2,6 @@ import { cssVars, SpinnerStyle, spinnerRoot, step } from "./frame";
 import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
-// Each dot walks the same clockwise loop, one slide then two beats of rest, a
-// beat behind the dot ahead of it. Twelve beats bring every dot home.
 const DOTS = [
   { rest: "translate(150%, 0)", step: 0 },
   { rest: "translate(0, 0)", step: 1 },

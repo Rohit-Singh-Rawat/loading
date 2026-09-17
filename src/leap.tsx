@@ -4,9 +4,6 @@ import type { SpinnerProps } from "./types";
 
 const DOTS = Array.from({ length: 3 }, (_, index) => index);
 
-// Each dot rides the left edge of a full-width wrapper. A half turn of the
-// wrapper carries it over the row to the far end; two shifts bring the row
-// back under it, and the snap at the end lands where the turn began.
 const css = `
 .ld-leap {
   position: relative;

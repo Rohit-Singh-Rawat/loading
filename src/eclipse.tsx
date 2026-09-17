@@ -4,8 +4,6 @@ import type { SpinnerProps } from "./types";
 
 const DOTS = [0, 1];
 
-// One orbit seen edge on: the slide is a cosine, the size and opacity a sine,
-// so each dot is largest crossing in front and smallest crossing behind.
 const css = `
 .ld-eclipse {
   position: relative;

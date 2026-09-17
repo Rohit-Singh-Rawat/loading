@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-// Eight spinner segments on a 15-unit grid, each a 2×2 block of pixels, fading
-// counter-clockwise behind the leading segment on the right.
 const SEGMENTS = [
   { opacity: 1, x: 12, y: 6 },
   { opacity: 0.9, x: 10, y: 2 },

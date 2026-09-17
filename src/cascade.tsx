@@ -7,9 +7,6 @@ export interface CascadeProps extends SpinnerProps, CapProps {}
 
 const RADII = [10.5, 7, 3.5];
 
-// The arcs start a twenty-fourth of a cycle apart. The overshoot in the
-// easing is the spinner: it fans them into a spiral where the turn is fast
-// and lines them up where it winds back.
 const SLOTS = 24;
 
 const css = `

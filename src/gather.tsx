@@ -2,7 +2,6 @@ import { cssVars, SpinnerStyle, spinnerRoot } from "./frame";
 import { duration, PLAY_STATE, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
-// Each block's corner and the direction it pulls in from.
 const BLOCKS = [
   { corner: "top: 0; left: 0", x: 1, y: 1 },
   { corner: "top: 0; right: 0", x: -1, y: 1 },

@@ -29,7 +29,6 @@ export function useBreakpointChange(onChange: () => void) {
   }, []);
 }
 
-/** A ref for a Base UI `actionsRef` whose popup closes when the layout changes under it. */
 export function useCloseOnBreakpointChange<
   Actions extends { close: () => void },
 >() {
