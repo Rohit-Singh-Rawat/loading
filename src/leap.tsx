@@ -6,6 +6,8 @@ const DOTS = Array.from({ length: 3 }, (_, index) => index);
 
 const css = `
 .ld-leap {
+  --ld-leap-dot: round(calc(${SIZE} * 0.22), 1px);
+  --ld-leap-gap: round(down, calc((${SIZE} - var(--ld-leap-dot)) / 2), 1px);
   position: relative;
   width: ${SIZE};
   height: ${SIZE};
@@ -13,7 +15,10 @@ const css = `
 
 .ld-leap-wrapper {
   position: absolute;
-  inset: 0;
+  top: round(calc((${SIZE} - var(--ld-leap-dot)) / 2), 1px);
+  left: calc(${SIZE} - var(--ld-leap-dot) - var(--ld-leap-gap) * 2);
+  width: calc(var(--ld-leap-gap) * 2 + var(--ld-leap-dot));
+  height: var(--ld-leap-dot);
   animation: ld-leap-hop ${duration("leap")} ease-in-out infinite;
   animation-delay: ${stagger("leap", DOTS.length)};
   animation-play-state: ${PLAY_STATE};
@@ -21,10 +26,8 @@ const css = `
 
 .ld-leap-dot {
   position: absolute;
-  top: 39%;
-  left: 0;
-  width: 22%;
-  height: 22%;
+  inset: 0 auto 0 0;
+  width: var(--ld-leap-dot);
   background: currentColor;
   border-radius: 50%;
 }
@@ -37,19 +40,16 @@ const css = `
     transform: translateX(0) rotate(180deg);
   }
   66.66% {
-    transform: translateX(-39%) rotate(180deg);
-  }
-  99.99% {
-    transform: translateX(-78%) rotate(180deg);
+    transform: translateX(calc(var(--ld-leap-gap) * -1)) rotate(180deg);
   }
   100% {
-    transform: translateX(0) rotate(0);
+    transform: translateX(calc(var(--ld-leap-gap) * -2)) rotate(180deg);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ld-leap-wrapper {
-    transform: translateX(calc(var(${STEP_VAR}) * 39%));
+    transform: translateX(calc(var(${STEP_VAR}) * var(--ld-leap-gap)));
     animation: none;
   }
 }
