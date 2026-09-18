@@ -18,6 +18,8 @@ export function CustomizePanel({
   item: SpinnerItem;
   state: SpinnerCustomizationState;
 }) {
+  const mirror = (ms: number) => item.speed.max + item.speed.min - ms;
+
   return (
     <div
       className={cn(
@@ -47,13 +49,13 @@ export function CustomizePanel({
         opacity={state.opacity}
       />
       <SliderRow
-        format={(value) => `${value}ms`}
+        format={(value) => `${mirror(value)}ms`}
         label="Speed"
         max={item.speed.max}
         min={item.speed.min}
-        onChange={state.setSpeedMs}
+        onChange={(value) => state.setSpeedMs(mirror(value))}
         step={10}
-        value={state.speedMs}
+        value={mirror(state.speedMs)}
       />
       <SliderRow
         format={(value) => `${value}%`}
