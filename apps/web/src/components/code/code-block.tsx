@@ -1,41 +1,40 @@
-import { CopyButton } from "@/components/ui/copy-button";
-import { type CodeLine, codeText } from "@/lib/code";
+import { createHighlighter } from "shiki";
+import { CODE_THEME_NAMES, CODE_THEMES, themed } from "@/lib/code-theme";
+import { CodeFrame, CodeLine } from "./code-frame";
 
-const PRE_CLASSES =
-  "tab-size-4 overflow-x-auto overscroll-x-contain px-4 py-3 font-paper-mono text-[13px] leading-5 [scrollbar-color:var(--color-content-subtle)_transparent] [scrollbar-width:thin] **:font-paper-mono [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-content-subtle [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:h-1";
+const highlighter = createHighlighter({
+  langs: ["tsx"],
+  themes: [CODE_THEMES.light, CODE_THEMES.dark],
+});
 
-function Line({ line }: { line: CodeLine }) {
-  if (line.length === 0) {
-    return <span data-line=""> </span>;
-  }
+export async function CodeBlock({ code }: { code: string }) {
+  const { tokens } = (await highlighter).codeToTokens(code, {
+    defaultColor: false,
+    lang: "tsx",
+    themes: CODE_THEME_NAMES,
+  });
 
-  let offset = 0;
   return (
-    <span data-line="">
-      {line.map((token) => {
-        const start = offset;
-        offset += token.text.length;
-        return (
-          <span key={start} style={{ color: `var(--code-${token.kind})` }}>
-            {token.text}
-          </span>
-        );
-      })}
-    </span>
-  );
-}
-
-export function CodeBlock({ lines }: { lines: CodeLine[] }) {
-  return (
-    <figure className="relative w-full">
-      <CopyButton className="absolute top-2 right-2" text={codeText(lines)} />
-      <pre className={PRE_CLASSES}>
-        <code className="grid">
-          {lines.map((line) => (
-            <Line key={codeText([line])} line={line} />
-          ))}
-        </code>
-      </pre>
-    </figure>
+    <CodeFrame text={code}>
+      {tokens.map((line, index) => (
+        <CodeLine
+          key={`${index}:${line.map(({ content }) => content).join("")}`}
+        >
+          {line.length === 0
+            ? " "
+            : line.map(({ content, htmlStyle, offset }) => {
+                const {
+                  "--shiki-dark": dark = "inherit",
+                  "--shiki-light": light = "inherit",
+                } = htmlStyle ?? {};
+                return (
+                  <span key={offset} style={themed(light, dark)}>
+                    {content}
+                  </span>
+                );
+              })}
+        </CodeLine>
+      ))}
+    </CodeFrame>
   );
 }

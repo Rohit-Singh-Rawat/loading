@@ -83,7 +83,8 @@ opening snippet; `SpinnerPreview` reads it and passes the controls to its
 The opening snippet follows the customization: it shows the props a consumer
 would write to get what the preview shows, and nothing still at its default.
 Opacity is a preview-only control and stays out of it. The snippet is rendered
-from tokens, one colour per token kind, so no highlighter ships anywhere.
+from tokens, each coloured the way the site's code theme colours that kind of
+token, so no highlighter ships to the browser.
 
 Option state contains only explicit overrides. Unchanged options are omitted
 from the preview props, so the library owns their default behavior.
