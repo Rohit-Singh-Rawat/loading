@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, STEP_VAR, stagger } from "./motion";
+import { animation, SIZE, STEP_VAR, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 export type RippleDirection = "in" | "out";
@@ -25,9 +25,8 @@ const css = `
   box-sizing: border-box;
   border: calc(${SIZE} * 0.08) solid currentColor;
   border-radius: 9999px;
-  animation: ld-ripple-spread ${duration("ripple")} ease-out infinite;
+  ${animation("ripple", "ld-ripple-spread", "ease-out")}
   animation-delay: ${stagger("ripple", RINGS.length)};
-  animation-play-state: ${PLAY_STATE};
 }
 
 .ld-ripple-ring-in {

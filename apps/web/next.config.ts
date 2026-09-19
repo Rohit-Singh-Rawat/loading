@@ -5,11 +5,6 @@ import type { NextConfig } from "next";
 import { CODE_THEMES } from "./src/lib/code-theme";
 import { BLOB_BASE } from "./src/lib/constants";
 
-const demoDependenciesLoader = path.resolve(
-  import.meta.dirname,
-  "src/lib/demo-dependencies-loader.cjs"
-);
-
 const nextConfig = {
   experimental: {
     optimizePackageImports: ["motion"],
@@ -26,11 +21,6 @@ const nextConfig = {
   reactCompiler: true,
   turbopack: {
     root: path.resolve(import.meta.dirname, "../.."),
-    rules: {
-      "apps/web/src/content/demos/**/*.mdx": {
-        loaders: [demoDependenciesLoader],
-      },
-    },
   },
 } satisfies NextConfig;
 
@@ -47,10 +37,7 @@ const withMDX = createMDX({
       ],
       "rehype-slug",
     ],
-    remarkPlugins: [
-      "remark-code-import",
-      ["remark-smartypants", { dashes: false }],
-    ],
+    remarkPlugins: [["remark-smartypants", { dashes: false }]],
   },
 });
 

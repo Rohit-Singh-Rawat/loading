@@ -1,10 +1,8 @@
-import { SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { SpinnerStyle, spinnerRoot, step } from "./frame";
+import { animation, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const DOTS = Array.from({ length: 3 }, (_, index) => index);
-
-const dur = duration("bouncing-dots");
 
 const css = `
 .ld-bouncing-dots {
@@ -19,16 +17,8 @@ const css = `
   height: calc(${SIZE} * 0.22);
   background: currentColor;
   border-radius: 9999px;
-  animation: ld-bouncing-dots-bounce ${dur} ease-in-out infinite alternate;
-  animation-play-state: ${PLAY_STATE};
-}
-
-.ld-bouncing-dots-dot:nth-child(1) {
-  animation-delay: calc(${dur} * -0.64);
-}
-
-.ld-bouncing-dots-dot:nth-child(2) {
-  animation-delay: calc(${dur} * -0.32);
+  ${animation("bouncing-dots", "ld-bouncing-dots-bounce", "ease-in-out alternate")}
+  animation-delay: ${stagger("bouncing-dots", DOTS.length)};
 }
 
 @keyframes ld-bouncing-dots-bounce {
@@ -53,7 +43,7 @@ export function BouncingDots(props: SpinnerProps) {
       <SpinnerStyle name="bouncing-dots">{css}</SpinnerStyle>
       <div {...spinnerRoot("bouncing-dots", props)}>
         {DOTS.map((dot) => (
-          <div className="ld-bouncing-dots-dot" key={dot} />
+          <div className="ld-bouncing-dots-dot" key={dot} style={step(dot)} />
         ))}
       </div>
     </>

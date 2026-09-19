@@ -1,7 +1,7 @@
 import { type CapProps, linecap } from "./cap";
 import { type EasingProps, rotationCss, spinClass } from "./easing";
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { animation, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 export interface SnakeProps extends SpinnerProps, EasingProps, CapProps {}
@@ -15,8 +15,7 @@ const css = `
 ${rotationCss("snake")}
 
 .ld-snake-dash {
-  animation: ld-snake-stretch ${duration("snake")} ease-in-out infinite;
-  animation-play-state: ${PLAY_STATE};
+  ${animation("snake", "ld-snake-stretch", "ease-in-out")}
 }
 
 @keyframes ld-snake-stretch {

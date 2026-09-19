@@ -42,6 +42,9 @@ describe.each(Object.entries(SPINNERS))("%s", (name, Spinner) => {
 
     expect(html).toContain("var(--ld-duration,");
     expect(html).toContain("var(--ld-play-state, running)");
+    expect(html.match(/animation: ld-/g)).toHaveLength(
+      html.match(/animation-play-state:/g)?.length ?? 0
+    );
     expect(html).toContain("@media (prefers-reduced-motion: reduce)");
     expect(html).toContain("animation: none;");
   });

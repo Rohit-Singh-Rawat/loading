@@ -1,5 +1,0 @@
-import { Arc } from "loading-dev";
-
-export default function ArcClassName() {
-  return <Arc className="opacity-40" size={32} />;
-}

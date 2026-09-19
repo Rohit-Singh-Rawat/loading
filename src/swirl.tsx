@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
+import { animation, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const RING = [0, 1, 2, 7, null, 3, 6, 5, 4];
@@ -21,9 +21,8 @@ const css = `
 .ld-swirl-cell {
   background: currentColor;
   border-radius: calc(${SIZE} * 0.0625);
-  animation: ld-swirl-fade ${duration("swirl")} linear infinite;
+  ${animation("swirl", "ld-swirl-fade", "linear")}
   animation-delay: ${stagger("swirl", PLACES)};
-  animation-play-state: ${PLAY_STATE};
 }
 
 @keyframes ld-swirl-fade {

@@ -46,6 +46,6 @@ export function entry<S extends SpinnerName>(
     slug: S;
     options?: readonly SpinnerOptionsByName[NoInfer<S>][];
   }
-): SpinnerItem {
+): SpinnerItem & { slug: S } {
   return { ...definition, href: `/spinners/${definition.slug}` };
 }

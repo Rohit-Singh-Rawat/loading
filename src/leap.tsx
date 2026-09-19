@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, STEP_VAR, stagger } from "./motion";
+import { animation, SIZE, STEP_VAR, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const DOTS = Array.from({ length: 3 }, (_, index) => index);
@@ -19,9 +19,8 @@ const css = `
   left: calc(${SIZE} - var(--ld-leap-dot) - var(--ld-leap-gap) * 2);
   width: calc(var(--ld-leap-gap) * 2 + var(--ld-leap-dot));
   height: var(--ld-leap-dot);
-  animation: ld-leap-hop ${duration("leap")} ease-in-out infinite;
+  ${animation("leap", "ld-leap-hop", "ease-in-out")}
   animation-delay: ${stagger("leap", DOTS.length)};
-  animation-play-state: ${PLAY_STATE};
 }
 
 .ld-leap-dot {

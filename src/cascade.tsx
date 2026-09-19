@@ -1,6 +1,6 @@
 import { type CapProps, linecap } from "./cap";
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
+import { animation, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 export interface CascadeProps extends SpinnerProps, CapProps {}
@@ -17,9 +17,8 @@ const css = `
 
 .ld-cascade-arc {
   transform-origin: center;
-  animation: ld-cascade-turn ${duration("cascade")} cubic-bezier(0.68, -0.75, 0.265, 1.75) infinite;
+  ${animation("cascade", "ld-cascade-turn", "cubic-bezier(0.68, -0.75, 0.265, 1.75)")}
   animation-delay: ${stagger("cascade", SLOTS)};
-  animation-play-state: ${PLAY_STATE};
 }
 
 @keyframes ld-cascade-turn {

@@ -1,5 +1,0 @@
-import { BouncingDots } from "loading-dev";
-
-export default function BouncingDotsClassName() {
-  return <BouncingDots className="opacity-40" size={32} />;
-}

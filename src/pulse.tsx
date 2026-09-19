@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { animation, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
@@ -10,8 +10,7 @@ const css = `
 
 .ld-pulse-ring {
   transform-origin: center;
-  animation: ld-pulse-ripple ${duration("pulse")} ease-out infinite;
-  animation-play-state: ${PLAY_STATE};
+  ${animation("pulse", "ld-pulse-ripple", "ease-out")}
 }
 
 @keyframes ld-pulse-ripple {

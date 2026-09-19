@@ -1,7 +1,6 @@
 "use client";
 
-import type { ChangeEvent, KeyboardEvent } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import {
   Popover,
@@ -9,10 +8,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Text } from "@/components/ui/text";
+import { useInheritedColor } from "@/lib/use-inherited-color";
 import { cn } from "@/lib/utils";
-
-const MIN_OPACITY = 0;
-const MAX_OPACITY = 100;
+import { PercentInput } from "./percent-input";
 
 const FIELD =
   "flex h-8 pointer-coarse:h-10 items-center gap-2 rounded-lg bg-popover-hovered px-2 has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-popover-content has-[input:focus-visible]:outline-offset-0";
@@ -31,44 +29,8 @@ export function ColorPickerRow({
   opacity: number;
 }) {
   const swatchRef = useRef<HTMLSpanElement>(null);
-  const [inheritedColor, setInheritedColor] = useState<string | null>(null);
+  const inheritedColor = useInheritedColor(swatchRef);
   const pickerColor = color ?? inheritedColor;
-
-  useEffect(() => {
-    const swatch = swatchRef.current;
-    const canvas = document.createElement("canvas");
-    canvas.width = 1;
-    canvas.height = 1;
-    const context = canvas.getContext("2d");
-    if (!(swatch && context)) {
-      return;
-    }
-
-    const update = () => {
-      context.fillStyle = getComputedStyle(swatch).color;
-      context.fillRect(0, 0, 1, 1);
-      const channels = context.getImageData(0, 0, 1, 1).data.slice(0, 3);
-      setInheritedColor(
-        `#${Array.from(channels, (channel) => channel.toString(16).padStart(2, "0")).join("")}`
-      );
-    };
-    const theme = window.matchMedia("(prefers-color-scheme: dark)");
-    update();
-    theme.addEventListener("change", update);
-    return () => theme.removeEventListener("change", update);
-  }, []);
-  const [opacityDraft, setOpacityDraft] = useState<string | null>(null);
-
-  function commitOpacity() {
-    if (opacityDraft === null) {
-      return;
-    }
-    const parsed = Number.parseInt(opacityDraft, 10);
-    if (!Number.isNaN(parsed)) {
-      onOpacityChange(Math.min(Math.max(parsed, MIN_OPACITY), MAX_OPACITY));
-    }
-    setOpacityDraft(null);
-  }
 
   return (
     <Popover>
@@ -117,27 +79,12 @@ export function ColorPickerRow({
               />
             </div>
             <div className={cn(FIELD, "w-15.5")}>
-              <input
-                aria-label="Opacity"
+              <PercentInput
                 className={FIELD_INPUT}
-                inputMode="numeric"
-                onBlur={commitOpacity}
-                onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                  setOpacityDraft(
-                    event.target.value.replace(/\D/g, "").slice(0, 3)
-                  );
-                }}
-                onKeyDown={(event: KeyboardEvent<HTMLInputElement>) => {
-                  if (event.key === "Enter") {
-                    event.currentTarget.blur();
-                  }
-                }}
-                type="text"
-                value={opacityDraft ?? String(opacity)}
+                label="Opacity"
+                onChange={onOpacityChange}
+                value={opacity}
               />
-              <Text as="span" className="text-popover-content-subtle" size="sm">
-                %
-              </Text>
             </div>
           </div>
         </PopoverContent>

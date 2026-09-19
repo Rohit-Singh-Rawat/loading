@@ -1,5 +1,0 @@
-import { Classic } from "loading-dev";
-
-export default function ClassicColor() {
-  return <Classic color="#f97316" size={32} />;
-}

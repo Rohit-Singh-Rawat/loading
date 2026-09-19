@@ -6,6 +6,7 @@ import {
   DEFAULT_RIPPLE_DIRECTION,
   DEFAULT_WAVE_ORIGIN,
   type EasingProps,
+  type SpinnerName,
 } from "loading-dev";
 import { entry, type OptionOf, type SpinnerItem } from "./catalog";
 
@@ -14,14 +15,6 @@ export type { SpinnerItem, SpinnerOptions } from "./catalog";
 export interface SpinnerParams {
   slug: string;
 }
-
-export const SIZES = [
-  { label: "Small", value: 24 },
-  { label: "Medium", value: 48 },
-  { label: "Large", value: 96 },
-];
-
-export const DEFAULT_PREVIEW_SIZE = 48;
 
 const EASING_OPTION: OptionOf<EasingProps> = {
   defaultValue: DEFAULT_EASING,
@@ -44,7 +37,7 @@ const CAP_OPTION: OptionOf<CapProps> = {
   ],
 };
 
-const CATALOG: SpinnerItem[] = [
+const CATALOG = [
   entry({
     description: "A single open stroke rotating in a circle.",
     name: "Arc",
@@ -254,7 +247,13 @@ const CATALOG: SpinnerItem[] = [
   }),
 ];
 
-export { CATALOG as SPINNER_ITEMS };
+const UNLISTED = ["compass", "radar"] as const satisfies readonly SpinnerName[];
+
+type Placed = (typeof CATALOG)[number]["slug"] | (typeof UNLISTED)[number];
+
+const _everySpinnerPlaced: Record<Exclude<SpinnerName, Placed>, never> = {};
+
+export const SPINNER_ITEMS: SpinnerItem[] = CATALOG;
 
 export function spinnerParams(): SpinnerParams[] {
   return CATALOG.map(({ slug }) => ({ slug }));

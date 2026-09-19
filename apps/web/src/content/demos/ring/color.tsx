@@ -1,5 +1,0 @@
-import { Ring } from "loading-dev";
-
-export default function RingColor() {
-  return <Ring color="#f97316" size={32} />;
-}

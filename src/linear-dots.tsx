@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
+import { animation, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const DOTS = Array.from({ length: 3 }, (_, index) => index);
@@ -17,9 +17,8 @@ const css = `
   height: calc(${SIZE} * 0.1875);
   background: currentColor;
   border-radius: 9999px;
-  animation: ld-linear-dots-fade ${duration("linear-dots")} linear infinite;
+  ${animation("linear-dots", "ld-linear-dots-fade", "linear")}
   animation-delay: ${stagger("linear-dots", DOTS.length)};
-  animation-play-state: ${PLAY_STATE};
 }
 
 @keyframes ld-linear-dots-fade {

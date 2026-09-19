@@ -2,12 +2,9 @@
 
 import { SPINNER_MOTION, type SpinnerProps } from "loading-dev";
 import { createContext, type ReactNode, useContext, useState } from "react";
-import {
-  DEFAULT_PREVIEW_SIZE,
-  type SpinnerItem,
-  type SpinnerOptions,
-} from "@/components/spinners";
-import type { SnippetProps } from "@/lib/snippet";
+import type { SpinnerItem, SpinnerOptions } from "@/components/spinners";
+import type { ElementProps } from "@/lib/code";
+import { DEFAULT_PREVIEW_SIZE } from "./preview-sizes";
 
 const FULLY_OPAQUE = 100;
 
@@ -76,8 +73,8 @@ function useCustomizationState(item: SpinnerItem): SpinnerCustomizationState {
 export function snippetProps(
   item: SpinnerItem,
   state: SpinnerCustomizationState
-): SnippetProps {
-  const props: SnippetProps = { size: state.size };
+): ElementProps {
+  const props: ElementProps = { size: state.size };
 
   if (state.color) {
     props.color = state.color;
@@ -90,7 +87,7 @@ export function snippetProps(
   for (const option of item.options ?? []) {
     const value = state.options[option.prop];
     if (value !== undefined && value !== option.defaultValue) {
-      props[option.prop] = value;
+      Object.assign(props, { [option.prop]: value });
     }
   }
 

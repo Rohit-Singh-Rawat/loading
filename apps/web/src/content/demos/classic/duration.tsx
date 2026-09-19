@@ -1,5 +1,0 @@
-import { Classic } from "loading-dev";
-
-export default function ClassicDuration() {
-  return <Classic duration={2400} size={32} />;
-}

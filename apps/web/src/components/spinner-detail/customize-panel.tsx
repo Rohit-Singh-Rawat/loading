@@ -1,11 +1,12 @@
 "use client";
 
 import { ResetIcon } from "@radix-ui/react-icons";
-import { SIZES, type SpinnerItem } from "@/components/spinners";
+import type { SpinnerItem } from "@/components/spinners";
 import { Button } from "@/components/ui/button";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { cn } from "@/lib/utils";
 import { ColorPickerRow } from "./color-picker-row";
+import { SIZES } from "./preview-sizes";
 import { SliderRow } from "./slider-row";
 import type { SpinnerCustomizationState } from "./spinner-customization";
 
@@ -18,8 +19,6 @@ export function CustomizePanel({
   item: SpinnerItem;
   state: SpinnerCustomizationState;
 }) {
-  const mirror = (ms: number) => item.speed.max + item.speed.min - ms;
-
   return (
     <div
       className={cn(
@@ -49,13 +48,14 @@ export function CustomizePanel({
         opacity={state.opacity}
       />
       <SliderRow
-        format={(value) => `${mirror(value)}ms`}
+        format={(value) => `${value}ms`}
+        inverted
         label="Speed"
         max={item.speed.max}
         min={item.speed.min}
-        onChange={(value) => state.setSpeedMs(mirror(value))}
+        onChange={state.setSpeedMs}
         step={10}
-        value={mirror(state.speedMs)}
+        value={state.speedMs}
       />
       <SliderRow
         format={(value) => `${value}%`}

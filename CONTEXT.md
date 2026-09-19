@@ -66,6 +66,10 @@ The catalog checks an entry's options against
 the component registered under its slug through a type-only import. An option's
 value list is a nonempty tuple; its order does not determine the default.
 
+A spinner the library ships but the site does not show is **unlisted**: named
+in `UNLISTED` beside the catalog, so that every spinner is placed on purpose and
+none goes missing by accident.
+
 The library owns motion; the catalog owns presentation. Descriptions, display
 names and ordering are site copy and stay out of the published package.
 
@@ -78,9 +82,9 @@ opening snippet; `SpinnerPreview` reads it and passes the controls to its
 
 The opening snippet follows the customization: it shows the props a consumer
 would write to get what the preview shows, and nothing still at its default.
-Opacity is a preview-only control and stays out of it. The snippet's block is
-still highlighted at build time — the live snippet borrows one colour per
-token kind from it, so no highlighter ships to the browser.
+Opacity is a preview-only control and stays out of it. The snippet is rendered
+from tokens, each coloured the way the site's code theme colours that kind of
+token, so no highlighter ships to the browser.
 
 Option state contains only explicit overrides. Unchanged options are omitted
 from the preview props, so the library owns their default behavior.
@@ -101,16 +105,17 @@ become the table of contents in the aside, slugged the same way `rehype-slug`
 slugs them. The document helper expects plain `##` headings and literal
 `<Demo name="demo-name" />` tags, matching the authored content.
 
-A demo is `content/demos/<slug>/<demo>.tsx`, and it is the single source. Its
-`.mdx` twin is a one-line fence that pulls the file in at build time, so the
-code the reader sees is the code that renders.
+A demo is data: the props of the elements it shows. The five shared demos are
+defined once, for every spinner; an option's demo shows one element per value
+the catalog lists for it. The rendered spinners and the code beneath them come
+from the same props, so the code the reader sees is the code that renders.
 
-The opening code example is **not** in the document. It is its own file,
-`content/snippets/<slug>.mdx`. The file is the default state: on the page the
-customization controls rewrite it, and the markdown route serves it as written.
+The opening code example is **not** in the document. It is the snippet in its
+default state — the customization state before any control is touched — and
+on the page the controls rewrite it from there.
 
 `/spinners/<slug>/markdown` serves the document as plain Markdown for anything
 reading rather than browsing. It is assembled, not served verbatim: the
 snippet goes above the prose the way it sits on the page, and each `<Demo />`
-tag is replaced by a fenced block holding the demo's `.tsx`, so the reader gets
+tag is replaced by a fenced block holding the demo's code, so the reader gets
 the code the tag would have rendered.

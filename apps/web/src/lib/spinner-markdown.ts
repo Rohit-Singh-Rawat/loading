@@ -1,6 +1,14 @@
 import GithubSlugger from "github-slugger";
+import { DEFAULT_PREVIEW_SIZE } from "@/components/spinner-detail/preview-sizes";
 import { getSpinner } from "@/components/spinners";
+import {
+  type CodeLine,
+  codeText,
+  componentName,
+  snippetLines,
+} from "@/lib/code";
 import { readContent } from "@/lib/content";
+import { demoLines } from "@/lib/demos";
 
 export interface DocumentHeading {
   id: string;
@@ -12,35 +20,10 @@ export interface SpinnerDocument {
   markdown: string;
 }
 
-const TOKEN = /^```[\s\S]*?^```|^##\s+(.+?)\s*$|<Demo\s+name="([^"]+)"\s*\/>/gm;
+const TOKEN = /^##\s+(.+?)\s*$|<Demo\s+name="([^"]+)"\s*\/>/gm;
 
-async function demoFence(slug: string, demo: string): Promise<string> {
-  const source = await readContent("demos", slug, `${demo}.tsx`);
-  return `\`\`\`tsx title="${slug}.tsx"\n${source}\n\`\`\``;
-}
-
-async function parse(source: string, slug: string): Promise<SpinnerDocument> {
-  const slugger = new GithubSlugger();
-  const headings: DocumentHeading[] = [];
-  const parts: (string | Promise<string>)[] = [];
-  let cursor = 0;
-
-  for (const match of source.matchAll(TOKEN)) {
-    const [token, label, demo] = match;
-    if (label !== undefined) {
-      headings.push({ id: slugger.slug(label), label });
-      continue;
-    }
-    if (demo === undefined) {
-      continue;
-    }
-
-    parts.push(source.slice(cursor, match.index), demoFence(slug, demo));
-    cursor = match.index + token.length;
-  }
-  parts.push(source.slice(cursor));
-
-  return { headings, markdown: (await Promise.all(parts)).join("").trim() };
+function fence(lines: CodeLine[]): string {
+  return `\`\`\`tsx\n${codeText(lines)}\n\`\`\``;
 }
 
 export async function getSpinnerDocument(
@@ -51,31 +34,36 @@ export async function getSpinnerDocument(
     return null;
   }
 
-  const [shared, snippet, ...options] = await Promise.all([
+  const sources = await Promise.all([
     readContent("spinners", "_shared.mdx"),
-    readContent("snippets", `${slug}.mdx`),
     ...(item.options ?? []).map((option) =>
       readContent("options", `${option.prop}.mdx`)
     ),
   ]);
-  const documents = await Promise.all(
-    [shared, ...options].map((source) => parse(source, slug))
+
+  const slugger = new GithubSlugger();
+  const headings: DocumentHeading[] = [];
+  const sections = sources.map((source) =>
+    source.replace(TOKEN, (match, label: string | undefined, demo: string) => {
+      if (label === undefined) {
+        return fence(demoLines(item.slug, demo));
+      }
+      const id = slugger.slug(label);
+      if (headings.some((heading) => heading.id === id)) {
+        throw new Error(`Duplicate heading ID "${id}" in spinner "${slug}"`);
+      }
+      headings.push({ id, label });
+      return match;
+    })
   );
-  const headings = documents.flatMap((document) => document.headings);
-  const ids = new Set<string>();
-  for (const heading of headings) {
-    if (ids.has(heading.id)) {
-      throw new Error(
-        `Duplicate heading ID "${heading.id}" in spinner "${slug}"`
-      );
-    }
-    ids.add(heading.id);
-  }
-  const markdown = documents.map((document) => document.markdown).join("\n\n");
+
+  const snippet = fence(
+    snippetLines(componentName(item.slug), { size: DEFAULT_PREVIEW_SIZE })
+  );
 
   return {
     headings,
-    markdown: [`# ${item.name}`, item.description, snippet, markdown].join(
+    markdown: [`# ${item.name}`, item.description, snippet, ...sections].join(
       "\n\n"
     ),
   };

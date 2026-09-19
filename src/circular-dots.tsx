@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
+import { animation, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const DOTS = [
@@ -20,9 +20,8 @@ const css = `
 }
 
 .ld-circular-dots-dot {
-  animation: ld-circular-dots-fade ${duration("circular-dots")} linear infinite;
+  ${animation("circular-dots", "ld-circular-dots-fade", "linear")}
   animation-delay: ${stagger("circular-dots", DOTS.length)};
-  animation-play-state: ${PLAY_STATE};
 }
 
 @keyframes ld-circular-dots-fade {
