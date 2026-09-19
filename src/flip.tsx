@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { animation, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
@@ -15,8 +15,7 @@ const css = `
   margin: 18%;
   background: currentColor;
   border-radius: calc(${SIZE} * 0.06);
-  animation: ld-flip-turn ${duration("flip")} ease-in-out infinite;
-  animation-play-state: ${PLAY_STATE};
+  ${animation("flip", "ld-flip-turn", "ease-in-out")}
 }
 
 @keyframes ld-flip-turn {

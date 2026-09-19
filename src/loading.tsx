@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
+import { animation, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const BLOCK = "M0 0h1v1H0zM2 0h1v1H2zM0 2h1v1H0zM2 2h1v1H2z";
@@ -22,9 +22,8 @@ const css = `
 }
 
 .ld-loading-segment {
-  animation: ld-loading-fade ${duration("loading")} linear infinite;
+  ${animation("loading", "ld-loading-fade", "linear")}
   animation-delay: ${stagger("loading", SEGMENTS.length)};
-  animation-play-state: ${PLAY_STATE};
 }
 
 @keyframes ld-loading-fade {

@@ -1,5 +1,0 @@
-import { Comet } from "loading-dev";
-
-export default function CometClassName() {
-  return <Comet className="opacity-40" size={32} />;
-}

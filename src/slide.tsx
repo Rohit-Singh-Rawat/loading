@@ -1,5 +1,5 @@
 import { cssVars, SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
+import { animation, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const DOT = 34;
@@ -31,9 +31,8 @@ const css = `
   height: ${DOT}%;
   background: currentColor;
   border-radius: 50%;
-  animation: ld-slide-walk ${duration("slide")} ease-in-out infinite;
+  ${animation("slide", "ld-slide-walk", "ease-in-out")}
   animation-delay: ${stagger("slide", RESTS.length)};
-  animation-play-state: ${PLAY_STATE};
 }
 
 @keyframes ld-slide-walk {

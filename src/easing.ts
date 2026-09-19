@@ -1,4 +1,4 @@
-import { duration, PLAY_STATE, type SpinnerName } from "./motion";
+import { animation, type SpinnerName } from "./motion";
 
 export type Easing = "linear" | "ease-in-out" | "stacked";
 
@@ -24,8 +24,7 @@ export function rotationCss(name: SpinnerName, turn = ROTATE): string {
   return `
 .ld-${name}-spin {
   transform-origin: center;
-  animation: ld-${name}-rotate ${duration(name)} linear infinite;
-  animation-play-state: ${PLAY_STATE};
+  ${animation(name, `ld-${name}-rotate`, "linear")}
 }
 
 .ld-${name}-spin-ease-in-out {

@@ -1,5 +1,0 @@
-import { Orbit } from "loading-dev";
-
-export default function OrbitClassName() {
-  return <Orbit className="opacity-40" size={32} />;
-}

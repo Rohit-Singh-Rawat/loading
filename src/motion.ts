@@ -53,3 +53,15 @@ export function stagger(name: SpinnerName, count: number): string {
 }
 
 export const PLAY_STATE = `var(${PLAY_STATE_VAR}, running)`;
+
+export function animation(
+  name: SpinnerName,
+  keyframes: string | string[],
+  timing: string
+): string {
+  const runs = [keyframes]
+    .flat()
+    .map((frames) => `${frames} ${duration(name)} ${timing} infinite`);
+  return `animation: ${runs.join(", ")};
+  animation-play-state: ${PLAY_STATE};`;
+}

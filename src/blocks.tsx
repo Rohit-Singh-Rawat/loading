@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
+import { animation, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 export type BlocksSweep = "columns" | "diagonal" | "rows";
@@ -44,8 +44,7 @@ const css = `
 .ld-blocks-cell {
   background: currentColor;
   border-radius: calc(${SIZE} * 0.0625);
-  animation: ld-blocks-sweep ${duration("blocks")} ease-in-out infinite;
-  animation-play-state: ${PLAY_STATE};
+  ${animation("blocks", "ld-blocks-sweep", "ease-in-out")}
 }
 ${Object.entries(SWEEPS)
   .map(

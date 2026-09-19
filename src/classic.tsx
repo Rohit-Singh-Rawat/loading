@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, STEP_VAR, stagger } from "./motion";
+import { animation, SIZE, STEP_VAR, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const BARS = Array.from({ length: 12 }, (_, index) => index);
@@ -27,9 +27,8 @@ const css = `
   background: currentColor;
   border-radius: 6px;
   transform: rotate(calc(var(${STEP_VAR}) * 30deg)) translate(146%);
-  animation: ld-classic-spin ${duration("classic")} linear infinite;
+  ${animation("classic", "ld-classic-spin", "linear")}
   animation-delay: ${stagger("classic", BARS.length)};
-  animation-play-state: ${PLAY_STATE};
 }
 
 @keyframes ld-classic-spin {

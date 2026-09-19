@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { animation, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
@@ -10,8 +10,7 @@ const css = `
 
 .ld-compass-ticks {
   transform-origin: center;
-  animation: ld-compass-turn ${duration("compass")} ease-in-out infinite;
-  animation-play-state: ${PLAY_STATE};
+  ${animation("compass", "ld-compass-turn", "ease-in-out")}
 }
 
 @keyframes ld-compass-turn {

@@ -12,6 +12,7 @@ const TICKS = Array.from({ length: 9 }, (_, index) => index);
 
 export function SliderRow({
   format,
+  inverted = false,
   label,
   max,
   min,
@@ -20,6 +21,7 @@ export function SliderRow({
   value,
 }: {
   format: (value: number) => string;
+  inverted?: boolean;
   label: string;
   max: number;
   min: number;
@@ -27,6 +29,7 @@ export function SliderRow({
   step: number;
   value: number;
 }) {
+  const position = (amount: number) => (inverted ? max + min - amount : amount);
   const [isHandleOverText, setIsHandleOverText] = useState(false);
   const labelRef = useRef<HTMLSpanElement>(null);
   const handleRef = useRef<HTMLDivElement>(null);
@@ -65,10 +68,10 @@ export function SliderRow({
       className={cn("group relative rounded-lg", FOCUS_RING)}
       max={max}
       min={min}
-      onValueChange={onChange}
+      onValueChange={(next) => onChange(position(next))}
       step={step}
       thumbAlignment="edge"
-      value={value}
+      value={position(value)}
     >
       <Slider.Control
         className="relative h-8 pointer-coarse:h-10 w-full cursor-ew-resize touch-pan-y overflow-hidden rounded-lg bg-background"
@@ -86,7 +89,7 @@ export function SliderRow({
         <Slider.Thumb
           aria-label={label}
           className="z-10 h-4 w-0.75 outline-none"
-          getAriaValueText={(_formatted, raw) => format(raw)}
+          getAriaValueText={(_formatted, raw) => format(position(raw))}
           ref={handleRef}
         >
           <span

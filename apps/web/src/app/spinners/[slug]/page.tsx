@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CodePanel } from "@/components/mdx/code-panel";
 import { Demo } from "@/components/mdx/demo";
+import { LiveSnippet } from "@/components/spinner-detail/live-snippet";
 import { PrevNext } from "@/components/spinner-detail/prev-next";
-import { SNIPPET_COMPONENTS } from "@/components/spinner-detail/snippet-components";
 import { CustomizationProvider } from "@/components/spinner-detail/spinner-customization";
 import { SpinnerPreview } from "@/components/spinner-detail/spinner-preview";
 import {
@@ -47,18 +47,14 @@ export default async function SpinnerPage({
 
   const { next, previous } = getAdjacentSpinners(slug);
 
-  const [{ default: Snippet }, options]: [MDXModule, MDXModule[]] =
-    await Promise.all([
-      import(`@/content/snippets/${slug}.mdx`),
-      Promise.all(
-        (item.options ?? []).map(
-          (option) => import(`@/content/options/${option.prop}.mdx`)
-        )
-      ),
-    ]);
+  const options: MDXModule[] = await Promise.all(
+    (item.options ?? []).map(
+      (option) => import(`@/content/options/${option.prop}.mdx`)
+    )
+  );
 
   const components = {
-    Demo: (props: { name: string }) => <Demo {...props} slug={slug} />,
+    Demo: (props: { name: string }) => <Demo {...props} slug={item.slug} />,
   };
 
   return (
@@ -73,7 +69,7 @@ export default async function SpinnerPage({
         <CodePanel>
           <CustomizationProvider item={item} key={slug}>
             <SpinnerPreview />
-            <Snippet components={SNIPPET_COMPONENTS} />
+            <LiveSnippet />
           </CustomizationProvider>
         </CodePanel>
         <div className="flex flex-col [&>figure]:mt-6" id={PROSE_SECTION_ID}>

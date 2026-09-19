@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { animation, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const css = `
@@ -14,8 +14,7 @@ const css = `
   margin: 18%;
   background: currentColor;
   border-radius: calc(${SIZE} * 0.08);
-  animation: ld-morph-round ${duration("morph")} ease-in-out infinite;
-  animation-play-state: ${PLAY_STATE};
+  ${animation("morph", "ld-morph-round", "ease-in-out")}
 }
 
 @keyframes ld-morph-round {

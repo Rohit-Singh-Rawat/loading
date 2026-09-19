@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, stagger } from "./motion";
+import { animation, SIZE, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const TICKS = [
@@ -20,9 +20,8 @@ const css = `
 }
 
 .ld-classic-v2-tick {
-  animation: ld-classic-v2-fade ${duration("classic-v2")} linear infinite;
+  ${animation("classic-v2", "ld-classic-v2-fade", "linear")}
   animation-delay: ${stagger("classic-v2", TICKS.length)};
-  animation-play-state: ${PLAY_STATE};
 }
 
 @keyframes ld-classic-v2-fade {

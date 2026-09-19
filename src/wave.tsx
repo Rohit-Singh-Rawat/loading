@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, STEP_VAR, stagger } from "./motion";
+import { animation, SIZE, STEP_VAR, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 export type WaveOrigin = "bottom" | "center";
@@ -26,9 +26,8 @@ const css = `
   height: 100%;
   background: currentColor;
   border-radius: 9999px;
-  animation: ld-wave-rise ${duration("wave")} ease-in-out infinite;
+  ${animation("wave", "ld-wave-rise", "ease-in-out")}
   animation-delay: ${stagger("wave", BARS.length)};
-  animation-play-state: ${PLAY_STATE};
 }
 
 .ld-wave-bar-bottom {

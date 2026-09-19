@@ -1,5 +1,5 @@
 import { cssVars, SpinnerStyle, spinnerRoot } from "./frame";
-import { duration, PLAY_STATE, SIZE } from "./motion";
+import { animation, SIZE } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const BLOCKS = [
@@ -29,15 +29,13 @@ const css = `
   gap: ${GAP}%;
   width: 100%;
   height: 100%;
-  animation: ld-gather-turn ${duration("gather")} ease-in-out infinite;
-  animation-play-state: ${PLAY_STATE};
+  ${animation("gather", "ld-gather-turn", "ease-in-out")}
 }
 
 .ld-gather-block {
   background: currentColor;
   border-radius: calc(${SIZE} * 0.14);
-  animation: ld-gather-pull ${duration("gather")} ease-in-out infinite;
-  animation-play-state: ${PLAY_STATE};
+  ${animation("gather", "ld-gather-pull", "ease-in-out")}
 }
 
 @keyframes ld-gather-pull {

@@ -1,5 +1,5 @@
 import { SpinnerStyle, spinnerRoot, step } from "./frame";
-import { duration, PLAY_STATE, SIZE, STEP_VAR, stagger } from "./motion";
+import { animation, SIZE, STEP_VAR, stagger } from "./motion";
 import type { SpinnerProps } from "./types";
 
 const DOTS = [0, 1];
@@ -19,11 +19,8 @@ const css = `
   height: 40%;
   background: currentColor;
   border-radius: 50%;
-  animation:
-    ld-eclipse-slide ${duration("eclipse")} ease-in-out infinite,
-    ld-eclipse-depth ${duration("eclipse")} ease-in-out infinite;
+  ${animation("eclipse", ["ld-eclipse-slide", "ld-eclipse-depth"], "ease-in-out")}
   animation-delay: ${stagger("eclipse", DOTS.length)};
-  animation-play-state: ${PLAY_STATE};
 }
 
 @keyframes ld-eclipse-slide {

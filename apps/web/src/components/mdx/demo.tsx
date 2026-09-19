@@ -1,19 +1,21 @@
+import { SPINNERS, type SpinnerName } from "loading-dev";
+import { CodeBlock } from "@/components/code/code-block";
 import { CodePanel } from "@/components/mdx/code-panel";
-import type { MDXModule } from "@/lib/mdx";
+import { DEMO_ROW, demoElements, demoLines } from "@/lib/demos";
 
-export async function Demo({ name, slug }: { name: string; slug: string }) {
-  const [{ default: Example }, { default: Snippet }]: [MDXModule, MDXModule] =
-    await Promise.all([
-      import(`@/content/demos/${slug}/${name}.tsx`),
-      import(`@/content/demos/${slug}/${name}.mdx`),
-    ]);
+export function Demo({ name, slug }: { name: string; slug: SpinnerName }) {
+  const Spinner = SPINNERS[slug];
 
   return (
     <CodePanel className="mt-8">
       <div className="flex min-h-60 items-center justify-center rounded-2xl border border-border bg-surface p-1">
-        <Example />
+        <div className={DEMO_ROW}>
+          {demoElements(slug, name).map((props) => (
+            <Spinner key={JSON.stringify(props)} {...props} />
+          ))}
+        </div>
       </div>
-      <Snippet />
+      <CodeBlock lines={demoLines(slug, name)} />
     </CodePanel>
   );
 }

@@ -39,6 +39,13 @@
 
     --sidebar-width: 16rem;
 
+    --code-identifier: #141413;
+    --code-keyword: #ef551a;
+    --code-number: #02bc83;
+    --code-plain: #6c6b68;
+    --code-string: #1ed6ff;
+    --code-tag: #9353cc;
+
     --shadow-popover:
       0px 2px 6px 0px rgba(0, 0, 0, 0.02),
       0px 5px 17px 0px rgba(0, 0, 0, 0.031),
@@ -70,6 +77,9 @@
 
       --shadow-custom: 0 0 0 1px oklch(1 0 0 / 0.1);
       --shadow-popover: none;
+
+      --code-identifier: #e0d9d3;
+      --code-plain: #a19c98;
       color-scheme: dark;
     }
   }
@@ -125,18 +135,6 @@
   * {
     font-variant-ligatures: none;
     outline-color: var(--color-content);
-  }
-
-  code[data-theme] span {
-    color: var(--shiki-light);
-    background-color: var(--shiki-light-bg);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    code[data-theme] span {
-      color: var(--shiki-dark);
-      background-color: var(--shiki-dark-bg);
-    }
   }
 
   *:focus-visible {

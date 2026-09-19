@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import {
@@ -73,6 +74,16 @@ const NAMED_SPINNERS = {
 describe("public exports", () => {
   it("exports every registered spinner by its public name", () => {
     expect(NAMED_SPINNERS).toEqual(SPINNERS);
+  });
+
+  it("lists every spinner in the README", async () => {
+    const readme = await readFile(
+      new URL("../README.md", import.meta.url),
+      "utf8"
+    );
+    for (const Spinner of Object.values(SPINNERS)) {
+      expect(readme).toContain(`\`${Spinner.name}\``);
+    }
   });
 
   it.each([Arc, Atom, Clock, Comet, Dual, Orbit, Radar, Ring, Snake, Trace])(
