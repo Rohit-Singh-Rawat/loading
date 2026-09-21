@@ -15,7 +15,7 @@ import {
   TWITTER_HANDLE,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { interVariable, paperMono } from "./fonts";
+import { interVariable, paperMono } from "../fonts";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
