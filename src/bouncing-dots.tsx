@@ -13,8 +13,8 @@ const css = `
 }
 
 .ld-bouncing-dots-dot {
-  width: calc(${SIZE} * 0.22);
-  height: calc(${SIZE} * 0.22);
+  width: calc(${SIZE} * 0.25);
+  height: calc(${SIZE} * 0.25);
   background: currentColor;
   border-radius: 9999px;
   ${animation("bouncing-dots", "ld-bouncing-dots-bounce", "ease-in-out alternate")}
