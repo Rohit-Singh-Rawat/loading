@@ -18,7 +18,11 @@ export default function Gallery() {
   return (
     <main className="flex min-h-dvh flex-col px-6 py-10">
       <div className="flex flex-1 items-center justify-center">
-        <Spinner key={name} size={96} />
+        <Spinner
+          className={name === "loading" ? "text-orange" : undefined}
+          key={name}
+          size={96}
+        />
       </div>
       <nav className="flex items-center justify-between">
         <button className={LINK} onClick={() => step(-1)} type="button">

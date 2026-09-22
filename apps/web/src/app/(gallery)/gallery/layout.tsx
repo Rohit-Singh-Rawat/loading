@@ -16,7 +16,7 @@ export default function GalleryLayout({ children }: { children: ReactNode }) {
         className={cn(
           interVariable.variable,
           paperMono.variable,
-          "bg-surface font-sans text-content antialiased"
+          "bg-background-subtle font-sans text-content antialiased"
         )}
       >
         {children}
