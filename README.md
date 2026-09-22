@@ -18,14 +18,6 @@ Available: `Arc`, `Atom`, `Blocks`, `BouncingDots`, `Cascade`, `CircularDots`, `
 
 You can find docs and live previews at [loading.dev](https://loading.dev).
 
-## Development
-
-The library itself is at the root and the website is in `apps/web`. `pnpm dev` runs both.
-
-## Credits
-
-Made with care by [Jakub](https://x.com/jakubkrehel) and [Paul](https://x.com/paulfaivret).
-
 ## License
 
 MIT
