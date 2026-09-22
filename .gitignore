@@ -1,35 +1,26 @@
-# dependencies
 node_modules/
 
-# next.js
 .next/
 out/
 
-# build output
 dist/
 build/
 
-# misc
 .DS_Store
 *.pem
 
-# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files
 .env*
 
-# typescript
 *.tsbuildinfo
 next-env.d.ts
 
-# claude code worktrees
 /.claude/worktrees/
 .vercel
 .env*.local
 
-# editor
 .vscode/settings.json

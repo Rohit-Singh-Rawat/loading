@@ -6,7 +6,7 @@ import type {
 import { cn } from "@/lib/utils";
 
 const headingSizeClasses = {
-  1: "text-4xl tracking-tight",
+  1: "text-4xl leading-none tracking-[-0.01em]",
   2: "text-3xl tracking-tight",
   3: "text-2xl tracking-[-0.0125em]",
   4: "text-xl",

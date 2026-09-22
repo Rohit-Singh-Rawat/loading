@@ -4,14 +4,12 @@
   "linter": {
     "rules": {
       "performance": {
-        // React Compiler memoizes inline handlers; useCallback is banned here
         "noJsxPropsBind": "off"
       }
     }
   },
   "overrides": [
     {
-      // A published package's entry point is its public API — a barrel by design
       "includes": ["src/index.ts"],
       "linter": {
         "rules": {
